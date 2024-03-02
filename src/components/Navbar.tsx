@@ -4,8 +4,6 @@ import Autentication from './Authentication';
 
 const menuItems = [
     { key: '1', label: 'Home' },
-    { key: '2', label: 'Properties' },
-    { key: '3', label: 'Financial Products' },
     { key: '4', label: 'Contact' }
   ];
 
@@ -35,10 +33,13 @@ export default function Navbar() {
                 <Autentication defaultTab={defaultTab} />
             </Modal>
           <h2 className='my-auto me-5'>BrokerHub</h2>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={menuItems}></Menu>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ width: '12%' }} items={menuItems}></Menu>
+          <div>
+            <button className='btn btn-warning'>Add Item</button>
+          </div>
           <div className='ms-auto'>
             <button className='me-3 btn btn-outline-primary' onClick={showModal}>Login</button>
-            <button className=' btn btn-primary' onClick={showModal}>Register</button>
+            <button className='btn btn-primary' onClick={showModal}>Register</button>
           </div>
         </div>
         
