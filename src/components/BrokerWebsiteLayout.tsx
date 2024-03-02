@@ -65,11 +65,11 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
                 </div>
 
                 <div className="bg-primary m-2 p-2 rounded">
-                  <input type="text" className="form-control my-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Search Item' />
+                  <input type="text" className="form-control my-1" id="item" aria-describedby="emailHelp" placeholder='Search Item' />
                 </div>
 
                 <div className="bg-primary m-2 p-2 rounded">
-                  <input type="text" className="form-control my-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Search Location' />
+                  <input type="text" className="form-control my-1" id="location" aria-describedby="emailHelp" placeholder='Search Location' />
                 </div>
 
                 <div className='m-2 p-2 bg-primary'>
