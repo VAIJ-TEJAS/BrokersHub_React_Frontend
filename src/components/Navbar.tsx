@@ -22,7 +22,7 @@ export default function Navbar() {
     };
   
     const handleCancel = () => {
-      setModalVisible(false);
+      setModalVisible(false)
     };
     return (
         <div className='d-flex flex-row align-items-evenly text-light'>
