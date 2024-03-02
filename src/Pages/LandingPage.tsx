@@ -16,6 +16,12 @@ const LandingPage: React.FC = () => {
       price: '$700,000',
       image: 'https://via.placeholder.com/300x200',
     },
+    {
+      title: 'Property 2',
+      description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      price: '$700,000',
+      image: 'https://via.placeholder.com/300x200',
+    },
     // Add more items as needed
   ];
 

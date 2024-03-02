@@ -1,37 +1,45 @@
-// import React from 'react'
+import {useState} from 'react'
+import { Menu, Modal } from 'antd';
+import Autentication from './Authentication';
 
+const menuItems = [
+    { key: '1', label: 'Home' },
+    { key: '2', label: 'Properties' },
+    { key: '3', label: 'Financial Products' },
+    { key: '4', label: 'Contact' }
+  ];
+
+  
+  
 export default function Navbar() {
+    const [defaultTab, setDefaultTab] = useState('1')
+    const [modalVisible, setModalVisible] = useState(false);
+  
+    const showModal = () => {
+      setModalVisible(true);
+    };
+  
+    const handleOk = () => {
+      setModalVisible(false);
+    };
+  
+    const handleCancel = () => {
+      setModalVisible(false);
+    };
     return (
-        <div className='container text-light d-flex flex-row align-items-center'>
-            <div className='logo py-auto'>
-                <h2>BrokerHub</h2>
-            </div>
-            {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button> */}
-            <div className=" navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">
-                <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">Features</a>
-                </li>
-                <li className="nav-item">
-                <a className="nav-link" href="#">Pricing</a>
-                </li>
-                <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href="#">Action</a></li>
-                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-            </ul>
-            </div>
+        <div className='d-flex flex-row align-items-evenly text-light'>
+            <Modal title="Authentication"
+                open={modalVisible}
+                onCancel={handleCancel}
+                footer={null}>
+                <Autentication defaultTab={defaultTab} />
+            </Modal>
+          <h2 className='my-auto me-5'>BrokerHub</h2>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={menuItems}></Menu>
+          <div className='ms-auto'>
+            <button className='me-3 btn btn-outline-primary' onClick={showModal}>Login</button>
+            <button className=' btn btn-primary' onClick={showModal}>Register</button>
+          </div>
         </div>
         
     )

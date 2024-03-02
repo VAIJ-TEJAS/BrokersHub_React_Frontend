@@ -1,15 +1,11 @@
 import React, { ReactNode, useRef, useState } from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
+import Navbar from './Navbar';
 import './brokerSlider.css';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 
-const menuItems = [
-  { key: '1', label: 'Home' },
-  { key: '2', label: 'Properties' },
-  { key: '3', label: 'Financial Products' },
-  { key: '4', label: 'Contact' }
-];
+
 
 interface Props {
   children: ReactNode;
@@ -44,31 +40,10 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
   return (
     <Layout className="layout">
       <Header>
-        <div className='d-flex flex-row align-items-evenly text-light'>
-          <h2 className='my-auto me-5'>BrokerHub</h2>
-          {/* <div className="logo" /> */}
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={menuItems}></Menu>
-          <div className='ms-auto'>
-            <button className='me-3 btn btn-outline-primary'>Login</button>
-            <button className=' btn btn-primary'>Register</button>
-          </div>
-        </div>
-
+        <Navbar />
       </Header>
       <Layout>
-      <Sider width={300} style={{ background: '#f0f2f5', padding: '24px' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <h2 style={{ marginBottom: '16px' }}>Filters</h2>
-            {/* Price range filter slider */}
-            <div className="price-slider" ref={priceSliderRef} onClick={handlePriceChange}>
-              <div className="price-slider-thumb" ref={priceThumbRef}></div>
-            </div>
-            <div style={{ marginTop: '16px' }}>
-              <span>Price Range: ${minPrice} - ${maxPrice}</span>
-            </div>
-          </div>
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
+        <Layout className='container' style={{ padding: '0 24px 24px' }}>
           <Content
             className="site-layout-background"
             style={{
@@ -77,6 +52,39 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
               minHeight: 280,
             }}
           >
+            <div style={{ marginBottom: '24px' }}>
+              <div className='border text-light rounded d-flex justify-content-center mx-5' style={{backgroundColor:"#001529"}}>
+
+                <div className='col-2 bg-primary m-2 p-2 rounded'>
+                  <div className="price-slider" ref={priceSliderRef} onClick={handlePriceChange}>
+                    <div className="price-slider-thumb" ref={priceThumbRef}></div>
+                  </div>
+                  <div style={{ marginTop: '5px' }}>
+                    <span>Price Range: ${minPrice} - ${maxPrice}</span>
+                  </div>
+                </div>
+
+                <div className="bg-primary m-2 p-2 rounded">
+                  <input type="text" className="form-control my-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Search Item' />
+                </div>
+
+                <div className="bg-primary m-2 p-2 rounded">
+                  <input type="text" className="form-control my-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Search Location' />
+                </div>
+
+                <div className='m-2 p-2 bg-primary'>
+                  <select defaultValue={'Year'} className="form-select my-1" aria-label="Default select example">
+                    <option value="Day">Day</option>
+                    <option value="Week">Week</option>
+                    <option value="Month">Month</option>
+                    <option value="Year">Year</option>
+                  </select>
+                </div>
+
+                <button className='btn btn-warning m-2 px-4 fs-5'><strong>Search</strong></button>
+
+              </div>
+            </div>
             {children}
           </Content>
         </Layout>
