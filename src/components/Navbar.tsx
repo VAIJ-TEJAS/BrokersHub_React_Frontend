@@ -47,7 +47,7 @@ export default function Navbar() {
             ))}
         </Menu>
           <div>
-            <a href='/AddItem' className='btn btn-warning'>Add Item</a>
+            <Link to='/AddItem' className='btn btn-warning'>Add Item</Link>
           </div>
           <div className='ms-auto'>
             <button className='me-3 btn btn-outline-primary' onClick={showModal}>Login</button>
