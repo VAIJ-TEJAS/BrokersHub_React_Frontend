@@ -1,13 +1,18 @@
-// import { useState } from 'react'
-// import Landing from './Pages/landing'
+import AddItem from './components/AddItem'
 import LandingPage from './Pages/LandingPage'
-// import './App.css'
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 
 function App() {
 
   return (
     <>
-      <LandingPage />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to={"home"} />} />
+          <Route path="/AddItem" element={<AddItem />} />
+          <Route path="/home" element={<LandingPage />} />
+        </Routes>
+      </Router>
     </>
   )
 }

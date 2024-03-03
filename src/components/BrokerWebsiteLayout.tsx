@@ -1,10 +1,10 @@
-import React, { ReactNode, useRef, useState } from 'react';
-import { Layout, Slider, Switch } from 'antd';
+import React, { ReactNode, useState } from 'react';
+import { Layout, Slider } from 'antd';
 
 import Navbar from './Navbar';
 import './brokerSlider.css';
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 
 
@@ -27,9 +27,7 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
 
   return (
     <Layout className="layout">
-      <Header>
         <Navbar />
-      </Header>
       <Layout>
         <Layout className='container' style={{ padding: '0 24px 24px' }}>
           <Content
