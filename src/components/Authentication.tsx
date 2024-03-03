@@ -183,7 +183,7 @@ const Autentication: React.FC<AuthenticationProps> = () => {
     return (
         <div className='w-full flex flex-col justify-center items-center'>
             <div className='font-semibold text-3xl mt-5'>
-                AUCTION
+                BrokerHub
             </div>
             <div className='m-5'>
                 <Tabs

@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef, useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, Slider, Switch } from 'antd';
+
 import Navbar from './Navbar';
 import './brokerSlider.css';
 
@@ -12,28 +13,15 @@ interface Props {
 }
 
 const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(100);
-  const priceSliderRef = useRef<HTMLDivElement>(null);
-  const priceThumbRef = useRef<HTMLDivElement>(null);
+  // const priceThumbRef = useRef<HTMLDivElement>(null);
 
-  const handlePriceChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const sliderRect = priceSliderRef.current?.getBoundingClientRect();
-    if (!sliderRect) return;
-    if (!priceSliderRef.current || !priceThumbRef.current) return;
+  const min = 0; // Set the minimum value
+  const max = 100; // Set the maximum value
 
-    const mouseX = e.clientX - sliderRect.left;
-    const positionPercentage = (mouseX / sliderRect.width) * 100;
+  const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
 
-    if (positionPercentage >= 0 && positionPercentage <= 100) {
-      const priceRange = Math.round(positionPercentage);
-      const newMinPrice = Math.min(minPrice, priceRange);
-      const newMaxPrice = Math.max(maxPrice, priceRange);
-      console.log(priceRange)
-      setMinPrice(newMinPrice);
-      setMaxPrice(newMaxPrice);
-      priceThumbRef.current.style.left = `${positionPercentage}%`;
-    }
+  const handleRangeChange = (value: number[]) => {
+    setRangeValue(value);
   };
 
 
@@ -56,11 +44,12 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
               <div className='border text-light rounded d-flex justify-content-center mx-5' style={{backgroundColor:"#001529"}}>
 
                 <div className='col-2 bg-primary m-2 p-2 rounded'>
-                  <div className="price-slider" ref={priceSliderRef} onClick={handlePriceChange}>
+                  {/* <div className="price-slider" ref={priceSliderRef} onClick={handlePriceChange}>
                     <div className="price-slider-thumb" ref={priceThumbRef}></div>
-                  </div>
+                  </div> */}
+                  <Slider range defaultValue={rangeValue} disabled={false} min={min} max={max} onChange={handleRangeChange} />
                   <div style={{ marginTop: '5px' }}>
-                    <span>Price Range: ${minPrice} - ${maxPrice}</span>
+                    <span>Price Range: ${rangeValue[0]} - ${rangeValue[1]}</span>
                   </div>
                 </div>
 
