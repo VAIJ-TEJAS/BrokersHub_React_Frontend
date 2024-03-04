@@ -19,16 +19,10 @@ const AddAuction = () => {
         formik.resetForm({
             values: {
                 image: null,
-                title: 'Title',
+                title: 'Name',
                 description: 'Description',
-                start_datetime: new Date(),
-                durationHours: 0,
-                durationMinutes: 15,
-                opening_bid_amount: 1000,
-                raise_option1: 100,
-                raise_option2: 500,
-                raise_option3: 1000,
-                raise_option4: 2000,
+                price: 0,
+                location: '',
             },
         });
     }, []);
@@ -36,16 +30,10 @@ const AddAuction = () => {
     const formik = useFormik({
         initialValues: {
             image: null,
-            title: 'Title',
+            title: 'Name',
             description: 'Description',
-            start_datetime: new Date(),
-            durationHours: 0,
-            durationMinutes: 15,
-            opening_bid_amount: 1000,
-            raise_option1: 100,
-            raise_option2: 500,
-            raise_option3: 1000,
-            raise_option4: 2000,
+            location: '',
+            price: 0,
         },
         onSubmit: async (values, { resetForm }) => {
             // try {
@@ -162,7 +150,7 @@ const AddAuction = () => {
                                 </Upload>
                             </Form.Item>
 
-                            <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the title!' }]}>
+                            <Form.Item label='Item Name' rules={[{ required: true, message: 'Please enter the item name!' }]}>
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
@@ -186,78 +174,26 @@ const AddAuction = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Duration'>
-                                <InputNumber
-                                    style={{ width: '50%' }}
-                                    min={0}
-                                    placeholder='Hours'
-                                    onChange={(value) => formik.setFieldValue('durationHours', value)}
-                                    value={formik.values.durationHours}
-                                />
-                                <span style={{ margin: '0 8px' }}>hours</span>
-                                <InputNumber
-                                    style={{ width: '50%' }}
-                                    min={0}
-                                    placeholder='Minutes'
-                                    onChange={(value) => formik.setFieldValue('durationMinutes', value)}
-                                    value={formik.values.durationMinutes}
-                                />
-                                <span style={{ margin: '0 8px' }}>minutes</span>
-                            </Form.Item>
-
                             <Form.Item
-                                label='Opening Bid Amount'
-                                rules={[{ required: true, message: 'Please enter the opening bid amount!' }]}
+                                label='Price'
+                                rules={[{ required: true, message: 'Please enter the price!' }]}
                             >
                                 <InputNumber
                                     min={0}
                                     onChange={(value) => {
-                                        formik.setFieldValue('opening_bid_amount', value);
+                                        formik.setFieldValue('price', value);
                                     }}
-                                    value={formik.values.opening_bid_amount}
+                                    value={formik.values.price}
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Raise Options' name='raise_options'>
-                                <Space.Compact>
-                                    <InputNumber
-                                        min={0}
-                                        onChange={(value) => formik.setFieldValue('raise_option1', value)}
-                                        value={formik.values.raise_option1}
-                                        style={{ width: '50%' }}
-                                    />
-                                    <InputNumber
-                                        min={0}
-                                        onChange={(value) => formik.setFieldValue('raise_option2', value)}
-                                        value={formik.values.raise_option2}
-                                        style={{ width: '50%' }}
-                                    />
-                                    <InputNumber
-                                        min={0}
-                                        onChange={(value) => formik.setFieldValue('raise_option3', value)}
-                                        value={formik.values.raise_option3}
-                                        style={{ width: '50%' }}
-                                    />
-                                    <InputNumber
-                                        min={0}
-                                        onChange={(value) => formik.setFieldValue('raise_option4', value)}
-                                        value={formik.values.raise_option4}
-                                        style={{ width: '50%' }}
-                                    />
-                                </Space.Compact>
-                            </Form.Item>
 
-                            <Form.Item
-                                label='Start Date and Time'
-                                rules={[{ required: true, message: 'Please select the start date and time!' }]}
-                            >
-                                <DatePicker
-                                    showTime
-                                    onChange={(date, dateString) => {
-                                        console.log(date)
-                                        formik.setFieldValue('start_datetime', dateString);
+                            <Form.Item label='Item Location' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                                <Input
+                                    onChange={(e) => {
+                                        formik.setFieldValue('location', e.target.value);
                                     }}
-                                    className="custom-date-picker" 
+                                    value={formik.values.location}
                                 />
                             </Form.Item>
 
@@ -273,13 +209,13 @@ const AddAuction = () => {
                             </Form.Item>
                         </Form>
                         <div>
-                            <div className='text-4xl font-medium text-center text-[#002766] p-5'>Auction Card</div>
+                            <div className='text-4xl font-medium text-center text-[#002766] p-5'>Item Card</div>
                             <ItemCard
                                 item = {
                                     {image: imageURL,
                                     title:formik.values.title,
                                     description:formik.values.description,
-                                    price: '20'}
+                                    price: formik.values.price}
                                 }
                             />
                         </div>

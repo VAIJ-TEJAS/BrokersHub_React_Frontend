@@ -7,19 +7,19 @@ const LandingPage: React.FC = () => {
     {
       title: 'Property 1',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: '$500,000',
+      price: 700000,
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
     },
     {
       title: 'Property 2',
       description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      price: '$700,000',
+      price: 700000,
       image: 'https://via.placeholder.com/300x200',
     },                                                                                                                           
     {
       title: 'Property 2',
       description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      price: '$700,000',
+      price: 700000,
       image: 'https://via.placeholder.com/300x200',
     },
     // Add more items as needed
@@ -27,7 +27,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <BrokerWebsiteLayout>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
         {items.map((item, index) => (
           <ItemCard key={index} item={item} />
         ))}
