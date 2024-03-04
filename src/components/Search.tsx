@@ -185,14 +185,14 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <div className='bg-[#F5F5F5]'>
+      <div className='bg-[#001529]'>
         <div className='justify-center w-full
           hidden
           lg:flex
         '>
-          <div className='container flex justify-center bg-[#2A2A2A] rounded-lg w-[1166px]'>
+          <div className='container flex justify-center bg-[#001529] rounded-lg w-[1166px]'>
             <div className='flex items-center h-full py-2'>
-              <div className='text-light relative bg-[#404040] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40' style={{minWidth: '240px'}}>
                   <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
@@ -201,7 +201,7 @@ const Search: React.FC = () => {
                   </div>
                 </div>
 
-                <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleFrom}>
@@ -232,7 +232,7 @@ const Search: React.FC = () => {
                     </Select>
                   </div>
 
-                <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleFrom}>
@@ -263,7 +263,7 @@ const Search: React.FC = () => {
                     </Select>
                   </div>
 
-                  <div className='relative bg-[#404040] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                  <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleTo}>
