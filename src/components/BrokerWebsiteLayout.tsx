@@ -1,8 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 import { Layout, Slider } from 'antd';
+import Filter from './Search'
 
 import Navbar from './Navbar';
-import './brokerSlider.css';
 
 const { Content, Footer } = Layout;
 
@@ -15,23 +15,16 @@ interface Props {
 const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
   // const priceThumbRef = useRef<HTMLDivElement>(null);
 
-  const min = 0; // Set the minimum value
-  const max = 100; // Set the maximum value
-
-  const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
-
-  const handleRangeChange = (value: number[]) => {
-    setRangeValue(value);
-  };
+  
 
 
   return (
     <Layout className="layout">
         <Navbar />
       <Layout>
-        <Layout className='container' style={{ padding: '0 24px 24px' }}>
+        <Layout className='d-flex align-items-center' style={{ padding: '0 24px 24px' }}>
           <Content
-            className="site-layout-background"
+            className="site-layout-background col-md-9"
             style={{
               padding: 24,
               margin: 0,
@@ -39,28 +32,26 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
             }}
           >
             <div style={{ marginBottom: '24px' }}>
-              <div className='border text-light rounded d-flex justify-content-center mx-5' style={{backgroundColor:"#001529"}}>
+              <Filter />
+              {/* <div className='border text-light rounded d-flex justify-content-center mx-5' style={{backgroundColor:"#001529"}}>
 
                 <div className='col-2 bg-primary m-2 p-2 rounded'>
-                  {/* <div className="price-slider" ref={priceSliderRef} onClick={handlePriceChange}>
-                    <div className="price-slider-thumb" ref={priceThumbRef}></div>
-                  </div> */}
-                  <Slider range defaultValue={rangeValue} disabled={false} min={min} max={max} onChange={handleRangeChange} />
+                  <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
                   <div style={{ marginTop: '5px' }}>
                     <span>Price Range: ${rangeValue[0]} - ${rangeValue[1]}</span>
                   </div>
                 </div>
 
                 <div className="bg-primary m-2 p-2 rounded">
-                  <input type="text" className="form-control my-1" id="item" aria-describedby="emailHelp" placeholder='Search Item' />
+                  <input type="text" className="form-control my-1 bg-info border border-0 text-light" id="item" aria-describedby="emailHelp" placeholder='Search Item' />
                 </div>
 
                 <div className="bg-primary m-2 p-2 rounded">
-                  <input type="text" className="form-control my-1" id="location" aria-describedby="emailHelp" placeholder='Search Location' />
+                  <input type="text" className="form-control my-1 bg-info border border-0" id="location" aria-describedby="emailHelp" placeholder='Search Location' />
                 </div>
 
-                <div className='m-2 p-2 bg-primary'>
-                  <select defaultValue={'Year'} className="form-select my-1" aria-label="Default select example">
+                <div className='m-2 p-2 bg-primary rounded'>
+                  <select defaultValue={'Year'} className="form-select my-1 bg-info border border-0" aria-label="Default select example">
                     <option value="Day">Day</option>
                     <option value="Week">Week</option>
                     <option value="Month">Month</option>
@@ -70,7 +61,7 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
 
                 <button className='btn btn-warning m-2 px-4 fs-5'><strong>Search</strong></button>
 
-              </div>
+              </div> */}
             </div>
             {children}
           </Content>
