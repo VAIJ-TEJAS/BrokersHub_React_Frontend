@@ -27,6 +27,8 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
             <strong>Contact:</strong> {item.contact}
           </p>
         )}
+
+        <button className="btn btn-primary w-100 mt-2">Yes, Make offer!</button>
       </div>
     </div>
   );
