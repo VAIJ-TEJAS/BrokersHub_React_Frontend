@@ -23,6 +23,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       hoverable
       style={{ width: 300, margin: '16px' }}
       cover={<img alt={item.title} src={item.image} />}
+      className='border border-light overflow-hidden'
     >
       <Meta title={item.title} description={item.description} />
       <p>Price: ${item.price}</p>

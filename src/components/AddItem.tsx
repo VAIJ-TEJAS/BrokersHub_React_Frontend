@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, DatePicker, InputNumber, Upload, Button, message, Space } from 'antd';
+import { Form, Input, InputNumber, Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
 import ItemCard from './ItemCard';
@@ -8,12 +8,10 @@ import { useEffect, useState } from 'react';
 
 
 const AddAuction = () => {
-    const [id, setId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {
-        setId(null);
         setImageURL('');
 
         formik.resetForm({
@@ -35,73 +33,9 @@ const AddAuction = () => {
             location: '',
             price: 0,
         },
-        onSubmit: async (values, { resetForm }) => {
-            // try {
-            //     setLoading(true);
 
-            //     const durationMilliseconds = (values.durationMinutes * 60 + values.durationHours * 60 * 60) * 1000;
-            //     const formData = new FormData();
+        onSubmit: async () => {
 
-            //     if (values.image && Array.isArray(values.image)) {
-            //         const imageFile = values.image[0];
-            //         console.log(imageFile);
-            //         formData.append('image', imageFile);
-            //     }
-
-            //     formData.append('title', values.title);
-            //     formData.append('description', values.description);
-            //     formData.append('start_datetime', values.start_datetime.toString());
-            //     formData.append('duration', durationMilliseconds.toString());
-            //     formData.append('durationHours', values.durationHours.toString());
-            //     formData.append('durationMinutes', values.durationMinutes.toString());
-            //     formData.append('opening_bid_amount', values.opening_bid_amount.toString());
-            //     formData.append('raise_options', JSON.stringify({
-            //         '1': values.raise_option1.toString(),
-            //         '2': values.raise_option2.toString(),
-            //         '3': values.raise_option3.toString(),
-            //         '4': values.raise_option4.toString(),
-            //     }));
-
-            //     let response;
-
-            //     if (editedAuction?._id) {
-            //         // Edit existing auction
-            //         response = await axios.put(`/auctions/${id}/update`, formData);
-            //     } else {
-            //         // Add new auction
-            //         response = await axios.post('/auctions/create', formData);
-            //     }
-
-            //     if (response.status === 201 || response.status === 200) {
-            //         const editedAuction = response.data;
-            //         message.success('Auction saved successfully!');
-            //         onAuctionEdited(editedAuction);
-            //         resetForm({
-            //             values: {
-            //                 image: null,
-            //                 title: 'Title',
-            //                 description: 'Description',
-            //                 start_datetime: new Date(),
-            //                 durationHours: 0,
-            //                 durationMinutes: 15,
-            //                 opening_bid_amount: 1000,
-            //                 raise_option1: 100,
-            //                 raise_option2: 500,
-            //                 raise_option3: 1000,
-            //                 raise_option4: 2000,
-            //             },
-            //         });
-            //     } else {
-            //         console.error('Auction creation/updation failed. Unexpected response:', response);
-            //         message.error('Failed to save auction. Please try again.');
-            //     }
-
-            //     setLoading(false);
-            // } catch (error) {
-            //     console.error('Error saving auction:', error);
-            //     message.error('Failed to save auction. Please try again.');
-            //     setLoading(false);
-            // }
         },
     });
 
@@ -129,15 +63,18 @@ const AddAuction = () => {
     return (
         <>
             <Navbar />
-            <div className='container'>
                 <div className='d-flex justify-content-center'>
-                    <div className='border border-2 rounded my-5 p-5 flex justify-between items-center'>
+                    <div className='col-md-8 border border-2 rounded-4 my-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
+                            className='p-5 col-7'
                         >
+                            <div className='text-4xl font-medium text-[#002766] mb-1'>Item Details</div>
+                            <hr className='mb-1' />
+                            <hr className='mb-4' />
                             <Form.Item
                                 label='Image'
                                 name='image'
@@ -208,8 +145,7 @@ const AddAuction = () => {
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <div>
-                            <div className='text-4xl font-medium text-center text-[#002766] p-5'>Item Card</div>
+                        <div className='h-100 col-5 d-flex justify-content-center align-items-center bg-[#001529]'>
                             <ItemCard
                                 item = {
                                     {image: imageURL,
@@ -221,7 +157,6 @@ const AddAuction = () => {
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     );
 };
