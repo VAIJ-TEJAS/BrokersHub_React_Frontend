@@ -1,3 +1,5 @@
+import '../Pages/HomePage.css'
+
 interface Item {
   title: string;
   description: string;
