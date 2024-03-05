@@ -1,33 +1,54 @@
 import React from 'react';
-import { Card, Button } from 'antd';
+import { useState } from 'react';
+import { Card, Button, Modal } from 'antd';
+import ExpandCard from './ExpandCard';
 
 const { Meta } = Card;
 
 interface Item {
   title: string;
   description: string;
-  price: number;
+  budget: number;
   image: string;
+  contact: string;
 }
 
 interface Props {
   item: Item;
 }
 
+
+
 const ItemCard: React.FC<Props> = ({ item }) => {
-  if (item.image == '') {
-    item.image = 'https://via.placeholder.com/300x200'
-  }
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleCancel = () => {
+    setModalVisible(false)
+  };
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+  
   return (
     <Card
       hoverable
       style={{ width: 300, margin: '16px' }}
-      cover={<img alt={item.title} src={item.image} />}
+      cover={item.image !== '' ? <img alt={item.title} src={item.image} /> : ''}
       className='border border-light overflow-hidden'
     >
-      <Meta title={item.title} description={item.description} />
-      <p>Price: ${item.price}</p>
-      <Button type="primary">View Details</Button>
+      <Modal title="Requirement Details"
+      width={'50%'}
+                open={modalVisible}
+                onCancel={handleCancel}
+                footer={null}
+                style={{width: '60% !important'}}
+                >
+                <ExpandCard item={item}/>
+            </Modal>
+      <Meta title={item.title} description={item.description} className='mb-2' />
+      {item.budget == 0 ? '' : <p className='mb-2'>Budget: ${item.budget}</p>}
+      <Button type="primary" onClick={showModal}>View Details</Button>
     </Card>
   );
 };

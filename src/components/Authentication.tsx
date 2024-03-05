@@ -19,19 +19,7 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
-        // try {
-        //     const response = await axios.post('/users/signin', { username, password });
-        //     console.log(response.data);
-        //     localStorage.setItem('auction-user-token', response.data.user._id);
-        //     localStorage.setItem('auction-user-name', response.data.user.name);
-        //     message.success('Sign in successful');
-        //     setUserAuthenticated(true)
-        //     setAuthModalOpen(false)
-            
-        // } catch (error: any) {
-        //     console.error(error.response.data);
-        //     message.error('Invalid credentials');
-        // }
+        
     };
 
     return (
@@ -57,12 +45,6 @@ const Login: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
-            {/* <div className='flex justify-between items-center'>
-                <div>
-                    <Checkbox>Remember me</Checkbox>
-                </div>
-                <div className='text-sky-600'>Forgot password?</div>
-            </div> */}
             <div>
                 <Button className="bg-[#1890FF] primary-6 text-white px-6 rounded-sm" onClick={handleLogin}>
                     Sign in

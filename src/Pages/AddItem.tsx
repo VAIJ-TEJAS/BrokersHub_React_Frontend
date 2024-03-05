@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Upload, Button } from 'antd';
+import { Form, Input, InputNumber, Upload, Button, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useFormik } from 'formik';
-import ItemCard from './ItemCard';
-import Navbar from './Navbar';
+import ItemCard from '../components/ItemCard';
+import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 
 
@@ -18,9 +18,10 @@ const AddAuction = () => {
             values: {
                 image: null,
                 title: 'Name',
-                description: 'Description',
-                price: 0,
+                description: 'Describe your requirement',
+                budget: 0,
                 location: '',
+                contact: '',
             },
         });
     }, []);
@@ -29,9 +30,10 @@ const AddAuction = () => {
         initialValues: {
             image: null,
             title: 'Name',
-            description: 'Description',
+            description: 'Describe your requirement',
             location: '',
-            price: 0,
+            budget: 0,
+            contact: '',
         },
 
         onSubmit: async () => {
@@ -60,6 +62,13 @@ const AddAuction = () => {
         return e && e.fileList;
     };
 
+    const onSearch = (value: string) => {
+        console.log('search:', value);
+      };
+
+    const filterOption = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
     return (
         <>
             <Navbar />
@@ -75,25 +84,53 @@ const AddAuction = () => {
                             <div className='text-4xl font-medium text-[#002766] mb-1'>Item Details</div>
                             <hr className='mb-1' />
                             <hr className='mb-4' />
+
                             <Form.Item
-                                label='Image'
+                                label='Requirement Image'
                                 name='image'
                                 valuePropName='fileList'
                                 getValueFromEvent={normFile}
-                                rules={[{ required: true, message: 'Please upload an Image!' }]}
                             >
                                 <Upload name='image' {...imageUploadProps}>
                                     <Button icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                             </Form.Item>
 
-                            <Form.Item label='Item Name' rules={[{ required: true, message: 'Please enter the item name!' }]}>
+                            <Form.Item label='Requirement Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
                                     }}
                                     value={formik.values.title}
                                 />
+                            </Form.Item>
+
+                            <Form.Item label='Requirement Location' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                            <Select
+                                showSearch
+                                placeholder="Select a person"
+                                optionFilterProp="children"
+                                value={formik.values.location}
+                                onChange={(value) => {
+                                    formik.setFieldValue('location', value);
+                                }}
+                                onSearch={onSearch}
+                                filterOption={filterOption}
+                                options={[
+                                {
+                                    value: 'Mumbai',
+                                    label: 'Mumbai',
+                                },
+                                {
+                                    value: 'Pune',
+                                    label: 'Pune',
+                                },
+                                {
+                                    value: 'Delhi',
+                                    label: 'Delhi',
+                                },
+                                ]}
+                            />
                             </Form.Item>
 
                             <Form.Item
@@ -112,27 +149,29 @@ const AddAuction = () => {
                             </Form.Item>
 
                             <Form.Item
-                                label='Price'
-                                rules={[{ required: true, message: 'Please enter the price!' }]}
+                                label='Requirement Budget'
+                                rules={[{ required: true, message: 'Please enter the budget!' }]}
                             >
                                 <InputNumber
                                     min={0}
                                     onChange={(value) => {
-                                        formik.setFieldValue('price', value);
+                                        formik.setFieldValue('budget', value);
                                     }}
-                                    value={formik.values.price}
+                                    value={formik.values.budget}
                                 />
                             </Form.Item>
 
-
-                            <Form.Item label='Item Location' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the contact information!' }]}
+                            >
                                 <Input
                                     onChange={(e) => {
-                                        formik.setFieldValue('location', e.target.value);
+                                        formik.setFieldValue('contact', e.target.value);
                                     }}
-                                    value={formik.values.location}
+                                    value={formik.values.contact}
                                 />
                             </Form.Item>
+
+                            
 
                             <Form.Item wrapperCol={{ offset: 8, span: 14 }}>
                                 <Button
@@ -151,7 +190,8 @@ const AddAuction = () => {
                                     {image: imageURL,
                                     title:formik.values.title,
                                     description:formik.values.description,
-                                    price: formik.values.price}
+                                    contact:formik.values.contact,
+                                    budget: formik.values.budget}
                                 }
                             />
                         </div>

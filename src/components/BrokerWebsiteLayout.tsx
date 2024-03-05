@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { Layout, Slider } from 'antd';
+import { Layout } from 'antd';
 import Filter from './Search'
 
 import Navbar from './Navbar';
