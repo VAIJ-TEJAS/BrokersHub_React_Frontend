@@ -33,7 +33,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
   return (
     <Card
       hoverable
-      style={{ width: 300, margin: '16px' }}
+      style={{ width: 270, margin: '16px' }}
       cover={item.image !== '' ? <img alt={item.title} src={item.image} /> : ''}
       className='border border-light overflow-hidden'
     >

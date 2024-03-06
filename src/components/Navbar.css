@@ -1,0 +1,26 @@
+
+.navbar-drop{
+    background-color: transparent;
+    color: white;
+    /* width: 50px !important; */
+}
+
+.onBig{
+    display: none;
+}
+
+.navbar-drop:hover{
+    background-color: white;
+    color: black;
+}
+
+
+@media (max-width: 800px) {
+    .onShort{
+        display: none;
+    }
+
+    .onBig{
+        display: block;
+    }
+}

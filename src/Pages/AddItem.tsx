@@ -82,8 +82,6 @@ const AddAuction = () => {
                             className='p-5 col-7'
                         >
                             <div className='text-4xl font-medium text-[#002766] mb-1'>Item Details</div>
-                            <hr className='mb-1' />
-                            <hr className='mb-4' />
 
                             <Form.Item
                                 label='Requirement Image'

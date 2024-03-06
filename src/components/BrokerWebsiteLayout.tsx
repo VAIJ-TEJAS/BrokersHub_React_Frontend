@@ -24,9 +24,8 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
       <Layout>
         <Layout className='d-flex align-items-center' style={{ padding: '0 24px 24px' }}>
           <Content
-            className="site-layout-background col-md-9"
+            className="site-layout-background col-md-9 mt-5"
             style={{
-              padding: 24,
               margin: 0,
               minHeight: 280,
             }}
