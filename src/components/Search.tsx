@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Select, Slider, Input  } from 'antd';
 import { Option } from 'antd/es/mentions';
+import './Navbar.css';
 
 
 const Search: React.FC = () => {
@@ -77,22 +78,19 @@ const Search: React.FC = () => {
 
   return (
     <>
-        <div className='justify-between w-full
-          hidden
-          lg:flex
-        '>
-          <div className='container flex justify-center bg-[#001529] rounded'>
-            <div className='d-flex justify-content-evenly w-100 h-full py-2'>
-              <div className='text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+        <div className='justify-center w-full d-flex '>
+          <div className='filter-container flex justify-center bg-[#001529] rounded'>
+            <div className='d-flex justify-content-evenly align-items-center w-100 h-full py-2 filter-box'>
+              <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-60' style={{minWidth: '240px'}}>
                   <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
                   <div style={{ marginTop: '5px' }}>
                     <span>Price Range: ${rangeValue[0]} - ${rangeValue[1]}</span>
                   </div>
-                </div>
+              </div>
 
-                <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-60
               ' onClick={toggleFrom}>
@@ -121,9 +119,9 @@ const Search: React.FC = () => {
                       ))}
                       {/* Add more options as needed */}
                     </Select>
-                  </div>
+              </div>
 
-                <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleItem}>
@@ -152,9 +150,9 @@ const Search: React.FC = () => {
                       ))}
                       {/* Add more options as needed */}
                     </Select>
-                  </div>
+              </div>
 
-                  <div className='relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleTo}>
@@ -178,9 +176,9 @@ const Search: React.FC = () => {
                       ))}
                       {/* Add more options as needed */}
                     </Select>
-                  </div>
+              </div>
 
-              <button className='bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
+              <button className='filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32
                 xl:w-36
               '>

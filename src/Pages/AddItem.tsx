@@ -72,8 +72,8 @@ const AddAuction = () => {
     return (
         <>
             <Navbar />
-                <div className='d-flex justify-content-center'>
-                    <div className='col-md-8 border border-2 rounded-4 my-4 shadow flex justify-between items-center overflow-hidden'>
+                <div className='d-flex justify-content-center bg-[#F5F5F5]'>
+                    <div className='bg-[#FFF] col-md-8 border border-2 rounded-4 my-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
