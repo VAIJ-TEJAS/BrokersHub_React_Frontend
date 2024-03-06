@@ -55,3 +55,35 @@
         min-width: 260px;
     }
 }
+
+
+
+/* Add container css  */
+.addMainContainer{
+    min-width: 800px;
+}
+
+.addCardShower{
+    display: block;
+}
+
+.addCardDetails{
+    width: 60%;
+}
+
+
+@media (max-width: 850px) {
+    .addCardShower{
+        display: none;
+    }
+
+    .addCardDetails{
+        width: 100%;
+    }
+
+    .addMainContainer{
+        min-width: 300px;
+    }
+
+    
+}

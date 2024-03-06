@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Upload, Button, Select } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Form, Input, InputNumber, Button, Select } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
+import '../components/Navbar.css'
 
 
 const AddAuction = () => {
@@ -41,26 +41,26 @@ const AddAuction = () => {
         },
     });
 
-    const imageUploadProps = {
-        beforeUpload: (_file: File) => {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const dataUrl = event.target?.result as string;
-                setImageURL(dataUrl);
-                console.log(dataUrl)
-                formik.setFieldValue('image', [_file]);
-            };
-            reader.readAsDataURL(_file);
-            return false;
-        },
-    };
+    // const imageUploadProps = {
+    //     beforeUpload: (_file: File) => {
+    //         const reader = new FileReader();
+    //         reader.onload = (event) => {
+    //             const dataUrl = event.target?.result as string;
+    //             setImageURL(dataUrl);
+    //             console.log(dataUrl)
+    //             formik.setFieldValue('image', [_file]);
+    //         };
+    //         reader.readAsDataURL(_file);
+    //         return false;
+    //     },
+    // };
 
-    const normFile = (e: any) => {
-        if (Array.isArray(e)) {
-            return e;
-        }
-        return e && e.fileList;
-    };
+    // const normFile = (e: any) => {
+    //     if (Array.isArray(e)) {
+    //         return e;
+    //     }
+    //     return e && e.fileList;
+    // };
 
     const onSearch = (value: string) => {
         console.log('search:', value);
@@ -73,17 +73,17 @@ const AddAuction = () => {
         <>
             <Navbar />
                 <div className='d-flex justify-content-center bg-[#F5F5F5]'>
-                    <div className='bg-[#FFF] col-md-8 border border-2 rounded-4 my-4 shadow flex justify-between items-center overflow-hidden'>
+                    <div className='addMainContainer bg-[#FFF] col-md-8 border border-2 rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
-                            className='p-5 col-7'
+                            className='p-5 pe-4 addCardDetails'
                         >
-                            <div className='text-4xl font-medium text-[#002766] mb-1'>Item Details</div>
+                            <div className='text-4xl font-medium text-[#002766] mb-3'>Item Details</div>
 
-                            <Form.Item
+                            {/* <Form.Item
                                 label='Requirement Image'
                                 name='image'
                                 valuePropName='fileList'
@@ -92,9 +92,9 @@ const AddAuction = () => {
                                 <Upload name='image' {...imageUploadProps}>
                                     <Button icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
-                            </Form.Item>
+                            </Form.Item> */}
 
-                            <Form.Item label='Requirement Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                            <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
@@ -103,7 +103,7 @@ const AddAuction = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Requirement Location' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                            <Form.Item label='Location' rules={[{ required: true, message: 'Please enter the location!' }]}>
                             <Select
                                 showSearch
                                 placeholder="Select a person"
@@ -147,7 +147,7 @@ const AddAuction = () => {
                             </Form.Item>
 
                             <Form.Item
-                                label='Requirement Budget'
+                                label='Budget'
                                 rules={[{ required: true, message: 'Please enter the budget!' }]}
                             >
                                 <InputNumber
@@ -169,9 +169,6 @@ const AddAuction = () => {
                                 />
                             </Form.Item>
 
-                            
-
-                            <Form.Item wrapperCol={{ offset: 8, span: 14 }}>
                                 <Button
                                     type='primary'
                                     className='bg-[#1890FF] w-full font-semibold'
@@ -180,18 +177,20 @@ const AddAuction = () => {
                                 >
                                     Submit
                                 </Button>
-                            </Form.Item>
                         </Form>
-                        <div className='h-100 col-5 d-flex justify-content-center align-items-center bg-[#001529]'>
-                            <ItemCard
-                                item = {
-                                    {image: imageURL,
-                                    title:formik.values.title,
-                                    description:formik.values.description,
-                                    contact:formik.values.contact,
-                                    budget: formik.values.budget}
-                                }
-                            />
+                        <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
+                            <div className='addCardShower'>
+                                <ItemCard
+                                    item = {
+                                        {image: imageURL,
+                                            title:formik.values.title,
+                                            description:formik.values.description,
+                                            contact:formik.values.contact,
+                                            budget: formik.values.budget
+                                        }
+                                    }
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
