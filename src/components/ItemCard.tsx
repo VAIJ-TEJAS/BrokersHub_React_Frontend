@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Card, Button, Modal } from 'antd';
 import ExpandCard from './ExpandCard';
+import './Navbar.css'
 
 const { Meta } = Card;
 
@@ -38,13 +39,13 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       className='border border-light overflow-hidden'
     >
       <Modal title="Requirement Details"
-      width={'auto'}
-                open={modalVisible}
-                onCancel={handleCancel}
-                footer={null}
-                >
-                <ExpandCard item={item}/>
-            </Modal>
+        open={modalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        className='property-modal'
+        >
+        <ExpandCard item={item}/>
+      </Modal>
       <Meta title={item.title} description={item.description} className='mb-2' />
       {item.budget == 0 ? '' : <p className='mb-2'>Budget: ${item.budget}</p>}
       <Button type="primary" onClick={showModal}>View Details</Button>

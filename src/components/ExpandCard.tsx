@@ -15,9 +15,9 @@ interface Props {
 const ExpandCard: React.FC<Props> = ({ item }) => {
   return (
     <div className="property-card">
-      <div className="property-image">
+      {item.image && <div className="property-image">
         <img src={item.image} alt={item.title} />
-      </div>
+      </div>}
       <div className="property-details">
         <h3 className="property-title">{item.title}</h3>
         <p className="property-description">{item.description}</p>
