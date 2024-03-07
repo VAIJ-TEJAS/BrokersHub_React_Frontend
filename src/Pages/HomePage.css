@@ -1,0 +1,25 @@
+.services-logo{
+  width: 400px;
+}
+.services-logo img{
+  width: 100%;
+}
+
+.services-info{
+  width: 50%;
+}
+
+@media (max-width: 1000px) {
+  .services-logo{
+    width: 100%;
+  }
+  
+  .services-info{
+    width: 100%;
+  }
+
+  .services-container{
+    flex-direction: column;
+  }
+}
+
