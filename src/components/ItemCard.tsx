@@ -38,11 +38,10 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       className='border border-light overflow-hidden'
     >
       <Modal title="Requirement Details"
-      width={'50%'}
+      width={'auto'}
                 open={modalVisible}
                 onCancel={handleCancel}
                 footer={null}
-                style={{width: '60% !important'}}
                 >
                 <ExpandCard item={item}/>
             </Modal>

@@ -1,4 +1,4 @@
-import '../Pages/HomePage.css'
+import './Navbar.css'
 
 interface Item {
   title: string;

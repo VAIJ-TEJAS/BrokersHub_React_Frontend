@@ -87,3 +87,11 @@
 
     
 }
+
+
+
+/* expand card css */
+.property-card{
+    width: 70%;
+    min-width: 700px;
+}
