@@ -56,7 +56,8 @@ export default function Navbar() {
             ))}
           </Menu>
           <div className='onShort'>
-            <Link to='/AddItem' className='btn btn-warning'>Add Requirement</Link>
+            <Link to='/PostRequirement' className='btn btn-warning me-3'>Post Requirement</Link>
+            <Link to='/PostAdd' className='btn btn-warning'>Post Add</Link>
           </div>
           <div className='ms-auto d-flex align-items-center'>
             <div className='onShort'>
@@ -87,7 +88,15 @@ export default function Navbar() {
             </li>
             <hr />
             <li className='py-2 ps-2'>
-              <Link to="/AddItem"><strong>Add Requirement</strong></Link>
+            <Link to="/Listing"><strong>Listing Page</strong></Link>
+            </li>
+            <hr />
+            <li className='py-2 ps-2'>
+              <Link to="/PostRequirement"><strong>Add Requirement</strong></Link>
+            </li>
+            <hr />
+            <li className='py-2 ps-2'>
+              <Link to="/PostAdd"><strong>Add Post</strong></Link>
             </li>
             <hr />
           </ul>

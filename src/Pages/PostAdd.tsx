@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
-import '../components/Navbar.css'
+import '../components/Navbar.css';
+import { UploadOutlined } from '@ant-design/icons';
 
 
-const AddAuction = () => {
+const PostAdd = () => {
     const [loading, setLoading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
@@ -41,26 +42,26 @@ const AddAuction = () => {
         },
     });
 
-    // const imageUploadProps = {
-    //     beforeUpload: (_file: File) => {
-    //         const reader = new FileReader();
-    //         reader.onload = (event) => {
-    //             const dataUrl = event.target?.result as string;
-    //             setImageURL(dataUrl);
-    //             console.log(dataUrl)
-    //             formik.setFieldValue('image', [_file]);
-    //         };
-    //         reader.readAsDataURL(_file);
-    //         return false;
-    //     },
-    // };
+    const imageUploadProps = {
+        beforeUpload: (_file: File) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const dataUrl = event.target?.result as string;
+                setImageURL(dataUrl);
+                console.log(dataUrl)
+                formik.setFieldValue('image', [_file]);
+            };
+            reader.readAsDataURL(_file);
+            return false;
+        },
+    };
 
-    // const normFile = (e: any) => {
-    //     if (Array.isArray(e)) {
-    //         return e;
-    //     }
-    //     return e && e.fileList;
-    // };
+    const normFile = (e: any) => {
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
 
     const onSearch = (value: string) => {
         console.log('search:', value);
@@ -73,7 +74,7 @@ const AddAuction = () => {
         <>
             <Navbar />
                 <div className='d-flex justify-content-center bg-[#F5F5F5]'>
-                    <div className='addMainContainer bg-[#FFF] col-md-8 border border-2 rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                    <div className='addMainContainer bg-[#FFF] col-9 border border-2 rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
@@ -81,10 +82,10 @@ const AddAuction = () => {
                             onFinish={formik.handleSubmit}
                             className='p-5 pe-4 addCardDetails'
                         >
-                            <div className='text-4xl font-medium text-[#002766] mb-3'>Item Details</div>
+                            <div className='text-4xl font-medium text-[#002766] mb-3'>Post Details</div>
 
-                            {/* <Form.Item
-                                label='Requirement Image'
+                            <Form.Item
+                                label='Image'
                                 name='image'
                                 valuePropName='fileList'
                                 getValueFromEvent={normFile}
@@ -92,7 +93,7 @@ const AddAuction = () => {
                                 <Upload name='image' {...imageUploadProps}>
                                     <Button icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
-                            </Form.Item> */}
+                            </Form.Item>
 
                             <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
@@ -198,4 +199,4 @@ const AddAuction = () => {
     );
 };
 
-export default AddAuction;
+export default PostAdd;

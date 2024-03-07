@@ -1,6 +1,7 @@
-import AddItem from './Pages/AddItem'
+import PostRequirement from './Pages/PostRequirement'
 import HomePage from './Pages/HomePage'
 import ListingPage from './Pages/ListingPage'
+import PostAdd from './Pages/PostAdd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<ListingPage />} />
-          <Route path="/AddItem" element={<AddItem />} />
+          <Route path="/PostRequirement" element={<PostRequirement />} />
+          <Route path="/PostAdd" element={<PostAdd />} />
           <Route path="/Listing" element={<HomePage />} />
         </Routes>
       </Router>
