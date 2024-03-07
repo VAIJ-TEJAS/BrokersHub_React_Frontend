@@ -11,10 +11,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
-          <Route path="/home" element={<ListingPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/Listing" element={<ListingPage />} />
           <Route path="/PostRequirement" element={<PostRequirement />} />
           <Route path="/PostAdd" element={<PostAdd />} />
-          <Route path="/Listing" element={<HomePage />} />
         </Routes>
       </Router>
     </>

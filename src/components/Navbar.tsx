@@ -10,6 +10,7 @@ const { Header } = Layout;
 
 const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
+    { key: '2', label: 'Listing', link: '/Listing' },
 ];
 
   
@@ -48,9 +49,9 @@ export default function Navbar() {
             </Modal>
           <h2 className='my-auto me-5 fs-4'><strong>BrokerHub</strong></h2>
           <div></div>
-          <Menu className='onShort' theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ width: '12%' }}>
+          <Menu className='onShort me-3' theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
             {menuItems.map(item => (
-                <Menu.Item key={item.key} className={location.pathname === item.link ? 'ant-menu-item-selected' : ''}>
+                <Menu.Item key={item.key} className={location.pathname === item.link ? 'ant-menu-item-selected' : ''} style={{minWidth: '73px'}}>
                     <Link to={item.link}>{item.label}</Link>
                 </Menu.Item>
             ))}
