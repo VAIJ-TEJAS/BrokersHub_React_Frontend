@@ -48,25 +48,6 @@ const Search: React.FC = () => {
 
   const itemsList = [ 'Property', 'Laptop', 'Car']
 
-  const postedOn = [
-    {
-      _id: 'Year',
-      name: 'Year',
-    },
-    {
-      _id: 'Month',
-      name: 'Month',
-    },
-    {
-      _id: 'Week',
-      name: 'Week',
-    },
-    {
-      _id: 'Day',
-      name: 'Day',
-    },
-  ]
-
   const min = 0; // Set the minimum value
   const max = 100; // Set the maximum value
 
@@ -86,7 +67,7 @@ const Search: React.FC = () => {
                 xl:w-60' style={{minWidth: '240px'}}>
                   <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
                   <div style={{ marginTop: '5px' }}>
-                    <span>Price Range: ${rangeValue[0]} - ${rangeValue[1]}</span>
+                    <span>Price Range: ₹{rangeValue[0]} - ₹{rangeValue[1]}</span>
                   </div>
               </div>
 
@@ -146,32 +127,6 @@ const Search: React.FC = () => {
                       {itemsList.map((item) => (
                         <Option key={item} value={item}>
                           {item}
-                        </Option>
-                      ))}
-                      {/* Add more options as needed */}
-                    </Select>
-              </div>
-
-              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-40
-              ' onClick={toggleTo}>
-                    <div className='px-2'>
-                      <div className='text-yellow-500'>Posted On</div>
-                      <div className='text-white'>{to}</div>
-                    </div>
-                    <Select
-                      open={toOpen}
-                      className='absolute w-0 h-0'
-                      defaultValue="Year"
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleToChange}
-                      onDropdownVisibleChange={(open) => setToOpen(open)}
-                    >
-                      
-                      {postedOn.map((posted) => (
-                        <Option key={posted._id} value={posted.name}>
-                          {posted.name}
                         </Option>
                       ))}
                       {/* Add more options as needed */}

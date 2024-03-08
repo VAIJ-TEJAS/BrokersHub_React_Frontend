@@ -97,6 +97,7 @@
 .property-card{
     /* width: 70%; */
     min-width: 600px;
+    flex-direction: row;
 }
 
 @media (max-width: 800px) {

@@ -47,9 +47,9 @@ export default function Navbar() {
                 footer={null}>
                 <Autentication defaultTab={defaultTab} />
             </Modal>
-          <h2 className='my-auto me-5 fs-4'><strong>BrokerHub</strong></h2>
+          <Link to="/home" className='my-auto me-5 fs-4'><strong>BrokerHub</strong></Link>
           <div></div>
-          <Menu className='onShort me-3' theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+          <Menu className='onShort me-3' theme="dark" mode="horizontal" >
             {menuItems.map(item => (
                 <Menu.Item key={item.key} className={location.pathname === item.link ? 'ant-menu-item-selected' : ''} style={{minWidth: '73px'}}>
                     <Link to={item.link}>{item.label}</Link>

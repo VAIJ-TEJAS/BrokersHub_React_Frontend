@@ -15,6 +15,8 @@ interface Item {
   transaction: string;
   postType: string,
   location: string,
+  state: string,
+  ratio: number,
 }
 
 interface Props {
@@ -37,9 +39,9 @@ const ItemCard: React.FC<Props> = ({ item }) => {
   return (
     <Card
       hoverable
-      style={{ width: 270, margin: '16px' }}
+      style={{ width: 270, margin: '16px'}}
       cover={item.image !== '' ? <img alt={item.title} src={item.image} /> : ''}
-      className='border border-light overflow-hidden'
+      className=' overflow-hidden'
     >
       <Modal title={`${item.postType} Details`}
         open={modalVisible}
@@ -50,7 +52,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
         <ExpandCard item={item}/>
       </Modal>
       <Meta title={item.title}  description={item.description} className='mb-2' />
-      <p className='mb-2'>Location: <span className='text-secondary'>{item.location}</span></p>
+      <p className='mb-2'>Location: <span className='text-secondary'>{item.location}, {item.state}</span></p>
       <p className='mb-2'>Transaction Type: <span className='text-secondary'>{item.transaction}</span></p>
       <Button type="primary" onClick={showModal}>View Details</Button>
     </Card>

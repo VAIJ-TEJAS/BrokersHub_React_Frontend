@@ -12,7 +12,9 @@ const LandingPage: React.FC = () => {
       contact: '123',
       transaction: 'Sell',
       postType: 'Requirement',
-      location: 'Ranchi'
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 0,
     },
     {
       title: 'Property 2',
@@ -22,7 +24,9 @@ const LandingPage: React.FC = () => {
       contact: '321',
       transaction: 'Sell',
       postType: 'Requirement',
-      location: 'Ranchi'
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 0,
     },                                                                                                                           
     {
       title: 'Property 2',
@@ -32,7 +36,9 @@ const LandingPage: React.FC = () => {
       contact: '123',
       transaction: 'Sell',
       postType: 'Requirement',
-      location: 'Ranchi'
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 0,
     },
     {
       title: 'Property 2',
@@ -42,7 +48,9 @@ const LandingPage: React.FC = () => {
       contact: '321',
       transaction: 'Conversion',
       postType: 'Requirement',
-      location: 'Ranchi'
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 20,
     },
     {
       title: 'Property 2',
@@ -52,7 +60,9 @@ const LandingPage: React.FC = () => {
       contact: '123',
       transaction: 'Buy',
       postType: 'Add',
-      location: 'Ranchi'
+      state: 'Jharkhand',
+      location: 'Ranchi',
+      ratio: 0,
     },
     // Add more items as needed
   ];

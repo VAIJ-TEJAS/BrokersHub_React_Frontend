@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './Navbar.css'
 
 interface Item {
@@ -9,6 +10,7 @@ interface Item {
   transaction: string;
   postType: string;
   location: string,
+  state: string,
 }
 
 interface Props {
@@ -16,6 +18,9 @@ interface Props {
 }
 
 const ExpandCard: React.FC<Props> = ({ item }) => {
+
+    
+
   return (
     <div className="property-card">
       {item.image && <div className="property-image">
@@ -30,7 +35,7 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
         {item.transaction=="Rent" &&
             <p className="property-budget">
-          <strong>Rent amount:</strong> ${item.budget}
+          <strong>Rent amount:</strong> ₹{item.budget}
         </p>}
 
         {item.transaction=="Conversion" &&
@@ -40,12 +45,12 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
         {item.transaction=="Buy" &&
             <p className="property-budget">
-          <strong>Budget:</strong> ${item.budget}
+          <strong>Budget:</strong> ₹{item.budget}
         </p>}
 
         {item.transaction=="Sell" &&
             <p className="property-budget">
-          <strong>Price:</strong> ${item.budget}
+          <strong>Price:</strong> ₹{item.budget}
         </p>}
         
         {item.contact && (
@@ -55,7 +60,7 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
         )}
 
         <p className="property-contact">
-            <strong>Location:</strong> {item.location}
+            <strong>Location:</strong> {item.location}, {item.state}
           </p>
         <p className="property-description">{item.description}</p>
 
