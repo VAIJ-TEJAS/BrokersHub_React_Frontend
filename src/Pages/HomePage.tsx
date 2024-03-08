@@ -6,19 +6,21 @@ import './HomePage.css'
 export default function HomePage() {
   return (
     <div>
-      <Navbar />
+      <div className=''>
+        <Navbar />
+      </div>
       <div>
-        <div className='bg-[#bbddfd]'>
-          <div className='container-lg py-5'>
-            <h1 className='fs-1 fw-bold text-center my-3'>Explore Our Offerings</h1>
-            <p className='col-md-7 text-center mx-auto' style={{fontFamily: 'poppins'}}>
+        <div className='homePage-intro'>
+          <div className='p-5'>
+            <h1 className='fs-1 fw-bold my-5 pt-5'>Explore Our Offerings</h1>
+            <p className='col-md-5 pb-5' style={{fontFamily: 'poppins'}}>
             Welcome to BrokerHub, your premier destination for all things real estate. Whether you're buying, selling, or simply exploring, we're here to guide you every step of the way. Discover a seamless experience tailored to your needs, where finding your dream property is just a click away. Embark on a journey through BrokerHub, where your real estate aspirations come to life. Dive into a world of endless possibilities as you explore our curated selection of properties, financial products, and expert advice.
             </p>
           </div>
         </div>
         <div className='bg-light'>
           <div className='container d-flex services-container justify-content-center align-items-center'>
-            <div className='services-logo'>
+            <div className='services-logo my-5'>
               <img src={serviceLogo} alt="" />
             </div>
             <div className='m-5 me-0 services-info'>

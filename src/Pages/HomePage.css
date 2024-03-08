@@ -1,3 +1,18 @@
+.homePage-intro{
+  background-image: url('../components/dylan-gillis-KdeqA3aTnBY-unsplash.jpg');
+  background-size: cover;
+  color: white;
+}
+
+.homePage-intro div{
+  background: linear-gradient(to left, rgb(0 21 41 / 80%) 30%, transparent);
+  line-height: 35px;
+  text-align: right;
+}
+.homePage-intro div p{
+  margin-left: auto;
+}
+
 .services-logo{
   width: 400px;
 }
@@ -7,6 +22,19 @@
 
 .services-info{
   width: 50%;
+}
+
+@media (max-width: 1200px) {
+  .homePage-intro div{
+    background: rgb(0 21 41 / 70%);
+    line-height: 35px;
+    text-align: center;
+  }
+
+  .homePage-intro div p{
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 
 @media (max-width: 1000px) {

@@ -38,7 +38,7 @@ export default function Navbar() {
 
     return (
       <>
-      <Header className=''>
+      <Header>
         <div className='position-relative top-50 start-50 translate-middle'>
         <div className='my-auto d-flex flex-row justify-content-center align-items-center text-light'>
             <Modal title="Authentication"
