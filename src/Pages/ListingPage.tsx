@@ -10,6 +10,9 @@ const LandingPage: React.FC = () => {
       budget: 700000,
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
       contact: '123',
+      transaction: 'Sell',
+      postType: 'Requirement',
+      location: 'Ranchi'
     },
     {
       title: 'Property 2',
@@ -17,6 +20,9 @@ const LandingPage: React.FC = () => {
       budget: 700000,
       image: 'https://via.placeholder.com/300x200',
       contact: '321',
+      transaction: 'Sell',
+      postType: 'Requirement',
+      location: 'Ranchi'
     },                                                                                                                           
     {
       title: 'Property 2',
@@ -24,13 +30,19 @@ const LandingPage: React.FC = () => {
       budget: 700000,
       image: 'https://via.placeholder.com/300x200',
       contact: '123',
+      transaction: 'Sell',
+      postType: 'Requirement',
+      location: 'Ranchi'
     },
     {
       title: 'Property 2',
       description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      budget: 700000,
+      budget: 30,
       image: 'https://via.placeholder.com/300x200',
       contact: '321',
+      transaction: 'Conversion',
+      postType: 'Requirement',
+      location: 'Ranchi'
     },
     {
       title: 'Property 2',
@@ -38,6 +50,9 @@ const LandingPage: React.FC = () => {
       budget: 700000,
       image: '',
       contact: '123',
+      transaction: 'Buy',
+      postType: 'Add',
+      location: 'Ranchi'
     },
     // Add more items as needed
   ];

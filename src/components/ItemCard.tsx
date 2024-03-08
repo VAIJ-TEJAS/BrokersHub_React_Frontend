@@ -12,6 +12,9 @@ interface Item {
   budget: number;
   image: string;
   contact: string;
+  transaction: string;
+  postType: string,
+  location: string,
 }
 
 interface Props {
@@ -38,7 +41,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       cover={item.image !== '' ? <img alt={item.title} src={item.image} /> : ''}
       className='border border-light overflow-hidden'
     >
-      <Modal title="Requirement Details"
+      <Modal title={`${item.postType} Details`}
         open={modalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -46,8 +49,9 @@ const ItemCard: React.FC<Props> = ({ item }) => {
         >
         <ExpandCard item={item}/>
       </Modal>
-      <Meta title={item.title} description={item.description} className='mb-2' />
-      {item.budget == 0 ? '' : <p className='mb-2'>Budget: ${item.budget}</p>}
+      <Meta title={item.title}  description={item.description} className='mb-2' />
+      <p className='mb-2'>Location: <span className='text-secondary'>{item.location}</span></p>
+      <p className='mb-2'>Transaction Type: <span className='text-secondary'>{item.transaction}</span></p>
       <Button type="primary" onClick={showModal}>View Details</Button>
     </Card>
   );

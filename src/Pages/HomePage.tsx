@@ -20,7 +20,7 @@ export default function HomePage() {
         </div>
         <div className='bg-light'>
           <div className='container d-flex services-container justify-content-center align-items-center'>
-            <div className='services-logo my-5'>
+            <div className='services-logo my-5 rounded overflow-hidden'>
               <img src={serviceLogo} alt="" />
             </div>
             <div className='m-5 me-0 services-info'>
