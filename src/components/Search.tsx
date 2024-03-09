@@ -6310,6 +6310,7 @@ const Search: React.FC = () => {
 
   const handleStateChange = (value: string) => {
     setState(value)
+    setCity('Select City')
   }
 
   const itemsList = [ 'Property', 'Laptop', 'Car']
@@ -6339,7 +6340,7 @@ const Search: React.FC = () => {
 
               <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
-                xl:w-40
+                xl:w-60
               ' onClick={toggleState}>
                     <div className='px-2'>
                       <div className='text-yellow-500'>State</div>
@@ -6379,47 +6380,48 @@ const Search: React.FC = () => {
                     />
               </div>
 
-              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-40
-              ' onClick={toggleCity}>
-                    <div className='px-2'>
-                      <div className='text-yellow-500'>City</div>
-                      <div className='text-white'>{city}</div>
-                    </div>
-                    <Select
-                      open={CityOpen}
-                      className='absolute w-0 h-0'
-                      defaultValue="One Way Trip"
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleFromChange}
-                      onDropdownVisibleChange={(open) => setCityOpen(open)}
-                      options={
-                        filteredCity.map(option => {
-                          return {
-                            value: option.value,
-                            label: option.value,
-                          };
-                        })
-                      }
-                      dropdownRender={menu => (
-                        <div>
-                          <Input 
-                            placeholder="City Name"
-                            onChange={(e) => {
-                              setInputCity(e.target.value)
-                              let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
-                                                      .map(option => (option));
-                                                      setFilteredCity(filtered);
-                            }} 
-                            onClick={e => e.stopPropagation()}
-                            style={{ width: '100%', marginBottom: 8 }}
-                          />
-                          {menu}
+              {state !== 'Select State' && 
+                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+                    w-36
+                    xl:w-40
+                ' onClick={toggleCity}>
+                        <div className='px-2'>
+                        <div className='text-yellow-500'>City</div>
+                        <div className='text-white'>{city}</div>
                         </div>
-                      )}
-                    />
-              </div>
+                        <Select
+                        open={CityOpen}
+                        className='absolute w-0 h-0'
+                        defaultValue="One Way Trip"
+                        style={{ visibility: 'hidden', width: '100%' }}
+                        onChange={handleFromChange}
+                        onDropdownVisibleChange={(open) => setCityOpen(open)}
+                        options={
+                            cities.filter(city => city.state === state) // Filter cities by selected state
+                                            .map(city => ({
+                                                value: city.value,
+                                                label: city.value
+                                            }))
+                        }
+                        dropdownRender={menu => (
+                            <div>
+                            <Input 
+                                placeholder="City Name"
+                                onChange={(e) => {
+                                setInputCity(e.target.value)
+                                let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
+                                                        .map(option => (option));
+                                                        setFilteredCity(filtered);
+                                }} 
+                                onClick={e => e.stopPropagation()}
+                                style={{ width: '100%', marginBottom: 8 }}
+                            />
+                            {menu}
+                            </div>
+                        )}
+                        />
+                </div>
+                }
 
               <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
