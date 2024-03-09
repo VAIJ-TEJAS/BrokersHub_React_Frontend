@@ -2,15 +2,15 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Carousel } from "antd";
-import carLogo from "../components/sample1.jpg";
-import slider2 from "../components/sample2.jpg"
-import slider3 from "../components/sample3.jpg"
+import sample1 from "../components/sample1.jpg";
+import sample2 from "../components/sample2.jpg";
+import sample3 from "../components/sample3.jpg";
 import "./HomePage.css";
 import ItemCard from "../components/ItemCard";
-import testimonial1 from "../components/testimonial-01.png"
-import testimonial2 from "../components/testimonial-02.png"
-import testimonial3 from "../components/testimonial-03.png"
-import StepsForPost from "../components/StepsForPost"
+import testimonial1 from "../components/testimonial-01.png";
+import testimonial2 from "../components/testimonial-02.png";
+import testimonial3 from "../components/testimonial-03.png";
+import StepsForPost from "../components/StepsForPost";
 
 const HomePage: React.FC = () => {
 
@@ -49,9 +49,9 @@ const HomePage: React.FC = () => {
       <div className="">
         <Navbar />
       </div>
-      <Carousel>
+      <Carousel autoplay>
         <div>
-          <h3 className="border-bottom" style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
+          <h3 className="border-bottom" style={{ ...contentStyle, backgroundImage: `url(${sample1})` }}>
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
           </h3>
         </div>
         <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${slider2})` }}>
+          <h3 style={{ ...contentStyle, backgroundImage: `url(${sample2})` }}>
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
           </h3>
         </div>
         <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${slider3})` }}>
+          <h3 style={{ ...contentStyle, backgroundImage: `url(${sample3})` }}>
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
