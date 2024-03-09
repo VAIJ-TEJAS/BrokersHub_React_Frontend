@@ -6351,10 +6351,10 @@ const PostRequirement = () => {
                                     value={formik.values.state}
                                     onChange={(value) => {
                                         formik.setFieldValue('state', value);
+                                        formik.setFieldValue('location', '');
                                     }}
                                     onSearch={onSearch}
                                     filterOption={filterOption}
-                                    // options={stateList}
                                     options={stateList.map(city => {
                                         return {
                                             value: city.value,
@@ -6373,16 +6373,10 @@ const PostRequirement = () => {
                                         optionFilterProp="children"
                                         value={formik.values.location}
                                         onChange={(value) => {
-                                            // formik.setFieldValue('location', value);
-                                            value = value.trim();
-                                            const words = value.split(',');
-                                            console.log(value)
-                                            formik.setFieldValue('location', words[0]);
-                                            formik.setFieldValue('state', words[1]);
+                                            formik.setFieldValue('location', value);
                                         }}
                                         onSearch={onSearch}
                                         filterOption={filterOption}
-                                        // options={cities}
                                         options={cities
                                             .filter(city => city.state === formik.values.state) // Filter cities by selected state
                                             .map(city => ({
