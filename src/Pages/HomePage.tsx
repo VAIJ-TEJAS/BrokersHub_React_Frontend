@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Carousel } from "antd";
+import { Carousel, Timeline } from "antd";
 import sample1 from "../components/sample1.jpg";
 import sample2 from "../components/sample2.jpg";
 import sample3 from "../components/sample3.jpg";
@@ -186,12 +186,24 @@ const HomePage: React.FC = () => {
         </div>
         <div className="my-5 px-5 w-auto" >
           <h1 className="fs-1">About Listing</h1>
-          <ul className="" style={{listStyleType: 'disc'}}>
-            <li className="py-2">When the user clicks on the "View Details" button, a modal pops up showing expanded details of the item. This modal contains additional information about the item, such as its type and other properties.</li>
-            <li className="py-2">The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.</li>
-            <li className="py-2">Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.</li>
-            <li className="py-2">The card has a "View Details" button that allows users to see more information about the item. Clicking this button opens the modal, providing a more comprehensive view of the item's details</li>
-          </ul>
+          <div className="mt-4">
+            <Timeline
+              items={[
+                {
+                  children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the item. This modal contains additional information about the item, such as its type and other properties.',
+                },
+                {
+                  children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
+                },
+                {
+                  children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
+                },
+                {
+                  children: 'The card has a "View Details" button that allows users to see more information about the item. Clicking this button opens the modal, providing a more comprehensive view of the items details.',
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
 

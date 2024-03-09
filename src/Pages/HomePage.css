@@ -47,6 +47,7 @@
   }
 }
 
+
 @media (max-width: 850px) {
   .about-listing {
     flex-direction: column;
@@ -241,6 +242,10 @@
 
 
 /* steps section  */
+.postSteps-img{
+  height: 500px !important;
+}
+
 @media (max-width: 850px) {
   .postSteps-container{
     flex-direction: column;
