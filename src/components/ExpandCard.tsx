@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import './Navbar.css'
+import { Button } from 'antd';
+import { PhoneOutlined } from '@ant-design/icons';
 
 interface Item {
   title: string;
@@ -24,47 +25,55 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
   return (
     <div className="property-card">
       {item.image && <div className="property-image">
-        <img src={item.image} alt={item.title} />
+        <img src={item.image} className='shadow w-100' alt={item.title} />
       </div>}
-      <div className="property-details">
-        <h3 className="property-title fw-bold">{item.title}</h3>
-        {item.transaction && 
-            <p className="property-transaction">
-            <strong>Transaction type:</strong> {item.transaction}
-        </p>}
+      <div className="property-details px-4">
+        <div className='my-4 d-flex justify-between align-items-center border-3 p-3 rounded'>
+          <h3 className="property-title fs-2 fw-bold">{item.title}</h3>
+          {item.transaction && 
+              <p className="property-transaction shadow rounded bg-warning px-4 py-1">
+              <strong>{item.transaction}</strong> 
+          </p>}
+        </div>
 
-        {item.transaction=="Rent" &&
-            <p className="property-budget">
-          <strong>Rent amount:</strong> ₹{item.budget}
-        </p>}
+        <ul style={{listStyleType: 'disc'}}>
+          {item.transaction=="Rent" &&
+              <li className="property-budget">
+            <strong>Rent amount:</strong> ₹{item.budget}
+          </li>}
 
-        {item.transaction=="Conversion" &&
-            <p className="property-budget">
-          <strong>Down payment:</strong> {item.budget}%
-        </p>}
+          {item.transaction=="Conversion" &&
+              <li className="property-budget">
+            <strong>Down payment:</strong> {item.budget}%
+          </li>}
 
-        {item.transaction=="Buy" &&
-            <p className="property-budget">
-          <strong>Budget:</strong> ₹{item.budget}
-        </p>}
+          {item.transaction=="Buy" &&
+              <li className="property-budget">
+            <strong>Budget:</strong> ₹{item.budget}
+          </li>}
 
-        {item.transaction=="Sell" &&
-            <p className="property-budget">
-          <strong>Price:</strong> ₹{item.budget}
-        </p>}
-        
-        {item.contact && (
-            <p className="property-contact">
-            <strong>Contact:</strong> {item.contact}
-          </p>
-        )}
+          {item.transaction=="Sell" &&
+              <li className="property-budget">
+            <strong>Price:</strong> ₹{item.budget}
+          </li>}
 
-        <p className="property-contact">
-            <strong>Location:</strong> {item.location}, {item.state}
-          </p>
+          <li className="property-contact">
+              <strong>Location:</strong> {item.location}, {item.state}
+          </li>
+        </ul>
+
         <p className="property-description">{item.description}</p>
 
-        <button className="btn btn-primary w-100 mt-2">Yes, Make offer!</button>
+        <div className='d-flex px-3 mt-3 justify-between'>
+          <Button type="primary" className='col-5' icon={<PhoneOutlined />}>
+            {item.contact}
+          </Button>
+          <Button className='col-5' type="primary">
+            Yes, Make offer!
+          </Button>
+          {/* <button className="btn btn-primary mt-2">Yes, Make offer!</button> */}
+          
+        </div>
       </div>
     </div>
   );

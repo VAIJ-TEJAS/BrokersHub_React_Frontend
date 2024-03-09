@@ -95,9 +95,18 @@
 }
 
 .property-card{
-    /* width: 70%; */
     min-width: 600px;
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.property-details{
+    width: 100%;
+}
+
+.property-card div:nth-child(2){
+    width: 100%;
 }
 
 @media (max-width: 800px) {

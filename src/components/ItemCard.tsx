@@ -41,7 +41,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       hoverable
       style={{ width: 270, margin: '16px'}}
       cover={item.image !== '' ? <img alt={item.title} src={item.image} /> : ''}
-      className=' overflow-hidden'
+      className='overflow-hidden'
     >
       <Modal title={`${item.postType} Details`}
         open={modalVisible}
