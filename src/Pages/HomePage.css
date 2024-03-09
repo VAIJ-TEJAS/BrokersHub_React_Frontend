@@ -238,3 +238,15 @@
     transform: translateX(0px);
   }
 }
+
+
+/* steps section  */
+@media (max-width: 850px) {
+  .postSteps-container{
+    flex-direction: column;
+  }
+
+  .postSteps-img{
+    height: 300px !important;
+  }
+}
