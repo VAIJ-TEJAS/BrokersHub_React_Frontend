@@ -247,6 +247,26 @@
   }
 
   .postSteps-img{
-    height: 300px !important;
+    height: 450px !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .postSteps-container{
+    flex-direction: column;
+  }
+
+  .postSteps-img{
+    height: 350px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .postSteps-container{
+    flex-direction: column;
+  }
+
+  .postSteps-img{
+    height: 240px !important;
   }
 }

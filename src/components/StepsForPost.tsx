@@ -11,17 +11,17 @@ const StepsForPost = () => {
 
   const steps = [
     {
-      title: 'Select Post Type',
+      title: 'Enter post details',
       content: '',
       image: step1,
     },
     {
-      title: 'Add Details',
+      title: 'Review your information from card',
       content: '',
       image: step2,
     },
     {
-      title: 'Upload Images',
+      title: 'Submit',
       content: '',
       image: step3,
     },
@@ -45,16 +45,16 @@ const StepsForPost = () => {
         </Steps>
       </div>
       <div style={{ flex: 2 }}>
-        <div style={{ display: currentStep === 0 ? 'block' : 'none' }}>
-          <img style={{height: '500px'}} className='postSteps-img' src={steps[0].image} alt={steps[0].title} />
+        <div className='postSteps-img' style={{ display: currentStep === 0 ? 'block' : 'none' }}>
+          <img className='h-100' src={steps[0].image} alt={steps[0].title} />
           <p>{steps[0].content}</p>
         </div>
-        <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
-          <img style={{height: '500px'}} className='postSteps-img' src={steps[1].image} alt={steps[1].title} />
+        <div className='postSteps-img' style={{ display: currentStep === 1 ? 'block' : 'none' , height: '500px'}}>
+          <img className='h-100' src={steps[1].image} alt={steps[1].title} />
           <p>{steps[1].content}</p>
         </div>
-        <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
-          <img style={{height: '500px'}} className='postSteps-img' src={steps[2].image} alt={steps[2].title} />
+        <div className='postSteps-img' style={{ display: currentStep === 2 ? 'block' : 'none' }}>
+          <img className='h-100' src={steps[2].image} alt={steps[2].title} />
           <p>{steps[2].content}</p>
         </div>
         <div style={{ marginTop: '24px' }}>
