@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Steps, Button, message } from 'antd';
+import { Steps, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import step1 from "./step1.png";
 import step2 from "./step2.png"
 import step3 from "./step3.png"
@@ -67,6 +68,9 @@ const StepsForPost = () => {
             <Button type="primary" onClick={nextStep}>
               Next
             </Button>
+          )}
+          {currentStep == steps.length - 1 && (
+            <Link to='/PostAdd' className='btn btn-warning'>Post Add</Link>
           )}
         </div>
       </div>

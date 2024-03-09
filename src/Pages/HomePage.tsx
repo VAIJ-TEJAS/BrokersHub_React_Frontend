@@ -208,75 +208,84 @@ const HomePage: React.FC = () => {
       </div>
 
       <div className="m-5">
-        <h1 className="fs-1 text-center mb-5">Steps For Creatin a Post</h1>
+        <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1>
         <StepsForPost />
       </div>
 
       {/* testimonial-content */}
       <section className="testimonials">
-      <div className="container">
-        <div className="title">
-          <h1>Testimonials</h1>
-        </div>
-
-        <div className="slider-indicator">
-          <img
-            src={testimonial1}
-            className={activeSlide === 0 ? "active" : ""}
-            alt="img"
-            data-id="0"
-            onClick={() => handleSlideChange(0)}
-          />
-          <img
-            src={testimonial2}
-            className={activeSlide === 1 ? "active" : ""}
-            alt="img"
-            data-id="1"
-            onClick={() => handleSlideChange(1)}
-          />
-          <img
-            src={testimonial3}
-            className={activeSlide === 2 ? "active" : ""}
-            alt="img"
-            data-id="2"
-            onClick={() => handleSlideChange(2)}
-          />
-        </div>
-
-        <div className="slider">
-          <div className={activeSlide === 0 ? "slide active" : "slide"}>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                minima velit!	
-              </p>
+        <div className="container">
+          <div className="title">
+            <h1>Testimonials</h1>
           </div>
-          <div className={activeSlide === 1 ? "slide active" : "slide"}>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                minima velit!	
-              </p>
-          </div>
-          <div className={activeSlide === 2 ? "slide active" : "slide"}>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                minima velit!	
-              </p>
-              <div className="client-info">
-                <h3>Jack</h3>
-                <span>Founder at Zim</span>
+
+          <div className="slider-indicator d-flex flex-wrap justify-content-center">
+            <div className="m-5" style={{minWidth: '250px'}}>
+              <img
+                src={testimonial1}
+                className="active mb-4"
+                alt="img"
+                data-id="0"
+              />
+              <div className="slider">
+                <div className="slide active">
+                  <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
+                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
+                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
+                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
+                      minima velit!	
+                    </p>
+                </div>
               </div>
+            </div>
+
+            <div className="m-5" style={{minWidth: '250px'}}>
+              <img
+                src={testimonial2}
+                className="active mb-4"
+                alt="img"
+                data-id="1"
+              />
+              <div className="slider">
+                <div className="slide active">
+                  <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
+                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
+                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
+                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
+                      minima velit!	
+                    </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="m-5" style={{minWidth: '250px'}}>
+              <img
+                src={testimonial3}
+                className="active mb-4"
+                alt="img"
+                data-id="2"
+              />
+              <div className="slider">
+                <div className="slide active">
+                  <p>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
+                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
+                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
+                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
+                      minima velit!	
+                    </p>
+                    <div className="client-info">
+                      <h3>Jack</h3>
+                      <span>Founder at Zim</span>
+                    </div>
+                </div>
+              </div>
+            </div>
           </div>
+          
         </div>
-      </div>
       </section>
       
       
