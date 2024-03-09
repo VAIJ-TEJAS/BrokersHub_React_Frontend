@@ -2,13 +2,15 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Carousel } from "antd";
-import serviceLogo from "../components/tierra-mallorca-rgJ1J8SDEAY-unsplash.jpg";
 import carLogo from "../components/sample1.jpg";
+import slider2 from "../components/sample2.jpg"
+import slider3 from "../components/sample3.jpg"
 import "./HomePage.css";
 import ItemCard from "../components/ItemCard";
 import testimonial1 from "../components/testimonial-01.png"
 import testimonial2 from "../components/testimonial-02.png"
 import testimonial3 from "../components/testimonial-03.png"
+import StepsForPost from "../components/StepsForPost"
 
 const HomePage: React.FC = () => {
 
@@ -18,31 +20,11 @@ const HomePage: React.FC = () => {
     setActiveSlide(index);
   };
 
-  // const slides = document.querySelector(".slider").children;
-  // const indicatorImages = document.querySelector(".slider-indicator").children;
-
-  // for(let i=0; i<indicatorImages.length; i++){
-  //   indicatorImages[i].addEventListener("click", function(){
-
-  //     for(let j=0; j<indicatorImages.length; j++){
-  //       indicatorImages[j].classList.remove("active");
-  //     }
-  //     this.classList.add("active");
-  //     const id=this.getAttribute("data-id");
-  //     for(let j=0; j<slides.length; j++){
-  //       slides[j].classList.remove("active");
-  //     }
-
-  //     slides[id].classList.add("active");
-  //   })
-  // }
-
   const contentStyle: React.CSSProperties = {
     height: "550px",
     color: "#fff",
     lineHeight: "60px",
     textAlign: "center",
-    backgroundImage: `url(${carLogo})`, //primary-5
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
@@ -69,90 +51,52 @@ const HomePage: React.FC = () => {
       </div>
       <Carousel autoplay>
         <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
+          <h3 className="border-bottom" style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
             <div className="homePage-intro h-100">
-              <div className="p-5">
-                <h1 className="fs-1 fw-bold my-5 pt-5">
+              <div className="p-5 h-100">
+                <h1 className="fs-1 fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
                   Explore Our Offerings
                 </h1>
-                <p className="col-md-5 pb-5" style={{ fontFamily: "poppins" }}>
+                <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
                   Welcome to BrokerHub, your premier destination for all things
                   real estate. Whether you're buying, selling, or simply
                   exploring, we're here to guide you every step of the way.
-                  Discover a seamless experience tailored to your needs, where
-                  finding your dream property is just a click away. Embark on a
-                  journey through BrokerHub, where your real estate aspirations
-                  come to life. Dive into a world of endless possibilities as
-                  you explore our curated selection of properties, financial
-                  products, and expert advice.
                 </p>
               </div>
             </div>
           </h3>
         </div>
         <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
-            <div className="homePage-intro">
-              <div className="p-5">
-                <h1 className="fs-1 fw-bold my-5 pt-5">
-                  Explore Our Offerings
+          <h3 style={{ ...contentStyle, backgroundImage: `url(${slider2})` }}>
+            <div className="homePage-intro h-100">
+              <div className="p-5 h-100">
+                <h1 className="fs-1 fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
+                  Redefining Excellence
                 </h1>
-                <p className="col-md-5 pb-5" style={{ fontFamily: "poppins" }}>
-                  Welcome to BrokerHub, your premier destination for all things
-                  real estate. Whether you're buying, selling, or simply
-                  exploring, we're here to guide you every step of the way.
-                  Discover a seamless experience tailored to your needs, where
-                  finding your dream property is just a click away. Embark on a
-                  journey through BrokerHub, where your real estate aspirations
-                  come to life. Dive into a world of endless possibilities as
-                  you explore our curated selection of properties, financial
-                  products, and expert advice.
+                <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
+                Embracing a relentless pursuit of perfection, we at BrokerHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication. Discover the embodiment of refinement and sophistication with BrokerHub.
                 </p>
               </div>
             </div>
           </h3>
         </div>
         <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
-            <div className="homePage-intro">
-              <div className="p-5">
-                <h1 className="fs-1 fw-bold my-5 pt-5">
-                  Explore Our Offerings
+          <h3 style={{ ...contentStyle, backgroundImage: `url(${slider3})` }}>
+            <div className="homePage-intro h-100">
+              <div className="p-5 h-100">
+                <h1 className="fs-1 fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
+                Join Our Growing Community
                 </h1>
-                <p className="col-md-5 pb-5" style={{ fontFamily: "poppins" }}>
-                  Welcome to BrokerHub, your premier destination for all things
-                  real estate. Whether you're buying, selling, or simply
-                  exploring, we're here to guide you every step of the way.
-                  Discover a seamless experience tailored to your needs, where
-                  finding your dream property is just a click away. Embark on a
-                  journey through BrokerHub, where your real estate aspirations
-                  come to life. Dive into a world of endless possibilities as
-                  you explore our curated selection of properties, financial
-                  products, and expert advice.
+                <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
+                Join our growing community and become part of a vibrant network of individuals who share your interests and passions. Whether you're a seasoned expert or just starting out, our community welcomes everyone with open arms. Connect with like-minded individuals, share experiences.
                 </p>
               </div>
             </div>
           </h3>
         </div>
       </Carousel>
-      {/* <div>
-        <div className='bg-light'>
-          <div className='container d-flex services-container justify-content-center align-items-center'>
-            <div className='services-logo my-5 rounded overflow-hidden'>
-              <img src={serviceLogo} alt="" />
-            </div>
-            <div className='m-5 me-0 services-info'>
-              <div className='my-auto'>
-                <h2 className='fs-1 fw-bold'>Services</h2>
-                <p className='mt-3' style={{fontFamily: 'poppins'}}>
-                At BrokerHub, we offer a range of services tailored to your real estate needs. From posting your specific requirements to listing your properties, we provide a seamless platform to connect buyers and sellers effortlessly. Whether you're looking to buy, sell, or rent, our services empower you to navigate the real estate market with confidence. Experience convenience, efficiency, and reliability with BrokerHub as your trusted real estate partner.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
+      {/* services section  */}
       <div className="services-section">
         <div className="inner-width">
           <h1 className="section-title">Our Services </h1>
@@ -162,9 +106,9 @@ const HomePage: React.FC = () => {
               <div className="service-icon">
                 <i className="fa fa-paint-brush"> </i>
               </div>
-              <div className="service-title"> Service Name </div>
+              <div className="service-title"> Consultation Services </div>
               <div className="service-desc">
-                Here's a description of the Service Name
+              Providing personalized advice and expertise in various fields such as business, finance, health, or education.
               </div>
             </div>
 
@@ -172,9 +116,9 @@ const HomePage: React.FC = () => {
               <div className="service-icon">
                 <i className="fas fa-code"> </i>
               </div>
-              <div className="service-title"> Service Name </div>
+              <div className="service-title"> Training and Workshops </div>
               <div className="service-desc">
-                Here's a description of the Service Name
+              Offering educational programs and hands-on workshops to develop skills, enhance knowledge, and stay updated with industry trends.
               </div>
             </div>
 
@@ -182,9 +126,9 @@ const HomePage: React.FC = () => {
               <div className="service-icon">
                 <i className="fas fa-brush"> </i>
               </div>
-              <div className="service-title"> Service Name </div>
+              <div className="service-title"> Networking Events </div>
               <div className="service-desc">
-                Here's a description of the Service Name
+              Organizing gatherings, meetups, and conferences to facilitate networking opportunities, collaboration, and relationship-building among community members.
               </div>
             </div>
 
@@ -192,19 +136,9 @@ const HomePage: React.FC = () => {
               <div className="service-icon">
                 <i className="fas fa-object-ungroup"> </i>
               </div>
-              <div className="service-title"> Service Name </div>
+              <div className="service-title"> Mentorship Programs </div>
               <div className="service-desc">
-                Here's a description of the Service Name
-              </div>
-            </div>
-
-            <div className="service-box">
-              <div className="service-icon">
-                <i className="fas fa-database"> </i>
-              </div>
-              <div className="service-title"> Service Name </div>
-              <div className="service-desc">
-                Here's a description of the Service Name
+              Pairing experienced professionals with mentees to provide guidance, support, and career development opportunities.
               </div>
             </div>
 
@@ -212,15 +146,27 @@ const HomePage: React.FC = () => {
               <div className="service-icon">
                 <i className="fab fa-android"> </i>
               </div>
-              <div className="service-title"> Service Name </div>
+              <div className="service-title"> Resource Hub </div>
               <div className="service-desc">
-                Here's a description of the Service Name
+              Curating a repository of resources including articles, guides, templates, and tools to assist members in their personal and professional endeavors.
               </div>
             </div>
+
+            <div className="service-box">
+              <div className="service-icon">
+                <i className="fas fa-database"> </i>
+              </div>
+              <div className="service-title"> Community Support Groups </div>
+              <div className="service-desc">
+              Establishing support groups or forums where members can share experiences, seek advice, and receive encouragement from peers facing similar challenges.
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
+      {/* about listing section */}
       <div className="about-listing p-5 bg-light w-100 d-flex">
         <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
           <ItemCard item={items[0]} />
@@ -236,8 +182,12 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
+      <div className="m-5">
+        <h1 className="fs-1 text-center mb-5">Steps For Creatin a Post</h1>
+        <StepsForPost />
+      </div>
 
-
+      {/* testimonial-content */}
       <section className="testimonials">
       <div className="container">
         <div className="title">
@@ -302,7 +252,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
       
       
     </div>
