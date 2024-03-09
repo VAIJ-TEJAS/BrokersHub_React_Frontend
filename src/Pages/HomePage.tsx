@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
   };
 
   const contentStyle: React.CSSProperties = {
-    height: "auto",
+    height: "600px",
     color: "#fff",
     lineHeight: "60px",
     textAlign: "center",
@@ -53,15 +53,17 @@ const HomePage: React.FC = () => {
         <div>
           <h3 className="border-bottom" style={{ ...contentStyle, backgroundImage: `url(${carLogo})` }}>
             <div className="homePage-intro h-100">
-              <div className="p-5 h-100">
-                <h1 className="fs-1 fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
-                  Explore Our Offerings
-                </h1>
-                <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
-                  Welcome to BrokerHub, your premier destination for all things
-                  real estate. Whether you're buying, selling, or simply
-                  exploring, we're here to guide you every step of the way.
-                </p>
+              <div className="homePage-info p-5 h-100 d-flex align-items-center">
+                <div>
+                  <h1 className="fs-1 fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
+                    Explore Our Offerings
+                  </h1>
+                  <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
+                    Welcome to BrokerHub, your premier destination for all things
+                    real estate. Whether you're buying, selling, or simply
+                    exploring, we're here to guide you every step of the way.
+                  </p>
+                </div>
               </div>
             </div>
           </h3>
@@ -69,13 +71,15 @@ const HomePage: React.FC = () => {
         <div>
           <h3 style={{ ...contentStyle, backgroundImage: `url(${slider2})` }}>
             <div className="homePage-intro h-100">
-              <div className="p-5 h-100">
-                <h1 className="fs-1 fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
-                  Redefining Excellence
-                </h1>
-                <p className="col-md-5  fs-5" style={{ fontFamily: "poppins" }}>
-                Embracing a relentless pursuit of perfection, we at BrokerHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
-                </p>
+              <div className="homePage-info p-5 h-100 d-flex align-items-center">
+                <div>
+                  <h1 className="fs-1 fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
+                    Redefining Excellence
+                  </h1>
+                  <p className="col-md-5  fs-5" style={{ fontFamily: "poppins" }}>
+                  Embracing a relentless pursuit of perfection, we at BrokerHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
+                  </p>
+                </div>
               </div>
             </div>
           </h3>
@@ -83,13 +87,16 @@ const HomePage: React.FC = () => {
         <div>
           <h3 style={{ ...contentStyle, backgroundImage: `url(${slider3})` }}>
             <div className="homePage-intro h-100">
-              <div className="p-5 h-100">
-                <h1 className="fs-1 fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
-                Join Our Growing Community
-                </h1>
-                <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
-                Join our growing community and become part of a vibrant network of individuals who share your interests and passions. Whether you're a seasoned expert or just starting out, our community welcomes everyone with open arms.
-                </p>
+              <div className="homePage-info p-5 h-100 d-flex align-items-center">
+                <div>
+
+                  <h1 className="fs-1 fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
+                  Join Our Growing Community
+                  </h1>
+                  <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
+                  Join our growing community and become part of a vibrant network of individuals who share your interests and passions. Whether you're a seasoned expert or just starting out, our community welcomes everyone with open arms.
+                  </p>
+                </div>
               </div>
             </div>
           </h3>
