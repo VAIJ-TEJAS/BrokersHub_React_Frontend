@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       budget: 700000,
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
-      contact: '123',
+      contact: '1234567890',
       transaction: 'Sell',
       postType: 'Requirement',
       location: 'Ranchi',
@@ -180,11 +180,11 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* about listing section */}
-      <div className="about-listing p-5 bg-light w-100 d-flex">
+      <div className="about-listing p-5 bg-light w-100 d-flex justify-between align-items-center">
         <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
           <ItemCard item={items[0]} />
         </div>
-        <div className="my-5 px-5 w-auto" >
+        <div className="my-5 col-md-8" >
           <h1 className="fs-1">About Listing</h1>
           <div className="mt-4">
             <Timeline
@@ -219,8 +219,8 @@ const HomePage: React.FC = () => {
             <h1>Testimonials</h1>
           </div>
 
-          <div className="slider-indicator d-flex flex-wrap justify-content-center">
-            <div className="m-5" style={{minWidth: '250px'}}>
+          <div className="slider-indicator d-flex flex-wrap justify-content-evenly">
+            <div className="my-5" style={{minWidth: '250px'}}>
               <img
                 src={testimonial1}
                 className="active mb-4"
@@ -240,7 +240,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="m-5" style={{minWidth: '250px'}}>
+            <div className="my-5" style={{minWidth: '250px'}}>
               <img
                 src={testimonial2}
                 className="active mb-4"
@@ -260,7 +260,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
 
-            <div className="m-5" style={{minWidth: '250px'}}>
+            <div className="my-5" style={{minWidth: '250px'}}>
               <img
                 src={testimonial3}
                 className="active mb-4"

@@ -25,18 +25,18 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
   return (
     <div className="property-card">
       {item.image && <div className="property-image">
-        <img src={item.image} className='shadow w-100' alt={item.title} />
+        <img src={item.image} className='rounded w-100' alt={item.title} />
       </div>}
-      <div className="property-details px-4">
-        <div className='my-4 d-flex justify-between align-items-center border-3 p-3 rounded'>
-          <h3 className="property-title fs-2 fw-bold">{item.title}</h3>
+      <div className="property-details">
+        <div className='my-4 d-flex justify-between align-items-center border-2 border-black p-3 rounded'>
+          <h3 className="property-title fs-3" style={{fontFamily: 'Montserrat'}}>{item.title}</h3>
           {item.transaction && 
               <p className="property-transaction shadow rounded bg-warning px-4 py-1">
               <strong>{item.transaction}</strong> 
           </p>}
         </div>
 
-        <ul style={{listStyleType: 'disc'}}>
+        <ul className='px-3' style={{listStyleType: 'disc'}}>
           {item.transaction=="Rent" &&
               <li className="property-budget">
             <strong>Rent amount:</strong> ₹{item.budget}
@@ -62,13 +62,13 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
           </li>
         </ul>
 
-        <p className="property-description">{item.description}</p>
+        <p className="property-description mt-3">{item.description}</p>
 
-        <div className='d-flex px-3 mt-3 justify-between'>
-          <Button type="primary" className='col-5' icon={<PhoneOutlined />}>
+        <div className='d-flex mt-3 justify-between'>
+          <Button type="primary" style={{width: '49%'}} icon={<PhoneOutlined />}>
             {item.contact}
           </Button>
-          <Button className='col-5' type="primary">
+          <Button style={{width: '49%'}} type="primary">
             Yes, Make offer!
           </Button>
           {/* <button className="btn btn-primary mt-2">Yes, Make offer!</button> */}
