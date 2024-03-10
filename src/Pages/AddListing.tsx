@@ -2,7 +2,8 @@ import React from 'react';
 import BrokerWebsiteLayout from '../components/BrokerWebsiteLayout';
 import ItemCard from '../components/ItemCard';
 
-const LandingPage: React.FC = () => {
+const AddListing: React.FC = () => {
+
   const items = [
     {
       title: 'Property 1',
@@ -52,30 +53,20 @@ const LandingPage: React.FC = () => {
       state: 'Jharkhand',
       ratio: 20,
     },
-    {
-      title: 'Property 2',
-      description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      budget: 700000,
-      image: '',
-      contact: '123',
-      transaction: 'Buy',
-      postType: 'Add',
-      state: 'Jharkhand',
-      location: 'Ranchi',
-      ratio: 0,
-    },
     // Add more items as needed
   ];
 
   return (
-    <BrokerWebsiteLayout>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {items.map((item, index) => (
-          <ItemCard key={index} item={item} />
-        ))}
-      </div>
-    </BrokerWebsiteLayout>
-  );
-};
+    <div>
+      <BrokerWebsiteLayout page='Add'>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {items.map((item, index) => (
+            <ItemCard key={index} item={item} />
+          ))}
+        </div>
+      </BrokerWebsiteLayout>
+    </div>
+  )
+}
 
-export default LandingPage;
+export default AddListing;

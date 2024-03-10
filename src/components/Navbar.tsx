@@ -10,7 +10,8 @@ const { Header } = Layout;
 
 const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
-    { key: '2', label: 'Listing', link: '/Listing' },
+    { key: '2', label: 'Adds Listing', link: '/addsListing' },
+    { key: '3', label: 'Requirements Listing', link: '/requirementsListing' },
 ];
 
   
@@ -49,7 +50,7 @@ export default function Navbar() {
             </Modal>
           <Link to="/home" className='my-auto me-5 fs-4'><strong>BrokerHub</strong></Link>
           <div></div>
-          <Menu className='onShort me-3' theme="dark" mode="horizontal" >
+          <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'330px'}}>
             {menuItems.map(item => (
                 <Menu.Item key={item.key} className={location.pathname === item.link ? 'ant-menu-item-selected' : ''} style={{minWidth: '73px'}}>
                     <Link to={item.link}>{item.label}</Link>
@@ -84,14 +85,14 @@ export default function Navbar() {
 
           <ul className='mt-4'>
             <hr />
-            <li className='py-2 ps-2'>
-            <Link to="/home"><strong>Home</strong></Link>
-            </li>
-            <hr />
-            <li className='py-2 ps-2'>
-            <Link to="/Listing"><strong>Listing Page</strong></Link>
-            </li>
-            <hr />
+            {menuItems.map(item => (
+              <>
+                <li key={item.key} className='py-2 ps-2'>
+                  <Link to={item.link}><strong>{item.label}</strong></Link>
+                </li>
+                <hr />
+              </>
+            ))}
             <li className='py-2 ps-2'>
               <Link to="/PostRequirement"><strong>Add Requirement</strong></Link>
             </li>

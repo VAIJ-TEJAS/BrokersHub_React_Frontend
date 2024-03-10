@@ -6,6 +6,10 @@ import { Select, Slider, Input, Button  } from 'antd';
 import { Option } from 'antd/es/mentions';
 import './Navbar.css';
 
+interface props {
+    page: string;
+}
+
 interface OptionType {
   value: string;
   label: string;
@@ -17,7 +21,7 @@ interface cityType{
   state: string;
 }
 
-const Search: React.FC = () => {
+const Search: React.FC<props> = ({page}) => {
   
   const [Item, setItem] = useState<string>("Select Item");
   const [city, setCity] = useState<string>("Select City");
@@ -6329,19 +6333,21 @@ const Search: React.FC = () => {
         <div className='justify-center w-full d-flex '>
           <div className='filter-container flex justify-center bg-[#001529] rounded'>
             <div className='d-flex justify-content-evenly align-items-center w-100 h-full py-2 filter-box'>
-              <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+
+              {/* price range  */}
+              {page === 'Add' &&
+                <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-60' style={{minWidth: '240px'}}>
                   <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
                   <div style={{ marginTop: '5px' }}>
                     <span>Price Range: ₹{rangeValue[0]} - ₹{rangeValue[1]}</span>
                   </div>
-              </div>
+              </div>}
 
-              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-60
-              ' onClick={toggleState}>
+              {/* select state  */}
+              <div className={`filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-60 ${page === 'Add' ? 'xl:w-60': 'xl:w-80'} `}
+                    onClick={toggleState}>
                     <div className='px-2'>
                       <div className='text-yellow-500'>State</div>
                       <div className='text-white'>{state}</div>
@@ -6380,50 +6386,49 @@ const Search: React.FC = () => {
                     />
               </div>
 
+              {/* select city  */}
               {state !== 'Select State' && 
-                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                    w-36
-                    xl:w-40
-                ' onClick={toggleCity}>
-                        <div className='px-2'>
-                        <div className='text-yellow-500'>City</div>
-                        <div className='text-white'>{city}</div>
-                        </div>
-                        <Select
-                        open={CityOpen}
-                        className='absolute w-0 h-0'
-                        defaultValue="One Way Trip"
-                        style={{ visibility: 'hidden', width: '100%' }}
-                        onChange={handleFromChange}
-                        onDropdownVisibleChange={(open) => setCityOpen(open)}
-                        options={
-                            cities.filter(city => city.state === state) // Filter cities by selected state
-                                            .map(city => ({
-                                                value: city.value,
-                                                label: city.value
-                                            }))
-                        }
-                        dropdownRender={menu => (
-                            <div>
-                            <Input 
-                                placeholder="City Name"
-                                onChange={(e) => {
-                                setInputCity(e.target.value)
-                                let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
-                                                        .map(option => (option));
-                                                        setFilteredCity(filtered);
-                                }} 
-                                onClick={e => e.stopPropagation()}
-                                style={{ width: '100%', marginBottom: 8 }}
-                            />
+                <div className={`filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'w-36 xl:w-60': 'w-60 xl:w-80'} `} onClick={toggleCity}>
+                  <div className='px-2'>
+                    <div className='text-yellow-500'>City</div>
+                      <div className='text-white'>{city}</div>
+                    </div>
+                    <Select
+                      open={CityOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handleFromChange}
+                      onDropdownVisibleChange={(open) => setCityOpen(open)}
+                      options={
+                        cities.filter(city => city.state === state).map(city => ({
+                            value: city.value,
+                            label: city.value
+                        }))
+                      }
+                      dropdownRender={menu => (
+                        <div>
+                          <Input 
+                              placeholder="City Name"
+                              onChange={(e) => {
+                              setInputCity(e.target.value)
+                              let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
+                                                      .map(option => (option));
+                                                      setFilteredCity(filtered);
+                              }} 
+                              onClick={e => e.stopPropagation()}
+                              style={{ width: '100%', marginBottom: 8 }}
+                          />
                             {menu}
-                            </div>
-                        )}
-                        />
+                        </div>
+                      )}
+                    />
                 </div>
-                }
+              }
 
-              <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
+              {/* select item  */}
+              {page === 'Add' &&
+                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
                 w-36
                 xl:w-40
               ' onClick={toggleItem}>
@@ -6452,7 +6457,7 @@ const Search: React.FC = () => {
                       ))}
                       {/* Add more States as needed */}
                     </Select>
-              </div>
+              </div>}
 
               <Button className='filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32

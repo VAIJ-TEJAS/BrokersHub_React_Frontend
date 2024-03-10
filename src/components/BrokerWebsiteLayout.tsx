@@ -6,17 +6,12 @@ import Navbar from './Navbar';
 
 const { Content, Footer } = Layout;
 
-
-
 interface Props {
   children: ReactNode;
+  page: string;
 }
 
-const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
-  // const priceThumbRef = useRef<HTMLDivElement>(null);
-
-  
-
+const BrokerWebsiteLayout: React.FC<Props> = ({ page, children }) => {
 
   return (
     <Layout className="layout">
@@ -31,7 +26,7 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ children }) => {
             }}
           >
             <div style={{ marginBottom: '24px' }}>
-              <Filter />
+              <Filter page={page} />
             </div>
             {children}
           </Content>

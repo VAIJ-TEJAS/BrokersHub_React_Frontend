@@ -1,6 +1,7 @@
 import PostRequirement from './Pages/PostRequirement'
 import HomePage from './Pages/HomePage'
-import ListingPage from './Pages/ListingPage'
+import RequirementListingPage from './Pages/RequirementListingPage'
+import AddListing from './Pages/AddListing'
 import PostAdd from './Pages/PostAdd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 
@@ -12,7 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/Listing" element={<ListingPage />} />
+          <Route path="/requirementsListing" element={<RequirementListingPage />} />
+          <Route path="/addsListing" element={<AddListing />} />
           <Route path="/PostRequirement" element={<PostRequirement />} />
           <Route path="/PostAdd" element={<PostAdd />} />
         </Routes>

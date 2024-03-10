@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Carousel, Timeline } from "antd";
 import sample1 from "../components/sample1.jpg";
@@ -13,12 +12,6 @@ import testimonial3 from "../components/testimonial-03.png";
 import StepsForPost from "../components/StepsForPost";
 
 const HomePage: React.FC = () => {
-
-  const [activeSlide, setActiveSlide] = useState<number>(0);
-
-  const handleSlideChange = (index: number) => {
-    setActiveSlide(index);
-  };
 
   const contentStyle: React.CSSProperties = {
     height: "600px",
