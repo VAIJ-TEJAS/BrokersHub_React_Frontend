@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import step1 from "./step1.png";
 import step2 from "./step2.png"
 import step3 from "./step3.png"
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+
 
 const { Step } = Steps;
 
@@ -58,16 +60,12 @@ const StepsForPost = () => {
           <img className='h-100' src={steps[2].image} alt={steps[2].title} />
           <p>{steps[2].content}</p>
         </div>
-        <div style={{ marginTop: '24px' }}>
+        <div className='d-flex' style={{ marginTop: '24px' }}>
           {currentStep > 0 && (
-            <Button style={{ marginRight: '8px' }} onClick={prevStep}>
-              Previous
-            </Button>
+            <Button icon={<ArrowLeftOutlined />} size={'large'} type="primary" style={{ marginRight: '8px' }} onClick={prevStep}><strong>Previous</strong></Button>
           )}
           {currentStep < steps.length - 1 && (
-            <Button type="primary" onClick={nextStep}>
-              Next
-            </Button>
+            <Button size={'large'} type="primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onClick={nextStep}><strong>Next</strong> <ArrowRightOutlined /></Button>
           )}
           {currentStep == steps.length - 1 && (
             <Link to='/PostAdd' className='btn btn-warning'>Post Add</Link>

@@ -180,7 +180,7 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* about listing section */}
-      <div className="about-listing p-5 bg-light w-100 d-flex justify-between align-items-center">
+      <div className="about-listing p-5 bg-light w-100 d-flex justify-evenly align-items-center">
         <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
           <ItemCard item={items[0]} />
         </div>
