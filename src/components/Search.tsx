@@ -6289,7 +6289,7 @@ const Search: React.FC<props> = ({page}) => {
   const [inputState, setInputState] = useState<string>('');
   const [inputCity, setInputCity] = useState<string>('');
   const [filteredStates, setFilteredStates] = useState<OptionType[]>(stateList);
-  const [filteredCity, setFilteredCity] = useState<cityType[]>(cities);
+  const [, setFilteredCity] = useState<cityType[]>(cities);
   
 
   const toggleCity = () => {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Slider } from 'antd';
+import { Form, Input, InputNumber, Button, Select } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
@@ -6272,7 +6272,7 @@ const PostRequirement = () => {
         }
     ]);
 
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload, Slider } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
@@ -6268,7 +6268,7 @@ const PostAdd = () => {
         value: "West Bengal"
         }
     ]);
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {
