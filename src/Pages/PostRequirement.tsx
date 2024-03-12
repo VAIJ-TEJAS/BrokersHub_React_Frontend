@@ -6271,8 +6271,7 @@ const PostRequirement = () => {
         value: "West Bengal"
         }
     ]);
-
-    // const [loading, setLoading] = useState(false);
+    
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {
