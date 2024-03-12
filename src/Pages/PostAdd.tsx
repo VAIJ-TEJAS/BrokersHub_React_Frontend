@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload, Slider } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
@@ -6268,7 +6268,7 @@ const PostAdd = () => {
         value: "West Bengal"
         }
     ]);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {
@@ -6282,7 +6282,6 @@ const PostAdd = () => {
                 budget: 0,
                 location: '',
                 state: '',
-                contact: '',
                 mode: 'Conversion',
                 postType: 'Add',
                 ratio: 0,
@@ -6298,7 +6297,6 @@ const PostAdd = () => {
             location: '',
             state: '',
             budget: 0,
-            contact: '',
             mode: 'Conversion',
             postType: 'Add',
             ratio: 0,
@@ -6522,24 +6520,14 @@ const PostAdd = () => {
                                 </Form.Item>
                             }
 
-                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the contact information!' }]}
+                            <Button
+                                type='primary'
+                                className='bg-[#1890FF] w-full font-semibold'
+                                htmlType='submit'
+                                // loading={loading}
                             >
-                                <Input
-                                    onChange={(e) => {
-                                        formik.setFieldValue('contact', e.target.value);
-                                    }}
-                                    value={formik.values.contact}
-                                />
-                            </Form.Item>
-
-                                <Button
-                                    type='primary'
-                                    className='bg-[#1890FF] w-full font-semibold'
-                                    htmlType='submit'
-                                    loading={loading}
-                                >
-                                    Submit
-                                </Button>
+                                Submit
+                            </Button>
                         </Form>
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
@@ -6549,7 +6537,6 @@ const PostAdd = () => {
                                             image: imageURL,
                                             title:formik.values.title,
                                             description:formik.values.description,
-                                            contact:formik.values.contact,
                                             budget: formik.values.budget,
                                             transaction: formik.values.mode,
                                             postType: formik.values.postType,

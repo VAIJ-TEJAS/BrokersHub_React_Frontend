@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { LeftOutlined, SwapOutlined } from '@ant-design/icons';
 
-import React, { useState } from 'react';
-import { Select, Slider, Input, Button  } from 'antd';
-import { Option } from 'antd/es/mentions';
+import React, { useState, useEffect } from 'react';
+import { Select, Input, Button  } from 'antd';
+// import { Option } from 'antd/es/mentions';
 import './Navbar.css';
 
 interface props {
@@ -23,10 +23,12 @@ interface cityType{
 
 const Search: React.FC<props> = ({page}) => {
   
+  const [range, setRange] = useState<string>("Select Range");
   const [Item, setItem] = useState<string>("Select Item");
   const [city, setCity] = useState<string>("Select City");
   const [state, setState] = useState<string>("Select State");
   
+  const [rangeOpen, setRangeOpen] = useState<boolean>(false);
   const [itemOpen, setItemOpen] = useState<boolean>(false);
   const [CityOpen, setCityOpen] = useState<boolean>(false);
   const [stateOpen, setStateOpen] = useState<boolean>(false);
@@ -6296,6 +6298,10 @@ const Search: React.FC<props> = ({page}) => {
     setCityOpen(!CityOpen)
   };
 
+  const toggleRange = () => {
+    setRangeOpen(!rangeOpen)
+  };
+
   const toggleItem = () => {
     setItemOpen(!itemOpen)
   };
@@ -6317,16 +6323,60 @@ const Search: React.FC<props> = ({page}) => {
     setCity('Select City')
   }
 
-  const itemsList = [ 'Property', 'Laptop', 'Car']
+  const itemsList = [
+    {
+      value: 'Property1',
+      label: 'Property1'
+    },
+    {
+      value: 'Property2',
+      label: 'Property2'
+    },
+    {
+      value: 'Property3',
+      label: 'Property3'
+    },
+  ]
+  const rangeList = [
+    {
+      value: '< 100000',
+      label: '< 100000'
+    },
+    {
+      value: '< 200000',
+      label: '< 200000'
+    },
+    {
+      value: '< 500000',
+      label: '< 500000'
+    },
+    {
+      value: '< 1000000',
+      label: '< 1000000'
+    },
+    {
+      value: '< 2000000',
+      label: '< 2000000'
+    },
+  ]
 
   const min = 0; // Set the minimum value
   const max = 100; // Set the maximum value
 
   const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
 
-  const handleRangeChange = (value: number[]) => {
-    setRangeValue(value);
+  const handleRangeChange = (value: string) => {
+    setRange(value)
+    let maxVal = value.split('<');
+    setRangeValue(() => {
+      const updatedRangeValue = [0, parseInt(maxVal[1])];
+      return updatedRangeValue;
+    });
   };
+
+  useEffect(() => {
+    console.log(rangeValue);
+  }, [rangeValue]);
 
   return (
     <>
@@ -6336,13 +6386,26 @@ const Search: React.FC<props> = ({page}) => {
 
               {/* price range  */}
               {page === 'Add' &&
-                <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-60' style={{minWidth: '240px'}}>
-                  <Slider range defaultValue={rangeValue} className='my-1' disabled={false} min={min} max={max} onChange={handleRangeChange} />
-                  <div style={{ marginTop: '5px' }}>
-                    <span>Price Range: ₹{rangeValue[0]} - ₹{rangeValue[1]}</span>
-                  </div>
+                <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
+                  <div className='px-2'>
+                      <div className='text-yellow-500'>Price Range</div>
+                      <div className='text-white'>{range}</div>
+                    </div>
+                    <Select
+                      open={rangeOpen}
+                      className='absolute w-0 h-0'
+                      defaultValue="One Way Trip"
+                      value={range}
+                      style={{ visibility: 'hidden', width: '100%' }}
+                      onChange={handleRangeChange}
+                      onDropdownVisibleChange={(open) => setRangeOpen(open)}
+                      options={rangeList.map((item) => {
+                        return {
+                          value: item.value,
+                          label: item.label,
+                        };
+                      })}
+                    />
               </div>}
 
               {/* select state  */}
@@ -6401,7 +6464,7 @@ const Search: React.FC<props> = ({page}) => {
                       onChange={handleFromChange}
                       onDropdownVisibleChange={(open) => setCityOpen(open)}
                       options={
-                        cities.filter(city => city.state === state).map(city => ({
+                            filteredCity.filter(city => city.state === state).map(city => ({
                             value: city.value,
                             label: city.value
                         }))
@@ -6428,10 +6491,7 @@ const Search: React.FC<props> = ({page}) => {
 
               {/* select item  */}
               {page === 'Add' &&
-                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer
-                w-36
-                xl:w-40
-              ' onClick={toggleItem}>
+                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-40 ' onClick={toggleItem}>
                     <div className='px-2'>
                       <div className='text-yellow-500'>Item</div>
                       <div className='text-white'>{Item}</div>
@@ -6443,20 +6503,19 @@ const Search: React.FC<props> = ({page}) => {
                       style={{ visibility: 'hidden', width: '100%' }}
                       onChange={handleItemChange}
                       onDropdownVisibleChange={(open) => setItemOpen(open)}
+                      options={itemsList.map((item) => {
+                        return {
+                          value: item.value,
+                          label: item.label,
+                        };
+                      })}
                       dropdownRender={menu => (
                         <div>
                           <Input placeholder="Enter location" onClick={e => e.stopPropagation()} style={{ width: '100%', marginBottom: 8 }} />
                           {menu}
                         </div>
                       )}
-                    >
-                      {itemsList.map((item) => (
-                        <Option key={item} value={item}>
-                          {item}
-                        </Option>
-                      ))}
-                      {/* Add more States as needed */}
-                    </Select>
+                    />
               </div>}
 
               <Button className='filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium

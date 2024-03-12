@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs, Input, Button } from 'antd';
-import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, EnvironmentOutlined, PhoneOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 // import axios from "../api/axios"
 // import { Context } from '../context/context.provider';
@@ -59,25 +59,14 @@ const Register: React.FC = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const [location, setLocation] = useState('');
+    const [phone, setPhone] = useState('');
     const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleRegister = async () => {
-        // try {
-        //     const response = await axios.post('/users/signup', {
-        //         username: newUsername,
-        //         password: newPassword,
-        //         name: `${firstName} ${lastName}`,
-        //         email_id: email,
-        //     });
-        //     console.log(response.data);
-        //     message.success('Registration successful');
-        //     // Add any additional logic you need after successful registration
-        // } catch (error: any) {
-        //     console.error(error.response.data);
-        //     message.error('Registration failed');
-        // }
+        
     };
 
     return (
@@ -101,6 +90,24 @@ const Register: React.FC = () => {
                         onChange={(e) => setLastName(e.target.value)}
                     />
                 </div>
+            </div>
+            <div>
+                <Input
+                    className='text-center rounded-none'
+                    placeholder="Location"
+                    prefix={<EnvironmentOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                />
+            </div>
+            <div>
+                <Input
+                    className='text-center rounded-none'
+                    placeholder="Phone"
+                    prefix={<PhoneOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
             </div>
             <div>
                 <Input

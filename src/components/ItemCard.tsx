@@ -11,7 +11,6 @@ interface Item {
   description: string;
   budget: number;
   image: string;
-  contact: string;
   transaction: string;
   postType: string,
   location: string,
@@ -53,7 +52,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       </Modal>
       <Meta title={item.title}  description={item.description} className='mb-2' />
       <p className='mb-2'>Location: <span className='text-secondary'>{item.location}, {item.state}</span></p>
-      <p className='mb-2'>Transaction Type: <span className='text-secondary'>{item.transaction}</span></p>
+      <p className='mb-2'>Type: <span className='text-secondary'>{item.transaction}</span></p>
       <Button type="primary" onClick={showModal}>View Details</Button>
     </Card>
   );

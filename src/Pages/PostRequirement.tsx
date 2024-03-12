@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Slider } from 'antd';
+import { Form, Input, InputNumber, Button, Select } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
@@ -6272,7 +6272,7 @@ const PostRequirement = () => {
         }
     ]);
 
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [imageURL, setImageURL] = useState<string>('');
 
     useEffect(() => {
@@ -6286,7 +6286,6 @@ const PostRequirement = () => {
                 budget: 0,
                 location: '',
                 state: '',
-                contact: '',
                 mode: 'Buy',
                 postType: 'Requirement',
                 ratio: 0,
@@ -6302,7 +6301,6 @@ const PostRequirement = () => {
             location: '',
             state: '',
             budget: 0,
-            contact: '',
             mode: 'Sell',
             postType: 'Requirement',
             ratio: 0,
@@ -6324,7 +6322,7 @@ const PostRequirement = () => {
         <>
             <Navbar />
                 <div className='d-flex justify-content-center bg-[#F5F5F5]'>
-                    <div className='addMainContainer bg-[#FFF] col-9 border border-2 rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                    <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
@@ -6494,25 +6492,14 @@ const PostRequirement = () => {
                                 </Form.Item>
                             }
 
-
-                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the contact information!' }]}
+                            <Button
+                                type='primary'
+                                className='bg-[#1890FF] w-full font-semibold'
+                                htmlType='submit'
+                                // loading={loading}
                             >
-                                <Input
-                                    onChange={(e) => {
-                                        formik.setFieldValue('contact', e.target.value);
-                                    }}
-                                    value={formik.values.contact}
-                                />
-                            </Form.Item>
-
-                                <Button
-                                    type='primary'
-                                    className='bg-[#1890FF] w-full font-semibold'
-                                    htmlType='submit'
-                                    loading={loading}
-                                >
-                                    Submit
-                                </Button>
+                                Submit
+                            </Button>
                         </Form>
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
@@ -6521,7 +6508,6 @@ const PostRequirement = () => {
                                         {image: imageURL,
                                             title:formik.values.title,
                                             description:formik.values.description,
-                                            contact:formik.values.contact,
                                             budget: formik.values.budget,
                                             transaction: formik.values.mode,
                                             postType: formik.values.postType,

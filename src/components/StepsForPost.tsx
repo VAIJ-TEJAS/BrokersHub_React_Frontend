@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Steps, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import step1 from "./step1.png";
-import step2 from "./step2.png"
-import step3 from "./step3.png"
+import step1 from "./Images/step1.png";
+import step2 from "./Images/step2.png"
+import step3 from "./Images/step3.png"
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 

@@ -17,7 +17,7 @@ const menuItems = [
   
   
 export default function Navbar() {
-    const [defaultTab, setDefaultTab] = useState('1')
+    const [defaultTab] = useState('1')
     const [open, setOpen] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
   

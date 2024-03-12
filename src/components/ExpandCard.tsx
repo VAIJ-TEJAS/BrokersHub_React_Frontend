@@ -1,13 +1,11 @@
 import './Navbar.css'
 import { Button } from 'antd';
-import { PhoneOutlined } from '@ant-design/icons';
 
 interface Item {
   title: string;
   description: string;
   budget: number;
   image: string;
-  contact: string;
   transaction: string;
   postType: string;
   location: string,
@@ -64,16 +62,10 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
         <p className="property-description mt-3">{item.description}</p>
 
-        <div className='d-flex mt-3 justify-between'>
-          <Button type="primary" style={{width: '49%'}} icon={<PhoneOutlined />}>
-            {item.contact}
-          </Button>
-          <Button style={{width: '49%'}} type="primary">
-            Yes, Make offer!
-          </Button>
-          {/* <button className="btn btn-primary mt-2">Yes, Make offer!</button> */}
+        <Button type="primary" className='mt-3 w-100'>
+          Yes, Make offer!
+        </Button>
           
-        </div>
       </div>
     </div>
   );
