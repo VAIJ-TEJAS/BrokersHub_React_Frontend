@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 import { Layout } from 'antd';
 import Filter from './Search'
 
-import Navbar from './Navbar';
+import Navbar from './Navbar'
 
 const { Content, Footer } = Layout;
 
