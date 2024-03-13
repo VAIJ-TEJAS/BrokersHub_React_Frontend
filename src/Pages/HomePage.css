@@ -214,29 +214,17 @@
 }
 
 /* referral section  */
-
-.referral-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+@media (max-width: 1160px) {
+  .referral-img{
+    display: none;
+  }
+  .referral-info{
+    text-align: center;
+  }
 }
 
-.referral-info {
-  margin-top: 30px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-}
 
-.referral-info h2 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.referral-link {
-  font-size: 18px;
-  color: #007bff;
-  word-break: break-all;
+/* about section  */
+.homepage-timeline ul li{
+  font-size: 1rem !important;
 }

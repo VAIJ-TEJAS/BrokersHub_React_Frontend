@@ -49,7 +49,7 @@ export default function Navbar() {
                 footer={null}>
                 <Autentication defaultTab={defaultTab} />
             </Modal>
-          <Link to="/home" className='my-auto me-5 fs-4'><strong>BrokerHub</strong></Link>
+          <Link to="/home" className='my-auto me-5 fs-4'><strong>TheBrokersHub</strong></Link>
           <div></div>
           <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'350px'}}>
             {menuItems.map(item => (
@@ -60,7 +60,7 @@ export default function Navbar() {
           </Menu>
           <div className='onShort'>
             <Link to='/PostRequirement' className='btn btn-warning me-3'>Post Requirement</Link>
-            <Link to='/PostAdd' className='btn btn-warning'>Post Add</Link>
+            <Link to='/PostAdd' className='btn btn-warning'>Post Advertisement</Link>
           </div>
           <div className='ms-auto d-flex align-items-center'>
             <div className='onShort'>
@@ -76,7 +76,7 @@ export default function Navbar() {
 
 
       </Header>
-        <Drawer width={'260px'} title="BrokerHub" onClose={onClose} open={open}>
+        <Drawer width={'260px'} title="TheBrokersHub" onClose={onClose} open={open}>
           <div className='mb-3'>
             <button className='btn btn-primary w-100' onClick={() =>{showModal('1')}}>Register</button>
           </div>
@@ -99,7 +99,7 @@ export default function Navbar() {
             </li>
             <hr />
             <li className='py-2 ps-2'>
-              <Link to="/PostAdd"><strong>Add Post</strong></Link>
+              <Link to="/PostAdd"><strong>Add Advertisement</strong></Link>
             </li>
             <hr />
           </ul>

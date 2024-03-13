@@ -78,7 +78,7 @@ const StepsForPost = () => {
           </Steps>
         </div>
       </div>
-      
+
       <div>
         <div
           className="postSteps-img"
@@ -89,8 +89,8 @@ const StepsForPost = () => {
             <ItemCard item={post[0]} />
           </div>
           <div className="my-5 col-md-8" >
-            <h1 className="fs-1">About Post</h1>
-            <div className="mt-4">
+            <h1 className="fs-1">About Advertisement</h1>
+            <div className="mt-4 homepage-timeline">
               <Timeline
                 style={{fontSize: '1rem'}}
                 items={[
@@ -174,7 +174,7 @@ const StepsForPost = () => {
           )}
           {currentStep == steps.length - 1 && (
             <Link to="/PostAdd" className="btn btn-warning">
-              Post Add
+              Post Advertisement
             </Link>
           )}
         </div>

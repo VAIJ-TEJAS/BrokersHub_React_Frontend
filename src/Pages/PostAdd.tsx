@@ -6347,7 +6347,7 @@ const PostAdd = () => {
                             onFinish={formik.handleSubmit}
                             className='p-5 pe-4 addCardDetails'
                         >
-                            <div className='text-4xl font-medium text-[#002766] mb-3'>Post Details</div>
+                            <div className='text-4xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
 
                             <Form.Item
                                 label='Image'

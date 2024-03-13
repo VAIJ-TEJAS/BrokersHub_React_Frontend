@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useState} from 'react'
 import Navbar from "../components/Navbar";
-import { Carousel } from "antd";
+import { Carousel, Button, Modal } from "antd";
 import sample1 from "../components/Images/sample1.jpg";
 import sample2 from "../components/Images/sample2.jpg";
 import sample3 from "../components/Images/sample3.jpg";
 import "./HomePage.css";
 import StepsForPost from "../components/StepsForPost";
 import StepsForRequirement from "../components/StepsForRequirement";
+import Autentication from '../components/Authentication';
 
 const HomePage: React.FC = () => {
 
@@ -19,8 +20,25 @@ const HomePage: React.FC = () => {
     backgroundRepeat: "no-repeat",
   };
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false)
+  };
+
   return (
     <div>
+      <Modal
+        open={modalVisible}
+        onCancel={handleCancel}
+        footer={null}>
+        <Autentication />
+      </Modal>
+
       <div className="">
         <Navbar />
       </div>
@@ -30,11 +48,11 @@ const HomePage: React.FC = () => {
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
-                  <h1 className="fs-1 fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
+                  <h1 className="fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
                     Explore Our Offerings
                   </h1>
                   <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
-                    Welcome to BrokerHub, your premier destination for all things
+                    Welcome to TheBrokersHub, your premier destination for all things
                     real estate. Whether you're buying, selling, or simply
                     exploring, we're here to guide you every step of the way.
                   </p>
@@ -48,11 +66,11 @@ const HomePage: React.FC = () => {
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
-                  <h1 className="fs-1 fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
+                  <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
                     Redefining Excellence
                   </h1>
                   <p className="col-md-5  fs-5" style={{ fontFamily: "poppins" }}>
-                  Embracing a relentless pursuit of perfection, we at BrokerHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
+                  Embracing a relentless pursuit of perfection, we at TheBrokersHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
                   </p>
                 </div>
               </div>
@@ -65,7 +83,7 @@ const HomePage: React.FC = () => {
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
 
-                  <h1 className="fs-1 fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
+                  <h1 className="fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
                   Join Our Growing Community
                   </h1>
                   <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
@@ -81,7 +99,7 @@ const HomePage: React.FC = () => {
       {/* services section  */}
       <div className="services-section">
         <div className="inner-width">
-          <h1 className="section-title">Our Services </h1>
+          <h1 className="section-title" style={{fontSize: '3.5rem'}}>Our Services </h1>
           <div className="border" style={{width: '160px', height: '2px', background: '#82ccdd', margin: '40px auto'}}></div>
           <div className="services-container">
             <div className="service-box">
@@ -120,18 +138,28 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* referral section  */}
-      <div className="container text-center my-5">
+      {/* <div className="container text-center my-5">
         <h1 className="fs-1 fw-bold text-center ">Refer a Friend</h1>
         <div className="referral-form">
           <p className="mt-4 mb-3 container-lg">
           Unlock rewards by sharing your referral code! When new users register with your code, you earn a 0.25 commission from their first deal. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.
           </p>
         </div>
+      </div> */}
+      <div className="m-4 shadow rounded overflow-hidden d-flex">
+        <div className="col-5 referral-img">
+          <img className="h-100" src="https://t3.ftcdn.net/jpg/02/65/10/72/360_F_265107234_1W0i4qjxk8DNkZdnaaneNwMzXeaC99B1.jpg" alt="" />
+        </div>
+        <div className="p-5 referral-info">
+          <h1 className="mb-5 text-primary" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
+          <p style={{lineHeight: '2rem'}}>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <b>0.25% commission from their first deal</b>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
+          <Button className="mt-5" type='primary' size="large" onClick={() =>{showModal()}} >Register</Button>
+        </div>
       </div>
 
       {/* about post section */}
       <div className="bg-light">
-        <h1 className="fs-1 fw-bold text-center pt-5">Posting an Advertisement</h1>
+        <h1 className="text-center pt-5" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}}>Posting an Advertisement</h1>
         <div className="m-5 mt-0 border-bottom pb-4">
           {/* <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1> */}
           <StepsForPost />
@@ -140,7 +168,7 @@ const HomePage: React.FC = () => {
 
       {/* about requirement section */}
       <div>
-      <h1 className="fs-1 fw-bold text-center pt-5">Posting an Requirement</h1>
+      <h1 className="text-center pt-5" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}}>Posting an Requirement</h1>
         <div className="m-5 mt-0">
           <StepsForRequirement />
         </div>

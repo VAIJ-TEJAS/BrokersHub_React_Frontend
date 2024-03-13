@@ -19,7 +19,7 @@ const StepsForRequirement = () => {
       image: step1,
     },
     {
-      title: "Enter post details",
+      title: "Enter requirement details",
       content: "",
       image: step1,
     },
@@ -91,7 +91,7 @@ const StepsForRequirement = () => {
                 
                     <div className="my-5 col-md-8" >
                         <h1 className="fs-1">About Requirement</h1>
-                        <div className="mt-4">
+                        <div className="mt-4 homepage-timeline">
                         <Timeline
                             items={[
                             {
