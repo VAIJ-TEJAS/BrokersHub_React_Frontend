@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Steps, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Steps, Button, Timeline } from "antd";
+import { Link } from "react-router-dom";
 import step1 from "./Images/postStep1.png";
-import step2 from "./Images/postStep2.png"
-import step3 from "./Images/postStep3.png"
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
-
+import step2 from "./Images/postStep2.png";
+import step3 from "./Images/postStep3.png";
+import ItemCard from "./ItemCard";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 const { Step } = Steps;
 
@@ -14,18 +14,23 @@ const StepsForPost = () => {
 
   const steps = [
     {
-      title: 'Enter post details',
-      content: '',
+      title: "About Advertisements",
+      content: "",
       image: step1,
     },
     {
-      title: 'Review your information from card',
-      content: '',
+      title: "Enter post details",
+      content: "",
+      image: step1,
+    },
+    {
+      title: "Review information",
+      content: "",
       image: step2,
     },
     {
-      title: 'Submit',
-      content: '',
+      title: "Submit",
+      content: "",
       image: step3,
     },
   ];
@@ -38,37 +43,139 @@ const StepsForPost = () => {
     setCurrentStep(currentStep - 1);
   };
 
+  const post = [
+    {
+      title: 'Property 1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      budget: 700000,
+      image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
+      transaction: 'Sell',
+      postType: 'Requirement',
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 0,
+    },
+  ]
+
   return (
-    <div style={{ display: 'flex' }} className='postSteps-container align-items-center'>
-      <div style={{ flex: 1 }} className='mt-4'>
-        <Steps current={currentStep} direction="vertical">
-          {steps.map((item, index) => (
-            <Step key={index} title={item.title} className='my-4' />
-          ))}
-        </Steps>
-      </div>
-      <div style={{ flex: 2 }}>
-        <div className='postSteps-img' style={{ display: currentStep === 0 ? 'block' : 'none' }}>
-          <img className='h-100 border rounded' src={steps[0].image} alt={steps[0].title} />
-          <p>{steps[0].content}</p>
+    <div
+      style={{ display: "flex" }}
+      className="postSteps-container justify-content-center align-items-center d-flex flex-column"
+    >
+      <div className="mt-4 w-100">
+        <div className="AddSteps1">
+          <Steps current={currentStep} >
+            {steps.map((item, index) => (
+              <Step key={index} title={item.title} className="my-4" />
+              ))}
+          </Steps>
         </div>
-        <div className='postSteps-img' style={{ display: currentStep === 1 ? 'block' : 'none' , height: '500px'}}>
-          <img className='h-100 border rounded' src={steps[1].image} alt={steps[1].title} />
+        <div className="AddSteps2">
+          <Steps className="justify-content-center align-items-center" current={currentStep} direction="vertical" >
+            {steps.map((item, index) => (
+              <Step key={index} title={item.title} className="my-4" />
+              ))}
+          </Steps>
+        </div>
+      </div>
+      
+      <div>
+        <div
+          className="postSteps-img"
+          style={{ display: currentStep === 0 ? "block" : "none" }}
+        >
+          <div className="about-listing p-5 pb-0 bg-light w-100 d-flex justify-evenly align-items-center">
+          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
+            <ItemCard item={post[0]} />
+          </div>
+          <div className="my-5 col-md-8" >
+            <h1 className="fs-1">About Post</h1>
+            <div className="mt-4">
+              <Timeline
+                style={{fontSize: '1rem'}}
+                items={[
+                  {
+                    children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
+                  },
+                  {
+                    children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div
+          className="postSteps-img"
+          style={{ display: currentStep === 1 ? "block" : "none" }}
+        >
+          <img
+            className="h-100 border rounded"
+            src={steps[currentStep].image}
+            alt={steps[currentStep].title}
+          />
+          <p>{steps[currentStep].content}</p>
+        </div>
+
+        <div
+          className="postSteps-img"
+          style={{
+            display: currentStep === 2 ? "block" : "none",
+            height: "500px",
+          }}
+        >
+          <img
+            className="h-100 border rounded"
+            src={steps[currentStep].image}
+            alt={steps[currentStep].title}
+          />
           <p>{steps[1].content}</p>
         </div>
-        <div className='postSteps-img' style={{ display: currentStep === 2 ? 'block' : 'none' }}>
-          <img className='h-100 border rounded' src={steps[2].image} alt={steps[2].title} />
+
+        <div
+          className="postSteps-img"
+          style={{ display: currentStep === 3 ? "block" : "none" }}
+        >
+          <img
+            className="h-100 border rounded"
+            src={steps[currentStep].image}
+            alt={steps[currentStep].title}
+          />
           <p>{steps[2].content}</p>
         </div>
-        <div className='d-flex' style={{ marginTop: '24px' }}>
+
+        <div className="d-flex justify-content-center" style={{ marginTop: "24px" }}>
           {currentStep > 0 && (
-            <Button icon={<ArrowLeftOutlined />} size={'large'} type="primary" style={{ marginRight: '8px' }} onClick={prevStep}><strong>Previous</strong></Button>
+            <Button
+              icon={<ArrowLeftOutlined />}
+              size={"large"}
+              type="primary"
+              style={{ marginRight: "8px" }}
+              onClick={prevStep}
+            >
+              <strong>Previous</strong>
+            </Button>
           )}
           {currentStep < steps.length - 1 && (
-            <Button size={'large'} type="primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onClick={nextStep}><strong>Next</strong> <ArrowRightOutlined /></Button>
+            <Button
+              size={"large"}
+              type="primary"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+              onClick={nextStep}
+            >
+              <strong>Next</strong> <ArrowRightOutlined />
+            </Button>
           )}
           {currentStep == steps.length - 1 && (
-            <Link to='/PostAdd' className='btn btn-warning'>Post Add</Link>
+            <Link to="/PostAdd" className="btn btn-warning">
+              Post Add
+            </Link>
           )}
         </div>
       </div>

@@ -1,15 +1,12 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { Carousel, Timeline, Input, Space } from "antd";
+import { Carousel } from "antd";
 import sample1 from "../components/Images/sample1.jpg";
 import sample2 from "../components/Images/sample2.jpg";
 import sample3 from "../components/Images/sample3.jpg";
 import "./HomePage.css";
-import ItemCard from "../components/ItemCard";
 import StepsForPost from "../components/StepsForPost";
 import StepsForRequirement from "../components/StepsForRequirement";
-
-const { Search } = Input;
 
 const HomePage: React.FC = () => {
 
@@ -21,31 +18,6 @@ const HomePage: React.FC = () => {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
-
-  const post = [
-    {
-      title: 'Property 1',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      budget: 700000,
-      image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
-      transaction: 'Sell',
-      postType: 'Requirement',
-      location: 'Ranchi',
-      state: 'Jharkhand',
-      ratio: 0,
-    },
-    {
-      title: 'Requirement 1',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      budget: 700000,
-      image: '',
-      transaction: 'Buy',
-      postType: 'Requirement',
-      location: 'Ranchi',
-      state: 'Jharkhand',
-      ratio: 0,
-    }
-  ]
 
   return (
     <div>
@@ -147,60 +119,20 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
+      {/* referral section  */}
       <div className="container text-center my-5">
         <h1 className="fs-1 fw-bold text-center ">Refer a Friend</h1>
         <div className="referral-form">
           <p className="mt-4 mb-3 container-lg">
           Unlock rewards by sharing your referral code! When new users register with your code, you earn a 0.25 commission from their first deal. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.
           </p>
-          <Space direction="vertical">
-
-            <Search
-            className="iAmHere"
-              placeholder="Enter your friend's email"
-              allowClear
-              enterButton="Send Invitation"
-              size="large"
-            />
-          </Space>
-        </div>
-        <div className="referral-info">
-          <h2>Your Referral Link:</h2>
-          <p className="referral-link">https://example.com/referral?ref=your_referral_code</p>
         </div>
       </div>
 
       {/* about post section */}
       <div className="bg-light">
-        <div className="about-listing p-5 pb-0 bg-light w-100 d-flex justify-evenly align-items-center">
-          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-            <ItemCard item={post[0]} />
-          </div>
-          <div className="my-5 col-md-8" >
-            <h1 className="fs-1">About Post</h1>
-            <div className="mt-4">
-              <Timeline
-                items={[
-                  {
-                    children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the item. This modal contains additional information about the item, such as its type and other properties.',
-                  },
-                  {
-                    children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
-                  },
-                  {
-                    children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
-                  },
-                  {
-                    children: 'The card has a "View Details" button that allows users to see more information about the item. Clicking this button opens the modal, providing a more comprehensive view of the items details.',
-                  },
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* steps section  */}
-        <div className="m-5 border-bottom pb-4">
+        <h1 className="fs-1 fw-bold text-center pt-5">Posting an Advertisement</h1>
+        <div className="m-5 mt-0 border-bottom pb-4">
           {/* <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1> */}
           <StepsForPost />
         </div>
@@ -208,34 +140,7 @@ const HomePage: React.FC = () => {
 
       {/* about requirement section */}
       <div>
-        <div className="about-listing px-5 w-100 d-flex justify-evenly align-items-center">
-          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-            <ItemCard item={post[1]} />
-          </div>
-          <div className="my-5 col-md-8" >
-            <h1 className="fs-1">About Requirement</h1>
-            <div className="mt-4">
-              <Timeline
-                items={[
-                  {
-                    children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the requirement. This modal contains additional information about the requirement, such as required type and other properties.',
-                  },
-                  {
-                    children: 'The card displays the title and description of the requirement. This information provides a brief overview of what the requirement is, helping users understand required purpose or characteristics.',
-                  },
-                  {
-                    children: 'Additionally, the card mentions the transaction type associated for requirement. This could indicate whether the requirement will be buying, rent, lease, or any other type of transaction.',
-                  },
-                  {
-                    children: 'The card has a "View Details" button that allows users to see more information about the requirement. Clicking this button opens the modal, providing a more comprehensive view of the requirement.',
-                  },
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* steps section  */}
+      <h1 className="fs-1 fw-bold text-center pt-5">Posting an Requirement</h1>
         <div className="m-5 mt-0">
           <StepsForRequirement />
         </div>

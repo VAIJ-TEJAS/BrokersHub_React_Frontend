@@ -48,13 +48,31 @@
 }
 
 
-@media (max-width: 850px) {
+@media (max-width: 770px) {
   .about-listing {
     flex-direction: column;
   }
 
   .about-listing div:nth-child(1) {
-    flex-direction: column;
+    display: none;
+  }
+}
+
+.AddSteps1 {
+  display: block;
+}
+
+.AddSteps2 {
+  display: none;
+}
+
+@media (max-width: 870px) {
+  .AddSteps1 {
+    display: none;
+  }
+
+  .AddSteps2 {
+    display: block;
   }
 }
 
@@ -196,10 +214,6 @@
 }
 
 /* referral section  */
-h1 {
-  color: #333;
-  margin-bottom: 20px;
-}
 
 .referral-form {
   display: flex;
