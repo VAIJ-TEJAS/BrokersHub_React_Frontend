@@ -17,11 +17,12 @@ const menuItems = [
   
   
 export default function Navbar() {
-    const [defaultTab] = useState('1')
+    const [defaultTab, setDefaultTab] = useState('1')
     const [open, setOpen] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
   
-    const showModal = () => {
+    const showModal = (num: string) => {
+      setDefaultTab(num)
       setModalVisible(true);
     };
   
@@ -42,7 +43,7 @@ export default function Navbar() {
       <Header>
         <div className='position-relative top-50 start-50 translate-middle'>
         <div className='my-auto d-flex flex-row justify-content-center align-items-center text-light'>
-            <Modal title="Authentication"
+            <Modal
                 open={modalVisible}
                 onCancel={handleCancel}
                 footer={null}>
@@ -63,8 +64,8 @@ export default function Navbar() {
           </div>
           <div className='ms-auto d-flex align-items-center'>
             <div className='onShort'>
-              <button className='me-3 btn btn-outline-primary' onClick={showModal}>Login</button>
-              <button className='btn btn-primary' onClick={showModal}>Register</button>
+              <button className='me-3 btn btn-outline-primary' onClick={() => {showModal('1')}}>Login</button>
+              <button className='btn btn-primary' onClick={() =>{showModal('0')}}>Register</button>
             </div>
             <Tooltip className='onBig'>
               <Button onClick={showDrawer} className='ms-3 mt-1 navbar-drop' icon={<MenuOutlined className='w-100' width={'100px'} />} />
@@ -77,10 +78,10 @@ export default function Navbar() {
       </Header>
         <Drawer width={'260px'} title="BrokerHub" onClose={onClose} open={open}>
           <div className='mb-3'>
-            <button className='btn btn-primary w-100' onClick={showModal}>Register</button>
+            <button className='btn btn-primary w-100' onClick={() =>{showModal('1')}}>Register</button>
           </div>
           <div className='my-3'>
-            <button className='btn btn-outline-primary w-100 text-dark' onClick={showModal}>Login</button>
+            <button className='btn btn-outline-primary w-100 text-dark' onClick={() =>{showModal('0')}}>Login</button>
           </div>
 
           <ul className='mt-4'>

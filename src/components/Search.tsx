@@ -24,12 +24,10 @@ interface cityType{
 const Search: React.FC<props> = ({page}) => {
   
   const [range, setRange] = useState<string>("Select Range");
-  const [Item, setItem] = useState<string>("Select Item");
   const [city, setCity] = useState<string>("Select City");
   const [state, setState] = useState<string>("Select State");
   
   const [rangeOpen, setRangeOpen] = useState<boolean>(false);
-  const [itemOpen, setItemOpen] = useState<boolean>(false);
   const [CityOpen, setCityOpen] = useState<boolean>(false);
   const [stateOpen, setStateOpen] = useState<boolean>(false);
   
@@ -6302,10 +6300,6 @@ const Search: React.FC<props> = ({page}) => {
     setRangeOpen(!rangeOpen)
   };
 
-  const toggleItem = () => {
-    setItemOpen(!itemOpen)
-  };
-
   const toggleState = () => {
     setStateOpen(!stateOpen)
   };
@@ -6314,49 +6308,35 @@ const Search: React.FC<props> = ({page}) => {
     setCity(value)
   }
 
-  const handleItemChange = (value: string) => {
-    setItem(value)
-  }
-
   const handleStateChange = (value: string) => {
     setState(value)
     setCity('Select City')
   }
 
-  const itemsList = [
-    {
-      value: 'Property1',
-      label: 'Property1'
-    },
-    {
-      value: 'Property2',
-      label: 'Property2'
-    },
-    {
-      value: 'Property3',
-      label: 'Property3'
-    },
-  ]
   const rangeList = [
     {
-      value: '< 100000',
-      label: '< 100000'
+      value: '< 1,00,000',
+      label: '< 1,00,000'
     },
     {
-      value: '< 200000',
-      label: '< 200000'
+      value: '< 2,00,000',
+      label: '< 2,00,000'
     },
     {
-      value: '< 500000',
-      label: '< 500000'
+      value: '< 5,00,000',
+      label: '< 5,00,000'
     },
     {
-      value: '< 1000000',
-      label: '< 1000000'
+      value: '< 10,00,000',
+      label: '< 10,00,000'
     },
     {
-      value: '< 2000000',
-      label: '< 2000000'
+      value: '< 20,00,000',
+      label: '< 20,00,000'
+    },
+    {
+      value: '> 20,00,000',
+      label: '> 20,00,000'
     },
   ]
 
@@ -6367,9 +6347,10 @@ const Search: React.FC<props> = ({page}) => {
 
   const handleRangeChange = (value: string) => {
     setRange(value)
-    let maxVal = value.split('<');
+    let maxVal = value.split(' ');
+    let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
     setRangeValue(() => {
-      const updatedRangeValue = [0, parseInt(maxVal[1])];
+      const updatedRangeValue = [0, numSelected];
       return updatedRangeValue;
     });
   };
@@ -6488,35 +6469,6 @@ const Search: React.FC<props> = ({page}) => {
                     />
                 </div>
               }
-
-              {/* select item  */}
-              {page === 'Add' &&
-                <div className='filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-40 ' onClick={toggleItem}>
-                    <div className='px-2'>
-                      <div className='text-yellow-500'>Item</div>
-                      <div className='text-white'>{Item}</div>
-                    </div>
-                    <Select
-                      open={itemOpen}
-                      className='absolute w-0 h-0'
-                      defaultValue="One Way Trip"
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleItemChange}
-                      onDropdownVisibleChange={(open) => setItemOpen(open)}
-                      options={itemsList.map((item) => {
-                        return {
-                          value: item.value,
-                          label: item.label,
-                        };
-                      })}
-                      dropdownRender={menu => (
-                        <div>
-                          <Input placeholder="Enter location" onClick={e => e.stopPropagation()} style={{ width: '100%', marginBottom: 8 }} />
-                          {menu}
-                        </div>
-                      )}
-                    />
-              </div>}
 
               <Button className='filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32
