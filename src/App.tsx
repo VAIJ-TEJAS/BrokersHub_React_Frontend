@@ -4,6 +4,9 @@ import RequirementListingPage from './Pages/RequirementListingPage'
 import AddListing from './Pages/AddListing'
 import PostAdd from './Pages/PostAdd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
+import { Layout } from 'antd';
+
+const { Footer } = Layout;
 
 function App() {
 
@@ -19,6 +22,7 @@ function App() {
           <Route path="/PostAdd" element={<PostAdd />} />
         </Routes>
       </Router>
+      <Footer style={{ textAlign: 'center' }}>Broker's Website ©2024 Created by You</Footer>
     </>
   )
 }

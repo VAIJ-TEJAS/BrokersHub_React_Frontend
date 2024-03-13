@@ -4,7 +4,7 @@ import Filter from './Search'
 
 import Navbar from './Navbar'
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 interface Props {
   children: ReactNode;
@@ -32,7 +32,6 @@ const BrokerWebsiteLayout: React.FC<Props> = ({ page, children }) => {
           </Content>
         </Layout>
       </Layout>
-      <Footer style={{ textAlign: 'center' }}>Broker's Website ©2024 Created by You</Footer>
     </Layout>
   );
 };

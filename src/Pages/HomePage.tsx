@@ -1,16 +1,15 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import { Carousel, Timeline } from "antd";
+import { Carousel, Timeline, Input, Space } from "antd";
 import sample1 from "../components/Images/sample1.jpg";
 import sample2 from "../components/Images/sample2.jpg";
 import sample3 from "../components/Images/sample3.jpg";
 import "./HomePage.css";
 import ItemCard from "../components/ItemCard";
-import testimonial1 from "../components/Images/testimonial-01.png";
-import testimonial2 from "../components/Images/testimonial-02.png";
-import testimonial3 from "../components/Images/testimonial-03.png";
 import StepsForPost from "../components/StepsForPost";
 import StepsForRequirement from "../components/StepsForRequirement";
+
+const { Search } = Input;
 
 const HomePage: React.FC = () => {
 
@@ -115,8 +114,7 @@ const HomePage: React.FC = () => {
           <div className="services-container">
             <div className="service-box">
               <div className="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="Consultation"><path d="M58.38603,50.01996c-1.24207-3.8667-4.25226-6.94104-8.07172-8.28381,6.65735-4.24341,3.70111-14.69562-4.2984-14.73615-7.99994,.04083-10.95532,10.49475-4.29773,14.73639-3.81281,1.34045-6.82068,4.40613-8.06213,8.26361h-.64001c.45093-6.04498-2.21167-11.32361-7.57996-13.82001,6.8089-5.12006,3.20935-16.15717-5.42017-16.17999-8.62952,.02307-12.22882,11.06158-5.41986,16.17999-5.37189,2.49994-8.02948,7.77386-7.58002,13.82001h-1c-2.20996,0-4,1.78998-4,4s1.79004,4,4,4H58.01603c5.04974-.11926,5.39539-7.40698,.37-7.98004ZM13.01603,29c0-3.85999,3.14001-7,7-7,7.50073,.0766,9.64545,10.1944,2.94989,13.33997-4.41595,2.20032-10.05194-1.28766-9.94989-6.33997Zm-4,19c0-4.98999,3.34003-9.22003,7.90002-10.56,.57001,.21997,1.16998,.37,1.77997,.46997l-2.63995,8.79999c-.09003,.31-.03003,.63,.15997,.89001,.19,.25,.47998,.40002,.79999,.40002h6c.32001,0,.60999-.15002,.79999-.40002,.19-.26001,.25-.58002,.16003-.89001l-2.64001-8.79999c.60999-.09998,1.21002-.25,1.78003-.46997,4.56,1.33997,7.89996,5.57001,7.89996,10.56v2H9.01603v-2Zm24,6v2H6.01603c-1.09998,0-2-.90002-2-2,0-1.10004,.90002-2,2-2h27.15002c-.10004,.65997-.15002,1.32001-.15002,2Zm13-13c-3.30859,0-6-2.69141-6-6,.28149-7.9411,11.71973-7.93909,12,.00006,0,3.30853-2.69141,5.99994-6,5.99994Zm13,14.72998c-.00696-1.04706,.04614-2.51288-.13-3.52997,1.4137,.60962,1.49786,2.82092,.13,3.52997Z" fill="#ffffff" className="color000000 svgShape"></path><path d="M55.01603 6h-18c-2.20557 0-4 1.79395-4 4v8c0 2.20605 1.79443 4 4 4h6.03369l2.10889 3.51465c.18066.30078.50635.48535.85742.48535s.67676-.18457.85742-.48535l2.10889-3.51465h6.03369c2.20557 0 4-1.79395 4-4V10c0-2.20605-1.79443-4-4-4zm-9 14c-1.31372-.02521-1.31348-1.97498 0-2 1.3136.02545 1.31342 1.97473 0 2zm1.99994-5c-.55121 0-.99994.44824-.99994 1-.02087 1.31268-1.97833 1.31561-2-.00006 0-1.65424 1.3457-2.99994 3-2.99994 1.31366-.02289 1.31433-1.97705 0-2h-2c-1.31323-.02063-1.31494-1.97876.00006-2-.00006 0 1.99994 0 1.99994 0 3.95599.10419 3.9552 5.89655-.00006 6zM19.01603 15v2c.02191 1.3139 1.97803 1.31482 2 0v-2c-.02197-1.31415-1.97803-1.3147-2 0zM14.28855 16.18652c-.00006 0 .68402 1.87891.68402 1.87891.47449 1.23352 2.30774.55066 1.87891-.68365 0 .00006-.68408-1.87885-.68408-1.87885-.46887-1.22766-2.30792-.55927-1.87885.68359zM23.86467 15.50293l-.68408 1.87891c-.42841 1.23395 1.40405 1.91766 1.87891.68353 0 .00006.68408-1.87885.68408-1.87885.42896-1.242-1.40979-1.91193-1.87891-.68359z" fill="#ffffff" className="color000000 svgShape"></path></svg>
-                {/* <i className="fa fa-paint-brush"> </i> */}
+              <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="Writing"><path d="M8,24H9a1,1,0,0,0,0-2H8a3,3,0,0,1-3-3V5A3,3,0,0,1,8,2h8a3,3,0,0,1,3,3V9a1,1,0,0,0,2,0V5a5.006,5.006,0,0,0-5-5H8A5.006,5.006,0,0,0,3,5V19A5.006,5.006,0,0,0,8,24Z" fill="#ffffff" className="color000000 svgShape"></path><path d="M16 5H8A1 1 0 0 0 8 7h8a1 1 0 0 0 0-2zM17 10a1 1 0 0 0-1-1H8a1 1 0 0 0 0 2h8A1 1 0 0 0 17 10zM8 13a1 1 0 0 0 0 2h4a1 1 0 0 0 0-2zM18.879 12.879l-5.657 5.657a1 1 0 0 0-.264.467l-.929 3.757a1 1 0 0 0 .264.947 1.013 1.013 0 0 0 .947.264L17 23.042a.992.992 0 0 0 .467-.264l5.656-5.656a3 3 0 1 0-4.242-4.243zm-2.632 8.288l-1.879.465.465-1.879 3.339-3.339 1.414 1.414zm5.46-5.46L21 16.414 19.586 15l.707-.707a1 1 0 0 1 1.414 0A1.012 1.012 0 0 1 21.707 15.707z" fill="#ffffff" className="color000000 svgShape"></path></svg>
               </div>
               <div className="service-title"> Listing requirements </div>
               <div className="service-desc">
@@ -126,8 +124,7 @@ const HomePage: React.FC = () => {
 
             <div className="service-box">
               <div className="service-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="Training"><path d="M57.975 7.5h-30c-2.206 0-4 1.794-4 4v18.24c-1.823-.677-3.22-2.508-5.306-2.24 6.542-5.23 2.835-15.992-5.644-16-8.48.009-12.186 10.772-5.644 16H6.025c-2.176-.009-4.02 1.817-4 4v8c0 1.103.897 2 2 2h2v2c0 .737.405 1.375 1 1.722V53.5c0 1.654 1.346 3 3 3h6c1.654 0 3-1.346 3-3v-8.278c.595-.347 1-.985 1-1.722v-9.044a24.3 24.3 0 0 0 3.95 1.743V41.5c0 2.206 1.794 4 4 4h14v3c0 .062.025.115.035.173-3.163 1.09-2.414 5.794.965 5.827 3.38-.033 4.128-4.737.965-5.827.01-.058.035-.111.035-.173v-3h14c2.206 0 4-1.794 4-4v-30c0-2.206-1.794-4-4-4Zm-51.95 13c0-3.86 3.14-7 7-7 9.274.352 9.271 13.65 0 14-3.86 0-7-3.14-7-7Zm11 33a1 1 0 0 1-1 1h-1v-5a1 1 0 1 0-2 0v5h-3a1 1 0 0 1-1-1v-8h8v8Zm8.003-19.053a22.557 22.557 0 0 1-5.458-2.595.998.998 0 0 0-1.545.838V43.5h-10v-9a1 1 0 1 0-2 0v5h-2v-8c-.02-1.068.913-2 2-2h13.3c.208 0 .413.065.58.185 3.464 2.45 7.657 3.83 11.92 3.815.613-.095.997.4 1.474.92.112.571-.45 1.068-1.044 1.08-2.45.036-4.889-.307-7.227-1.053ZM43.975 51.5c-.023 1.314-1.977 1.314-2 0 .023-1.314 1.977-1.314 2 0Zm16-10c0 1.103-.897 2-2 2h-30c-1.102 0-2-.897-2-2v-4.719c1.914.472 3.874.719 5.85.719 1.452.128 2.893-.707 3.335-2.034 1.341.266 2.556-.638 3.05-1.291.75-.915 1.438-.915 2.188 0 1.34 1.757 3.803 1.755 5.14 0 .751-.916 1.442-.914 2.193 0 1.332 1.751 3.81 1.757 5.145.002.442-.482.64-.677 1.1-.677 1.308-.02 1.318-1.978 0-2-1.358 0-2.06.766-2.574 1.324-.44.48-.638.676-1.098.676s-.657-.195-1.1-.677c-.512-.558-1.214-1.323-2.57-1.323s-2.06.766-2.57 1.324c-.441.48-.638.676-1.096.676s-.655-.195-1.095-.676c-.512-.558-1.214-1.324-2.57-1.324s-2.056.766-2.568 1.324c-.546.651-1.028.879-1.663.507-.492-1.298-1.878-1.95-3.247-1.83-2-.008-3.98-.305-5.85-.956V11.5c0-1.103.898-2 2-2h30c1.103 0 2 .897 2 2v30Z" fill="#ffffff" className="color000000 svgShape"></path><path d="M53.975 17.5c-1.357 0-2.06.765-2.573 1.324-.44.48-.638.676-1.098.676s-.657-.195-1.1-.676c-.512-.559-1.214-1.324-2.57-1.324s-2.06.766-2.57 1.325c-.752.915-1.44.915-2.191 0-1.331-1.754-3.806-1.756-5.138 0-.752.916-1.439.915-2.19 0-.512-.56-1.214-1.325-2.57-1.325-1.308.02-1.32 1.977 0 2 .458 0 .654.195 1.095.675.512.56 1.214 1.325 2.57 1.325s2.058-.766 2.57-1.325c.44-.48.636-.675 1.093-.675.458 0 .655.195 1.095.675.512.56 1.214 1.325 2.57 1.325 1.356 0 2.058-.765 2.57-1.324.751-.917 1.442-.915 2.193 0 1.327 1.749 3.812 1.757 5.145 0 .442-.48.64-.676 1.1-.676 1.306-.02 1.32-1.978 0-2zm0 7c-1.357 0-2.06.765-2.573 1.324-.44.48-.638.676-1.098.676s-.657-.195-1.1-.676c-.512-.559-1.214-1.324-2.57-1.324s-2.06.766-2.57 1.325c-.752.915-1.44.915-2.191 0-1.331-1.754-3.806-1.756-5.138 0-.752.916-1.439.915-2.19 0-.512-.56-1.214-1.325-2.57-1.325-1.308.02-1.32 1.977 0 2 .458 0 .654.195 1.095.675.512.56 1.214 1.325 2.57 1.325s2.058-.766 2.57-1.325c.44-.48.636-.675 1.093-.675.458 0 .655.195 1.095.675.512.56 1.214 1.325 2.57 1.325 1.356 0 2.058-.766 2.57-1.324.751-.917 1.442-.915 2.193 0 1.327 1.748 3.812 1.758 5.145 0 .442-.48.64-.676 1.1-.676 1.306-.02 1.32-1.978 0-2z" fill="#ffffff" className="color000000 svgShape"></path></svg>
-                {/* <i className="fas fa-code"> </i> */}
+              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 70 70" viewBox="0 0 70 70" id="advertisement"><path d="M67 5.2600098H3c-.5499878 0-1 .4499512-1 1v40.251709h66V6.2600098C68 5.7099609 67.5599976 5.2600098 67 5.2600098zM25.0300293 32.3499756l-.0100098 8.5599976c0 1.6799927-1.3599854 3.0400391-3.039978 3.0400391-1.6800537 0-3.0500488-1.3600464-3.0500488-3.0400391v-9.0899658c-.0699463-.0300293-.1399536-.0500488-.2099609-.0800171-2.4400024-1.0900269-4.1500244-3.539978-4.1500244-6.3900146 0-3.8599854 3.1400146-7 7-7h3.460022V32.3499756zM50.5200195 30.0999756v9.5900269c0 .5499878-.4400024 1-1 1-.5499878 0-1-.4500122-1-1V39.5c-7.5100098-3.7800293-14.7299805-6.1500244-21.4899902-7.0200195V18.3299561c7.1300049-.8499756 14.3399658-3.25 21.4899902-7.1099854v-.2000122c0-.5499878.4500122-1 1-1 .5599976 0 1 .4500122 1 1v9.5900269c2.3499756.4400024 4.1199951 2.4000244 4.1199951 4.7399902C54.6400146 27.7000122 52.8699951 29.6599731 50.5200195 30.0999756zM68 48.5100098v5.7299805c0 .5499878-.4400024 1-1 1H44.7000122l2.6400146 7.5h3.7000122c.5499878 0 1 .4500122 1 1s-.4500122 1-1 1H18.9700317c-.5599976 0-1-.4500122-1-1s.4400024-1 1-1h3.7000122l2.6399536-7.5H3c-.5499878 0-1-.4500122-1-1v-5.7299805H68z" fill="#ffffff" className="color000000 svgShape"></path></svg>
               </div>
               <div className="service-title"> Post Advertisement </div>
               <div className="service-desc">
@@ -147,6 +144,29 @@ const HomePage: React.FC = () => {
             </div>
 
           </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <h1 className="fs-1 fw-bold">Refer a Friend</h1>
+        <div className="referral-form">
+          <p className="mt-4 mb-3 container-lg">
+          Unlock rewards by sharing your referral code! When new users register with your code, you earn a 0.25 commission from their first deal. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.
+          </p>
+          <Space direction="vertical">
+
+            <Search
+            className="iAmHere"
+              placeholder="Enter your friend's email"
+              allowClear
+              enterButton="Send Invitation"
+              size="large"
+            />
+          </Space>
+        </div>
+        <div className="referral-info">
+          <h2>Your Referral Link:</h2>
+          <p className="referral-link">https://example.com/referral?ref=your_referral_code</p>
         </div>
       </div>
 
@@ -220,82 +240,6 @@ const HomePage: React.FC = () => {
           <StepsForRequirement />
         </div>
       </div>
-
-      {/* testimonial-content */}
-      <section className="testimonials">
-        <div className="container">
-          <div className="title">
-            <h1>Testimonials</h1>
-          </div>
-
-          <div className="slider-indicator d-flex flex-wrap justify-content-evenly">
-            <div className="my-5" style={{minWidth: '250px'}}>
-              <img
-                src={testimonial1}
-                className="active mb-4"
-                alt="img"
-                data-id="0"
-              />
-              <div className="slider">
-                <div className="slide active">
-                  <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                      minima velit!	
-                    </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="my-5" style={{minWidth: '250px'}}>
-              <img
-                src={testimonial2}
-                className="active mb-4"
-                alt="img"
-                data-id="1"
-              />
-              <div className="slider">
-                <div className="slide active">
-                  <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                      minima velit!	
-                    </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="my-5" style={{minWidth: '250px'}}>
-              <img
-                src={testimonial3}
-                className="active mb-4"
-                alt="img"
-                data-id="2"
-              />
-              <div className="slider">
-                <div className="slide active">
-                  <p>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti soluta asperiores magni 
-                      voluptatem iste consequuntur reiciendis quas velit veritatis animi, ducimus iusto ad sint 
-                      similique sapiente, suscipit ab, rerum voluptatum. Quaerat ad eveniet architecto, quidem 
-                      tempora error magnam! At nisi qui ratione, tempora vel corporis sint exercitationem maxime 
-                      minima velit!	
-                    </p>
-                    <div className="client-info">
-                      <h3>Jack</h3>
-                      <span>Founder at Zim</span>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </section>
       
       
     </div>
