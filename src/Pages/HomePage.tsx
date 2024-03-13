@@ -10,6 +10,7 @@ import testimonial1 from "../components/Images/testimonial-01.png";
 import testimonial2 from "../components/Images/testimonial-02.png";
 import testimonial3 from "../components/Images/testimonial-03.png";
 import StepsForPost from "../components/StepsForPost";
+import StepsForRequirement from "../components/StepsForRequirement";
 
 const HomePage: React.FC = () => {
 
@@ -22,14 +23,24 @@ const HomePage: React.FC = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  const items = [
+  const post = [
     {
       title: 'Property 1',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       budget: 700000,
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
-      contact: '1234567890',
       transaction: 'Sell',
+      postType: 'Requirement',
+      location: 'Ranchi',
+      state: 'Jharkhand',
+      ratio: 0,
+    },
+    {
+      title: 'Requirement 1',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      budget: 700000,
+      image: '',
+      transaction: 'Buy',
       postType: 'Requirement',
       location: 'Ranchi',
       state: 'Jharkhand',
@@ -139,38 +150,75 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* about listing section */}
-      <div className="about-listing p-5 bg-light w-100 d-flex justify-evenly align-items-center">
-        <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-          <ItemCard item={items[0]} />
-        </div>
-        <div className="my-5 col-md-8" >
-          <h1 className="fs-1">About Listing</h1>
-          <div className="mt-4">
-            <Timeline
-              items={[
-                {
-                  children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the item. This modal contains additional information about the item, such as its type and other properties.',
-                },
-                {
-                  children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
-                },
-                {
-                  children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
-                },
-                {
-                  children: 'The card has a "View Details" button that allows users to see more information about the item. Clicking this button opens the modal, providing a more comprehensive view of the items details.',
-                },
-              ]}
-            />
+      {/* about post section */}
+      <div className="bg-light">
+        <div className="about-listing p-5 pb-0 bg-light w-100 d-flex justify-evenly align-items-center">
+          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
+            <ItemCard item={post[0]} />
           </div>
+          <div className="my-5 col-md-8" >
+            <h1 className="fs-1">About Post</h1>
+            <div className="mt-4">
+              <Timeline
+                items={[
+                  {
+                    children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the item. This modal contains additional information about the item, such as its type and other properties.',
+                  },
+                  {
+                    children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
+                  },
+                  {
+                    children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
+                  },
+                  {
+                    children: 'The card has a "View Details" button that allows users to see more information about the item. Clicking this button opens the modal, providing a more comprehensive view of the items details.',
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* steps section  */}
+        <div className="m-5 border-bottom pb-4">
+          {/* <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1> */}
+          <StepsForPost />
         </div>
       </div>
 
-      {/* steps section  */}
-      <div className="m-5">
-        <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1>
-        <StepsForPost />
+      {/* about requirement section */}
+      <div>
+        <div className="about-listing px-5 w-100 d-flex justify-evenly align-items-center">
+          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
+            <ItemCard item={post[1]} />
+          </div>
+          <div className="my-5 col-md-8" >
+            <h1 className="fs-1">About Requirement</h1>
+            <div className="mt-4">
+              <Timeline
+                items={[
+                  {
+                    children: 'When the user clicks on the "View Details" button, a modal pops up showing expanded details of the requirement. This modal contains additional information about the requirement, such as required type and other properties.',
+                  },
+                  {
+                    children: 'The card displays the title and description of the requirement. This information provides a brief overview of what the requirement is, helping users understand required purpose or characteristics.',
+                  },
+                  {
+                    children: 'Additionally, the card mentions the transaction type associated for requirement. This could indicate whether the requirement will be buying, rent, lease, or any other type of transaction.',
+                  },
+                  {
+                    children: 'The card has a "View Details" button that allows users to see more information about the requirement. Clicking this button opens the modal, providing a more comprehensive view of the requirement.',
+                  },
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* steps section  */}
+        <div className="m-5 mt-0">
+          <StepsForRequirement />
+        </div>
       </div>
 
       {/* testimonial-content */}

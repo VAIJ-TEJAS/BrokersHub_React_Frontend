@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Steps, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import step1 from "./Images/step1.png";
-import step2 from "./Images/step2.png"
-import step3 from "./Images/step3.png"
+import step1 from "./Images/postStep1.png";
+import step2 from "./Images/postStep2.png"
+import step3 from "./Images/postStep3.png"
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 
@@ -49,15 +49,15 @@ const StepsForPost = () => {
       </div>
       <div style={{ flex: 2 }}>
         <div className='postSteps-img' style={{ display: currentStep === 0 ? 'block' : 'none' }}>
-          <img className='h-100' src={steps[0].image} alt={steps[0].title} />
+          <img className='h-100 border rounded' src={steps[0].image} alt={steps[0].title} />
           <p>{steps[0].content}</p>
         </div>
         <div className='postSteps-img' style={{ display: currentStep === 1 ? 'block' : 'none' , height: '500px'}}>
-          <img className='h-100' src={steps[1].image} alt={steps[1].title} />
+          <img className='h-100 border rounded' src={steps[1].image} alt={steps[1].title} />
           <p>{steps[1].content}</p>
         </div>
         <div className='postSteps-img' style={{ display: currentStep === 2 ? 'block' : 'none' }}>
-          <img className='h-100' src={steps[2].image} alt={steps[2].title} />
+          <img className='h-100 border rounded' src={steps[2].image} alt={steps[2].title} />
           <p>{steps[2].content}</p>
         </div>
         <div className='d-flex' style={{ marginTop: '24px' }}>
