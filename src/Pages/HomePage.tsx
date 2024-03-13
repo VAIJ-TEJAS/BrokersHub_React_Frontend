@@ -147,8 +147,8 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container">
-        <h1 className="fs-1 fw-bold">Refer a Friend</h1>
+      <div className="container text-center my-5">
+        <h1 className="fs-1 fw-bold text-center ">Refer a Friend</h1>
         <div className="referral-form">
           <p className="mt-4 mb-3 container-lg">
           Unlock rewards by sharing your referral code! When new users register with your code, you earn a 0.25 commission from their first deal. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.
