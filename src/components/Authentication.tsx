@@ -18,8 +18,6 @@ interface AuthenticationProps {
 
 const Login: React.FC = () => {
 
-    const [passwordVisible, setPasswordVisible] = useState(false);
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -52,7 +50,7 @@ const Login: React.FC = () => {
                 />
             </div>
             <div>
-                <Button className="bg-[#1890FF] primary-6 text-white px-6 rounded-sm" onClick={handleLogin}>
+                <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleLogin}>
                     Sign in
                 </Button>
             </div>
@@ -6442,7 +6440,7 @@ const Register: React.FC = () => {
                 />
             </div>
             <div>
-                <Button className="bg-[#1890FF] primary-6 text-white px-6 rounded-sm" onClick={handleRegister}>
+                <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleRegister}>
                     Register
                 </Button>
             </div>
