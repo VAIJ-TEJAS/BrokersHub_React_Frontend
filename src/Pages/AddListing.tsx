@@ -59,7 +59,7 @@ const AddListing: React.FC = () => {
   return (
     <div>
       <BrokerWebsiteLayout page='Add'>
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className='flex flex-wrap justify-center'>
           {items.map((item, index) => (
             <ItemCard key={index} item={item} />
           ))}
