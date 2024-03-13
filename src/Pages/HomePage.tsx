@@ -152,7 +152,7 @@ const HomePage: React.FC = () => {
         </div>
         <div className="p-5 referral-info">
           <h1 className="mb-5 text-primary" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
-          <p style={{lineHeight: '2rem'}}>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <b>0.25% commission from their first deal</b>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
+          <p style={{lineHeight: '2rem'}}>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium text-3xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
           <Button className="mt-5" type='primary' size="large" onClick={() =>{showModal()}} >Register</Button>
         </div>
       </div>
