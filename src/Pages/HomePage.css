@@ -1,3 +1,18 @@
+h1{
+  font-size: 3.5rem !important;
+}
+
+@media (max-width: 700px) {
+  h1{
+    font-size: 3rem !important;
+  }
+}
+@media (max-width: 500px) {
+  h1{
+    font-size: 2.5rem !important;
+  }
+}
+
 .homePage-intro {
   background-size: cover;
   color: white;
@@ -209,7 +224,7 @@
   }
 
   .postSteps-img{
-    height: 240px !important;
+    /* height: 240px !important; */
   }
 }
 

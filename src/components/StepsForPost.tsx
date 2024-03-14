@@ -62,7 +62,7 @@ const StepsForPost = () => {
       style={{ display: "flex" }}
       className="postSteps-container justify-content-center align-items-center d-flex flex-column"
     >
-      <div className="mt-4 w-100">
+      <div className="container-lg mt-4 w-100">
         <div className="AddSteps1">
           <Steps current={currentStep} >
             {steps.map((item, index) => (
@@ -81,30 +81,30 @@ const StepsForPost = () => {
 
       <div>
         <div
-          className="postSteps-img"
+          className="postSteps-img mx-2"
           style={{ display: currentStep === 0 ? "block" : "none" }}
         >
-          <div className="about-listing p-5 pb-0 bg-light w-100 d-flex justify-evenly align-items-center">
-          <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-            <ItemCard item={post[0]} />
-          </div>
-          <div className="my-5 col-md-8" >
-            <h1 className="fs-1">About Advertisement</h1>
-            <div className="mt-4 homepage-timeline">
-              <Timeline
-                style={{fontSize: '1rem'}}
-                items={[
-                  {
-                    children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
-                  },
-                  {
-                    children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
-                  },
-                ]}
-              />
+          <div className="about-listing bg-light w-100 d-flex justify-evenly align-items-center">
+            <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
+              <ItemCard item={post[0]} />
+            </div>
+            <div className=" col-md-8" >
+              <h1 className="fs-1">About Advertisement</h1>
+              <div className="mt-4 homepage-timeline">
+                <Timeline
+                  style={{fontSize: '1rem'}}
+                  items={[
+                    {
+                      children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
+                    },
+                    {
+                      children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
+                    },
+                  ]}
+                />
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         <div

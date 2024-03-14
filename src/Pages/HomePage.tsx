@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
-                  <h1 className="fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
+                  <h1 className="fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
                     Explore Our Offerings
                   </h1>
                   <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
             <div className="homePage-intro h-100">
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
-                  <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
+                  <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
                     Redefining Excellence
                   </h1>
                   <p className="col-md-5  fs-5" style={{ fontFamily: "poppins" }}>
@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
               <div className="homePage-info p-5 h-100 d-flex align-items-center">
                 <div>
 
-                  <h1 className="fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat', fontSize: '3.5rem'}}>
+                  <h1 className="fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
                   Join Our Growing Community
                   </h1>
                   <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
@@ -138,20 +138,12 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* referral section  */}
-      {/* <div className="container text-center my-5">
-        <h1 className="fs-1 fw-bold text-center ">Refer a Friend</h1>
-        <div className="referral-form">
-          <p className="mt-4 mb-3 container-lg">
-          Unlock rewards by sharing your referral code! When new users register with your code, you earn a 0.25 commission from their first deal. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.
-          </p>
-        </div>
-      </div> */}
       <div className="m-4 shadow rounded overflow-hidden d-flex">
         <div className="col-5 referral-img">
           <img className="h-100" src="https://t3.ftcdn.net/jpg/02/65/10/72/360_F_265107234_1W0i4qjxk8DNkZdnaaneNwMzXeaC99B1.jpg" alt="" />
         </div>
         <div className="p-5 referral-info">
-          <h1 className="mb-5 text-primary" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
+          <h1 className="mb-5 text-primary" style={{fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
           <p style={{lineHeight: '2rem'}}>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium text-3xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
           <Button className="mt-5" type='primary' size="large" onClick={() =>{showModal()}} >Register</Button>
         </div>
@@ -159,8 +151,8 @@ const HomePage: React.FC = () => {
 
       {/* about post section */}
       <div className="bg-light">
-        <h1 className="text-center pt-5" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}}>Posting an Advertisement</h1>
-        <div className="m-5 mt-0 border-bottom pb-4">
+        <h1 className="text-center pt-5" style={{fontFamily: 'Montserrat'}}>Posting an Advertisement</h1>
+        <div className="my-5 mt-0 border-bottom pb-4">
           {/* <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1> */}
           <StepsForPost />
         </div>
@@ -168,8 +160,8 @@ const HomePage: React.FC = () => {
 
       {/* about requirement section */}
       <div>
-      <h1 className="text-center pt-5" style={{fontSize: '3.5rem', fontFamily: 'Montserrat'}}>Posting an Requirement</h1>
-        <div className="m-5 mt-0">
+      <h1 className="text-center pt-5" style={{fontFamily: 'Montserrat'}}>Posting an Requirement</h1>
+        <div className="my-5 mt-0">
           <StepsForRequirement />
         </div>
       </div>

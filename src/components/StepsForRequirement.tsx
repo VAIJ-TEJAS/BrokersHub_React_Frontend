@@ -61,7 +61,7 @@ const StepsForRequirement = () => {
     <div
       className="postSteps-container align-items-center justify-content-center d-flex flex-column"
     >
-        <div className="mt-4 w-100">
+        <div className="container-lg mt-4 w-100">
             <div className="AddSteps1">
                 <Steps current={currentStep}>
                 {steps.map((item, index) => (
@@ -80,16 +80,13 @@ const StepsForRequirement = () => {
         </div>
 
         <div>
-            <div
-            className="postSteps-img"
-            style={{ display: currentStep === 0 ? "block" : "none" }}
-            >
-                <div className="about-listing px-5 w-100 h-100 d-flex justify-evenly align-items-center">
+            <div className="postSteps-img mx-2" style={{ display: currentStep === 0 ? "block" : "none" }} >
+                <div className="about-listing w-100 h-100 d-flex justify-evenly align-items-center">
                     <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
                         <ItemCard item={post[0]} />
                     </div>
                 
-                    <div className="my-5 col-md-8" >
+                    <div className="col-md-8" >
                         <h1 className="fs-1">About Requirement</h1>
                         <div className="mt-4 homepage-timeline">
                         <Timeline
