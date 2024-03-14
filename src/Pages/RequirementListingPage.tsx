@@ -1,66 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import BrokerWebsiteLayout from '../components/BrokerWebsiteLayout';
 import ItemCard from '../components/ItemCard';
+import axios from 'axios';
 
 const RequirementListingPage: React.FC = () => {
-  const items = [
-    {
-      title: 'Property 2',
-      description: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      budget: 700000,
-      image: '',
-      contact: '123',
-      transaction: 'Buy',
-      postType: 'Add',
-      state: 'Jharkhand',
-      location: 'Ranchi',
-      ratio: 0,
-    },
-    {
-      title: "Property 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      budget: 85000,
-      image: "",
-      contact: "456",
-      transaction: "Rent",
-      postType: "Requirement",
-      state: "Karnataka",
-      location: "Bangalore",
-      ratio: 20
-    },
-    
-    {
-      title: "Car Sale",
-      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      budget: 15000,
-      image: "",
-      contact: "789",
-      transaction: "Buy",
-      postType: "Requirement",
-      state: "Tamil Nadu",
-      location: "Chennai",
-      ratio: 30
-    },
-    
-    {
-      title: "Laptop for Sale",
-      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      budget: 50000,
-      image: "",
-      contact: "101112",
-      transaction: "Conversion",
-      postType: "Requirement",
-      state: "Maharashtra",
-      location: "Mumbai",
-      ratio: 40
-    }
-    
-    // Add more items as needed
-  ];
 
+  const [items, setItems] = useState([]);
+
+  const url = 'https://13.232.115.59/requirements/';
+
+  // Make the GET request with Axios
+  useEffect(() => {
+    axios.get(url)
+      .then((response) => {
+        setItems(response.data);
+        console.log('Response:', response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
+  
   return (
     <BrokerWebsiteLayout page={'requirement'}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className='d-flex flex-wrap justify-center'>
         {items.map((item, index) => (
           <ItemCard key={index} item={item} />
         ))}

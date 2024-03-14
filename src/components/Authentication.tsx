@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Tabs, Input, Button, Select } from 'antd';
+import { Tabs, Input, Button, Select, Alert } from 'antd';
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
 import { useState } from 'react';
-// import axios from "../api/axios"
+import axios from "axios"
 // import { Context } from '../context/context.provider';
 
 const { TabPane } = Tabs;
@@ -14,19 +14,48 @@ interface OptionType {
 
 interface AuthenticationProps {
     defaultTab?: string | null;
-  }
+}
 
 const Login: React.FC = () => {
 
+    const [error, setError] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
-        
+        const url = 'https://13.232.115.59/auth/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Define the JSON body data
+        const data = {
+            username: username,
+            password: password,
+        };
+
+        // Make the POST request with Axios
+        axios.post(url, data, {
+            headers: headers,
+        })
+            .then(response => {
+                // Handle the response data
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error found as:', error);
+                let errorMessage =  error.response?.data?.username === undefined ? error.response?.data?.non_field_errors[0] : error.response?.data?.username[0];
+                setError(errorMessage)
+            });
     };
 
     return (
         <div className='space-y-6 w-[300px]'>
+
+            {error !== '' && (
+                <Alert message={error} type="error" showIcon closable onClose={() => setError('')} />
+            )}
+
             <div>
                 <Input
                     className='text-center rounded-none'
@@ -36,6 +65,7 @@ const Login: React.FC = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
             </div>
+
             <div>
                 <Input.Password
                     className='text-center rounded-none'
@@ -49,6 +79,7 @@ const Login: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
+
             <div>
                 <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleLogin}>
                     Sign in
@@ -60,6 +91,7 @@ const Login: React.FC = () => {
 
 const Register: React.FC = () => {
 
+    const [error, setError] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -6326,7 +6358,51 @@ const Register: React.FC = () => {
     ]);
 
     const handleRegister = async () => {
-        console.log(city)
+        if (newPassword !== confirmPassword) {
+            setError('Passwords do not match with Confirm Password')
+            return;
+        }
+
+        // {
+        //     "username": "newuser2",
+        //     "password": "verysecurepassword",
+        //     "first_name": "John",
+        //     "last_name": "Doe",
+        //     "email": "johndoe2@example.com",
+        //     "state": "SomeState",
+        //     "city": "SomeCity"
+        //   }
+
+        const url = 'https://13.232.115.59/signup/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Define the JSON body data
+        const data = {
+            username: email,
+            password: newPassword,
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            state: state,
+            city: city,
+        };
+
+        // Make the POST request with Axios
+        axios.post(url, data, {
+            headers: headers,
+        })
+            .then(response => {
+                // Handle the response data
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error found as:', error);
+                const errorMessage = error.response?.data?.username[0] || error.message;
+                setError(errorMessage)
+            });
+
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
@@ -6334,6 +6410,11 @@ const Register: React.FC = () => {
 
     return (
         <div className='space-y-6 w-[300px]'>
+
+            {error !== '' && (
+                <Alert message={error} type="error" showIcon closable onClose={() => setError('')} />
+            )}
+
             <div className='flex space-x-6'>
                 <div>
                     <Input
@@ -6344,6 +6425,7 @@ const Register: React.FC = () => {
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                 </div>
+
                 <div>
                     <Input
                         className='text-center rounded-none'
@@ -6354,6 +6436,7 @@ const Register: React.FC = () => {
                     />
                 </div>
             </div>
+
             <div>
                 <Select
                     className='w-100'
@@ -6370,6 +6453,7 @@ const Register: React.FC = () => {
                     })}
                 />
             </div>
+
             {state !== '' &&
                 <div>
                 <Select
@@ -6388,6 +6472,7 @@ const Register: React.FC = () => {
                         }
                 />
             </div>}
+
             <div>
                 <Input
                     className='text-center rounded-none'
@@ -6397,6 +6482,7 @@ const Register: React.FC = () => {
                     onChange={(e) => setPhone(e.target.value)}
                 />
             </div>
+
             <div>
                 <Input
                     className='text-center rounded-none'
@@ -6406,6 +6492,7 @@ const Register: React.FC = () => {
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
+
             <div>
                 <Input
                     className='text-center rounded-none'
@@ -6415,6 +6502,7 @@ const Register: React.FC = () => {
                     onChange={(e) => setReferralCode(e.target.value)}
                 />
             </div>
+
             <div>
                 <Input.Password
                     className='text-center rounded-none'
@@ -6427,6 +6515,7 @@ const Register: React.FC = () => {
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
             </div>
+
             <div>
                 <Input.Password
                     className='text-center rounded-none'
@@ -6439,6 +6528,7 @@ const Register: React.FC = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
+
             <div>
                 <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleRegister}>
                     Register

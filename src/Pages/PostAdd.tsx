@@ -7,6 +7,22 @@ import { useEffect, useState } from 'react';
 import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
 
+// {
+//     "title": "New Title Without User in Payload",
+//     "state": "Maharastra",
+//     "city": "Pune",
+//     "description": "Description",
+//     "contact": "7666674367",
+//     "transaction_type": "Buy",
+//     "budget": "0.00",
+//     "downpayment": null,
+//     "ratio_x": null,
+//     "ratio_y": null,
+//     "monthly_rent": null
+// }
+
+// [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
+
 interface OptionType {
     value: string;
     label: string;
@@ -6280,9 +6296,9 @@ const PostAdd = () => {
                 title: 'Name',
                 description: 'Describe your requirement',
                 budget: 0,
-                location: '',
+                city: '',
                 state: '',
-                mode: 'Conversion',
+                mode: 'Sell',
                 postType: 'Add',
                 ratio: 0,
             },
@@ -6294,10 +6310,10 @@ const PostAdd = () => {
             image: null,
             title: 'Name',
             description: 'Describe your requirement',
-            location: '',
+            city: '',
             state: '',
             budget: 0,
-            mode: 'Conversion',
+            mode: 'Sell',
             postType: 'Add',
             ratio: 0,
         },
@@ -6397,7 +6413,7 @@ const PostAdd = () => {
                                         showSearch
                                         placeholder="Select a city"
                                         optionFilterProp="children"
-                                        value={formik.values.location}
+                                        value={formik.values.city}
                                         onChange={(value) => {
                                             formik.setFieldValue('location', value);
                                         }}
@@ -6538,9 +6554,9 @@ const PostAdd = () => {
                                             title:formik.values.title,
                                             description:formik.values.description,
                                             budget: formik.values.budget,
-                                            transaction: formik.values.mode,
+                                            transaction_type: formik.values.mode,
                                             postType: formik.values.postType,
-                                            location: formik.values.location,
+                                            city: formik.values.city,
                                             state: formik.values.state,
                                             ratio: formik.values.ratio,
                                         }

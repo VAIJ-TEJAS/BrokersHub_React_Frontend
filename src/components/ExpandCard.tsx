@@ -6,9 +6,9 @@ interface Item {
   description: string;
   budget: number;
   image: string;
-  transaction: string;
+  transaction_type: string;
   postType: string;
-  location: string,
+  city: string,
   state: string,
 }
 
@@ -28,35 +28,35 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
       <div className="property-details">
         <div className='my-4 d-flex justify-between align-items-center border-2 border-black p-3 rounded'>
           <h3 className="property-title fs-3" style={{fontFamily: 'Montserrat'}}>{item.title}</h3>
-          {item.transaction && 
+          {item.transaction_type && 
               <p className="property-transaction shadow rounded bg-warning px-4 py-1">
-              <strong>{item.transaction}</strong> 
+              <strong>{item.transaction_type}</strong> 
           </p>}
         </div>
 
         <ul className='px-3' style={{listStyleType: 'disc'}}>
-          {item.transaction=="Rent" &&
+          {item.transaction_type=="Rent" &&
               <li className="property-budget">
             <strong>Rent amount:</strong> ₹{item.budget}
           </li>}
 
-          {item.transaction=="Conversion" &&
+          {item.transaction_type=="Conversion" &&
               <li className="property-budget">
             <strong>Down payment:</strong> {item.budget}%
           </li>}
 
-          {item.transaction=="Buy" &&
+          {item.transaction_type=="Buy" &&
               <li className="property-budget">
             <strong>Budget:</strong> ₹{item.budget}
           </li>}
 
-          {item.transaction=="Sell" &&
+          {item.transaction_type=="Sell" &&
               <li className="property-budget">
             <strong>Price:</strong> ₹{item.budget}
           </li>}
 
           <li className="property-contact">
-              <strong>Location:</strong> {item.location}, {item.state}
+              <strong>Location:</strong> {item.city}, {item.state}
           </li>
         </ul>
 
