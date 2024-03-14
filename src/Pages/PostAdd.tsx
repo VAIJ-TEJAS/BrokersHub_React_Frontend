@@ -6352,9 +6352,6 @@ const PostAdd = () => {
         return e && e.fileList;
     };
 
-    const onSearch = (value: string) => {
-        console.log('search:', value);
-      };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -6393,6 +6390,15 @@ const PostAdd = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                                <Input
+                                    onChange={(e) => {
+                                        formik.setFieldValue('contact', e.target.value);
+                                    }}
+                                    value={formik.values.contact}
+                                />
+                            </Form.Item>
+
                             <Form.Item label='State' rules={[{ required: true, message: 'Please enter the location!' }]}>
                                 <Select
                                     showSearch
@@ -6403,7 +6409,6 @@ const PostAdd = () => {
                                         formik.setFieldValue('state', value);
                                         formik.setFieldValue('location', '');
                                     }}
-                                    onSearch={onSearch}
                                     filterOption={filterOption}
                                     options={stateList.map(city => {
                                         return {
@@ -6425,7 +6430,6 @@ const PostAdd = () => {
                                         onChange={(value) => {
                                             formik.setFieldValue('location', value);
                                         }}
-                                        onSearch={onSearch}
                                         filterOption={filterOption}
                                         // options={cities}
                                         options={cities
@@ -6493,8 +6497,8 @@ const PostAdd = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('downpayment', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('downpayment', e.target.value);
                                         }}
                                         value={formik.values.downpayment}
                                     />
@@ -6533,8 +6537,8 @@ const PostAdd = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('monthly_rent', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('monthly_rent', e.target.value);
                                         }}
                                         value={formik.values.monthly_rent}
                                     />

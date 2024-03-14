@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Alert } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import '../components/Navbar.css'
 
@@ -13,9 +13,10 @@ interface OptionType {
     label: string;
 }
 
-
-
 const PostRequirement = () => {
+
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const cities = [
         {
@@ -6313,14 +6314,37 @@ const PostRequirement = () => {
             ratio_y: '',
         },
 
-        onSubmit: async () => {
-
+        onSubmit: async (values) => {
+            
+            axios.post('https://13.232.115.59/requirements/', values, {
+                headers: {
+                    'Authorization': 'Token cc90fd84bce3e5cd55f4e92175a489529ba2fbd6',
+                    'Content-Type': 'application/json'
+                    // Add other headers as needed
+                }
+            })
+            .then(response => {
+                console.log('Response:', response.data); // Handle the response
+                setSuccess('You requirement has been posted!');
+                // Optionally, you can perform any actions after successful response
+            })
+            .catch(error => {
+                console.error('Error:', error); // Handle error
+                if (error.response?.data) {
+                    let errorMessage = error.response?.data
+                    let firstKey = Object.keys(errorMessage)[0];
+                    let firstValue = errorMessage[firstKey];
+                    console.log(firstValue[0]);
+                    setError('Field ' + firstKey + ' is required.')
+                }
+                else{
+                    let errorMessage = error.message;
+                    setError(errorMessage)
+                }
+                // Optionally, you can perform any actions after error
+            });
         },
     });
-
-    const onSearch = (value: string) => {
-        console.log('search:', value);
-      };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -6339,12 +6363,29 @@ const PostRequirement = () => {
                         >
                             <div className='text-4xl font-medium text-[#002766] mb-3'>Requirement Details</div>
 
+                            {error !== '' && (
+                                <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
+                            )}
+
+                            {success !== '' && (
+                                <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
+                            )}
+
                             <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
                                     }}
                                     value={formik.values.title}
+                                />
+                            </Form.Item>
+
+                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                                <Input
+                                    onChange={(e) => {
+                                        formik.setFieldValue('contact', e.target.value);
+                                    }}
+                                    value={formik.values.contact}
                                 />
                             </Form.Item>
 
@@ -6358,7 +6399,6 @@ const PostRequirement = () => {
                                         formik.setFieldValue('state', value);
                                         formik.setFieldValue('city', '');
                                     }}
-                                    onSearch={onSearch}
                                     filterOption={filterOption}
                                     options={stateList.map(city => {
                                         return {
@@ -6380,7 +6420,6 @@ const PostRequirement = () => {
                                         onChange={(value) => {
                                             formik.setFieldValue('city', value);
                                         }}
-                                        onSearch={onSearch}
                                         filterOption={filterOption}
                                         options={cities
                                             .filter(city => city.state === formik.values.state) // Filter cities by selected state
@@ -6434,8 +6473,8 @@ const PostRequirement = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('budget', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('budget', e.target.value);
                                         }}
                                         value={formik.values.budget}
                                     />
@@ -6448,8 +6487,8 @@ const PostRequirement = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('downpayment', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('downpayment', e.target.value);
                                         }}
                                         value={formik.values.downpayment}
                                     />
@@ -6488,8 +6527,8 @@ const PostRequirement = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('monthly_rent', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('monthly_rent', e.target.value);
                                         }}
                                         value={formik.values.monthly_rent}
                                     />
@@ -6500,7 +6539,6 @@ const PostRequirement = () => {
                                 type='primary'
                                 className='bg-[#1890FF] w-full font-semibold'
                                 htmlType='submit'
-                                // loading={loading}
                             >
                                 Submit
                             </Button>
