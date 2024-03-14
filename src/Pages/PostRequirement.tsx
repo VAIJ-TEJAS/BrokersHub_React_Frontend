@@ -6279,30 +6279,38 @@ const PostRequirement = () => {
 
         formik.resetForm({
             values: {
+                monthly_rent: '',
                 image: null,
                 title: 'Name',
                 description: 'Describe your requirement',
-                budget: 0,
-                location: '',
+                contact: '',
+                city: '',
                 state: '',
-                mode: 'Buy',
-                postType: 'Requirement',
-                ratio: 0,
+                budget: '0',
+                transaction_type: 'Buy',
+                price: '',
+                downpayment: '',
+                ratio_x: 0,
+                ratio_y: '',
             },
         });
     }, []);
 
     const formik = useFormik({
         initialValues: {
+            monthly_rent: '',
             image: null,
             title: 'Name',
             description: 'Describe your requirement',
-            location: '',
+            contact: '',
+            city: '',
             state: '',
-            budget: 0,
-            mode: 'Sell',
-            postType: 'Requirement',
-            ratio: 0,
+            budget: '0',
+            transaction_type: 'Buy',
+            price: '',
+            downpayment: '',
+            ratio_x: 0,
+            ratio_y: '',
         },
 
         onSubmit: async () => {
@@ -6348,7 +6356,7 @@ const PostRequirement = () => {
                                     value={formik.values.state}
                                     onChange={(value) => {
                                         formik.setFieldValue('state', value);
-                                        formik.setFieldValue('location', '');
+                                        formik.setFieldValue('city', '');
                                     }}
                                     onSearch={onSearch}
                                     filterOption={filterOption}
@@ -6368,9 +6376,9 @@ const PostRequirement = () => {
                                         showSearch
                                         placeholder="Select a person"
                                         optionFilterProp="children"
-                                        value={formik.values.location}
+                                        value={formik.values.city}
                                         onChange={(value) => {
-                                            formik.setFieldValue('location', value);
+                                            formik.setFieldValue('city', value);
                                         }}
                                         onSearch={onSearch}
                                         filterOption={filterOption}
@@ -6407,10 +6415,9 @@ const PostRequirement = () => {
                                 <Select
                                     defaultValue="Buy"
                                     style={{ width: 120 }}
-                                    value={formik.values.mode}
+                                    value={formik.values.transaction_type}
                                     onChange={(value) => {
-                                        formik.values.budget = 0;
-                                        formik.setFieldValue('mode', value);
+                                        formik.setFieldValue('transaction_type', value);
                                     }}
                                     options={[
                                         { value: 'Buy', label: 'Buy' },
@@ -6421,13 +6428,12 @@ const PostRequirement = () => {
                             </Form.Item>
 
                             {
-                                formik.values.mode == 'Buy' &&
+                                formik.values.transaction_type == 'Buy' &&
                                 <Form.Item
                                     label='Budget'
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
-                                    <InputNumber
-                                        min={0}
+                                    <Input
                                         onChange={(value) => {
                                             formik.setFieldValue('budget', value);
                                         }}
@@ -6436,57 +6442,56 @@ const PostRequirement = () => {
                                 </Form.Item>
                             }
                             {
-                                formik.values.mode == 'Conversion' &&
+                                formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
                                     label='Down Payment'
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
-                                    <InputNumber
-                                        min={0}
+                                    <Input
                                         onChange={(value) => {
-                                            formik.setFieldValue('budget', value);
+                                            formik.setFieldValue('downpayment', value);
                                         }}
-                                        value={formik.values.budget}
+                                        value={formik.values.downpayment}
                                     />
                                 </Form.Item>
                             }
                             {
-                                formik.values.mode == 'Conversion' &&
+                                formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
                                     label='Ratio'
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <InputNumber
-                                    className='me-2'
                                         min={0}
                                         max={100}
+                                        className='me-2'
                                         onChange={(value) => {
-                                            formik.setFieldValue('ratio', value);
+                                            formik.setFieldValue('ratio_x', value);
                                         }}
-                                        value={formik.values.ratio}
+                                        value={formik.values.ratio_x}
                                     /> : 
                                     <InputNumber
-                                    className='ms-2'
                                         min={0}
+                                        max={100}
+                                        className='ms-2'
                                         onChange={(value) => {
-                                            formik.setFieldValue('ratio', value);
+                                            formik.setFieldValue('ratio_y', value);
                                         }}
-                                        value={100 - formik.values.ratio}
+                                        value={100 - formik.values.ratio_x}
                                     />
                                 </Form.Item>
                             }
                             {
-                                formik.values.mode == 'Rent' &&
+                                formik.values.transaction_type == 'Rent' &&
                                 <Form.Item
                                     label='Monthly Rent'
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
-                                    <InputNumber
-                                        min={0}
+                                    <Input
                                         onChange={(value) => {
-                                            formik.setFieldValue('budget', value);
+                                            formik.setFieldValue('monthly_rent', value);
                                         }}
-                                        value={formik.values.budget}
+                                        value={formik.values.monthly_rent}
                                     />
                                 </Form.Item>
                             }
@@ -6504,15 +6509,20 @@ const PostRequirement = () => {
                             <div className='addCardShower'>
                                 <ItemCard
                                     item = {
-                                        {image: imageURL,
+                                        {
+                                            monthly_rent: formik.values.monthly_rent,
+                                            contact: formik.values.contact,
+                                            price: formik.values.price,
+                                            downpayment: formik.values.downpayment,
+                                            ratio_y: `${100 - formik.values.ratio_x}`,
+                                            image: imageURL,
                                             title:formik.values.title,
                                             description:formik.values.description,
                                             budget: formik.values.budget,
-                                            transaction: formik.values.mode,
-                                            postType: formik.values.postType,
-                                            location: formik.values.location,
+                                            transaction_type: formik.values.transaction_type,
+                                            city: formik.values.city,
                                             state: formik.values.state,
-                                            ratio: formik.values.ratio,
+                                            ratio_x: `${formik.values.ratio_x}`,
                                         }
                                     }
                                 />

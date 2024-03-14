@@ -2,14 +2,19 @@ import './Navbar.css'
 import { Button } from 'antd';
 
 interface Item {
-  title: string;
-  description: string;
-  budget: number;
-  image: string;
-  transaction_type: string;
-  postType: string;
-  city: string,
+  title: string,
   state: string,
+  city: string,
+  description: string,
+  contact: string,
+  transaction_type: string,
+  price: string,
+  downpayment: string,
+  ratio_x: string,
+  ratio_y: string,
+  monthly_rent: string,
+  image: string,
+  budget: string;
 }
 
 interface Props {
@@ -37,12 +42,12 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
         <ul className='px-3' style={{listStyleType: 'disc'}}>
           {item.transaction_type=="Rent" &&
               <li className="property-budget">
-            <strong>Rent amount:</strong> ₹{item.budget}
+            <strong>Rent amount:</strong> ₹{item.monthly_rent}
           </li>}
 
           {item.transaction_type=="Conversion" &&
               <li className="property-budget">
-            <strong>Down payment:</strong> {item.budget}%
+            <strong>Down payment:</strong> {item.downpayment}%
           </li>}
 
           {item.transaction_type=="Buy" &&
@@ -52,7 +57,7 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
           {item.transaction_type=="Sell" &&
               <li className="property-budget">
-            <strong>Price:</strong> ₹{item.budget}
+            <strong>Price:</strong> ₹{item.price}
           </li>}
 
           <li className="property-contact">

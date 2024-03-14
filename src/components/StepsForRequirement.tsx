@@ -45,15 +45,19 @@ const StepsForRequirement = () => {
 
   const post = [
     {
+      image: '',
       title: "Requirement 1",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      budget: 700000,
-      image: "",
+      budget: '7,00,000',
       transaction_type: "Buy",
-      postType: "Requirement",
+      contact: "7666674367",
       city: "Ranchi",
       state: "Jharkhand",
-      ratio: 0,
+      downpayment: "",
+      price: "",
+      ratio_x: "",
+      ratio_y: "",
+      monthly_rent: ""
     },
   ];
 

@@ -45,9 +45,15 @@ const StepsForPost = () => {
 
   const post = [
     {
+      budget: '',
+      contact: "7666674367",
+      downpayment: "",
+      price: "7,00,000",
+      ratio_x: "",
+      ratio_y: "",
+      monthly_rent: "",
       title: 'Property 1',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      budget: 700000,
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
       transaction_type: 'Sell',
       postType: 'Requirement',

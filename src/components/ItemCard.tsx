@@ -7,15 +7,19 @@ import './Navbar.css'
 const { Meta } = Card;
 
 interface Item {
-  title: string;
-  description: string;
-  budget: number;
-  image: string;
-  transaction_type: string;
-  postType: string,
-  city: string,
+  title: string,
   state: string,
-  ratio: number,
+  city: string,
+  description: string,
+  contact: string,
+  transaction_type: string,
+  price: string,
+  downpayment: string,
+  ratio_x: string,
+  ratio_y: string,
+  monthly_rent: string,
+  image: string,
+  budget: string;
 }
 
 interface Props {
@@ -43,7 +47,7 @@ const ItemCard: React.FC<Props> = ({ item }) => {
       cover={(item.image !== '' && item.image !== undefined) ? <img alt={item.title} src={item.image} /> : ''}
       className='overflow-hidden'
     >
-      <Modal title={`${item.postType} Details`}
+      <Modal
         open={modalVisible}
         onCancel={handleCancel}
         footer={null}
