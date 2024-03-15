@@ -2,7 +2,7 @@ import {useState} from 'react'
 import { Menu, Modal, Button, Tooltip, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import Autentication from './Authentication';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
 import './Navbar.css'
 
@@ -17,9 +17,18 @@ const menuItems = [
   
   
 export default function Navbar() {
+
+    const navigate = useNavigate();
+
     const [defaultTab, setDefaultTab] = useState('1')
     const [open, setOpen] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+
+    const check = () => {
+      const token = localStorage.getItem('share-coupon-access-token');
+      return token;
+    }
+
   
     const showModal = (num: string) => {
       setDefaultTab(num)
@@ -64,8 +73,16 @@ export default function Navbar() {
           </div>
           <div className='ms-auto d-flex align-items-center'>
             <div className='onShort'>
-              <button className='me-3 btn btn-outline-primary' onClick={() => {showModal('1')}}>Login</button>
-              <button className='btn btn-primary' onClick={() =>{showModal('0')}}>Register</button>
+              {check() ?
+                <>
+                  <button className='me-3 btn btn-outline-primary' onClick={() => {localStorage.removeItem('share-coupon-access-token');navigate('/');}}>Logout</button>
+                  <Link to='/profile' className='btn btn-primary'>Profile</Link>
+                </>:
+                <>
+                  <button className='me-3 btn btn-outline-primary' onClick={() => {showModal('1')}}>Login</button>
+                  <button className='btn btn-primary' onClick={() =>{showModal('0')}}>Register</button>
+                </>
+              }
             </div>
             <Tooltip className='onBig'>
               <Button onClick={showDrawer} className='ms-3 mt-1 navbar-drop' icon={<MenuOutlined className='w-100' width={'100px'} />} />
@@ -77,12 +94,17 @@ export default function Navbar() {
 
       </Header>
         <Drawer width={'260px'} title="TheBrokersHub" onClose={onClose} open={open}>
-          <div className='mb-3'>
-            <button className='btn btn-primary w-100' onClick={() =>{showModal('1')}}>Register</button>
-          </div>
-          <div className='my-3'>
-            <button className='btn btn-outline-primary w-100 text-dark' onClick={() =>{showModal('0')}}>Login</button>
-          </div>
+          {check() ?
+            <button className='btn btn-primary w-100'>Profile</button>:
+            <>
+              <div className='mb-3'>
+                <button className='btn btn-primary w-100' onClick={() =>{showModal('1')}}>Register</button>
+              </div>
+              <div className='my-3'>
+                <button className='btn btn-outline-primary w-100 text-dark' onClick={() =>{showModal('0')}}>Login</button>
+              </div>
+            </>
+          }
 
           <ul className='mt-4'>
             <hr />
@@ -103,6 +125,10 @@ export default function Navbar() {
             </li>
             <hr />
           </ul>
+          
+          {check() &&
+            <button className='mt-3 btn btn-outline-primary w-100' onClick={() => {localStorage.removeItem('share-coupon-access-token');navigate('/');}}>Logout</button>
+          }
       </Drawer>
       </>
         

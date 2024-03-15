@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Alert } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Alert, Modal } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import '../components/Navbar.css'
+import Autentication from '../components/Authentication';
 
 interface OptionType {
     value: string;
@@ -17,6 +17,11 @@ const PostRequirement = () => {
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+  
+    const handleCancel = () => {
+      setModalVisible(false)
+    };
 
     const cities = [
         {
@@ -6315,10 +6320,17 @@ const PostRequirement = () => {
         },
 
         onSubmit: async (values) => {
+
+            const token = localStorage.getItem('share-coupon-access-token');
+
+            if (!token) {
+                setModalVisible(true)
+                return
+            }
             
             axios.post('https://13.232.115.59/requirements/', values, {
                 headers: {
-                    'Authorization': 'Token cc90fd84bce3e5cd55f4e92175a489529ba2fbd6',
+                    'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
                     // Add other headers as needed
                 }
@@ -6350,7 +6362,15 @@ const PostRequirement = () => {
     return (
         <>
             <Navbar />
-                <div className='d-flex justify-content-center bg-[#F5F5F5]'>
+
+            <Modal
+                open={modalVisible}
+                onCancel={handleCancel}
+                footer={null}>
+                <Autentication />
+            </Modal>
+
+            <div className='d-flex justify-content-center bg-[#F5F5F5]'>
                     <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
@@ -6567,7 +6587,7 @@ const PostRequirement = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
         </>
     );
 };

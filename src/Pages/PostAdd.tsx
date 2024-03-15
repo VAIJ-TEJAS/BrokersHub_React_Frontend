@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload, Alert } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload, Alert, Modal } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import Autentication from '../components/Authentication';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
@@ -19,6 +20,11 @@ const PostAdd = () => {
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const handleCancel = () => {
+        setModalVisible(false)
+    };
 
     const cities = [
         {
@@ -6318,6 +6324,13 @@ const PostAdd = () => {
 
         onSubmit: async (values) => {
 
+            const token = localStorage.getItem('share-coupon-access-token');
+
+            if (!token) {
+                setModalVisible(true)
+                return
+            }
+
             const formData = new FormData();
 
             if (values.image && Array.isArray(values.image)) {
@@ -6339,7 +6352,7 @@ const PostAdd = () => {
 
             axios.post('https://13.232.115.59/advertisements/', formData, {
                 headers: {
-                    'Authorization': 'Token cc90fd84bce3e5cd55f4e92175a489529ba2fbd6',
+                    'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data'
                     // Add other headers as needed
                 }
@@ -6395,7 +6408,15 @@ const PostAdd = () => {
     return (
         <>
             <Navbar />
-                <div className='d-flex justify-content-center bg-[#F5F5F5]'>
+
+            <Modal
+                open={modalVisible}
+                onCancel={handleCancel}
+                footer={null}>
+                <Autentication />
+            </Modal>
+
+            <div className='d-flex justify-content-center bg-[#F5F5F5]'>
                     <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
@@ -6624,7 +6645,7 @@ const PostAdd = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
         </>
     );
 };

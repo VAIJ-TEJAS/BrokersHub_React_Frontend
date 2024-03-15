@@ -3,6 +3,7 @@ import { Tabs, Input, Button, Select, Alert } from 'antd';
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
 import { useState } from 'react';
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 // import { Context } from '../context/context.provider';
 
 const { TabPane } = Tabs;
@@ -17,6 +18,8 @@ interface AuthenticationProps {
 }
 
 const Login: React.FC = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
@@ -41,6 +44,9 @@ const Login: React.FC = () => {
             .then(response => {
                 // Handle the response data
                 console.log('Response:', response.data);
+                localStorage.setItem('share-coupon-access-token', response.data.token)
+                localStorage.setItem('share-coupon-user', response.data.user)
+                navigate('/');
             })
             .catch(error => {
                 console.error('Error found as:', error);
@@ -90,6 +96,8 @@ const Login: React.FC = () => {
 };
 
 const Register: React.FC = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -6363,16 +6371,6 @@ const Register: React.FC = () => {
             return;
         }
 
-        // {
-        //     "username": "newuser2",
-        //     "password": "verysecurepassword",
-        //     "first_name": "John",
-        //     "last_name": "Doe",
-        //     "email": "johndoe2@example.com",
-        //     "state": "SomeState",
-        //     "city": "SomeCity"
-        //   }
-
         const url = 'https://13.232.115.59/signup/';
         const headers = {
             'Content-Type': 'application/json',
@@ -6396,6 +6394,9 @@ const Register: React.FC = () => {
             .then(response => {
                 // Handle the response data
                 console.log('Response:', response.data);
+                localStorage.setItem('share-coupon-access-token', response.data.token)
+                localStorage.setItem('share-coupon-user', response.data.user)
+                navigate('/');
             })
             .catch(error => {
                 console.error('Error found as:', error);
