@@ -1,16 +1,16 @@
 h1{
-  font-size: 3.5rem !important;
+  font-size: 3.2rem !important;
   font-family: 'Montserrat';
 }
 
 @media (max-width: 700px) {
   h1{
-    font-size: 3rem !important;
+    font-size: 2.6rem !important;
   }
 }
 @media (max-width: 500px) {
   h1{
-    font-size: 2.5rem !important;
+    font-size: 2.1rem !important;
   }
 }
 
@@ -71,24 +71,6 @@ h1{
 
   .about-listing div:nth-child(1) {
     display: none;
-  }
-}
-
-.AddSteps1 {
-  display: block;
-}
-
-.AddSteps2 {
-  display: none;
-}
-
-@media (max-width: 870px) {
-  .AddSteps1 {
-    display: none;
-  }
-
-  .AddSteps2 {
-    display: block;
   }
 }
 

@@ -69,15 +69,8 @@ const StepsForPost = () => {
       className="postSteps-container justify-content-center align-items-center d-flex flex-column"
     >
       <div className="container-lg mt-4 w-100">
-        <div className="AddSteps1">
+        <div className="lg:block hidden">
           <Steps current={currentStep} >
-            {steps.map((item, index) => (
-              <Step key={index} title={item.title} className="my-4" />
-              ))}
-          </Steps>
-        </div>
-        <div className="AddSteps2">
-          <Steps className="justify-content-center align-items-center" current={currentStep} direction="vertical" >
             {steps.map((item, index) => (
               <Step key={index} title={item.title} className="my-4" />
               ))}
@@ -87,10 +80,10 @@ const StepsForPost = () => {
 
       <div>
         <div
-          className="postSteps-img mx-2"
+          className="postSteps-img px-3 sm:mx-4"
           style={{ display: currentStep === 0 ? "block" : "none" }}
         >
-          <div className="about-listing bg-light w-100 d-flex justify-evenly align-items-center">
+          <div className="about-listing bg-light w-full h-full d-flex justify-center items-center">
             <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
               <ItemCard item={post[0]} />
             </div>

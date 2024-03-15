@@ -142,9 +142,9 @@ const HomePage: React.FC = () => {
         <div className="col-5 referral-img">
           <img className="h-100" src="https://t3.ftcdn.net/jpg/02/65/10/72/360_F_265107234_1W0i4qjxk8DNkZdnaaneNwMzXeaC99B1.jpg" alt="" />
         </div>
-        <div className="p-5 referral-info">
+        <div className="sm:p-5 p-3 referral-info">
           <h1 className="mb-5 text-primary" style={{fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
-          <p style={{lineHeight: '2rem'}}>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium text-3xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
+          <p>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium md:text-2xl text-xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
           <Button className="mt-5" type='primary' size="large" onClick={() =>{showModal()}} >Register</Button>
         </div>
       </div>
@@ -153,7 +153,6 @@ const HomePage: React.FC = () => {
       <div className="bg-light">
         <h1 className="text-center pt-5" style={{fontFamily: 'Montserrat'}}>Posting an Advertisement</h1>
         <div className="my-5 mt-0 border-bottom pb-4">
-          {/* <h1 className="fs-1 text-center mb-5">Steps For Creating a Post</h1> */}
           <StepsForPost />
         </div>
       </div>
