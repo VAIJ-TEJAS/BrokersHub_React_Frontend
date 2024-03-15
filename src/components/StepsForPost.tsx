@@ -10,6 +10,7 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 const { Step } = Steps;
 
 const StepsForPost = () => {
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -45,6 +46,7 @@ const StepsForPost = () => {
 
   const post = [
     {
+      id: 1,
       budget: '',
       contact: "7666674367",
       downpayment: "",
@@ -56,10 +58,8 @@ const StepsForPost = () => {
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
       transaction_type: 'Sell',
-      postType: 'Requirement',
       city: 'Ranchi',
       state: 'Jharkhand',
-      ratio: 0,
     },
   ]
 
@@ -83,9 +83,10 @@ const StepsForPost = () => {
           className="postSteps-img px-3 sm:mx-4"
           style={{ display: currentStep === 0 ? "block" : "none" }}
         >
+
           <div className="about-listing bg-light w-full h-full d-flex justify-center items-center">
             <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-              <ItemCard item={post[0]} />
+              <ItemCard page="home" item={post[0]} />
             </div>
             <div className=" col-md-8" >
               <h1 className="fs-1">About Advertisement</h1>

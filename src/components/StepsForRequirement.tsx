@@ -45,6 +45,7 @@ const StepsForRequirement = () => {
 
   const post = [
     {
+      id: 1,
       image: '',
       title: "Requirement 1",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -79,7 +80,7 @@ const StepsForRequirement = () => {
             <div className="postSteps-img px-3 sm:mx-4 " style={{ display: currentStep === 0 ? "block" : "none" }} >
                 <div className="about-listing w-100 h-100 d-flex justify-evenly align-items-center">
                     <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-                        <ItemCard item={post[0]} />
+                        <ItemCard page={"home"} item={post[0]} />
                     </div>
                 
                     <div className="col-md-8" >

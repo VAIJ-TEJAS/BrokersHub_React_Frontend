@@ -16,7 +16,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/requirementsListing" element={<RequirementListingPage />} />
+          <Route path="/requirementsListing/:postId" element={<RequirementListingPage />} />
+          <Route path="/requirementsListing/" element={<RequirementListingPage />} />
+          <Route path="/addsListing/:postId" element={<AddListing />} />
           <Route path="/addsListing" element={<AddListing />} />
           <Route path="/PostRequirement" element={<PostRequirement />} />
           <Route path="/PostAdd" element={<PostAdd />} />

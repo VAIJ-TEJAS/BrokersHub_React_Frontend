@@ -2,6 +2,7 @@ import './Navbar.css'
 import { Button } from 'antd';
 
 interface Item {
+  id: number,
   title: string,
   state: string,
   city: string,
@@ -23,13 +24,13 @@ interface Props {
 
 const ExpandCard: React.FC<Props> = ({ item }) => {
 
-    
+  console.log('Item:', item);
 
   return (
     <div className="property-card">
-      {item.image && <div className="property-image">
+      {item.image !== undefined && (<div className="property-image">
         <img src={item.image} className='rounded w-100' alt={item.title} />
-      </div>}
+      </div>)}
       <div className="property-details">
         <div className='my-4 d-flex justify-between align-items-center border-2 border-black p-3 rounded'>
           <h3 className="property-title fs-3" style={{fontFamily: 'Montserrat'}}>{item.title}</h3>
@@ -47,7 +48,12 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
           {item.transaction_type=="Conversion" &&
               <li className="property-budget">
-            <strong>Down payment:</strong> {item.downpayment}%
+            <strong>Down payment:</strong> {item.downpayment}
+          </li>}
+
+          {item.transaction_type=="Conversion" &&
+              <li className="property-budget">
+            <strong>Ratio:</strong> {item.ratio_x} : {item.ratio_y}
           </li>}
 
           {item.transaction_type=="Buy" &&

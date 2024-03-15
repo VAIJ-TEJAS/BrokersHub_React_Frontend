@@ -1,30 +1,67 @@
 import React, {useEffect, useState} from 'react';
 import ItemCard from '../components/ItemCard';
 import axios from 'axios';
-import { Layout } from 'antd';
+import { Layout, Modal } from 'antd';
 import Filter from '../components/Search';
 import Navbar from '../components/Navbar';
+import ExpandCard from '../components/ExpandCard';
 import listingLogo from '../components/Images/listingBackground.jpg'
+import { useParams, useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 
+interface Item {
+  id: number,
+  title: string,
+  state: string,
+  city: string,
+  description: string,
+  contact: string,
+  transaction_type: string,
+  price: string,
+  downpayment: string,
+  ratio_x: string,
+  ratio_y: string,
+  monthly_rent: string,
+  image: string,
+  budget: string;
+}
+
 const AddListing: React.FC = () => {
 
-  const [items, setItems] = useState([]);
+  const navigate = useNavigate();
+
+  const [items, setItems] = useState<Item[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleCancel = () => {
+    setModalVisible(false)
+    navigate('/addsListing/');
+  };
 
   const url = 'https://13.232.115.59/advertisements/';
 
+  const { postId } = useParams();
+
   // Make the GET request with Axios
   useEffect(() => {
-    axios.get(url)
-      .then((response) => {
+    const fetchRequest = async () => {
+      try {
+        const response = await axios.get(url);
+        console.log(response.data)
         setItems(response.data);
-        console.log('Response:', response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [])
+        if (postId) {
+          setModalVisible(true);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchRequest();
+
+    
+  }, [postId]);
 
   // const items = [
   //   {
@@ -64,13 +101,23 @@ const AddListing: React.FC = () => {
 
               <div className='d-flex flex-wrap justify-center'>
                 {items.map((item, index) => (
-                  <ItemCard key={index} item={item} />
+                  <ItemCard page="addsListing" key={index} item={item} />
                   ))}
               </div>
 
             </Content>
           </Layout>
         </Layout>
+
+        {postId &&
+          <Modal
+          open={modalVisible}
+          onCancel={handleCancel}
+          footer={null}
+          className='property-modal'
+          >
+          <ExpandCard item={items.find(item => item.id === parseInt(postId))!}/>
+        </Modal>}
       </Layout>
     </div>
   )
