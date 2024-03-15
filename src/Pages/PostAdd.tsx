@@ -1,25 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload, Alert } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
-
-// {
-//     "title": "New Title Without User in Payload",
-//     "state": "Maharastra",
-//     "city": "Pune",
-//     "description": "Description",
-//     "contact": "7666674367",
-//     "transaction_type": "Buy",
-//     "budget": "0.00",
-//     "downpayment": null,
-//     "ratio_x": null,
-//     "ratio_y": null,
-//     "monthly_rent": null
-// }
+import axios from 'axios';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
@@ -29,6 +16,9 @@ interface OptionType {
 }
 
 const PostAdd = () => {
+
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const cities = [
         {
@@ -6326,8 +6316,54 @@ const PostAdd = () => {
                 ratio_y: '',
         },
 
-        onSubmit: async () => {
+        onSubmit: async (values) => {
 
+            const formData = new FormData();
+
+            if (values.image && Array.isArray(values.image)) {
+                const imageFile = values.image[0];
+                console.log(imageFile);
+                formData.append('image', imageFile);
+            }
+
+            formData.append('title', values.title);
+            formData.append('state', values.state);
+            formData.append('city', values.city);
+            formData.append('description', values.description);
+            formData.append('contact', values.contact);
+            formData.append('transaction_type', values.transaction_type);
+            formData.append('downpayment', values.downpayment);
+            formData.append('ratio_x', values.ratio_x.toString());
+            formData.append('ratio_y', values.ratio_y);
+            formData.append('monthly_rent', values.monthly_rent);
+
+            axios.post('https://13.232.115.59/advertisements/', formData, {
+                headers: {
+                    'Authorization': 'Token cc90fd84bce3e5cd55f4e92175a489529ba2fbd6',
+                    'Content-Type': 'multipart/form-data'
+                    // Add other headers as needed
+                }
+            })
+            .then(response => {
+                console.log('Response:', response.data); // Handle the response
+                setSuccess('You requirement has been posted!');
+                // Optionally, you can perform any actions after successful response
+            })
+            .catch(error => {
+                console.log(error)
+                if (error.response?.data) {
+                    let errorMessage = error.response?.data
+                    let firstKey = Object.keys(errorMessage)[0];
+                    // let firstValue = errorMessage[firstKey];
+                    setError('Field ' + firstKey + ' is required.')
+                }
+                else{
+                    
+                    let errorMessage = error.message;
+                    setError(errorMessage)
+                }
+                // Optionally, you can perform any actions after error
+            });
         },
     });
 
@@ -6369,6 +6405,14 @@ const PostAdd = () => {
                             className='p-5 pe-4 addCardDetails'
                         >
                             <div className='text-4xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
+
+                            {error !== '' && (
+                                <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
+                            )}
+
+                            {success !== '' && (
+                                <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
+                            )}
 
                             <Form.Item
                                 label='Image'
@@ -6428,7 +6472,7 @@ const PostAdd = () => {
                                         optionFilterProp="children"
                                         value={formik.values.city}
                                         onChange={(value) => {
-                                            formik.setFieldValue('location', value);
+                                            formik.setFieldValue('city', value);
                                         }}
                                         filterOption={filterOption}
                                         // options={cities}
