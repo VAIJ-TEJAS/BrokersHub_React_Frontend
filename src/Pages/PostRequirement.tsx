@@ -6329,12 +6329,10 @@ const PostRequirement = () => {
                 // Optionally, you can perform any actions after successful response
             })
             .catch(error => {
-                console.error('Error:', error); // Handle error
                 if (error.response?.data) {
                     let errorMessage = error.response?.data
                     let firstKey = Object.keys(errorMessage)[0];
-                    let firstValue = errorMessage[firstKey];
-                    console.log(firstValue[0]);
+                    // let firstValue = errorMessage[firstKey];
                     setError('Field ' + firstKey + ' is required.')
                 }
                 else{

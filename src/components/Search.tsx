@@ -6362,8 +6362,8 @@ const Search: React.FC<props> = ({page}) => {
   return (
     <>
         <div className='justify-center w-full d-flex '>
-          <div className='filter-container flex justify-center bg-[#001529] rounded'>
-            <div className='d-flex justify-content-evenly align-items-center w-100 h-full py-2 filter-box'>
+          <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80'>
+            <div className='lg:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
 
               {/* price range  */}
               {page === 'Add' &&
@@ -6470,7 +6470,7 @@ const Search: React.FC<props> = ({page}) => {
                 </div>
               }
 
-              <Button className='filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
+              <Button className='md:p-0 py-3 filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
                 w-32
                 xl:w-36
               '>

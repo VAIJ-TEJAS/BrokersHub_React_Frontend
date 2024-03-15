@@ -29,16 +29,7 @@
 
 /* filter Section css  */
 
-.filter-box{
-    flex-direction: row;
-}
-
-@media (max-width: 1000px) {
-    .filter-box{
-        flex-direction: column;
-        margin: 0px 30px !important;
-        min-width: 250px;
-    }
+@media (max-width: 1024px) {
 
     .filter-field{
         justify-items: center;
@@ -51,7 +42,7 @@
     }
 
     .filter-container{
-        width: 100%;
+        /* width: 100%; */
         min-width: 260px;
     }
 }

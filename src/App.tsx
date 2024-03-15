@@ -11,7 +11,7 @@ const { Footer } = Layout;
 function App() {
 
   return (
-    <>
+    <div className='min-h-full flex flex-col justify-between'>
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
@@ -22,8 +22,8 @@ function App() {
           <Route path="/PostAdd" element={<PostAdd />} />
         </Routes>
       </Router>
-      <Footer style={{ textAlign: 'center' }}>Broker's Website ©2024 Created by You</Footer>
-    </>
+      <Footer className='text-center bg-[#1e3953] text-white w-full'>Broker's Website ©2024 Created by You</Footer>
+    </div>
   )
 }
 

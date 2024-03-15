@@ -43,9 +43,9 @@ const ItemCard: React.FC<Props> = ({ item }) => {
   return (
     <Card
       hoverable
-      style={{ width: 270, margin: '16px'}}
-      cover={(item.image !== '' && item.image !== undefined) ? <img alt={item.title} src={item.image} /> : ''}
-      className='overflow-hidden'
+      style={{ width: 300, margin: '10px'}}
+      cover={(item.image !== '' && item.image !== undefined) ? <img alt={item.title} className='p-2 w-100 border' src={item.image} /> : ''}
+      className='overflow-hidden border bg-gradient-to-r from-white to-white'
     >
       <Modal
         open={modalVisible}
@@ -55,10 +55,12 @@ const ItemCard: React.FC<Props> = ({ item }) => {
         >
         <ExpandCard item={item}/>
       </Modal>
-      <Meta title={item.title}  description={item.description} className='mb-2' />
-      <p className='mb-2'>Location: <span className='text-secondary'>{item.city}, {item.state}</span></p>
-      <p className='mb-2'>Type: <span className='text-secondary'>{item.transaction_type}</span></p>
-      <Button type="primary" onClick={showModal}>View Details</Button>
+      <div>
+        <Meta title={<h2 className='fs-5'>{item.title}</h2>}  description={item.description} className='mb-2' />
+        <p className='mb-2'>Location: <span className='text-secondary'>{item.city}, {item.state}</span></p>
+        <p className='mb-2'>Type: <span className='text-secondary'>{item.transaction_type}</span></p>
+        <Button type="primary" className='w-100' onClick={showModal}>View Details</Button>
+      </div>
     </Card>
   );
 };
