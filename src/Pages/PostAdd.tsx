@@ -6557,8 +6557,10 @@ const PostAdd = () => {
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
+                                    page='home'
                                     item = {
                                         {
+                                            id: 0,
                                             monthly_rent: formik.values.monthly_rent,
                                             contact: formik.values.contact,
                                             price: formik.values.price,
