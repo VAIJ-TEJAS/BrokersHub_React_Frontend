@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Layout, Modal } from 'antd';
-import Filter from '../components/Search';
 import Navbar from '../components/Navbar';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
 import axios from 'axios';
-import listingLogo from '../components/Images/listingBackground.jpg'
 import { useParams, useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
@@ -107,7 +105,7 @@ const ProfilePage: React.FC = () => {
 
             <div className='d-flex flex-wrap justify-center'>
               {reqitems.map((item, index) => (
-                <ItemCard page="home" key={index} item={item} />
+                <ItemCard page="requirements" key={index} item={item} />
                 ))}
             </div>
 
@@ -115,7 +113,7 @@ const ProfilePage: React.FC = () => {
 
             <div className='d-flex flex-wrap justify-center'>
               {additems.map((item, index) => (
-                <ItemCard page="home" key={index} item={item} />
+                <ItemCard page="advertisements" key={index} item={item} />
                 ))}
             </div>
 
