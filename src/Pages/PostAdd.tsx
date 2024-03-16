@@ -8,6 +8,7 @@ import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import Autentication from '../components/Authentication';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
@@ -16,7 +17,26 @@ interface OptionType {
     label: string;
 }
 
+interface Item {
+    id: number,
+    title: string,
+    state: string,
+    city: string,
+    description: string,
+    contact: string,
+    transaction_type: string,
+    price: string,
+    downpayment: string,
+    ratio_x: string,
+    ratio_y: string,
+    monthly_rent: string,
+    image: string,
+    budget: string;
+}
+
 const PostAdd = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -6350,7 +6370,46 @@ const PostAdd = () => {
             formData.append('ratio_y', values.ratio_y);
             formData.append('monthly_rent', values.monthly_rent);
 
-            axios.post('https://13.232.115.59/advertisements/', formData, {
+            let url = 'https://13.232.115.59/advertisements/';
+            if (postId) {
+                url = `https://13.232.115.59/my-advertisements/${postId}/`;
+                axios.put(url, formData, {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                        // Add other headers as needed
+                    }
+                })
+                .then(response => {
+                    console.log('Response:', response.data); // Handle the response
+                    setSuccess('You requirement has been updated!');
+                    setTimeout(() => {
+                        navigate('/profile/')
+                    }, 2000);
+                    
+                    // Optionally, you can perform any actions after successful response
+                })
+                .catch(error => {
+                    console.log(error)
+                    if (error.response?.data) {
+                        let errorMessage = error.response?.data
+                        let firstKey = Object.keys(errorMessage)[0];
+                        // let firstValue = errorMessage[firstKey];
+                        setError('Field ' + firstKey + ' is required.')
+                    }
+                    else{
+                        
+                        let errorMessage = error.message;
+                        setError(errorMessage)
+                    }
+                    // Optionally, you can perform any actions after error
+                });
+
+                return;
+                
+            }
+
+            axios.post(url, formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'multipart/form-data'
@@ -6360,6 +6419,10 @@ const PostAdd = () => {
             .then(response => {
                 console.log('Response:', response.data); // Handle the response
                 setSuccess('You requirement has been posted!');
+                setTimeout(() => {
+                    navigate('/addsListing/')
+                }, 2000);
+                return;
                 // Optionally, you can perform any actions after successful response
             })
             .catch(error => {
@@ -6377,6 +6440,10 @@ const PostAdd = () => {
                 }
                 // Optionally, you can perform any actions after error
             });
+            setTimeout(() => {
+                navigate('/profile/')
+            }, 2000);
+            return;
         },
     });
 
@@ -6400,6 +6467,49 @@ const PostAdd = () => {
         }
         return e && e.fileList;
     };
+
+    const { postId } = useParams();
+
+    const url = 'https://13.232.115.59/my-advertisements/';
+    useEffect(() => {
+        const fetchRequest = async () => {
+          try {
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                    'Content-Type': 'application/json'
+                    // Add other headers as needed
+                }
+            });
+            if (postId) {
+                const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
+                console.log(passVals)
+                if (!passVals) {
+                    setError('No such post found for edit')
+                }
+                formik.setFieldValue('title', passVals.title || 'Name') ;
+                formik.setFieldValue('monthly_rent', passVals.monthly_rent  || '');
+                setImageURL(passVals.image || null)
+                formik.setFieldValue('description', passVals.description || 'Describe your requirement');
+                formik.setFieldValue('contact', passVals.contact || '');
+                formik.setFieldValue('city', passVals.city);
+                formik.setFieldValue('state', passVals.state);
+                formik.setFieldValue('budget', passVals.budget || '');
+                formik.setFieldValue('transaction_type', passVals.transaction_type || '');
+                formik.setFieldValue('price', passVals.price || '');
+                formik.setFieldValue('downpayment', passVals.downpayment || '');
+                formik.setFieldValue('ratio_x', passVals.ratio_x || '');
+                formik.setFieldValue('ratio_y', passVals.ratio_y || '');
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+    
+        if (postId) {
+            fetchRequest();
+        }
+    }, [postId]);
 
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>

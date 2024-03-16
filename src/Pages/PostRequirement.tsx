@@ -29,7 +29,7 @@ interface Item {
     monthly_rent: string,
     image: string,
     budget: string;
-  }
+}
 
 const PostRequirement = () => {
 
@@ -6361,6 +6361,10 @@ const PostRequirement = () => {
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
                     setSuccess('You requirement has been updated!');
+                    setTimeout(() => {
+                        navigate('/profile/')
+                    }, 2000);
+                    return;
                     // Optionally, you can perform any actions after successful response
                 })
                 .catch(error => {
@@ -6377,10 +6381,7 @@ const PostRequirement = () => {
                     // Optionally, you can perform any actions after error
                 });
 
-                setTimeout(() => {
-                    navigate('/profile/')
-                }, 2000);
-                return;
+                
             }
             
             axios.post(url, values, {
@@ -6393,6 +6394,9 @@ const PostRequirement = () => {
             .then(response => {
                 console.log('Response:', response.data); // Handle the response
                 setSuccess('You requirement has been posted!');
+                setTimeout(() => {
+                    navigate('/requirementsListing/')
+                }, 2000);
                 // Optionally, you can perform any actions after successful response
             })
             .catch(error => {
@@ -6409,9 +6413,7 @@ const PostRequirement = () => {
                 // Optionally, you can perform any actions after error
             });
 
-            setTimeout(() => {
-                navigate('/requirementsListing/')
-            }, 2000);
+            
         },
     });
 
