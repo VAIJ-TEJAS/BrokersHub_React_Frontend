@@ -116,14 +116,6 @@ export default function Navbar() {
                 <hr />
               </>
             ))}
-            <li className='py-2 ps-2'>
-              <Link to="/PostRequirement"><strong>Add Requirement</strong></Link>
-            </li>
-            <hr />
-            <li className='py-2 ps-2'>
-              <Link to="/PostAdd"><strong>Add Advertisement</strong></Link>
-            </li>
-            <hr />
           </ul>
           
           {check() &&
