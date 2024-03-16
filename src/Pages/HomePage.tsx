@@ -11,15 +11,6 @@ import Autentication from '../components/Authentication';
 
 const HomePage: React.FC = () => {
 
-  const contentStyle: React.CSSProperties = {
-    height: "600px",
-    color: "#fff",
-    lineHeight: "60px",
-    textAlign: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-  };
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const showModal = () => {
