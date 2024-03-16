@@ -21,7 +21,9 @@ function App() {
           <Route path="/requirementsListing/" element={<RequirementListingPage />} />
           <Route path="/addsListing/:postId" element={<AddListing />} />
           <Route path="/addsListing" element={<AddListing />} />
+          <Route path="/PostRequirement/:postId" element={<PostRequirement />} />
           <Route path="/PostRequirement" element={<PostRequirement />} />
+          <Route path="/PostAdd/:postId" element={<PostAdd />} />
           <Route path="/PostAdd" element={<PostAdd />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>

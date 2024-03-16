@@ -7,13 +7,33 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../components/Navbar.css'
 import Autentication from '../components/Authentication';
+import { useParams, useNavigate } from 'react-router-dom';
 
 interface OptionType {
     value: string;
     label: string;
 }
 
+interface Item {
+    id: number,
+    title: string,
+    state: string,
+    city: string,
+    description: string,
+    contact: string,
+    transaction_type: string,
+    price: string,
+    downpayment: string,
+    ratio_x: string,
+    ratio_y: string,
+    monthly_rent: string,
+    image: string,
+    budget: string;
+  }
+
 const PostRequirement = () => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -6327,8 +6347,43 @@ const PostRequirement = () => {
                 setModalVisible(true)
                 return
             }
+
+            let url = 'https://13.232.115.59/requirements/';
+            if (postId) {
+                url = `https://13.232.115.59/my-requirements/${postId}/`;
+                axios.put(url, values, {
+                    headers: {
+                        'Authorization': `Token ${token}`,
+                        'Content-Type': 'application/json'
+                        // Add other headers as needed
+                    }
+                })
+                .then(response => {
+                    console.log('Response:', response.data); // Handle the response
+                    setSuccess('You requirement has been updated!');
+                    // Optionally, you can perform any actions after successful response
+                })
+                .catch(error => {
+                    if (error.response?.data) {
+                        let errorMessage = error.response?.data
+                        let firstKey = Object.keys(errorMessage)[0];
+                        // let firstValue = errorMessage[firstKey];
+                        setError('Field ' + firstKey + ' is required.')
+                    }
+                    else{
+                        let errorMessage = error.message;
+                        setError(errorMessage)
+                    }
+                    // Optionally, you can perform any actions after error
+                });
+
+                setTimeout(() => {
+                    navigate('/profile/')
+                }, 2000);
+                return;
+            }
             
-            axios.post('https://13.232.115.59/requirements/', values, {
+            axios.post(url, values, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
@@ -6353,8 +6408,55 @@ const PostRequirement = () => {
                 }
                 // Optionally, you can perform any actions after error
             });
+
+            setTimeout(() => {
+                navigate('/requirementsListing/')
+            }, 2000);
         },
     });
+
+    const { postId } = useParams();
+
+    const url = 'https://13.232.115.59/my-requirements/';
+    useEffect(() => {
+        const fetchRequest = async () => {
+          try {
+            console.log("Requesting")
+            const response = await axios.get(url, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                    'Content-Type': 'application/json'
+                    // Add other headers as needed
+                }
+            });
+            if (postId) {
+                const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
+                if (!passVals) {
+                    setError('No such post found for edit')
+                }
+                formik.setFieldValue('title', passVals.title || 'Name') ;
+                formik.setFieldValue('monthly_rent', passVals.monthly_rent  || '');
+                formik.setFieldValue('image', passVals.image || null);
+                formik.setFieldValue('description', passVals.description || 'Describe your requirement');
+                formik.setFieldValue('contact', passVals.contact || '');
+                formik.setFieldValue('city', passVals.city);
+                formik.setFieldValue('state', passVals.state);
+                formik.setFieldValue('budget', passVals.budget || '');
+                formik.setFieldValue('transaction_type', passVals.transaction_type || '');
+                formik.setFieldValue('price', passVals.price || '');
+                formik.setFieldValue('downpayment', passVals.downpayment || '');
+                formik.setFieldValue('ratio_x', passVals.ratio_x || '');
+                formik.setFieldValue('ratio_y', passVals.ratio_y || '');
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+    
+        if (postId) {
+            fetchRequest();
+        }
+    }, [postId]);
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());

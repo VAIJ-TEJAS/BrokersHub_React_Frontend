@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Modal, Alert } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ExpandCard from "./ExpandCard";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -31,6 +31,9 @@ interface Props {
 }
 
 const ItemCard: React.FC<Props> = ({ item, page }) => {
+
+  const navigate = useNavigate();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -49,7 +52,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       );
       console.log('Response success:', response.data);
       setSuccess("Your post has been deleted!");
-    } catch (error) {
+    } catch (error: any) {
       console.log('Response:', error);
 
       setError(error.response?.data);
@@ -110,8 +113,17 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
             <Button
               type="primary"
               className="mb-1"
+              onClick={() => {
+                if (page === "requirements") {
+                  navigate(`/PostRequirement/${item.id}`)
+                }
+                else if(page === "advertisements"){
+                  navigate(`/PostAdd/${item.id}`)
+                }
+              }}
               icon={<EditOutlined />}
-            ></Button>
+            >
+            </Button>
             <br />
             <Button
               type="primary"
