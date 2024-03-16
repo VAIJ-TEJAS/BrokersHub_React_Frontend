@@ -1,16 +1,95 @@
+.carousel-container{
+  height: 600px;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slick-slider{
+  height: 100%;
+}
+.slick-slide div:nth-child(1){
+  height: 100%;
+}
+.slick-list{
+  height: 100%;
+}
+.slick-track{
+  height: 100%;
+}
+.ant-carousel{
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .carousel-container{
+    height: 500px;
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .slick-slider{
+    height: 100%;
+  }
+  .slick-slide div:nth-child(1){
+    height: 100%;
+  }
+  .slick-list{
+    height: 100%;
+  }
+  .slick-track{
+    height: 100%;
+  }
+  .ant-carousel{
+    height: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-container{
+    height: 400px;
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .slick-slider{
+    height: 100%;
+  }
+  .slick-slide div:nth-child(1){
+    height: 100%;
+  }
+  .slick-list{
+    height: 100%;
+  }
+  .slick-track{
+    height: 100%;
+  }
+  .ant-carousel{
+    height: 100%;
+  }
+}
+
 h1{
-  font-size: 3.2rem !important;
+  font-size: 3rem !important;
   font-family: 'Montserrat';
 }
 
 @media (max-width: 700px) {
   h1{
-    font-size: 2.6rem !important;
+    font-size: 2.3rem !important;
   }
 }
 @media (max-width: 500px) {
   h1{
-    font-size: 2.1rem !important;
+    font-size: 2rem !important;
   }
 }
 
@@ -21,7 +100,7 @@ h1{
 
 .homePage-info {
   background: linear-gradient(to left, rgb(0 21 41 / 80%) 30%, transparent);
-  line-height: 35px;
+  line-height: 30px;
   text-align: right;
 }
 .homePage-intro div p {
@@ -42,7 +121,7 @@ h1{
 @media (max-width: 1200px) {
   .homePage-info {
     background: rgb(0 21 41 / 70%);
-    line-height: 35px;
+    line-height: 30px;
     text-align: center;
   }
 

@@ -42,59 +42,62 @@ const HomePage: React.FC = () => {
       <div className="">
         <Navbar />
       </div>
-      <Carousel autoplay>
-        <div>
-          <h3 className="border-bottom" style={{ ...contentStyle, backgroundImage: `url(${sample1})` }}>
-            <div className="homePage-intro h-100">
-              <div className="homePage-info p-5 h-100 d-flex align-items-center">
-                <div>
-                  <h1 className="fw-bold my-5 pt-5 " style={{fontFamily: 'Montserrat'}}>
-                    Explore Our Offerings
-                  </h1>
-                  <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
-                    Welcome to TheBrokersHub, your premier destination for all things
-                    real estate. Whether you're buying, selling, or simply
-                    exploring, we're here to guide you every step of the way.
-                  </p>
+      <div className='carousel-container'>
+        
+        <Carousel autoplay className='h-full'>
+          <div className='h-full'>
+            <h3 className="border-bottom h-full carousel-container" style={{backgroundImage: `url(${sample1})` }}>
+              <div className="homePage-intro h-full">
+                <div className="homePage-info p-5 h-full d-flex align-items-center">
+                  <div className='flex flex-col justify-center'>
+                    <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
+                      Explore Our Offerings
+                    </h1>
+                    <p className="col-md-5 pb-5 text-base sm:text-xl" style={{ fontFamily: "poppins" }}>
+                      Welcome to TheBrokersHub, your premier destination for all things
+                      real estate. Whether you're buying, selling, or simply
+                      exploring, we're here to guide you every step of the way.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </h3>
-        </div>
-        <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${sample2})` }}>
-            <div className="homePage-intro h-100">
-              <div className="homePage-info p-5 h-100 d-flex align-items-center">
-                <div>
-                  <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
-                    Redefining Excellence
-                  </h1>
-                  <p className="col-md-5  fs-5" style={{ fontFamily: "poppins" }}>
-                  Embracing a relentless pursuit of perfection, we at TheBrokersHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
-                  </p>
+            </h3>
+          </div>
+          <div className='h-full'>
+            <h3 className="border-bottom h-full carousel-container" style={{ backgroundImage: `url(${sample2})` }}>
+              <div className="homePage-intro h-full">
+                <div className="homePage-info p-5 h-full d-flex items-center">
+                  <div className='flex flex-col justify-center'>
+                    <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
+                      Redefining Excellence
+                    </h1>
+                    <p className="col-md-5 pb-5 text-base sm:text-xl" style={{ fontFamily: "poppins" }}>
+                    Embracing a relentless pursuit of perfection, we at TheBrokersHub are redefining excellence. With an unwavering commitment to quality, innovation, and customer satisfaction, every creation that bears our name is a testament to our dedication.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </h3>
-        </div>
-        <div>
-          <h3 style={{ ...contentStyle, backgroundImage: `url(${sample3})` }}>
-            <div className="homePage-intro h-100">
-              <div className="homePage-info p-5 h-100 d-flex align-items-center">
-                <div>
-
-                  <h1 className="fw-bold my-5 pt-5" style={{fontFamily: 'Montserrat'}}>
-                  Join Our Growing Community
-                  </h1>
-                  <p className="col-md-5 pb-5 fs-5" style={{ fontFamily: "poppins" }}>
-                  Join our growing community and become part of a vibrant network of individuals who share your interests and passions. Whether you're a seasoned expert or just starting out, our community welcomes everyone with open arms.
-                  </p>
+            </h3>
+          </div>
+          <div>
+            <h3  className="border-bottom h-full carousel-container" style={{ backgroundImage: `url(${sample3})` }}>
+              <div className="homePage-intro h-100">
+                <div className="homePage-info p-5 h-full d-flex items-center">
+                  <div className='flex flex-col justify-center'>
+                    <h1 className="fw-bold my-5" style={{fontFamily: 'Montserrat'}}>
+                    Join Our Growing Community
+                    </h1>
+                    <p className="col-md-5 pb-5 text-base sm:text-xl" style={{ fontFamily: "poppins" }}>
+                    Join our growing community and become part of a vibrant network of individuals who share your interests and passions. Whether you're a seasoned expert or just starting out, our community welcomes everyone with open arms.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </h3>
-        </div>
-      </Carousel>
+            </h3>
+          </div>
+        </Carousel>
+      
+      </div>
 
       {/* services section  */}
       <div className="services-section">
