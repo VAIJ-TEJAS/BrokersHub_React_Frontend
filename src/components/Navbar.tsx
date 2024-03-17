@@ -12,6 +12,8 @@ const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
     { key: '2', label: 'View Requirements', link: '/requirementsListing' },
     { key: '3', label: 'Post Requirements', link: '/PostRequirement' },
+    { key: '4', label: 'View Advertisement', link: '/addsListing' },
+    { key: '5', label: 'Post Advertisement', link: '/PostAdd' },
 ];
 
   
@@ -58,19 +60,19 @@ export default function Navbar() {
                 footer={null}>
                 <Autentication defaultTab={defaultTab} />
             </Modal>
-          <Link to="/home" className='my-auto me-5 fs-4'><strong>TheBrokersHub</strong></Link>
+          <Link to="/home" className='my-auto me-5 fs-4'><strong>The Brokers Hub</strong></Link>
           <div></div>
-          <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'350px'}}>
+          <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'680px'}}>
             {menuItems.map(item => (
-                <Menu.Item key={item.key} className={location.pathname === item.link ? 'ant-menu-item-selected' : ''} style={{minWidth: '73px'}}>
+                <Menu.Item key={item.key} className={`${location.pathname === item.link ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
                     <Link to={item.link}>{item.label}</Link>
                 </Menu.Item>
             ))}
           </Menu>
-          <div className='onShort'>
+          {/* <div className='onShort'>
             <Link to='/PostRequirement' className='btn btn-warning me-3'>Post Requirement</Link>
             <Link to='/PostAdd' className='btn btn-warning'>Post Advertisement</Link>
-          </div>
+          </div> */}
           <div className='ms-auto d-flex align-items-center'>
             <div className='onShort'>
               {check() ?
