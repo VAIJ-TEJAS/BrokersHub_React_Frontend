@@ -10,8 +10,8 @@ const { Header } = Layout;
 
 const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
-    { key: '2', label: 'Adds Listing', link: '/addsListing' },
-    { key: '3', label: 'Requirements Listing', link: '/requirementsListing' },
+    { key: '2', label: 'View Requirements', link: '/requirementsListing' },
+    { key: '3', label: 'Post Requirements', link: '/PostRequirement' },
 ];
 
   

@@ -5,9 +5,7 @@ import AddListing from './Pages/AddListing'
 import PostAdd from './Pages/PostAdd'
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 import ProfilePage from './Pages/ProfilePage'
-import { Layout } from 'antd';
-
-const { Footer } = Layout;
+import FooterComp from './components/Footer'
 
 function App() {
 
@@ -27,8 +25,9 @@ function App() {
           <Route path="/PostAdd" element={<PostAdd />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
+        <FooterComp />
       </Router>
-      <Footer className='text-center bg-[#1e3953] text-white w-full'>Broker's Website ©2024 Created by You</Footer>
+
     </div>
   )
 }
