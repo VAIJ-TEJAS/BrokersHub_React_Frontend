@@ -129,7 +129,7 @@ const ProfilePage: React.FC = () => {
         footer={null}
         className='property-modal'
         >
-        <ExpandCard item={reqitems.find(item => item.id === parseInt(postId))!}/>
+        <ExpandCard page="" item={reqitems.find(item => item.id === parseInt(postId))!}/>
       </Modal>}
     </Layout>
   );
