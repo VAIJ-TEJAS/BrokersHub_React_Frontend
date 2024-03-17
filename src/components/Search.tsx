@@ -6325,11 +6325,15 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   };
 
   const handleFromChange = (value: string) => {
+    console.log(value)
     const filteredItems = items.filter(item => {
-        if (value !== 'Select State' && item.state !== state) {
+        if (state !== 'Select State' && item.state !== state) {
             return false;
         }
-        if (city !== 'Select City' && item.city !== value) {
+        if (value !== 'Select City' && item.city !== value) {
+            return false;
+        }
+        if (range !== 'Select Range' && item.price <= range) {
             return false;
         }
         return true;
@@ -6339,14 +6343,18 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   }
 
     const handleStateChange = (value: string) => {
-        console.log(value);
+        console.log(value[1]);
+        console.log(range);
 
         // Filter items based on the selected state value
         const filteredItems = items.filter(item => {
-            if (value !== 'Select State' && item.state !== value) {
+            if (state !== 'Select State' && item.state !== state) {
                 return false;
             }
-            if (city !== 'Select City' && item.city !== city) {
+            if (value !== 'Select City' && item.city !== value) {
+                return false;
+            }
+            if (parseInt(item.price) <= parseInt(value[1])) {
                 return false;
             }
             return true;
@@ -6391,6 +6399,20 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
 
   const handleRangeChange = (value: string) => {
+    console.log(value);
+    const filteredItems = items.filter(item => {
+        if (state !== 'Select State' && item.state !== state) {
+            return false;
+        }
+        if (value !== 'Select City' && item.city !== value) {
+            return false;
+        }
+        if (range !== 'Select Range' && parseInt(item.price) <= parseInt(range)) {
+            return false;
+        }
+        return true;
+    });
+    setFilteredItems(filteredItems);
     setRange(value)
     let maxVal = value.split(' ');
     let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));

@@ -25,6 +25,7 @@ interface Item {
   monthly_rent: string,
   image: string,
   budget: string;
+  area: number,
 }
 
 const RequirementListingPage: React.FC = () => {
@@ -34,6 +35,7 @@ const RequirementListingPage: React.FC = () => {
   // Get the value of a specific parameter
   const [items, setItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   
   const handleCancel = () => {
     setModalVisible(false)
@@ -52,6 +54,7 @@ const RequirementListingPage: React.FC = () => {
         const response = await axios.get(url);
         console.log(response.data)
         setItems(response.data);
+        setFilteredItems(response.data);
         if (postId) {
           setModalVisible(true);
         }
@@ -81,14 +84,14 @@ const RequirementListingPage: React.FC = () => {
             <div className='mb-5 w-full bg-cover bg-center ' style={{backgroundImage: `url(${listingLogo})`}}>
               <div className='w-full d-flex flex-col items-center justify-center bg-[#0000008f]' style={{height: '450px'}}>
                 <p className='mb-4 text-center text-2xl text-white md:text-4xl sm:text-3xl' style={{fontFamily: 'Montserrat'}}>Find what you need, sell what you love - all in one place!</p>
-                <Filter page={'Requirement'} />
+                <Filter page={'Requirement'} items={items} setFilteredItems={setFilteredItems} />
               </div>
             </div>
 
             <h1 className='text-center mb-3'>Requirements</h1>
 
             <div className='d-flex flex-wrap justify-center'>
-              {items.map((item, index) => (
+              {filteredItems.map((item, index) => (
                 <ItemCard page="requirementsListing" key={index} item={item} />
                 ))}
             </div>
