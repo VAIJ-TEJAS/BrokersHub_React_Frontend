@@ -33,6 +33,7 @@ const AddListing: React.FC = () => {
   const navigate = useNavigate();
 
   const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleCancel = () => {
@@ -51,6 +52,7 @@ const AddListing: React.FC = () => {
         const response = await axios.get(url);
         console.log(response.data)
         setItems(response.data);
+        setFilteredItems(response.data);
         if (postId) {
           setModalVisible(true);
         }
@@ -79,7 +81,7 @@ const AddListing: React.FC = () => {
               <div className='mb-5 w-full bg-cover bg-center ' style={{backgroundImage: `url(${listingLogo})`}}>
                 <div className='w-full d-flex flex-col items-center justify-center bg-[#0000008f]' style={{height: '450px'}}>
                   <p className='mb-4 text-center text-2xl text-white md:text-4xl sm:text-3xl' style={{fontFamily: 'Montserrat'}}>Find what you need, sell what you love - all in one place!</p>
-                  <Filter page={'Add'} />
+                  <Filter page={'Add'} items={items} setFilteredItems={setFilteredItems} />
                 </div>
               </div>
 
@@ -87,7 +89,7 @@ const AddListing: React.FC = () => {
 
 
               <div className='d-flex flex-wrap justify-center'>
-                {items.map((item, index) => (
+                {filteredItems.map((item, index) => (
                   <ItemCard page="addsListing" key={index} item={item} />
                   ))}
               </div>

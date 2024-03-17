@@ -6,8 +6,28 @@ import { Select, Input, Button  } from 'antd';
 // import { Option } from 'antd/es/mentions';
 import './Navbar.css';
 
+interface Item {
+    id: number,
+    title: string,
+    state: string,
+    city: string,
+    description: string,
+    contact: string,
+    transaction_type: string,
+    price: string,
+    downpayment: string,
+    ratio_x: string,
+    ratio_y: string,
+    monthly_rent: string,
+    image: string,
+    budget: string;
+    area: number;
+}
+
 interface props {
     page: string;
+    setFilteredItems: (filteredItems: Item[]) => void;
+    items: Item[];
 }
 
 interface OptionType {
@@ -21,7 +41,7 @@ interface cityType{
   state: string;
 }
 
-const Search: React.FC<props> = ({page}) => {
+const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   
   const [range, setRange] = useState<string>("Select Range");
   const [city, setCity] = useState<string>("Select City");
@@ -6305,13 +6325,38 @@ const Search: React.FC<props> = ({page}) => {
   };
 
   const handleFromChange = (value: string) => {
+    const filteredItems = items.filter(item => {
+        if (value !== 'Select State' && item.state !== state) {
+            return false;
+        }
+        if (city !== 'Select City' && item.city !== value) {
+            return false;
+        }
+        return true;
+    });
+    setFilteredItems(filteredItems);
     setCity(value)
   }
 
-  const handleStateChange = (value: string) => {
-    setState(value)
-    setCity('Select City')
-  }
+    const handleStateChange = (value: string) => {
+        console.log(value);
+
+        // Filter items based on the selected state value
+        const filteredItems = items.filter(item => {
+            if (value !== 'Select State' && item.state !== value) {
+                return false;
+            }
+            if (city !== 'Select City' && item.city !== city) {
+                return false;
+            }
+            return true;
+        });
+
+        // Update the filtered items and selected state in state
+        setFilteredItems(filteredItems);
+        setState(value);
+        setCity('Select City'); // Reset the city selection when state changes
+    }
 
   const rangeList = [
     {

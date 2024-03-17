@@ -6672,8 +6672,8 @@ const PostAdd = () => {
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
                                     <Input
-                                        onChange={(value) => {
-                                            formik.setFieldValue('price', value);
+                                        onChange={(e) => {
+                                            formik.setFieldValue('price', e.target.value);
                                         }}
                                         value={formik.values.price}
                                     />
