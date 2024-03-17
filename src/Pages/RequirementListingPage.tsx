@@ -107,7 +107,7 @@ const RequirementListingPage: React.FC = () => {
         footer={null}
         className='property-modal'
         >
-        <ExpandCard page="requirements" item={items.find(item => item.id === parseInt(postId))!}/>
+        <ExpandCard page="requirements" handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
       </Modal>}
     </Layout>
   );

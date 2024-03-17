@@ -22,10 +22,11 @@ interface Item {
 
 interface Props {
   item: Item;
-  page: string
+  page: string;
+  handleCancel: () => void;
 }
 
-const ExpandCard: React.FC<Props> = ({ item, page }) => {
+const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
   console.log(location.pathname)
   const handleDeal = () => {
@@ -110,12 +111,19 @@ const ExpandCard: React.FC<Props> = ({ item, page }) => {
         <p className="property-description mt-3">{item.description}</p>
 
         {(page === 'requirements' || page === 'advertisements') ? 
-          <Button type="primary" onClick={handleDeal} className='mt-3 w-100'>
-            Yes, Make offer!
-          </Button>: 
-          <Button type="primary" className='mt-3 w-100'>
-            Yes, Make !
-          </Button>
+          <div className='flex'>
+            <Button type="primary" onClick={handleDeal} className='mt-3 me-2 w-4/5'>
+              Yes, Make offer!
+            </Button>
+            <Button className='mt-3 w-1/5' onClick={handleCancel} danger>Close</Button>
+          </div>
+          : 
+          <div className='flex'>
+            <Button type="primary" className='mt-3 me-2 w-4/5'>
+              Yes, Make offer
+            </Button>
+            <Button className='mt-3 w-1/5' onClick={handleCancel} danger>Close</Button>
+          </div>
         }
           
       </div>
