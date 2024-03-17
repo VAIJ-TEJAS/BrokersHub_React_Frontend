@@ -105,7 +105,7 @@ const AddListing: React.FC = () => {
           footer={null}
           className='property-modal'
           >
-          <ExpandCard item={items.find(item => item.id === parseInt(postId))!}/>
+          <ExpandCard page="advertisements" item={items.find(item => item.id === parseInt(postId))!}/>
         </Modal>}
       </Layout>
     </div>

@@ -6497,10 +6497,10 @@ const PostRequirement = () => {
 
                             <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
+                                    placeholder='Name'
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
                                     }}
-                                    value={formik.values.title}
                                 />
                             </Form.Item>
 
@@ -6573,10 +6573,10 @@ const PostRequirement = () => {
 
                             <Form.Item label='Area' rules={[{ required: true, message: 'Please enter the requirement area!' }]}>
                                 <Input
+                                placeholder='In sqft'
                                     onChange={(e) => {
                                         formik.setFieldValue('area', e.target.value);
                                     }}
-                                    value={formik.values.area}
                                 />
                             </Form.Item>
 

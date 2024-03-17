@@ -1,5 +1,7 @@
 import './Navbar.css'
 import { Button } from 'antd';
+import axios from 'axios';
+import { message } from 'antd';
 
 interface Item {
   id: number,
@@ -20,11 +22,45 @@ interface Item {
 
 interface Props {
   item: Item;
+  page: string
 }
 
-const ExpandCard: React.FC<Props> = ({ item }) => {
+const ExpandCard: React.FC<Props> = ({ item, page }) => {
 
-  console.log('Item:', item);
+  console.log(location.pathname)
+  const handleDeal = () => {
+    const token = localStorage.getItem('share-coupon-access-token');
+
+    let data;
+
+    if (page === 'advertisements'){
+      data = {
+        advertisement: item.id
+      }
+    }
+    else if (page === 'requirements'){
+      data = {
+        requirement: item.id
+      }
+    }
+
+    axios.post('https://13.232.115.59/deals/', data, {
+      headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json'
+          // Add other headers as needed
+      }
+    })
+      .then(response => {
+          console.log('Response:', response.data); // Handle the response
+          message.success('You enquiry has been submited.');
+          // Optionally, you can perform any actions after successful response
+      })
+      .catch(error => {
+          message.error(error.response.detail);
+          // Optionally, you can perform any actions after error
+      });
+  }
 
   return (
     <div className="property-card">
@@ -73,9 +109,14 @@ const ExpandCard: React.FC<Props> = ({ item }) => {
 
         <p className="property-description mt-3">{item.description}</p>
 
-        <Button type="primary" className='mt-3 w-100'>
-          Yes, Make offer!
-        </Button>
+        {(page === 'requirements' || page === 'advertisements') ? 
+          <Button type="primary" onClick={handleDeal} className='mt-3 w-100'>
+            Yes, Make offer!
+          </Button>: 
+          <Button type="primary" className='mt-3 w-100'>
+            Yes, Make !
+          </Button>
+        }
           
       </div>
     </div>
