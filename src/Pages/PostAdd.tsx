@@ -32,6 +32,7 @@ interface Item {
     monthly_rent: string,
     image: string,
     budget: string;
+    area: number;
 }
 
 const PostAdd = () => {
@@ -6319,8 +6320,9 @@ const PostAdd = () => {
                 transaction_type: 'Sell',
                 price: '',
                 downpayment: '',
-                ratio_x: 0,
-                ratio_y: '',
+                ratio_x: '0',
+                ratio_y: '0',
+                area: 0,
             },
         });
     }, []);
@@ -6328,18 +6330,19 @@ const PostAdd = () => {
     const formik = useFormik({
         initialValues: {
             monthly_rent: '',
-                image: null,
-                title: 'Name',
-                description: 'Describe your requirement',
-                contact: '',
-                city: '',
-                state: '',
-                budget: '0',
-                transaction_type: 'Sell',
-                price: '',
-                downpayment: '',
-                ratio_x: 0,
-                ratio_y: '',
+            image: null,
+            title: 'Name',
+            description: 'Describe your requirement',
+            contact: '',
+            city: '',
+            state: '',
+            budget: '0',
+            transaction_type: 'Sell',
+            price: '',
+            downpayment: '',
+            ratio_x: '0',
+            ratio_y: '0',
+            area: 0,
         },
 
         onSubmit: async (values) => {
@@ -6360,6 +6363,7 @@ const PostAdd = () => {
             }
 
             formData.append('title', values.title);
+            formData.append('area', values.area.toString());
             formData.append('state', values.state);
             formData.append('city', values.city);
             formData.append('description', values.description);
@@ -6367,7 +6371,7 @@ const PostAdd = () => {
             formData.append('transaction_type', values.transaction_type);
             formData.append('downpayment', values.downpayment);
             formData.append('ratio_x', values.ratio_x.toString());
-            formData.append('ratio_y', values.ratio_y);
+            formData.append('ratio_y', values.ratio_y.toString());
             formData.append('monthly_rent', values.monthly_rent);
 
             let url = 'https://13.232.115.59/advertisements/';
@@ -6489,6 +6493,7 @@ const PostAdd = () => {
                 }
                 formik.setFieldValue('title', passVals.title || 'Name') ;
                 formik.setFieldValue('monthly_rent', passVals.monthly_rent  || '');
+                formik.setFieldValue('area', parseInt(passVals.area)  || 0);
                 setImageURL(passVals.image || null)
                 formik.setFieldValue('description', passVals.description || 'Describe your requirement');
                 formik.setFieldValue('contact', passVals.contact || '');
@@ -6633,6 +6638,15 @@ const PostAdd = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item label='Area' rules={[{ required: true, message: 'Please enter the requirement area!' }]}>
+                                <Input
+                                    onChange={(e) => {
+                                        formik.setFieldValue('area', e.target.value);
+                                    }}
+                                    value={formik.values.area}
+                                />
+                            </Form.Item>
+
                             <Form.Item
                                 label='Transaction Type'
                                 rules={[{ required: true, message: 'Please enter the mode!' }]}
@@ -6689,19 +6703,22 @@ const PostAdd = () => {
                                     className='me-2'
                                         min={0}
                                         max={100}
-                                        onChange={(value) => {
-                                            formik.setFieldValue('ratio_x', value);
+                                        onChange={(value: any) => {
+                                            formik.setFieldValue('ratio_x', value.toString());
+                                            formik.setFieldValue('ratio_y', (100 - parseInt(value)).toString());
                                         }}
-                                        value={formik.values.ratio_x}
+                                        value={parseInt(formik.values.ratio_x)}
                                     /> : 
                                     <InputNumber
                                         className='ms-2'
                                         min={0}
                                         max={100}
+                                        disabled
                                         onChange={(value) => {
-                                            formik.setFieldValue('ratio_y', value);
+                                            console.log(value);
+                                            formik.setFieldValue('ratio_y', value?.toString());
                                         }}
-                                        value={100 - formik.values.ratio_x}
+                                        value={100 - parseInt(formik.values.ratio_x)}
                                     />
                                 </Form.Item>
                             }
@@ -6740,7 +6757,7 @@ const PostAdd = () => {
                                             contact: formik.values.contact,
                                             price: formik.values.price,
                                             downpayment: formik.values.downpayment,
-                                            ratio_y: `${100 - formik.values.ratio_x}`,
+                                            ratio_y: formik.values.ratio_x,
                                             image: imageURL,
                                             title:formik.values.title,
                                             description:formik.values.description,
@@ -6748,7 +6765,8 @@ const PostAdd = () => {
                                             transaction_type: formik.values.transaction_type,
                                             city: formik.values.city,
                                             state: formik.values.state,
-                                            ratio_x: `${formik.values.ratio_x}`,
+                                            ratio_x: formik.values.ratio_x,
+                                            area: formik.values.area,
                                         }
                                     }
                                 />

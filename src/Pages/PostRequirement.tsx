@@ -6316,8 +6316,9 @@ const PostRequirement = () => {
                 transaction_type: 'Buy',
                 price: '',
                 downpayment: '',
-                ratio_x: 0,
-                ratio_y: '',
+                ratio_x: '0',
+                ratio_y: '0',
+                area: 0,
             },
         });
     }, []);
@@ -6335,8 +6336,9 @@ const PostRequirement = () => {
             transaction_type: 'Buy',
             price: '',
             downpayment: '',
-            ratio_x: 0,
-            ratio_y: '',
+            ratio_x: '0',
+            ratio_y: '0',
+            area: 0,
         },
 
         onSubmit: async (values) => {
@@ -6380,8 +6382,7 @@ const PostRequirement = () => {
                     }
                     // Optionally, you can perform any actions after error
                 });
-
-                
+                return;
             }
             
             axios.post(url, values, {
@@ -6437,6 +6438,7 @@ const PostRequirement = () => {
                     setError('No such post found for edit')
                 }
                 formik.setFieldValue('title', passVals.title || 'Name') ;
+                formik.setFieldValue('area', parseInt(passVals.area)  || 0);
                 formik.setFieldValue('monthly_rent', passVals.monthly_rent  || '');
                 formik.setFieldValue('image', passVals.image || null);
                 formik.setFieldValue('description', passVals.description || 'Describe your requirement');
@@ -6569,6 +6571,15 @@ const PostRequirement = () => {
                                 />
                             </Form.Item>
 
+                            <Form.Item label='Area' rules={[{ required: true, message: 'Please enter the requirement area!' }]}>
+                                <Input
+                                    onChange={(e) => {
+                                        formik.setFieldValue('area', e.target.value);
+                                    }}
+                                    value={formik.values.area}
+                                />
+                            </Form.Item>
+
                             <Form.Item
                                 label='Transaction Type'
                                 rules={[{ required: true, message: 'Please enter the mode!' }]}
@@ -6626,19 +6637,21 @@ const PostRequirement = () => {
                                         min={0}
                                         max={100}
                                         className='me-2'
-                                        onChange={(value) => {
-                                            formik.setFieldValue('ratio_x', value);
+                                        onChange={(value: any) => {
+                                            formik.setFieldValue('ratio_x', value.toString());
+                                            formik.setFieldValue('ratio_y', (100 - parseInt(value)).toString());
                                         }}
-                                        value={formik.values.ratio_x}
+                                        value={parseInt(formik.values.ratio_x)}
                                     /> : 
                                     <InputNumber
                                         min={0}
                                         max={100}
                                         className='ms-2'
-                                        onChange={(value) => {
+                                        disabled
+                                        onChange={(value: any) => {
                                             formik.setFieldValue('ratio_y', value);
                                         }}
-                                        value={100 - formik.values.ratio_x}
+                                        value={100 - parseInt(formik.values.ratio_x)}
                                     />
                                 </Form.Item>
                             }
@@ -6676,7 +6689,7 @@ const PostRequirement = () => {
                                             contact: formik.values.contact,
                                             price: formik.values.price,
                                             downpayment: formik.values.downpayment,
-                                            ratio_y: `${100 - formik.values.ratio_x}`,
+                                            ratio_y: formik.values.ratio_y,
                                             image: imageURL,
                                             title:formik.values.title,
                                             description:formik.values.description,
@@ -6684,7 +6697,8 @@ const PostRequirement = () => {
                                             transaction_type: formik.values.transaction_type,
                                             city: formik.values.city,
                                             state: formik.values.state,
-                                            ratio_x: `${formik.values.ratio_x}`,
+                                            ratio_x: formik.values.ratio_x,
+                                            area: formik.values.area,
                                         }
                                     }
                                 />

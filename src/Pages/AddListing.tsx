@@ -25,6 +25,7 @@ interface Item {
   monthly_rent: string,
   image: string,
   budget: string;
+  area: number;
 }
 
 const AddListing: React.FC = () => {
@@ -62,20 +63,6 @@ const AddListing: React.FC = () => {
 
     
   }, [postId]);
-
-  // const items = [
-  //   {
-  //     title: 'Property 1',
-  //     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  //     budget: 700000,
-  //     image: 'https://cdn.britannica.com/05/157305-004-53D5D212.jpg',
-  //     contact: '123',
-  //     transaction_type: 'Sell',
-  //     city: 'Ranchi',
-  //     state: 'Jharkhand',
-  //     ratio: 0,
-  //   },
-  // ];
 
   return (
     <div>

@@ -60,6 +60,7 @@ const StepsForPost = () => {
       transaction_type: 'Sell',
       city: 'Ranchi',
       state: 'Jharkhand',
+      area: 1,
     },
   ]
 

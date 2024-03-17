@@ -58,7 +58,8 @@ const StepsForRequirement = () => {
       price: "",
       ratio_x: "",
       ratio_y: "",
-      monthly_rent: ""
+      monthly_rent: "",
+      area: 1,
     },
   ];
 

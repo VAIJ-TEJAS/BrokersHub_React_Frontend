@@ -23,6 +23,7 @@ interface Item {
   monthly_rent: string,
   image: string,
   budget: string;
+  area: number;
 }
 
 const ProfilePage: React.FC = () => {
