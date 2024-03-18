@@ -46,6 +46,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   const [range, setRange] = useState<string>("Select Range");
   const [city, setCity] = useState<string>("Select City");
   const [state, setState] = useState<string>("Select State");
+  const [rangeValue, setRangeValue] = useState<number[]>([0, 0]);
   
   const [rangeOpen, setRangeOpen] = useState<boolean>(false);
   const [CityOpen, setCityOpen] = useState<boolean>(false);
@@ -6312,224 +6313,210 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
   const [filteredCity, setFilteredCity] = useState<cityType[]>(cities);
   
 
-  const toggleCity = () => {
-    setCityOpen(!CityOpen)
-  };
+    const toggleCity = () => {
+        setCityOpen(!CityOpen)
+    };
 
-  const toggleRange = () => {
-    setRangeOpen(!rangeOpen)
-  };
+    const toggleRange = () => {
+        setRangeOpen(!rangeOpen)
+    };
 
-  const toggleState = () => {
-    setStateOpen(!stateOpen)
-  };
+    const toggleState = () => {
+        setStateOpen(!stateOpen)
+    };
 
-  const handleFromChange = (value: string) => {
-    console.log(value)
-    const filteredItems = items.filter(item => {
-        if (state !== 'Select State' && item.state !== state) {
-            return false;
-        }
-        if (value !== 'Select City' && item.city !== value) {
-            return false;
-        }
-        return true;
-    });
-    setFilteredItems(filteredItems);
-    setCity(value)
-  }
+    const handleFromChange = (value: string) => {
+        console.log(value)
+        setCity(value)
+    }
 
     const handleStateChange = (value: string) => {
-        console.log(value[1]);
-        console.log(range);
-
-        // Filter items based on the selected state value
-        const filteredItems = items.filter(item => {
-            if (state !== 'Select State' && item.state !== state) {
-                return false;
-            }
-            if (value !== 'Select City' && item.city !== value) {
-                return false;
-            }
-            return true;
-        });
-
-        // Update the filtered items and selected state in state
-        setFilteredItems(filteredItems);
         setState(value);
         setCity('Select City'); // Reset the city selection when state changes
     }
 
-  const rangeList = [
-    {
-      value: '< 1,00,000',
-      label: '< 1,00,000'
-    },
-    {
-      value: '< 2,00,000',
-      label: '< 2,00,000'
-    },
-    {
-      value: '< 5,00,000',
-      label: '< 5,00,000'
-    },
-    {
-      value: '< 10,00,000',
-      label: '< 10,00,000'
-    },
-    {
-      value: '< 20,00,000',
-      label: '< 20,00,000'
-    },
-    {
-      value: '> 20,00,000',
-      label: '> 20,00,000'
-    },
-  ]
+    const handleRangeChange = (value: string) => {
+        console.log(value);
+        setRange(value)
+        let maxVal = value.split(' ');
+        if(maxVal[0] === '>'){
+            setRangeValue([0, 0]);
+            return;
+        }
+        let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
+        setRangeValue([0, numSelected]);
+    };
 
-  const min = 0; // Set the minimum value
-  const max = 100; // Set the maximum value
+    const handleFilter = () => {
+        console.log( state, city, rangeValue[1])
+        const filteredItems = items.filter(item => {
+            if (state !== 'Select State' && item.state !== state) {
+                return false;
+            }
+            if (city !== 'Select City' && item.city !== city) {
+                return false;
+            }
+            if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
+                return false;
+            }
+            return true;
+        });
+        setFilteredItems(filteredItems);
+    }
 
-  const [rangeValue, setRangeValue] = useState<number[]>([min, max]);
-
-  const handleRangeChange = (value: string) => {
-    console.log(value);
-    setRange(value)
-    let maxVal = value.split(' ');
-    let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
-    setRangeValue(() => {
-      const updatedRangeValue = [0, numSelected];
-      return updatedRangeValue;
-    });
-  };
+    const rangeList = [
+        {
+        value: '< 1,00,000',
+        label: '< 1,00,000'
+        },
+        {
+        value: '< 2,00,000',
+        label: '< 2,00,000'
+        },
+        {
+        value: '< 5,00,000',
+        label: '< 5,00,000'
+        },
+        {
+        value: '< 10,00,000',
+        label: '< 10,00,000'
+        },
+        {
+        value: '< 20,00,000',
+        label: '< 20,00,000'
+        },
+        {
+        value: '> 20,00,000',
+        label: '> 20,00,000'
+        },
+    ]
 
   useEffect(() => {
     console.log(rangeValue);
   }, [rangeValue]);
 
-  return (
-    <>
-        <div className='justify-center w-full d-flex '>
-          <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80'>
-            <div className='lg:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
+    return (
+        <>
+            <div className='justify-center w-full d-flex '>
+                <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80 border'>
+                    <div className='lg:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
 
-              {/* price range  */}
-              {page === 'Add' &&
-                <div className='filter-field text-light relative bg-[#00396e] mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
-                  <div className='px-2'>
-                      <div className='text-yellow-500'>Price Range</div>
-                      <div className='text-white'>{range}</div>
-                    </div>
-                    <Select
-                      open={rangeOpen}
-                      className='absolute w-0 h-0'
-                      defaultValue="One Way Trip"
-                      value={range}
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleRangeChange}
-                      onDropdownVisibleChange={(open) => setRangeOpen(open)}
-                      options={rangeList.map((item) => {
-                        return {
-                          value: item.value,
-                          label: item.label,
-                        };
-                      })}
-                    />
-              </div>}
-
-              {/* select state  */}
-              <div className={`filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-60 ${page === 'Add' ? 'xl:w-60': 'xl:w-80'} `}
-                    onClick={toggleState}>
-                    <div className='px-2'>
-                      <div className='text-yellow-500'>State</div>
-                      <div className='text-white'>{state}</div>
-                    </div>
-                    
-                    <Select
-                      open={stateOpen}
-                      className='absolute w-0 h-0'
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleStateChange}
-                      onDropdownVisibleChange={(open) => setStateOpen(open)}
-                      options={
-                          filteredStates.map(option => {
-                            return {
-                              value: option.value,
-                              label: option.value,
-                            };
-                          })
-                      }
-                      dropdownRender={menu => (
-                        <div>
-                          <Input 
-                            placeholder="State Name" 
-                            onChange={(e) => {
-                              setInputState(e.target.value)
-                              let filtered = stateList.filter(option => option.value.toLowerCase().includes(inputState.toLowerCase()))
-                                                      .map(option => ({ value: option.value, label: option.value }));
-                              setFilteredStates(filtered);
-                            }} 
-                            onClick={e => e.stopPropagation()} 
-                            style={{ width: '100%', marginBottom: 8 }} 
-                          />
-                          {menu}
+                    {/* price range  */}
+                    {
+                        page === 'Add' &&
+                        <div className='filter-field text-light relative bg-[#00396e] border mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
+                            <div className='px-2'>
+                                <div className='text-yellow-500'>Price Range</div>
+                                <div className='text-white'>{range}</div>
+                                </div>
+                                <Select
+                                    open={rangeOpen}
+                                    className='absolute w-0 h-0'
+                                    defaultValue="One Way Trip"
+                                    value={range}
+                                    style={{ visibility: 'hidden', width: '100%' }}
+                                    onChange={handleRangeChange}
+                                    onDropdownVisibleChange={(open) => setRangeOpen(open)}
+                                    options={rangeList.map((item) => {
+                                        return {
+                                        value: item.value,
+                                        label: item.label,
+                                        };
+                                    })}
+                                />
                         </div>
-                      )}
-                    />
-              </div>
+                    }
 
-              {/* select city  */}
-              {state !== 'Select State' && 
-                <div className={`filter-field relative bg-[#00396e] mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'w-36 xl:w-60': 'w-60 xl:w-80'} `} onClick={toggleCity}>
-                  <div className='px-2'>
-                    <div className='text-yellow-500'>City</div>
-                      <div className='text-white'>{city}</div>
+                    {/* select state  */}
+                    <div className={`filter-field relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-60 ${page === 'Add' ? 'xl:w-60': 'xl:w-80'} `}
+                            onClick={toggleState}>
+                            <div className='px-2'>
+                            <div className='text-yellow-500'>State</div>
+                            <div className='text-white'>{state}</div>
+                            </div>
+                            
+                            <Select
+                            open={stateOpen}
+                            className='absolute w-0 h-0'
+                            style={{ visibility: 'hidden', width: '100%' }}
+                            onChange={handleStateChange}
+                            onDropdownVisibleChange={(open) => setStateOpen(open)}
+                            options={
+                                filteredStates.map(option => {
+                                    return {
+                                    value: option.value,
+                                    label: option.value,
+                                    };
+                                })
+                            }
+                            dropdownRender={menu => (
+                                <div>
+                                <Input 
+                                    placeholder="State Name" 
+                                    onChange={(e) => {
+                                    setInputState(e.target.value)
+                                    let filtered = stateList.filter(option => option.value.toLowerCase().includes(inputState.toLowerCase()))
+                                                            .map(option => ({ value: option.value, label: option.value }));
+                                    setFilteredStates(filtered);
+                                    }} 
+                                    onClick={e => e.stopPropagation()} 
+                                    style={{ width: '100%', marginBottom: 8 }} 
+                                />
+                                {menu}
+                                </div>
+                            )}
+                            />
                     </div>
-                    <Select
-                      open={CityOpen}
-                      className='absolute w-0 h-0'
-                      defaultValue="One Way Trip"
-                      style={{ visibility: 'hidden', width: '100%' }}
-                      onChange={handleFromChange}
-                      onDropdownVisibleChange={(open) => setCityOpen(open)}
-                      options={
-                            filteredCity.filter(city => city.state === state).map(city => ({
-                            value: city.value,
-                            label: city.value
-                        }))
-                      }
-                      dropdownRender={menu => (
-                        <div>
-                          <Input 
-                              placeholder="City Name"
-                              onChange={(e) => {
-                              setInputCity(e.target.value)
-                              let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
-                                                      .map(option => (option));
-                                                      setFilteredCity(filtered);
-                              }} 
-                              onClick={e => e.stopPropagation()}
-                              style={{ width: '100%', marginBottom: 8 }}
-                          />
-                            {menu}
+
+                    {/* select city  */}
+                    {state !== 'Select State' && 
+                        <div className={`filter-field relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'w-36 xl:w-60': 'w-60 xl:w-80'} `} onClick={toggleCity}>
+                        <div className='px-2'>
+                            <div className='text-yellow-500'>City</div>
+                            <div className='text-white'>{city}</div>
+                            </div>
+                            <Select
+                            open={CityOpen}
+                            className='absolute w-0 h-0'
+                            defaultValue="One Way Trip"
+                            style={{ visibility: 'hidden', width: '100%' }}
+                            onChange={handleFromChange}
+                            onDropdownVisibleChange={(open) => setCityOpen(open)}
+                            options={
+                                    filteredCity.filter(city => city.state === state).map(city => ({
+                                    value: city.value,
+                                    label: city.value
+                                }))
+                            }
+                            dropdownRender={menu => (
+                                <div>
+                                <Input 
+                                    placeholder="City Name"
+                                    onChange={(e) => {
+                                    setInputCity(e.target.value)
+                                    let filtered = cities.filter(option => option.name.toLowerCase().includes(inputCity.toLowerCase()))
+                                                            .map(option => (option));
+                                                            setFilteredCity(filtered);
+                                    }} 
+                                    onClick={e => e.stopPropagation()}
+                                    style={{ width: '100%', marginBottom: 8 }}
+                                />
+                                    {menu}
+                                </div>
+                            )}
+                            />
                         </div>
-                      )}
-                    />
+                    }
+
+                    <Button onClick={handleFilter} className='md:p-0 py-3 border filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium w-32 xl:w-36 '>
+                        SEARCH
+                    </Button>
+
+                    </div>
                 </div>
-              }
-
-              <Button className='md:p-0 py-3 filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium
-                w-32
-                xl:w-36
-              '>
-                SEARCH
-              </Button>
-
             </div>
-          </div>
-        </div >
-    </ >
-  );
+        </>
+    );
 };
 
 export default Search;

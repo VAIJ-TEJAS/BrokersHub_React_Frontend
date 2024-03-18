@@ -100,7 +100,7 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
           {item.transaction_type=="Sell" &&
               <li className="property-budget">
-            <strong>Price:</strong> ₹{item.price}
+            <strong>Price:</strong> ₹{item.budget}
           </li>}
 
           <li className="property-contact">

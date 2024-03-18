@@ -6346,7 +6346,7 @@ const PostAdd = () => {
         },
 
         onSubmit: async (values) => {
-
+            
             const token = localStorage.getItem('share-coupon-access-token');
 
             if (!token) {
@@ -6368,6 +6368,7 @@ const PostAdd = () => {
             formData.append('city', values.city);
             formData.append('description', values.description);
             formData.append('contact', values.contact);
+            formData.append('budget', values.budget);
             formData.append('transaction_type', values.transaction_type);
             formData.append('downpayment', values.downpayment);
             formData.append('ratio_x', values.ratio_x.toString());
@@ -6673,9 +6674,9 @@ const PostAdd = () => {
                                 >
                                     <Input
                                         onChange={(e) => {
-                                            formik.setFieldValue('price', e.target.value);
+                                            formik.setFieldValue('budget', e.target.value);
                                         }}
-                                        value={formik.values.price}
+                                        value={formik.values.budget}
                                     />
                                 </Form.Item>
                             }
