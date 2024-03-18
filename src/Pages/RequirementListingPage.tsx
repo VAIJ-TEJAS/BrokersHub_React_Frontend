@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Layout, Modal } from 'antd';
 import Filter from '../components/Search';
-import Navbar from '../components/Navbar';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
 import axios from 'axios';
@@ -72,7 +71,6 @@ const RequirementListingPage: React.FC = () => {
   
   return (
     <Layout className="layout">
-        <Navbar />
       <Layout>
         <Layout className='d-flex align-items-center'>
           <Content

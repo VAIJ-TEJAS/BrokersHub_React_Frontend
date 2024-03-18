@@ -15,11 +15,10 @@ interface OptionType {
 
 interface AuthenticationProps {
     defaultTab?: string | null;
+    handleCancel: () => void;
 }
 
-const Login: React.FC = () => {
-
-    const navigate = useNavigate();
+const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
 
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
@@ -43,10 +42,11 @@ const Login: React.FC = () => {
         })
             .then(response => {
                 // Handle the response data
-                console.log('Response:', response.data);
+                // console.log('Response:', response.data);
                 localStorage.setItem('share-coupon-access-token', response.data.token)
-                localStorage.setItem('share-coupon-user', response.data.user)
-                navigate('/');
+                console.log(response.data.user)
+                localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
+                handleCancel();
             })
             .catch(error => {
                 console.error('Error found as:', error);
@@ -6382,10 +6382,13 @@ const Register: React.FC = () => {
             password: newPassword,
             first_name: firstName,
             last_name: lastName,
+            phone: phone,
+            referral_code: referralCode,
             email: email,
             state: state,
             city: city,
         };
+        // 50baa835dda073f1b26c7f538ba0e6ad47aabb10
 
         // Make the POST request with Axios
         axios.post(url, data, {
@@ -6539,7 +6542,7 @@ const Register: React.FC = () => {
     )
 }
 
-const Autentication: React.FC<AuthenticationProps> = () => {
+const Autentication: React.FC<AuthenticationProps> = ({handleCancel}) => {
 
     const [activeTab, setActiveTab] = useState<string>('1');
 
@@ -6581,7 +6584,7 @@ const Autentication: React.FC<AuthenticationProps> = () => {
             </div>
             <div className='mb-10'>
                 {activeTab === '1' ?
-                    <Login /> :
+                    <Login handleCancel={handleCancel} /> :
                     <Register />
                 }
             </div>

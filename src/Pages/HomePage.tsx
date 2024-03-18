@@ -1,38 +1,21 @@
-import React, {useState} from 'react'
-import Navbar from "../components/Navbar";
-import { Carousel, Button, Modal } from "antd";
+import React from 'react'
+import { Carousel, Button } from "antd";
 import sample1 from "../components/Images/sample1.jpg";
 import sample2 from "../components/Images/sample2.jpg";
 import sample3 from "../components/Images/sample3.jpg";
 import "./HomePage.css";
 import StepsForPost from "../components/StepsForPost";
 import StepsForRequirement from "../components/StepsForRequirement";
-import Autentication from '../components/Authentication';
 
-const HomePage: React.FC = () => {
+interface HomeProps {
+  showModal: () => void;
+}
 
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const showModal = () => {
-    setModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setModalVisible(false)
-  };
+const HomePage: React.FC<HomeProps> = ({showModal}) => {
 
   return (
     <div>
-      <Modal
-        open={modalVisible}
-        onCancel={handleCancel}
-        footer={null}>
-        <Autentication />
-      </Modal>
 
-      <div className="">
-        <Navbar />
-      </div>
       <div className='carousel-container'>
         
         <Carousel autoplay className='h-full'>
@@ -139,7 +122,7 @@ const HomePage: React.FC = () => {
         <div className="sm:p-5 p-3 referral-info">
           <h1 className="mb-5 text-primary" style={{fontFamily: 'Montserrat'}} >Earn by joining Our referral program</h1>
           <p>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium md:text-2xl text-xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
-          <Button className="mt-5" type='primary' size="large" onClick={() =>{showModal()}} >Register</Button>
+          <Button className="mt-5" type='primary' size="large" onClick={showModal} >Register</Button>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Modal, Alert } from "antd";
+import { Button, Card, Modal, Alert, message, Popconfirm  } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import ExpandCard from "./ExpandCard";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -64,6 +64,12 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
     setModalVisible(false);
   };
 
+  const confirm = (e?: React.MouseEvent<HTMLElement>) => {
+    console.log(e);
+    message.success('The post has been deleted.');
+    handleDelete();
+  };
+
   return (
     <Card
       hoverable
@@ -126,12 +132,20 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
             >
             </Button>
             <br />
-            <Button
-              type="primary"
-              onClick={handleDelete}
-              icon={<DeleteOutlined />}
-              danger
-            ></Button>
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this post?"
+              onConfirm={confirm}
+              okText="Yes"
+              cancelText="No"
+            >
+
+              <Button
+                type="primary"
+                icon={<DeleteOutlined />}
+                danger
+              />
+            </Popconfirm>
           </div>
         )}
         

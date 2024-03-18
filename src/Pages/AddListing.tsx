@@ -3,7 +3,6 @@ import ItemCard from '../components/ItemCard';
 import axios from 'axios';
 import { Layout, Modal } from 'antd';
 import Filter from '../components/Search';
-import Navbar from '../components/Navbar';
 import ExpandCard from '../components/ExpandCard';
 import listingLogo from '../components/Images/listingBackground.jpg'
 import { useParams, useNavigate } from 'react-router-dom';
@@ -69,7 +68,6 @@ const AddListing: React.FC = () => {
   return (
     <div>
       <Layout className="layout">
-        <Navbar />
         <Layout>
           <Layout className='d-flex align-items-center'>
             <Content

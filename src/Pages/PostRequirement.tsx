@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Alert, Modal } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Alert } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
-import Navbar from '../components/Navbar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../components/Navbar.css'
-import Autentication from '../components/Authentication';
 import { useParams, useNavigate } from 'react-router-dom';
 
 interface OptionType {
@@ -31,17 +29,16 @@ interface Item {
     budget: string;
 }
 
-const PostRequirement = () => {
+interface Props {
+    showModal: () => void;
+}
+
+const PostRequirement:React.FC<Props> = ({showModal}) => {
 
     const navigate = useNavigate();
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const [modalVisible, setModalVisible] = useState(false);
-  
-    const handleCancel = () => {
-      setModalVisible(false)
-    };
 
     const cities = [
         {
@@ -6346,7 +6343,7 @@ const PostRequirement = () => {
             const token = localStorage.getItem('share-coupon-access-token');
 
             if (!token) {
-                setModalVisible(true)
+                showModal()
                 return
             }
 
@@ -6467,14 +6464,6 @@ const PostRequirement = () => {
 
     return (
         <>
-            <Navbar />
-
-            <Modal
-                open={modalVisible}
-                onCancel={handleCancel}
-                footer={null}>
-                <Autentication />
-            </Modal>
 
             <div className='d-flex justify-content-center bg-[#F5F5F5]'>
                     <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
