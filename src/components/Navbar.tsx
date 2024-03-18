@@ -3,9 +3,12 @@ import { Menu, Button, Tooltip, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
+import { UserOutlined, HomeOutlined } from '@ant-design/icons';
 import './Navbar.css'
 
-const { Header } = Layout;
+const { SubMenu } = Menu;
+const { Header, Sider } = Layout;
+
 
 const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
@@ -21,7 +24,7 @@ interface NavProps {
   
 const Navbar: React.FC<NavProps> = ({showModal}) =>{
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
 
@@ -56,8 +59,9 @@ const Navbar: React.FC<NavProps> = ({showModal}) =>{
             <div className='onShort'>
               {check() ?
                 <>
-                  <button className='me-3 btn btn-outline-primary' onClick={() => {localStorage.removeItem('share-coupon-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</button>
-                  <Link to='/profile' className='btn btn-primary'>Profile</Link>
+                <Button type="primary" onClick={() => {navigate('/profile')}} icon={<UserOutlined />}>
+                  Profile
+                </Button>
                 </>:
                 <>
                   <button className='me-3 btn btn-outline-primary' onClick={showModal}>Login</button>
@@ -74,34 +78,54 @@ const Navbar: React.FC<NavProps> = ({showModal}) =>{
 
 
       </Header>
-        <Drawer width={'260px'} title="TheBrokersHub" onClose={onClose} open={open}>
+        <Drawer width={'260px'} title="The Brokers Hub" onClose={onClose} open={open}>
           {check() ?
-            <Link to={"/profile"} className='btn btn-primary w-100'>Profile</Link>:
+            <Button type="primary" className='w-full h-10' onClick={() => {navigate('/profile')}} icon={<UserOutlined />}>
+              Profile
+            </Button>:
             <>
               <div className='mb-3'>
-                <button className='btn btn-primary w-100' onClick={showModal}>Register</button>
+                <button className='btn btn-primary w-full' onClick={showModal}>Register</button>
               </div>
               <div className='my-3'>
-                <button className='btn btn-outline-primary w-100 text-dark' onClick={showModal}>Login</button>
+                <button className='btn btn-outline-primary w-full' onClick={showModal}>Login</button>
               </div>
             </>
           }
 
-          <ul className='mt-4'>
+          <Sider width={'100%'} className="mt-4 site-layout-background w-full">
+            <Menu
+              mode="inline"
+              style={{ height: '100%', borderRight: 0 }}
+              className='w-full max-w-full'
+            >
+              <hr />
+              <Menu.Item  icon={<HomeOutlined />} key="1"><Link to={'/home'}><strong>Home</strong></Link></Menu.Item>
+              <hr />
+              <SubMenu key="sub1" title={<strong>Advertisements</strong>}>
+                <Menu.Item key="2"><Link to={'/addsListing'}><strong>View Advertisements</strong></Link></Menu.Item>
+                <Menu.Item key="3"><Link to={'/PostAdd'}><strong>Post Advertisements</strong></Link></Menu.Item>
+              </SubMenu>
+              <hr />
+              <SubMenu key="sub2" title={<strong>Requirements</strong>}>
+                <Menu.Item key="4"><Link to={'/requirementsListing'}><strong>View Requirements</strong></Link></Menu.Item>
+                <Menu.Item key="5"><Link to={'/PostRequirement'}><strong>Post Requirements</strong></Link></Menu.Item>
+              </SubMenu>
+              <hr />
+            </Menu>
+          </Sider>
+
+          {/* <ul className='mt-4'>
             <hr />
             {menuItems.map(item => (
               <>
-                <li key={item.key} className='py-2 ps-2'>
+                <li key={item.key} className='py-3 ps-2'>
                   <Link to={item.link}><strong>{item.label}</strong></Link>
                 </li>
                 <hr />
               </>
             ))}
-          </ul>
-          
-          {check() &&
-            <button className='mt-3 btn btn-outline-primary w-100' onClick={() => {localStorage.removeItem('share-coupon-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</button>
-          }
+          </ul> */}
       </Drawer>
       </>
         

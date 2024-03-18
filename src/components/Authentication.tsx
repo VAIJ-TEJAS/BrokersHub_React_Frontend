@@ -46,7 +46,9 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
                 localStorage.setItem('share-coupon-access-token', response.data.token)
                 console.log(response.data.user)
                 localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
-                message.success('Registration successfull!');
+                message.success('login successfull!');
+                setUsername('')
+                setPassword('')
                 handleCancel();
             })
             .catch(error => {

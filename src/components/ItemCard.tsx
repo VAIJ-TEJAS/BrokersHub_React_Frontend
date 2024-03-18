@@ -76,12 +76,14 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       style={{ margin: "10px" }}
       cover={
         item.image !== "" && item.image !== undefined ? (
-          <img alt={item.title} className="p-2 w-100 border" src={item.image} />
+          <div className="d-flex justify-center items-center mt-2 px-2">
+            <img alt={item.title} className=" p-2 h-52 w-auto max-w-72 border" src={item.image} />
+          </div>
         ) : (
           ""
         )
       }
-      className="overflow-hidden border bg-gradient-to-r from-white to-white w-80"
+      className="overflow-hidden border w-80"
     >
       <Modal
         open={modalVisible}

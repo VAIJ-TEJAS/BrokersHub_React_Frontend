@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Modal, Empty  } from 'antd';
+import { Modal, Empty, Button  } from 'antd';
+import { Layout } from 'antd';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
 import axios from 'axios';
 import { Tabs } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import TabPane from 'antd/es/tabs/TabPane';
-
 const { Content } = Layout;
 
 interface Item {
@@ -122,7 +122,7 @@ const ProfilePage: React.FC = () => {
                 <div className="bg-white overflow-hidden rounded-lg border sm:w-4/5 lg:w-3/5">
                     <div className="px-4 py-4 sm:px-6">
                           <h3 className="text-lg leading-6 font-medium text-gray-900">
-                              User Profile
+                              Personal Information
                           </h3>
                           <p className="mt-1 max-w-2xl text-sm text-gray-500">
                               This is some information about the user.
@@ -162,10 +162,14 @@ const ProfilePage: React.FC = () => {
                                     {user?.city}, {user?.state}
                                   </dd>
                               </div>
+                              {/* <div className="py-3 sm:py-5 w-full"> */}
+                              {/* </div> */}
+                                <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('share-coupon-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
                           </dl>
                     </div>
                 </div>
               </TabPane>
+
               <TabPane className='py-5' tab={`Your Advertisement`} key={'2'}>
                 <div className="overflow-y-auto" style={{maxHeight: '600px', scrollbarWidth: 'none'}}>
                   <div className='d-flex flex-wrap justify-center'>
@@ -182,6 +186,7 @@ const ProfilePage: React.FC = () => {
                   </div>
                 </div>
               </TabPane>
+
               <TabPane className='py-5' tab={`Your Requirement`} key={'3'}>
                 <div className="overflow-y-auto" style={{maxHeight: '600px', scrollbarWidth: 'none'}}>
                   <div className='d-flex flex-wrap justify-center'>
