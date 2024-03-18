@@ -36,6 +36,7 @@ const ProfilePage: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   
   const handleCancel = () => {
+    console.log('Cancelling')
     setModalVisible(false)
     navigate('/profile/');
   };

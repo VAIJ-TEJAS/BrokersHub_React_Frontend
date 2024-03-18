@@ -83,7 +83,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         footer={null}
         className="property-modal"
       >
-        <ExpandCard item={item} page={page} />
+        <ExpandCard handleCancel={handleCancel} item={item} page={page} />
       </Modal>
 
       {error !== "" && (
