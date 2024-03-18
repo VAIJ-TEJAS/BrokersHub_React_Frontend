@@ -112,17 +112,17 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
         {(page === 'requirements' || page === 'advertisements') ? 
           <div className='flex'>
-            <Button type="primary" onClick={handleDeal} className='mt-3 me-2 w-4/5'>
+            <Button type="primary" onClick={handleDeal} className='mt-3 me-2 w-3/4 sm:w-4/5'>
               Send Enquiry
             </Button>
-            <Button className='mt-3 w-1/5' onClick={handleCancel} danger>Close</Button>
+            <Button className='mt-3 w-1/4 sm:w-1/5' onClick={handleCancel} danger>Close</Button>
           </div>
           : 
           <div className='flex'>
-            <Button type="primary" className='mt-3 me-2 w-4/5'>
+            <Button type="primary" className='mt-3 me-2  w-3/4 sm:w-4/5'>
               Send Enquiry
             </Button>
-            <Button className='mt-3 w-1/5' onClick={handleCancel} danger>Close</Button>
+            <Button className='mt-3  w-1/4 sm:w-1/5' onClick={handleCancel} danger>Close</Button>
           </div>
         }
           
