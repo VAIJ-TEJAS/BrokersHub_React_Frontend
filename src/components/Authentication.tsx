@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Tabs, Input, Button, Select, Alert } from 'antd';
+import { message, Form, Tabs, Input, Button, Select, Alert } from 'antd';
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
 import { useState } from 'react';
 import axios from "axios"
@@ -46,6 +46,7 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
                 localStorage.setItem('share-coupon-access-token', response.data.token)
                 console.log(response.data.user)
                 localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
+                message.success('Registration successfull!');
                 handleCancel();
             })
             .catch(error => {
@@ -55,6 +56,16 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
             });
     };
 
+    const onFinish = (values: any) => {
+        console.log('Received values:', values);
+        handleLogin()
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+        message.error('Registration failed!');
+    };
+
     return (
         <div className='space-y-6 w-[300px]'>
 
@@ -62,35 +73,54 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
                 <Alert message={error} type="error" showIcon closable onClose={() => setError('')} />
             )}
 
-            <div>
-                <Input
-                    className='text-center rounded-none'
-                    placeholder="Username"
-                    prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
+            <Form
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+            >
+                <Form.Item
+                    name="email"
+                    rules={[
+                        { required: true, message: 'Please input your email!' },
+                        { type: 'email', message: 'Please enter a valid email address!' },
+                    ]}
+                >
+                    <Input
+                        className='text-center rounded-none'
+                        placeholder="Email"
+                        prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </Form.Item>
 
-            <div>
-                <Input.Password
-                    className='text-center rounded-none'
-                    placeholder="Password"
-                    prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    suffix={<EyeOutlined style={{ color: '#1890FF' }} />}
-                    style={{ textAlign: 'center' }}
-                    type="password"
-                    value={password}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
+                <Form.Item
+                    name="Password"
+                    rules={[
+                        { required: true, message: 'Please input your password!' },
+                        // { min: 6, message: 'Password must be at least 6 characters!' },
+                    ]}
+                >
+                    <Input.Password
+                        className='text-center rounded-none'
+                        placeholder="Password"
+                        prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        suffix={<EyeOutlined style={{ color: '#1890FF' }} />}
+                        style={{ textAlign: 'center' }}
+                        type="password"
+                        value={password}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </Form.Item>
 
-            <div>
-                <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleLogin}>
-                    Sign in
-                </Button>
-            </div>
+                <Form.Item>
+                    <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                        Sign in
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
     );
 };
@@ -99,7 +129,6 @@ const Register: React.FC = () => {
 
     const navigate = useNavigate();
 
-    const [error, setError] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -6366,10 +6395,6 @@ const Register: React.FC = () => {
     ]);
 
     const handleRegister = async () => {
-        if (newPassword !== confirmPassword) {
-            setError('Passwords do not match with Confirm Password')
-            return;
-        }
 
         const url = 'https://13.232.115.59/signup/';
         const headers = {
@@ -6388,7 +6413,6 @@ const Register: React.FC = () => {
             state: state,
             city: city,
         };
-        // 50baa835dda073f1b26c7f538ba0e6ad47aabb10
 
         // Make the POST request with Axios
         axios.post(url, data, {
@@ -6403,10 +6427,19 @@ const Register: React.FC = () => {
             })
             .catch(error => {
                 console.error('Error found as:', error);
-                const errorMessage = error.response?.data?.username[0] || error.message;
-                setError(errorMessage)
             });
 
+    };
+
+    const onFinish = (values: any) => {
+        console.log('Received values:', values);
+        message.success('Registration successfull!');
+        handleRegister()
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+        message.error('Registration failed!');
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
@@ -6415,129 +6448,193 @@ const Register: React.FC = () => {
     return (
         <div className='space-y-6 w-[300px]'>
 
-            {error !== '' && (
-                <Alert message={error} type="error" showIcon closable onClose={() => setError('')} />
-            )}
+            <Form
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+            >
 
-            <div className='flex space-x-6'>
-                <div>
-                    <Input
-                        className='text-center rounded-none'
-                        placeholder="First Name"
-                        prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
+                <div className='flex space-x-6'>
+                    <Form.Item
+                        name="first"
+                        rules={[
+                            { required: true, message: 'Please input your first name!' },
+                            { min: 4, message: 'Username must be at least 4 characters!' },
+                            { max: 20, message: 'Username cannot exceed 20 characters!' },
+                        ]}
+                    >
+                        <Input
+                            className='text-center rounded-none'
+                            placeholder="First Name"
+                            prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="last"
+                        rules={[
+                            { required: true, message: 'Please input your last name!' },
+                            { min: 4, message: 'Username must be at least 4 characters!' },
+                        ]}
+                    >
+                        <Input
+                            className='text-center rounded-none'
+                            placeholder="Last Name"
+                            prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                    </Form.Item>
                 </div>
 
-                <div>
+                <Form.Item 
+                    name="state"
+                    rules={[
+                        { required: true, message: 'Please input your state!' },
+                    ]}
+                >
+                    <Select
+                        className='w-100'
+                        showSearch
+                        placeholder="Select a State"
+                        optionFilterProp="children"
+                        onChange={(value) => {setState(value); setCity('Select City')}}
+                        filterOption={filterOption}
+                        options={stateList.map(city => {
+                            return {
+                                value: city.value,
+                                label: city.value
+                            };
+                        })}
+                    />
+                </Form.Item>
+
+                {state !== '' &&
+                    <Form.Item 
+                        name="city"
+                        rules={[
+                            { required: true, message: 'Please input your city!' },
+                        ]}
+                    >
+                        <Select
+                            className='w-100'
+                            showSearch
+                            placeholder="Select a City"
+                            optionFilterProp="children"
+                            onChange={(value) => setCity(value)}
+                            filterOption={filterOption}
+                            options={
+                                cities.filter(city => city.state === state) // Filter cities by selected state
+                                    .map(city => ({
+                                        value: city.city,
+                                        label: city.city
+                                    }))
+                                }
+                        />
+                    </Form.Item>
+                }
+
+                <Form.Item
+                    name="phone"
+                    rules={[
+                        { required: true, message: 'Please input your phone number!' },
+                        { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' },
+                    ]}
+                >
                     <Input
                         className='text-center rounded-none'
-                        placeholder="Last Name"
-                        prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Phone"
+                        prefix={<PhoneOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                     />
-                </div>
-            </div>
+                </Form.Item>
 
-            <div>
-                <Select
-                    className='w-100'
-                    showSearch
-                    placeholder="Select a State"
-                    optionFilterProp="children"
-                    onChange={(value) => {setState(value); setCity('Select City')}}
-                    filterOption={filterOption}
-                    options={stateList.map(city => {
-                        return {
-                            value: city.value,
-                            label: city.value
-                        };
-                    })}
-                />
-            </div>
+                <Form.Item
+                    name="email"
+                    rules={[
+                        { required: true, message: 'Please input your email!' },
+                        { type: 'email', message: 'Please enter a valid email address!' },
+                    ]}
+                >
+                    <Input
+                        className='text-center rounded-none'
+                        placeholder="Email"
+                        prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </Form.Item>
 
-            {state !== '' &&
-                <div>
-                <Select
-                    className='w-100'
-                    showSearch
-                    placeholder="Select a City"
-                    optionFilterProp="children"
-                    onChange={(value) => setCity(value)}
-                    filterOption={filterOption}
-                    options={
-                        cities.filter(city => city.state === state) // Filter cities by selected state
-                            .map(city => ({
-                                value: city.city,
-                                label: city.city
-                            }))
-                        }
-                />
-            </div>}
+                <Form.Item
+                    name="Referral"
+                    rules={[
+                        { pattern: /^[a-zA-Z0-9]+$/, message: 'Referral code must contain only letters and digits!' },
+                    ]}
+                >
+                    <Input
+                        className='text-center rounded-none'
+                        placeholder="Referral Code"
+                        prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        value={referralCode}
+                        onChange={(e) => setReferralCode(e.target.value)}
+                    />
+                </Form.Item>
 
-            <div>
-                <Input
-                    className='text-center rounded-none'
-                    placeholder="Phone"
-                    prefix={<PhoneOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                />
-            </div>
+                <Form.Item
+                    name="Password"
+                    rules={[
+                        { required: true, message: 'Please input your password!' },
+                        { min: 6, message: 'Password must be at least 6 characters!' },
+                    ]}
+                >
+                    <Input.Password
+                        className='text-center rounded-none'
+                        placeholder="Password"
+                        prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        style={{ textAlign: 'center' }}
+                        type="password"
+                        value={newPassword}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                </Form.Item>
 
-            <div>
-                <Input
-                    className='text-center rounded-none'
-                    placeholder="Email"
-                    prefix={<MailOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
+                <Form.Item
+                    name="CPassword"
+                    rules={[
+                        { required: true, message: 'Please confirm your password!' },
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (!value || getFieldValue('Password') === value) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(new Error('The passwords do not match!'));
+                          },
+                        }),
+                    ]}
+                >
+                    <Input.Password
+                        className='text-center rounded-none'
+                        placeholder="Confirm Password"
+                        prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        style={{ textAlign: 'center' }}
+                        type="password"
+                        value={confirmPassword}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </Form.Item>
 
-            <div>
-                <Input
-                    className='text-center rounded-none'
-                    placeholder="Referral Code"
-                    prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    value={referralCode}
-                    onChange={(e) => setReferralCode(e.target.value)}
-                />
-            </div>
-
-            <div>
-                <Input.Password
-                    className='text-center rounded-none'
-                    placeholder="Password"
-                    prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    style={{ textAlign: 'center' }}
-                    type="password"
-                    value={newPassword}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-            </div>
-
-            <div>
-                <Input.Password
-                    className='text-center rounded-none'
-                    placeholder="Confirm Password"
-                    prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
-                    style={{ textAlign: 'center' }}
-                    type="password"
-                    value={confirmPassword}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-            </div>
-
-            <div>
-                <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" onClick={handleRegister}>
-                    Register
-                </Button>
-            </div>
+                <Form.Item>
+                    <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                        Register
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
     )
 }

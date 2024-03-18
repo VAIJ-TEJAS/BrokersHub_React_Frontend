@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Modal } from 'antd';
+import { Layout, Modal, Empty  } from 'antd';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
 import axios from 'axios';
@@ -169,18 +169,32 @@ const ProfilePage: React.FC = () => {
               <TabPane className='py-5' tab={`Your Advertisement`} key={'2'}>
                 <div className="overflow-y-auto" style={{maxHeight: '600px', scrollbarWidth: 'none'}}>
                   <div className='d-flex flex-wrap justify-center'>
-                    {additems.map((item, index) => (
-                      <ItemCard page="advertisements" key={index} item={item} />
-                      ))}
+                    {additems.length === 0 ? (
+                      <Empty
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        description={<span>No Data Available</span>}
+                      />
+                    ) : (
+                      additems.map((item, index) => (
+                        <ItemCard page="advertisements" key={index} item={item} />
+                      ))
+                    )}
                   </div>
                 </div>
               </TabPane>
               <TabPane className='py-5' tab={`Your Requirement`} key={'3'}>
                 <div className="overflow-y-auto" style={{maxHeight: '600px', scrollbarWidth: 'none'}}>
                   <div className='d-flex flex-wrap justify-center'>
-                    {reqitems.map((item, index) => (
-                      <ItemCard page="requirements" key={index} item={item} />
-                      ))}
+                    {reqitems.length === 0 ? (
+                      <Empty
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        description={<span>No Data Available</span>}
+                      />
+                    ) : (
+                      reqitems.map((item, index) => (
+                        <ItemCard page="requirements" key={index} item={item} />
+                      ))
+                    )}
                   </div>
                 </div>
               </TabPane>
