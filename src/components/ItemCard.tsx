@@ -133,7 +133,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
             </Button>
             <br />
             <Popconfirm
-              title="Delete the task"
+              title="Delete the post"
               description="Are you sure to delete this post?"
               onConfirm={confirm}
               okText="Yes"
