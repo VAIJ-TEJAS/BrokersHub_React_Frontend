@@ -8,6 +8,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
+import { Context } from '../context/context.provider';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
@@ -16,13 +17,10 @@ interface OptionType {
     label: string;
 }
 
-interface Props {
-    showModal: () => void;
-}
-
-const PostAdd:React.FC<Props> = ({showModal}) => {
+const PostAdd:React.FC = () => {
 
     const navigate = useNavigate();
+    const { showAuthModal } = Context();
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -6330,7 +6328,7 @@ const PostAdd:React.FC<Props> = ({showModal}) => {
             const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
-                showModal()
+                showAuthModal()
                 return
             }
 

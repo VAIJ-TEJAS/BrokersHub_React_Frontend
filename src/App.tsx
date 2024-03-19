@@ -1,4 +1,3 @@
-import { useState } from 'react' 
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 import { Modal } from 'antd'
 
@@ -16,7 +15,7 @@ import { Context } from './context/context.provider'
 
 function App() {
 
-  const { authModalOpen, showAuthModal, handleAuthCancel } = Context();
+  const { authModalOpen, handleAuthCancel } = Context();
 
   return (
     <div className='min-h-full flex flex-col justify-between'>
@@ -26,9 +25,9 @@ function App() {
           onCancel={handleAuthCancel}
           footer={null}
         >
-          <Autentication handleCancel={handleAuthCancel} />
+          <Autentication />
         </Modal>
-        <Navbar showModal={showAuthModal} />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
@@ -36,11 +35,11 @@ function App() {
           <Route path="/requirementsListing/" element={<RequirementListingPage />} />
           <Route path="/addsListing/:postId" element={<AddListing/>} />
           <Route path="/addsListing" element={<AddListing/>} />
-          <Route path="/PostRequirement/:postId" element={<PostRequirement showModal={showAuthModal} />} />
-          <Route path="/PostRequirement" element={<PostRequirement showModal={showAuthModal} />} />
-          <Route path="/PostAdd/:postId" element={<PostAdd showModal={showAuthModal} />} />
-          <Route path="/PostAdd" element={<PostAdd showModal={showAuthModal} />} />
-          <Route path="/profile" element={<ProfilePage showModal={showAuthModal} />} />
+          <Route path="/PostRequirement/:postId" element={<PostRequirement />} />
+          <Route path="/PostRequirement" element={<PostRequirement />} />
+          <Route path="/PostAdd/:postId" element={<PostAdd />} />
+          <Route path="/PostAdd" element={<PostAdd />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <FooterComp />
       </Router>

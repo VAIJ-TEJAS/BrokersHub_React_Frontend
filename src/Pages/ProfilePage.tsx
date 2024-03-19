@@ -10,10 +10,6 @@ import TabPane from 'antd/es/tabs/TabPane';
 import { Item } from '../types/item.types';
 const { Content } = Layout;
 
-interface Props {
-  showModal: () => void;
-}
-
 interface User {
     id: number;
     username: string;
@@ -28,7 +24,7 @@ interface User {
 
 type TabPosition = 'left' | 'top';
 
-const ProfilePage: React.FC<Props> = ({showModal}) => {
+const ProfilePage: React.FC = () => {
 
   const navigate = useNavigate();
 

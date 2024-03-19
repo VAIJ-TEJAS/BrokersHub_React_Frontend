@@ -3,7 +3,7 @@ import { message, Form, Tabs, Input, Button, Select, Alert, Checkbox, Modal,Typo
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
 import { useState } from 'react';
 import axios from "axios"
-import { useNavigate } from 'react-router-dom';
+import { Context } from '../context/context.provider';
 // import { Context } from '../context/context.provider';
 
 const { TabPane } = Tabs;
@@ -17,52 +17,18 @@ interface OptionType {
 
 interface AuthenticationProps {
     defaultTab?: string | null;
-    handleCancel: () => void;
+    handleLogin: (email: string, password:string) => void;
 }
 
-const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
+const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
 
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = async () => {
-        const url = 'https://13.232.115.59/auth/';
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-
-        // Define the JSON body data
-        const data = {
-            username: username,
-            password: password,
-        };
-
-        // Make the POST request with Axios
-        axios.post(url, data, {
-            headers: headers,
-        })
-            .then(response => {
-                // Handle the response data
-                // console.log('Response:', response.data);
-                localStorage.setItem('thebrokershub-access-token', response.data.token)
-                console.log(response.data.user)
-                localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
-                message.success('login successfull!');
-                setUsername('')
-                setPassword('')
-                handleCancel();
-            })
-            .catch(error => {
-                console.error('Error found as:', error);
-                let errorMessage =  error.response?.data?.username === undefined ? error.response?.data?.non_field_errors[0] : error.response?.data?.username[0];
-                setError(errorMessage)
-            });
-    };
-
     const onFinish = (values: any) => {
         console.log('Received values:', values);
-        handleLogin()
+        handleLogin(username, password)
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -129,9 +95,7 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
     );
 };
 
-const Register: React.FC = () => {
-
-    const navigate = useNavigate();
+const Register: React.FC<AuthenticationProps> = ({handleLogin}) => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -6428,7 +6392,7 @@ const Register: React.FC = () => {
                 console.log('Response:', response.data);
                 localStorage.setItem('thebrokershub-access-token', response.data.token)
                 localStorage.setItem('share-coupon-user', response.data.user)
-                navigate('/');
+                handleLogin(email, newPassword)
             })
             .catch(error => {
                 console.error('Error found as:', error);
@@ -6617,18 +6581,6 @@ const Register: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item
-                    name="termsAndConditions"
-                    valuePropName="checked"
-                    rules={[
-                    { validator: (_, value) => value ? Promise.resolve() : Promise.reject('Please agree to the terms and conditions') }
-                    ]}
-                >
-                    <Checkbox>
-                    I agree to the <span className="text-blue-500 cursor-pointer" onClick={handleModalOpen}>Terms and Conditions</span>
-                    </Checkbox>
-                </Form.Item>
-
-                <Form.Item
                     name="CPassword"
                     rules={[
                         { required: true, message: 'Please confirm your password!' },
@@ -6652,6 +6604,18 @@ const Register: React.FC = () => {
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                </Form.Item>
+
+                <Form.Item
+                    name="termsAndConditions"
+                    valuePropName="checked"
+                    rules={[
+                    { validator: (_, value) => value ? Promise.resolve() : Promise.reject('Please agree to the terms and conditions') }
+                    ]}
+                >
+                    <Checkbox>
+                    I agree to the <span className="text-blue-500 cursor-pointer" onClick={handleModalOpen}>Terms and Conditions</span>
+                    </Checkbox>
                 </Form.Item>
 
                 <Form.Item>
@@ -6732,8 +6696,9 @@ const Register: React.FC = () => {
     )
 }
 
-const Autentication: React.FC<AuthenticationProps> = ({handleCancel}) => {
+const Autentication: React.FC = () => {
 
+    const { setUserAuthenticated, handleAuthCancel } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
 
     const handleTabChange = (key: string) => {
@@ -6741,6 +6706,39 @@ const Autentication: React.FC<AuthenticationProps> = ({handleCancel}) => {
         console.log(`Tab changed to: ${key}`);
         setActiveTab(key);
         console.log(activeTab);
+    };
+
+    const handleLogin = async (email: string, password: string) => {
+        const url = 'https://13.232.115.59/auth/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Define the JSON body data
+        const data = {
+            username: email,
+            password: password,
+        };
+
+        // Make the POST request with Axios
+        axios.post(url, data, {
+            headers: headers,
+        })
+            .then(response => {
+                // Handle the response data
+                // console.log('Response:', response.data);
+                localStorage.setItem('thebrokershub-access-token', response.data.token)
+                console.log(response.data.user)
+                localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
+                message.success('login successfull!');
+                setUserAuthenticated(true)
+                handleAuthCancel();
+            })
+            .catch(error => {
+                console.error('Error found as:', error);
+                let errorMessage =  error.response?.data?.username === undefined ? error.response?.data?.non_field_errors[0] : error.response?.data?.username[0];
+                message.error(errorMessage)
+            });
     };
 
     return (
@@ -6774,8 +6772,8 @@ const Autentication: React.FC<AuthenticationProps> = ({handleCancel}) => {
             </div>
             <div className='mb-10'>
                 {activeTab === '1' ?
-                    <Login handleCancel={handleCancel} /> :
-                    <Register />
+                    <Login handleLogin={handleLogin} /> :
+                    <Register handleLogin={handleLogin} />
                 }
             </div>
         </div>

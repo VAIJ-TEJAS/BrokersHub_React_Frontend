@@ -7,17 +7,15 @@ import axios from 'axios';
 import '../components/Navbar.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
+import { Context } from '../context/context.provider';
 
 interface OptionType {
     value: string;
     label: string;
 }
 
-interface Props {
-    showModal: () => void;
-}
-
-const PostRequirement:React.FC<Props> = ({showModal}) => {
+const PostRequirement:React.FC = () => {
+    const { showAuthModal } = Context();
 
     const navigate = useNavigate();
 
@@ -6327,7 +6325,7 @@ const PostRequirement:React.FC<Props> = ({showModal}) => {
             const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
-                showModal()
+                showAuthModal()
                 return
             }
 
