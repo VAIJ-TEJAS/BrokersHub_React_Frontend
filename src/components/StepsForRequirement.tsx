@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Steps, Button, Timeline } from "antd";
+import { Steps, Button } from "antd";
 import { Link } from "react-router-dom";
 import step1 from "../assets/images/reqStep1.png";
 import step2 from "../assets/images/reqStep2.png";
@@ -84,20 +84,11 @@ const StepsForRequirement: React.FC = () => {
                         <ItemCard page={"home"} item={post[0]} />
                     </div>
                 
-                    <div className="col-md-8" >
-                        <h1 className="fs-1">About Requirement</h1>
-                        <div className="mt-4 homepage-timeline">
-                        <Timeline
-                            items={[
-                            {
-                                children: 'The card displays the title and description of the requirement. This information provides a brief overview of what the requirement is, helping users understand required purpose or characteristics.',
-                            },
-                            {
-                                children: 'Additionally, the card mentions the transaction type associated for requirement. This could indicate whether the requirement will be buying, rent, lease, or any other type of transaction.',
-                            },
-                            ]}
-                        />
-                        </div>
+                    <div className="md:text-left text-center w-3/4 md:w-2/4" >
+                      <h1 className="fs-1">About Requirement</h1>
+                      <div className="mt-4 homepage-timeline">
+                        <p>This is the single stop solution to all your property requirements. Just click on the button below to tell us your needs and our large community of brokers and buyers will get you the best deal in no time.</p>
+                      </div>
                     </div>
                 </div>
             </div>

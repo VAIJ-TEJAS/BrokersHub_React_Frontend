@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { message, Form, Tabs, Input, Button, Select, Alert, Checkbox, Modal,Typography, Collapse } from 'antd';
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState  } from 'react';
 import axios from "axios"
 import { Context } from '../context/context.provider';
-// import { Context } from '../context/context.provider';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
@@ -94,6 +93,56 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
         </div>
     );
 };
+
+// const OtpVerification = () => {
+//   const inputRefs = [useRef<Input>(null), useRef<Input>(null), useRef<Input>(null), useRef<Input>(null)];
+
+//   const focusNextInput = (index: number) => {
+//     if (inputRefs[index + 1]?.current) {
+//       inputRefs[index + 1].current.focus();
+//     }
+//   };
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+//     const { value } = e.target;
+//     if (value.length === 1) {
+//       focusNextInput(index);
+//     }
+//   };
+
+//   return (
+//     <div className="w-full text-center bg-white py-10 rounded-xl">
+//       <header className="mb-8 flex justify-between items-center">
+//         <ArrowLeftOutlined className="text-lg cursor-pointer" />
+//         <div className="text-2xl font-bold mb-1">Mobile Phone Verification</div>
+//         <div></div>
+//       </header>
+//       <Form id="otp-form">
+//         <div className="flex items-center justify-center gap-3">
+//           {[0, 1, 2, 3].map(index => (
+//             <Input
+//               key={index}
+//               ref={inputRefs[index]}
+//               className="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+//               pattern="\d*" maxLength={1}
+//               onChange={(e) => handleInputChange(e, index)}
+//             />
+//           ))}
+//         </div>
+//         <div className="max-w-[260px] mx-auto mt-4">
+//           <Button
+//             type="primary"
+//             htmlType="submit"
+//             className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">
+//             Verify Account
+//           </Button>
+//         </div>
+//       </Form>
+//       <div className="text-sm text-slate-500 mt-4">Didn't receive code? <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div>
+//     </div>
+//   );
+// };
+
 
 const Register: React.FC<AuthenticationProps> = ({handleLogin}) => {
 
@@ -6700,6 +6749,7 @@ const Autentication: React.FC = () => {
 
     const { setUserAuthenticated, handleAuthCancel } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
+    // const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -6776,6 +6826,7 @@ const Autentication: React.FC = () => {
                     <Register handleLogin={handleLogin} />
                 }
             </div>
+            {/* <OtpVerification /> */}
         </div>
     )
 }

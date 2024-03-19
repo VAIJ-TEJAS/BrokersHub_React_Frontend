@@ -8,19 +8,8 @@ import { Tabs } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Item } from '../types/item.types';
+import { User } from '../types/user.types';
 const { Content } = Layout;
-
-interface User {
-    id: number;
-    username: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    referral_code: string;
-    state: string;
-    city: string;
-}
 
 type TabPosition = 'left' | 'top';
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Steps, Button, Timeline } from "antd";
+import { Steps, Button } from "antd";
 import { Link } from "react-router-dom";
 import step1 from "../assets/images/postStep1.png";
 import step2 from "../assets/images/postStep2.png";
@@ -82,24 +82,14 @@ const StepsForAdvertisement: React.FC = () => {
           style={{ display: currentStep === 0 ? "block" : "none" }}
         >
 
-          <div className="about-listing bg-light w-full h-full d-flex justify-center items-center">
-            <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
+          <div className="about-listing bg-light w-full h-full d-flex justify-evenly items-center">
+            <div className="d-flex justify-center items-center" style={{minWidth: '300px'}}>
               <ItemCard page="home" item={post[0]} />
             </div>
-            <div className=" col-md-8" >
-              <h1 className="fs-1">About Advertisement</h1>
+            <div className="md:text-left text-center w-3/4 md:w-2/4" >
+              <h1 className="fs-1">About Advertisements</h1>
               <div className="mt-4 homepage-timeline">
-                <Timeline
-                  style={{fontSize: '1rem'}}
-                  items={[
-                    {
-                      children: 'The card displays the title and description of the item. This information provides a brief overview of what the item is about, helping users understand its purpose or characteristics.',
-                    },
-                    {
-                      children: 'Additionally, the card mentions the transaction type associated with the item. This could indicate whether the item is for sale, rent, lease, or any other type of transaction.',
-                    },
-                  ]}
-                />
+                <p>Do you have a property you want to sell or put it up for rent but don't know how to do it ? Just click on the button below to advertise your property to a large audience of brokers and buyers to get the best deal.</p>
               </div>
             </div>
           </div>
