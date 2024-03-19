@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Modal } from 'antd';
+import { Layout, Modal, message } from 'antd';
 import Filter from '../components/Search';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
@@ -61,8 +61,10 @@ const RequirementListingPage: React.FC<Props> = ({showModal}) => {
         if (postId) {
           setModalVisible(true);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching data:', error);
+        message.error(error.message);
+        return
       }
     }
 

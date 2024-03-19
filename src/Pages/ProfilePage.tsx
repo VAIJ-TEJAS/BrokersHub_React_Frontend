@@ -31,20 +31,30 @@ interface Props {
   showModal: () => void;
 }
 
+interface User {
+    id: number;
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    referral_code: string;
+    state: string;
+    city: string;
+}
+
 type TabPosition = 'left' | 'top';
 
 const ProfilePage: React.FC<Props> = ({showModal}) => {
 
-
   const navigate = useNavigate();
 
   // Get the value of a specific parameter
+  const [user, setuser] = useState<User | null>(null);
   const [mode, setMode] = useState<TabPosition>('left');
   const [reqitems, setReqItems] = useState<Item[]>([]);
   const [additems, setAddItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  
-  const user = JSON.parse(localStorage.getItem('share-coupon-user') || '{}')
   
   const handleCancel = () => {
     console.log('Cancelling')
@@ -56,6 +66,14 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
   const { postId } = useParams();
 
   useEffect(() => {
+
+    const token = localStorage.getItem('share-coupon-access-token');
+    if (!token)  {
+      navigate('/home');
+      return
+    }
+
+    setuser(JSON.parse(localStorage.getItem('share-coupon-user') || '{}'))
 
     const fetchRequest = async () => {
       try {

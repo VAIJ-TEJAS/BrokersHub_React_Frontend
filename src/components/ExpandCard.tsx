@@ -76,7 +76,7 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel, showModal }) =>
       </div>)}
       <div className="property-details">
         <div className='my-4 d-flex justify-between align-items-center border-2 border-black p-3 rounded'>
-          <h3 className="property-title fs-3" style={{fontFamily: 'Montserrat'}}>{item.title}</h3>
+          <h3 className="property-title text-lg sm:text-xl lg:text-2xl" style={{fontFamily: 'Montserrat'}}>{item.title}</h3>
           {item.transaction_type && 
               <p className="property-transaction shadow rounded bg-warning px-4 py-1">
               <strong>{item.transaction_type}</strong> 

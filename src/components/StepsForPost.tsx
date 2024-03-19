@@ -9,7 +9,11 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 const { Step } = Steps;
 
-const StepsForPost = () => {
+interface Props {
+  showModal: () => void;
+}
+
+const StepsForPost: React.FC<Props> = ({showModal}) => {
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -87,7 +91,7 @@ const StepsForPost = () => {
 
           <div className="about-listing bg-light w-full h-full d-flex justify-center items-center">
             <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-              <ItemCard page="home" item={post[0]} />
+              <ItemCard showModal={showModal} page="home" item={post[0]} />
             </div>
             <div className=" col-md-8" >
               <h1 className="fs-1">About Advertisement</h1>

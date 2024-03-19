@@ -130,7 +130,7 @@ const HomePage: React.FC<HomeProps> = ({showModal}) => {
       <div className="bg-light">
         <h1 className="text-center pt-5" style={{fontFamily: 'Montserrat'}}>Posting an Advertisement</h1>
         <div className="my-5 mt-0 border-bottom pb-4">
-          <StepsForPost />
+          <StepsForPost showModal={showModal} />
         </div>
       </div>
 
@@ -138,7 +138,7 @@ const HomePage: React.FC<HomeProps> = ({showModal}) => {
       <div>
       <h1 className="text-center pt-5" style={{fontFamily: 'Montserrat'}}>Posting an Requirement</h1>
         <div className="my-5 mt-0">
-          <StepsForRequirement />
+          <StepsForRequirement showModal={showModal} />
         </div>
       </div>
       

@@ -9,7 +9,11 @@ import ItemCard from "./ItemCard";
 
 const { Step } = Steps;
 
-const StepsForRequirement = () => {
+interface Props {
+  showModal: () => void;
+}
+
+const StepsForRequirement: React.FC<Props> = ({showModal}) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -81,7 +85,7 @@ const StepsForRequirement = () => {
             <div className="postSteps-img px-3 sm:mx-4 " style={{ display: currentStep === 0 ? "block" : "none" }} >
                 <div className="about-listing w-100 h-100 d-flex justify-evenly align-items-center">
                     <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-                        <ItemCard page={"home"} item={post[0]} />
+                        <ItemCard showModal={showModal} page={"home"} item={post[0]} />
                     </div>
                 
                     <div className="col-md-8" >
