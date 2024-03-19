@@ -27,7 +27,11 @@ interface Item {
   area: number;
 }
 
-const AddListing: React.FC = () => {
+interface Props {
+  showModal: () => void;
+}
+
+const AddListing: React.FC<Props> = ({showModal}) => {
 
   const navigate = useNavigate();
 
@@ -88,7 +92,7 @@ const AddListing: React.FC = () => {
 
               <div className='d-flex flex-wrap justify-center'>
                 {filteredItems.map((item, index) => (
-                  <ItemCard page="addsListing" key={index} item={item} />
+                  <ItemCard showModal={showModal} page="addsListing" key={index} item={item} />
                   ))}
               </div>
 
@@ -103,7 +107,7 @@ const AddListing: React.FC = () => {
           footer={null}
           className='property-modal'
           >
-          <ExpandCard handleCancel={handleCancel} page="advertisements" item={items.find(item => item.id === parseInt(postId))!}/>
+          <ExpandCard showModal={showModal} handleCancel={handleCancel} page="advertisements" item={items.find(item => item.id === parseInt(postId))!}/>
         </Modal>}
       </Layout>
     </div>

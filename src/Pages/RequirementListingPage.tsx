@@ -27,7 +27,11 @@ interface Item {
   area: number,
 }
 
-const RequirementListingPage: React.FC = () => {
+interface Props {
+  showModal: () => void;
+}
+
+const RequirementListingPage: React.FC<Props> = ({showModal}) => {
 
   const navigate = useNavigate();
 
@@ -90,7 +94,7 @@ const RequirementListingPage: React.FC = () => {
 
             <div className='d-flex flex-wrap justify-center'>
               {filteredItems.map((item, index) => (
-                <ItemCard page="requirementsListing" key={index} item={item} />
+                <ItemCard showModal={showModal} page="requirementsListing" key={index} item={item} />
                 ))}
             </div>
 
@@ -98,15 +102,17 @@ const RequirementListingPage: React.FC = () => {
         </Layout>
       </Layout>
 
-      {postId &&
+      {
+        postId &&
         <Modal
-        open={modalVisible}
-        onCancel={handleCancel}
-        footer={null}
-        className='property-modal'
+          open={modalVisible}
+          onCancel={handleCancel}
+          footer={null}
+          className='property-modal'
         >
-        <ExpandCard page="requirements" handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
-      </Modal>}
+          <ExpandCard page="requirements" showModal={showModal} handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
+        </Modal>
+      }
     </Layout>
   );
 };

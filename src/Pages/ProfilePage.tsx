@@ -27,9 +27,13 @@ interface Item {
   area: number;
 }
 
+interface Props {
+  showModal: () => void;
+}
+
 type TabPosition = 'left' | 'top';
 
-const ProfilePage: React.FC = () => {
+const ProfilePage: React.FC<Props> = ({showModal}) => {
 
 
   const navigate = useNavigate();
@@ -180,7 +184,7 @@ const ProfilePage: React.FC = () => {
                       />
                     ) : (
                       additems.map((item, index) => (
-                        <ItemCard page="advertisements" key={index} item={item} />
+                        <ItemCard showModal={showModal} page="advertisements" key={index} item={item} />
                       ))
                     )}
                   </div>
@@ -197,7 +201,7 @@ const ProfilePage: React.FC = () => {
                       />
                     ) : (
                       reqitems.map((item, index) => (
-                        <ItemCard page="requirements" key={index} item={item} />
+                        <ItemCard showModal={showModal} page="requirements" key={index} item={item} />
                       ))
                     )}
                   </div>
@@ -216,7 +220,7 @@ const ProfilePage: React.FC = () => {
         footer={null}
         className='property-modal'
         >
-        <ExpandCard page="" handleCancel={handleCancel} item={reqitems.find(item => item.id === parseInt(postId))!}/>
+        <ExpandCard page="" handleCancel={handleCancel} showModal={showModal} item={reqitems.find(item => item.id === parseInt(postId))!}/>
       </Modal>}
     </Layout>
   );

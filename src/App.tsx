@@ -37,15 +37,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage showModal={showModal} />} />
-          <Route path="/requirementsListing/:postId" element={<RequirementListingPage />} />
-          <Route path="/requirementsListing/" element={<RequirementListingPage />} />
-          <Route path="/addsListing/:postId" element={<AddListing />} />
-          <Route path="/addsListing" element={<AddListing />} />
+          <Route path="/requirementsListing/:postId" element={<RequirementListingPage showModal={showModal} />} />
+          <Route path="/requirementsListing/" element={<RequirementListingPage showModal={showModal} />} />
+          <Route path="/addsListing/:postId" element={<AddListing showModal={showModal} />} />
+          <Route path="/addsListing" element={<AddListing showModal={showModal} />} />
           <Route path="/PostRequirement/:postId" element={<PostRequirement showModal={showModal} />} />
           <Route path="/PostRequirement" element={<PostRequirement showModal={showModal} />} />
           <Route path="/PostAdd/:postId" element={<PostAdd showModal={showModal} />} />
           <Route path="/PostAdd" element={<PostAdd showModal={showModal} />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage showModal={showModal} />} />
         </Routes>
         <FooterComp />
       </Router>

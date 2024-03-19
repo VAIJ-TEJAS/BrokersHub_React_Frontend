@@ -24,13 +24,19 @@ interface Props {
   item: Item;
   page: string;
   handleCancel: () => void;
+  showModal: () => void;
 }
 
-const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
+const ExpandCard: React.FC<Props> = ({ item, page, handleCancel, showModal }) => {
 
   console.log(location.pathname)
   const handleDeal = () => {
     const token = localStorage.getItem('share-coupon-access-token');
+    if (!token)  {
+      message.error("Please login first.");
+      showModal()
+      return
+    }
 
     let data;
 

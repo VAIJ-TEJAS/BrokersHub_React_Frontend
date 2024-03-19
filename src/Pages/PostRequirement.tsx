@@ -6670,6 +6670,7 @@ const PostRequirement:React.FC<Props> = ({showModal}) => {
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
+                                    showModal={showModal}
                                     page = "home"
                                     item = {
                                         {

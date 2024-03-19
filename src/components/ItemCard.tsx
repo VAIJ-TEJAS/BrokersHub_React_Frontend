@@ -29,9 +29,10 @@ interface Item {
 interface Props {
   item: Item;
   page: string;
+  showModal: () => void;
 }
 
-const ItemCard: React.FC<Props> = ({ item, page }) => {
+const ItemCard: React.FC<Props> = ({ item, page, showModal }) => {
 
   const navigate = useNavigate();
 
@@ -91,7 +92,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         footer={null}
         className="property-modal"
       >
-        <ExpandCard handleCancel={handleCancel} item={item} page={page} />
+        <ExpandCard showModal={showModal} handleCancel={handleCancel} item={item} page={page} />
       </Modal>
 
       {error !== "" && (
