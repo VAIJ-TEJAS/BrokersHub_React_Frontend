@@ -7,25 +7,8 @@ import axios from 'axios';
 import { Tabs } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import TabPane from 'antd/es/tabs/TabPane';
+import { Item } from '../types/item.types';
 const { Content } = Layout;
-
-interface Item {
-  id: number,
-  title: string,
-  state: string,
-  city: string,
-  description: string,
-  contact: string,
-  transaction_type: string,
-  price: string,
-  downpayment: string,
-  ratio_x: string,
-  ratio_y: string,
-  monthly_rent: string,
-  image: string,
-  budget: string;
-  area: number;
-}
 
 interface Props {
   showModal: () => void;
@@ -67,7 +50,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
 
   useEffect(() => {
 
-    const token = localStorage.getItem('share-coupon-access-token');
+    const token = localStorage.getItem('thebrokershub-access-token');
     if (!token)  {
       navigate('/home');
       return
@@ -79,7 +62,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
       try {
         const response = await axios.get('https://13.232.115.59/my-advertisements/', {
             headers: {
-                'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
                 'Content-Type': 'application/json'
                 // Add other headers as needed
             }
@@ -95,7 +78,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
       try {
         const response = await axios.get('https://13.232.115.59/my-requirements/', {
             headers: {
-                'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
                 'Content-Type': 'application/json'
                 // Add other headers as needed
             }
@@ -186,7 +169,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
                               </div>
                               {/* <div className="py-3 sm:py-5 w-full"> */}
                               {/* </div> */}
-                                <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('share-coupon-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
+                                <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
                           </dl>
                     </div>
                 </div>
@@ -202,7 +185,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
                       />
                     ) : (
                       additems.map((item, index) => (
-                        <ItemCard showModal={showModal} page="advertisements" key={index} item={item} />
+                        <ItemCard  page="advertisements" key={index} item={item} />
                       ))
                     )}
                   </div>
@@ -219,7 +202,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
                       />
                     ) : (
                       reqitems.map((item, index) => (
-                        <ItemCard showModal={showModal} page="requirements" key={index} item={item} />
+                        <ItemCard page="requirements" key={index} item={item} />
                       ))
                     )}
                   </div>
@@ -238,7 +221,7 @@ const ProfilePage: React.FC<Props> = ({showModal}) => {
         footer={null}
         className='property-modal'
         >
-        <ExpandCard page="" handleCancel={handleCancel} showModal={showModal} item={reqitems.find(item => item.id === parseInt(postId))!}/>
+        <ExpandCard page="" handleCancel={handleCancel} item={reqitems.find(item => item.id === parseInt(postId))!}/>
       </Modal>}
     </Layout>
   );

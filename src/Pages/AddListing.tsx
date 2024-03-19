@@ -4,34 +4,13 @@ import axios from 'axios';
 import { Layout, Modal } from 'antd';
 import Filter from '../components/Search';
 import ExpandCard from '../components/ExpandCard';
-import listingLogo from '../components/Images/listingBackground.jpg'
+import listingLogo from '../assets/images/listingBackground.jpg'
 import { useParams, useNavigate } from 'react-router-dom';
+import { Item } from '../types/item.types';
 
 const { Content } = Layout;
 
-interface Item {
-  id: number,
-  title: string,
-  state: string,
-  city: string,
-  description: string,
-  contact: string,
-  transaction_type: string,
-  price: string,
-  downpayment: string,
-  ratio_x: string,
-  ratio_y: string,
-  monthly_rent: string,
-  image: string,
-  budget: string;
-  area: number;
-}
-
-interface Props {
-  showModal: () => void;
-}
-
-const AddListing: React.FC<Props> = ({showModal}) => {
+const AddListing: React.FC = () => {
 
   const navigate = useNavigate();
 
@@ -92,7 +71,7 @@ const AddListing: React.FC<Props> = ({showModal}) => {
 
               <div className='d-flex flex-wrap justify-center'>
                 {filteredItems.map((item, index) => (
-                  <ItemCard showModal={showModal} page="addsListing" key={index} item={item} />
+                  <ItemCard page="addsListing" key={index} item={item} />
                   ))}
               </div>
 
@@ -107,7 +86,7 @@ const AddListing: React.FC<Props> = ({showModal}) => {
           footer={null}
           className='property-modal'
           >
-          <ExpandCard showModal={showModal} handleCancel={handleCancel} page="advertisements" item={items.find(item => item.id === parseInt(postId))!}/>
+          <ExpandCard handleCancel={handleCancel} page="advertisements" item={items.find(item => item.id === parseInt(postId))!}/>
         </Modal>}
       </Layout>
     </div>

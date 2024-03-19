@@ -4,34 +4,13 @@ import Filter from '../components/Search';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
 import axios from 'axios';
-import listingLogo from '../components/Images/listingBackground.jpg'
+import listingLogo from '../assets/images/listingBackground.jpg'
 import { useParams, useNavigate } from 'react-router-dom';
+import { Item } from '../types/item.types';
 
 const { Content } = Layout;
 
-interface Item {
-  id: number,
-  title: string,
-  state: string,
-  city: string,
-  description: string,
-  contact: string,
-  transaction_type: string,
-  price: string,
-  downpayment: string,
-  ratio_x: string,
-  ratio_y: string,
-  monthly_rent: string,
-  image: string,
-  budget: string;
-  area: number,
-}
-
-interface Props {
-  showModal: () => void;
-}
-
-const RequirementListingPage: React.FC<Props> = ({showModal}) => {
+const RequirementListingPage: React.FC = () => {
 
   const navigate = useNavigate();
 
@@ -96,7 +75,7 @@ const RequirementListingPage: React.FC<Props> = ({showModal}) => {
 
             <div className='d-flex flex-wrap justify-center'>
               {filteredItems.map((item, index) => (
-                <ItemCard showModal={showModal} page="requirementsListing" key={index} item={item} />
+                <ItemCard page="requirementsListing" key={index} item={item} />
                 ))}
             </div>
 
@@ -112,7 +91,7 @@ const RequirementListingPage: React.FC<Props> = ({showModal}) => {
           footer={null}
           className='property-modal'
         >
-          <ExpandCard page="requirements" showModal={showModal} handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
+          <ExpandCard page="requirements" handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
         </Modal>
       }
     </Layout>

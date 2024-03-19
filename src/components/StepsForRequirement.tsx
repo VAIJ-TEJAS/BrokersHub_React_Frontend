@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { Steps, Button, Timeline } from "antd";
 import { Link } from "react-router-dom";
-import step1 from "./Images/reqStep1.png";
-import step2 from "./Images/reqStep2.png";
-import step3 from "./Images/reqStep3.png";
+import step1 from "../assets/images/reqStep1.png";
+import step2 from "../assets/images/reqStep2.png";
+import step3 from "../assets/images/reqStep3.png";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import ItemCard from "./ItemCard";
 
 const { Step } = Steps;
 
-interface Props {
-  showModal: () => void;
-}
-
-const StepsForRequirement: React.FC<Props> = ({showModal}) => {
+const StepsForRequirement: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -85,7 +81,7 @@ const StepsForRequirement: React.FC<Props> = ({showModal}) => {
             <div className="postSteps-img px-3 sm:mx-4 " style={{ display: currentStep === 0 ? "block" : "none" }} >
                 <div className="about-listing w-100 h-100 d-flex justify-evenly align-items-center">
                     <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-                        <ItemCard showModal={showModal} page={"home"} item={post[0]} />
+                        <ItemCard page={"home"} item={post[0]} />
                     </div>
                 
                     <div className="col-md-8" >

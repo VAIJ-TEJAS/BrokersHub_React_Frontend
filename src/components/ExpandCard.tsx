@@ -2,39 +2,24 @@ import './Navbar.css'
 import { Button } from 'antd';
 import axios from 'axios';
 import { message } from 'antd';
-
-interface Item {
-  id: number,
-  title: string,
-  state: string,
-  city: string,
-  description: string,
-  contact: string,
-  transaction_type: string,
-  price: string,
-  downpayment: string,
-  ratio_x: string,
-  ratio_y: string,
-  monthly_rent: string,
-  image: string,
-  budget: string;
-}
+import { Context } from '../context/context.provider';
+import { Item } from '../types/item.types';
 
 interface Props {
   item: Item;
   page: string;
   handleCancel: () => void;
-  showModal: () => void;
 }
 
-const ExpandCard: React.FC<Props> = ({ item, page, handleCancel, showModal }) => {
+const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
-  console.log(location.pathname)
+  const { userAuthenticated, showAuthModal } = Context();
+  const token = localStorage.getItem('thebrokershub-access-token');
+  
   const handleDeal = () => {
-    const token = localStorage.getItem('share-coupon-access-token');
-    if (!token)  {
+    if (!userAuthenticated)  {
       message.error("Please login first.");
-      showModal()
+      showAuthModal()
       return
     }
 

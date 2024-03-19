@@ -7,30 +7,13 @@ import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Item } from '../types/item.types';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
 interface OptionType {
     value: string;
     label: string;
-}
-
-interface Item {
-    id: number,
-    title: string,
-    state: string,
-    city: string,
-    description: string,
-    contact: string,
-    transaction_type: string,
-    price: string,
-    downpayment: string,
-    ratio_x: string,
-    ratio_y: string,
-    monthly_rent: string,
-    image: string,
-    budget: string;
-    area: number;
 }
 
 interface Props {
@@ -6344,7 +6327,7 @@ const PostAdd:React.FC<Props> = ({showModal}) => {
 
         onSubmit: async (values) => {
             
-            const token = localStorage.getItem('share-coupon-access-token');
+            const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
                 showModal()
@@ -6478,7 +6461,7 @@ const PostAdd:React.FC<Props> = ({showModal}) => {
           try {
             const response = await axios.get(url, {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                    'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
                     'Content-Type': 'application/json'
                     // Add other headers as needed
                 }
@@ -6739,7 +6722,6 @@ const PostAdd:React.FC<Props> = ({showModal}) => {
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
-                                    showModal={showModal}
                                     page='home'
                                     item = {
                                         {

@@ -45,7 +45,7 @@ const Login: React.FC<AuthenticationProps> = ({handleCancel}) => {
             .then(response => {
                 // Handle the response data
                 // console.log('Response:', response.data);
-                localStorage.setItem('share-coupon-access-token', response.data.token)
+                localStorage.setItem('thebrokershub-access-token', response.data.token)
                 console.log(response.data.user)
                 localStorage.setItem('share-coupon-user', JSON.stringify(response.data.user))
                 message.success('login successfull!');
@@ -6426,7 +6426,7 @@ const Register: React.FC = () => {
             .then(response => {
                 // Handle the response data
                 console.log('Response:', response.data);
-                localStorage.setItem('share-coupon-access-token', response.data.token)
+                localStorage.setItem('thebrokershub-access-token', response.data.token)
                 localStorage.setItem('share-coupon-user', response.data.user)
                 navigate('/');
             })

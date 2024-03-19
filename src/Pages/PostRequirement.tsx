@@ -6,27 +6,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../components/Navbar.css'
 import { useParams, useNavigate } from 'react-router-dom';
+import { Item } from '../types/item.types';
 
 interface OptionType {
     value: string;
     label: string;
-}
-
-interface Item {
-    id: number,
-    title: string,
-    state: string,
-    city: string,
-    description: string,
-    contact: string,
-    transaction_type: string,
-    price: string,
-    downpayment: string,
-    ratio_x: string,
-    ratio_y: string,
-    monthly_rent: string,
-    image: string,
-    budget: string;
 }
 
 interface Props {
@@ -6340,7 +6324,7 @@ const PostRequirement:React.FC<Props> = ({showModal}) => {
 
         onSubmit: async (values) => {
 
-            const token = localStorage.getItem('share-coupon-access-token');
+            const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
                 showModal()
@@ -6424,7 +6408,7 @@ const PostRequirement:React.FC<Props> = ({showModal}) => {
             console.log("Requesting")
             const response = await axios.get(url, {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem('share-coupon-access-token')}`,
+                    'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
                     'Content-Type': 'application/json'
                     // Add other headers as needed
                 }
@@ -6670,7 +6654,6 @@ const PostRequirement:React.FC<Props> = ({showModal}) => {
                         <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
-                                    showModal={showModal}
                                     page = "home"
                                     item = {
                                         {

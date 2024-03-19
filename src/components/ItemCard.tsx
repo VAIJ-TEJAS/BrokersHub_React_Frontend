@@ -5,34 +5,16 @@ import ExpandCard from "./ExpandCard";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "./Navbar.css";
+import { Item } from "../types/item.types";
 
 const { Meta } = Card;
-
-interface Item {
-  id: number;
-  title: string;
-  state: string;
-  city: string;
-  description: string;
-  contact: string;
-  transaction_type: string;
-  price: string;
-  downpayment: string;
-  ratio_x: string;
-  ratio_y: string;
-  monthly_rent: string;
-  image: string;
-  budget: string;
-  area: number;
-}
 
 interface Props {
   item: Item;
   page: string;
-  showModal: () => void;
 }
 
-const ItemCard: React.FC<Props> = ({ item, page, showModal }) => {
+const ItemCard: React.FC<Props> = ({ item, page }) => {
 
   const navigate = useNavigate();
 
@@ -46,7 +28,7 @@ const ItemCard: React.FC<Props> = ({ item, page, showModal }) => {
         `https://13.232.115.59/my-${page}/${item.id}/`,
         {
           headers: {
-            Authorization: `Token ${localStorage.getItem("share-coupon-access-token")}`,
+            Authorization: `Token ${localStorage.getItem("thebrokershub-access-token")}`,
             "Content-Type": "application/json",
             // Add other headers as needed
           },
@@ -92,7 +74,7 @@ const ItemCard: React.FC<Props> = ({ item, page, showModal }) => {
         footer={null}
         className="property-modal"
       >
-        <ExpandCard showModal={showModal} handleCancel={handleCancel} item={item} page={page} />
+        <ExpandCard handleCancel={handleCancel} item={item} page={page} />
       </Modal>
 
       {error !== "" && (

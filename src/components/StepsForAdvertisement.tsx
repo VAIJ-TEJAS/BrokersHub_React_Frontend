@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { Steps, Button, Timeline } from "antd";
 import { Link } from "react-router-dom";
-import step1 from "./Images/postStep1.png";
-import step2 from "./Images/postStep2.png";
-import step3 from "./Images/postStep3.png";
+import step1 from "../assets/images/postStep1.png";
+import step2 from "../assets/images/postStep2.png";
+import step3 from "../assets/images/postStep3.png";
 import ItemCard from "./ItemCard";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 
 const { Step } = Steps;
 
-interface Props {
-  showModal: () => void;
-}
-
-const StepsForPost: React.FC<Props> = ({showModal}) => {
+const StepsForAdvertisement: React.FC = () => {
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -69,10 +65,7 @@ const StepsForPost: React.FC<Props> = ({showModal}) => {
   ]
 
   return (
-    <div
-      style={{ display: "flex" }}
-      className="postSteps-container justify-content-center align-items-center d-flex flex-column"
-    >
+    <div className="postSteps-container flex justify-content-center align-items-center d-flex flex-column">
       <div className="container-lg mt-4 w-100">
         <div className="lg:block hidden">
           <Steps current={currentStep} >
@@ -91,7 +84,7 @@ const StepsForPost: React.FC<Props> = ({showModal}) => {
 
           <div className="about-listing bg-light w-full h-full d-flex justify-center items-center">
             <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-              <ItemCard showModal={showModal} page="home" item={post[0]} />
+              <ItemCard page="home" item={post[0]} />
             </div>
             <div className=" col-md-8" >
               <h1 className="fs-1">About Advertisement</h1>
@@ -188,4 +181,4 @@ const StepsForPost: React.FC<Props> = ({showModal}) => {
   );
 };
 
-export default StepsForPost;
+export default StepsForAdvertisement;

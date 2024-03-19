@@ -5,24 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Select, Input, Button  } from 'antd';
 // import { Option } from 'antd/es/mentions';
 import './Navbar.css';
-
-interface Item {
-    id: number,
-    title: string,
-    state: string,
-    city: string,
-    description: string,
-    contact: string,
-    transaction_type: string,
-    price: string,
-    downpayment: string,
-    ratio_x: string,
-    ratio_y: string,
-    monthly_rent: string,
-    image: string,
-    budget: string;
-    area: number;
-}
+import { Item } from '../types/item.types';
 
 interface props {
     page: string;

@@ -29,7 +29,7 @@ const Navbar: React.FC<NavProps> = ({showModal}) =>{
     const [open, setOpen] = useState(false);
 
     const check = () => {
-      const token = localStorage.getItem('share-coupon-access-token');
+      const token = localStorage.getItem('thebrokershub-access-token');
       return token;
     }
 

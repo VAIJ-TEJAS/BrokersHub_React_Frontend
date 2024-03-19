@@ -12,24 +12,17 @@ import RequirementListingPage from './Pages/RequirementListingPage'
 import Navbar from './components/Navbar'
 import FooterComp from './components/Footer'
 import Autentication from './components/Authentication'
+import { Context } from './context/context.provider'
 
 function App() {
 
-  const [authModalVisible, setAuthModalVisible] = useState(false);
-
-  const showAuthModal = () => {
-    setAuthModalVisible(true);
-  };
-
-  const handleAuthCancel = () => {
-    setAuthModalVisible(false)
-  };
+  const { authModalOpen, showAuthModal, handleAuthCancel } = Context();
 
   return (
     <div className='min-h-full flex flex-col justify-between'>
       <Router>
         <Modal
-          open={authModalVisible}
+          open={authModalOpen}
           onCancel={handleAuthCancel}
           footer={null}
         >
@@ -38,11 +31,11 @@ function App() {
         <Navbar showModal={showAuthModal} />
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
-          <Route path="/home" element={<HomePage showModal={showAuthModal} />} />
-          <Route path="/requirementsListing/:postId" element={<RequirementListingPage showModal={showAuthModal} />} />
-          <Route path="/requirementsListing/" element={<RequirementListingPage showModal={showAuthModal} />} />
-          <Route path="/addsListing/:postId" element={<AddListing showModal={showAuthModal} />} />
-          <Route path="/addsListing" element={<AddListing showModal={showAuthModal} />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/requirementsListing/:postId" element={<RequirementListingPage />} />
+          <Route path="/requirementsListing/" element={<RequirementListingPage />} />
+          <Route path="/addsListing/:postId" element={<AddListing/>} />
+          <Route path="/addsListing" element={<AddListing/>} />
           <Route path="/PostRequirement/:postId" element={<PostRequirement showModal={showAuthModal} />} />
           <Route path="/PostRequirement" element={<PostRequirement showModal={showAuthModal} />} />
           <Route path="/PostAdd/:postId" element={<PostAdd showModal={showAuthModal} />} />
