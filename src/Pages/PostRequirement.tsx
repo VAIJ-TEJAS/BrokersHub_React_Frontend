@@ -6466,7 +6466,7 @@ const PostRequirement:React.FC = () => {
                                 <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
                             )}
 
-                            <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                            <Form.Item label='Title' name='title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
                                     placeholder='Name'
                                     onChange={(e) => {
@@ -6475,7 +6475,10 @@ const PostRequirement:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                            <Form.Item label='Contact' name='contact' rules={[
+        { required: true, message: 'Please input your phone number!' },
+        { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' },
+    ]}>
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('contact', e.target.value);
@@ -6484,7 +6487,9 @@ const PostRequirement:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='State' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                            <Form.Item label='State' name='state' rules={[
+        { required: true, message: 'Please select a state.' }
+    ]}>
                                 <Select
                                     showSearch
                                     placeholder="Select a person"
@@ -6506,7 +6511,9 @@ const PostRequirement:React.FC = () => {
 
                             {
                                 formik.values.state && 
-                                <Form.Item label='City' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                                <Form.Item name='city' label='City' rules={[
+                                    { required: true, message: 'Please select a city.' }
+                                ]}>
                                     <Select
                                         showSearch
                                         placeholder="Select a person"
@@ -6528,6 +6535,7 @@ const PostRequirement:React.FC = () => {
                             }
 
                             <Form.Item
+                                name='description'
                                 label='Description'
                                 rules={[{ required: true, message: 'Please enter the description!' }]}
                             >
@@ -6552,8 +6560,8 @@ const PostRequirement:React.FC = () => {
                             </Form.Item>
 
                             <Form.Item
+                                name='mode'
                                 label='Transaction Type'
-                                rules={[{ required: true, message: 'Please enter the mode!' }]}
                             >
                                 <Select
                                     defaultValue="Buy"
@@ -6573,6 +6581,7 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Buy' &&
                                 <Form.Item
+                                    name='budget'
                                     label='Budget'
                                     rules={[{ required: true, message: 'Please enter the budget!' }]}
                                 >
@@ -6587,8 +6596,9 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
+                                    name='downpayment'
                                     label='Down Payment'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the down payment!' }]}
                                 >
                                     <Input
                                         onChange={(e) => {
@@ -6601,8 +6611,9 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
+                                    name='ratio'
                                     label='Ratio'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the ratio!' }]}
                                 >
                                     <InputNumber
                                         min={0}
@@ -6630,7 +6641,8 @@ const PostRequirement:React.FC = () => {
                                 formik.values.transaction_type == 'Rent' &&
                                 <Form.Item
                                     label='Monthly Rent'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    name='monthly_rent'
+                                    rules={[{ required: true, message: 'Please enter the monthly rent!' }]}
                                 >
                                     <Input
                                         onChange={(e) => {

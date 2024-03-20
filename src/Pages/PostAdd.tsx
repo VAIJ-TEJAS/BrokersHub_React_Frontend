@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload, Alert } from 'antd';
+import { Form, Input, InputNumber, Button, Select, Upload, Alert, message } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import { useEffect, useState } from 'react';
@@ -6423,9 +6423,6 @@ const PostAdd:React.FC = () => {
                 }
                 // Optionally, you can perform any actions after error
             });
-            setTimeout(() => {
-                navigate('/profile/')
-            }, 2000);
             return;
         },
     });
@@ -6495,6 +6492,10 @@ const PostAdd:React.FC = () => {
         }
     }, [postId]);
 
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+        message.error("Please fill all the fields")
+    };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
@@ -6509,6 +6510,7 @@ const PostAdd:React.FC = () => {
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
+                            onFinishFailed={onFinishFailed}
                             className='p-5 pe-4 addCardDetails'
                         >
                             <div className='text-4xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
@@ -6526,13 +6528,20 @@ const PostAdd:React.FC = () => {
                                 name='image'
                                 valuePropName='fileList'
                                 getValueFromEvent={normFile}
+                                rules={[{ required: true, message: 'Please upload an image!' }]}
                             >
                                 <Upload name='image' {...imageUploadProps}>
                                     <Button icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                             </Form.Item>
 
-                            <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                            <Form.Item
+                                name="Title"
+                                label='Title' 
+                                rules={[
+                                    { required: true, message: 'Please enter the title.' }
+                                ]}
+                            >
                                 <Input
                                     placeholder='Name'
                                     onChange={(e) => {
@@ -6541,7 +6550,14 @@ const PostAdd:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Contact' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
+                            <Form.Item
+                                name="Contact"
+                                label='Contact'
+                                rules={[
+                                    { required: true, message: 'Please input your phone number!' },
+                                    { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' },
+                                ]}
+                            >
                                 <Input
                                     onChange={(e) => {
                                         formik.setFieldValue('contact', e.target.value);
@@ -6550,7 +6566,13 @@ const PostAdd:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='State' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                            <Form.Item
+                                name="state"
+                                label='State'
+                                rules={[
+                                    { required: true, message: 'Please select a state.' }
+                                ]}
+                            >
                                 <Select
                                     showSearch
                                     placeholder="Select a state"
@@ -6572,7 +6594,13 @@ const PostAdd:React.FC = () => {
 
                             {
                                 formik.values.state && 
-                                <Form.Item label='City' rules={[{ required: true, message: 'Please enter the location!' }]}>
+                                <Form.Item
+                                    name={"city"}
+                                    label='City'
+                                    rules={[
+                                        { required: true, message: 'Please select a city.' }
+                                    ]}
+                                >
                                     <Select
                                         showSearch
                                         placeholder="Select a city"
@@ -6595,6 +6623,7 @@ const PostAdd:React.FC = () => {
                             }
 
                             <Form.Item
+                                name={"desc"}
                                 label='Description'
                                 rules={[{ required: true, message: 'Please enter the description!' }]}
                             >
@@ -6609,7 +6638,10 @@ const PostAdd:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item label='Area' rules={[{ required: true, message: 'Please enter the requirement area!' }]}>
+                            <Form.Item
+                                name="area"
+                                label='Area'
+                            >
                                 <Input
                                     placeholder='In sqft'
                                     onChange={(e) => {
@@ -6712,7 +6744,6 @@ const PostAdd:React.FC = () => {
                                 type='primary'
                                 className='bg-[#1890FF] w-full font-semibold'
                                 htmlType='submit'
-                                // loading={loading}
                             >
                                 Submit
                             </Button>

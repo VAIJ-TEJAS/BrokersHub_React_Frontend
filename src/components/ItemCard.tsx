@@ -132,14 +132,15 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         />
       )}
       <div>
+        <div className="absolute top-1 right-1">
         <Button
-          type="primary"
-          className="absolute right-2 mb-1"
-          onClick={shareLink}
-          icon={<ShareAltOutlined />}
-        />
+            type="primary"
+            className="mb-1"
+            onClick={shareLink}
+            icon={<ShareAltOutlined />}
+          />
         {(page === "requirements" || page === "advertisements") && (
-          <div className="absolute top-1 right-1">
+          <div>
             <Button
               type="primary"
               className="mb-1"
@@ -169,8 +170,9 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
                 danger
               />
             </Popconfirm>
-          </div>
+            </div>
         )}
+        </div>
         
         <div className="pe-3">
           <Meta
@@ -196,12 +198,20 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           >
             View Details
           </Button>
-        ) : (
-          <Button type="primary" className="w-full relative bottom-0 right-0">
+        ) : 
+        (<>
+          <Button type="primary" className="w-4/5">
             <Link to={`/${page}/${item.id}`} className="w-full block">
               View Details
             </Link>
           </Button>
+          <Button
+            type="primary"
+            className="absolute right-4 px-3 w-auto"
+            onClick={shareLink}
+            icon={<ShareAltOutlined />}
+          />
+          </>
         )}
       </div>
     </Card>
