@@ -17,20 +17,37 @@ interface OptionType {
 interface AuthenticationProps {
     defaultTab?: string | null;
     handleLogin: (email: string, password:string) => void;
+    openInputEmailBox: () => void;
 }
+
 interface OtpProps {
     defaultTab?: string | null;
     handleLogin: (email: string, password:string) => void;
     closeOtpBox: () => void;
+    method: string;
 }
 
 interface RegisterenticationProps {
     defaultTab?: string | null;
-    openOtpBox: () => void;
+    sendOtp: (email: string) => void;
+    openOtpBox: (meth: string) => void;
 }
 
+interface InputEmailProps {
+    defaultTab?: string | null;
+    closeInputEmailBox: () => void;
+    sendOtp: (email: string) => void;
+    openOtpBox: (meth: string) => void;
+}
 
-const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
+interface InputPassProps {
+    defaultTab?: string | null;
+    otp: string;
+    closeSetPassBox: () => void;
+    closeOtpBox: () => void;
+}
+
+const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) => {
 
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
@@ -95,18 +112,26 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
                     />
                 </Form.Item>
 
-                <Form.Item>
-                    <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
-                        Sign in
-                    </Button>
-                </Form.Item>
+                <div className='flex justify-between w-full'>
+                    <Form.Item>
+                        <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                            Sign in
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="link" onClick={openInputEmailBox} block>
+                            Forgot Password?
+                        </Button>
+                    </Form.Item>
+                </div>
             </Form>
         </div>
     );
 };
 
-const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin}) => {
+const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method}) => {
     const [otp, setOtp] = useState('');
+    const [passwordBox, setPasswordBox] = useState(false);
   
     const handleOtpChange = (e: any) => {
       setOtp(e.target.value);
@@ -148,34 +173,219 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin}) => {
                 localStorage.setItem('thebrokershub-access-token', response.data.token)
                 message.success("Registration successful")
                 handleLogin(userData.email, userData.password)
+                closeOtpBox()
             })
             .catch(error => {
                 message.error(error.response.data.username === undefined ? "Some error occoured" : error.response.data.username )
                 console.error('Error found as:', error);
             });
     };
+
+    const closeSetPassBox = () => {
+        setPasswordBox(false);
+    }
   
     return (
-      <div className="container mx-auto mt-8">
-        <div className="flex justify-between items-center mb-4">
-          <Button type="text" icon={<ArrowLeftOutlined />} onClick={() => closeOtpBox()} />
-          <div className="w-full text-center text-2xl font-bold">The Broker Hub</div>
+        <div className='w-full'>
+            {   passwordBox ?
+                <InputNewPass closeSetPassBox={closeSetPassBox} closeOtpBox={closeOtpBox} otp={otp} />:
+                <div className="container mx-auto mt-8">
+                    <div className="flex justify-between items-center mb-4">
+                        <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeOtpBox()} />
+                        <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+                    </div>
+                    <Form layout="vertical" className='flex justify-center flex-col'>
+                        <Form.Item label={<div>Enter OTP</div>}>
+                            <Input value={otp} onChange={handleOtpChange} />
+                        </Form.Item>
+                        <Form.Item className='flex justify-center'>
+                            {method === 'register' ? 
+                                <Button type="primary" onClick={handleVerifyOtp}>
+                                    Verify OTP
+                                </Button>:
+                                <Button type="primary" onClick={() => {setPasswordBox(true)}}>
+                                    Verify OTP
+                                </Button>
+                            }
+                        </Form.Item>
+                    </Form>
+                </div>
+            }
         </div>
-        <Form layout="vertical" className='flex justify-center flex-col'>
-          <Form.Item label={<div>Enter OTP</div>}>
-            <Input value={otp} onChange={handleOtpChange} />
-          </Form.Item>
-          <Form.Item className='flex justify-center'>
-            <Button type="primary" onClick={handleVerifyOtp}>
-              Verify OTP
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
     );
 };
 
-const Register: React.FC<RegisterenticationProps> = ({openOtpBox}) => {
+const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, sendOtp}) => {
+
+    const [username, setUsername] = useState('');
+
+    const onFinish = (values: any) => {
+      console.log('Received values:', values);
+      localStorage.setItem('theBrokerHub-username', username);
+      sendOtp(username)
+      openOtpBox('forgotPass')
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+        message.error('Registration failed!');
+    };
+  
+    return (
+        <div className='w-full'>
+                <div className='w-full'>
+                    <div className="flex justify-between items-center my-5">
+                        <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeInputEmailBox()} />
+                        <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+                    </div>
+                    <div className='text-center font-semibold text-2xl my-3'>Enter your email</div>
+                    <Form
+                        className='w-full px-4 '
+                        name="basic"
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        <Form.Item
+                            name="email"
+                            className='w-full'
+                            rules={[
+                                { required: true, message: 'Please input your email!' },
+                                { type: 'email', message: 'Please enter a valid email address!' },
+                            ]}
+                        >
+                            <Input
+                                className='text-center rounded-none'
+                                placeholder="Email"
+                                prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Form.Item>
+
+                        <Form.Item className='flex justify-center '>
+                            <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                                Verify email
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
+        </div>
+    );
+}
+
+const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBox}) => {
+
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const onFinish = (values: any) => {
+        console.log('Received values:', values);
+        const data = {
+            otp: otp,
+            email: localStorage.getItem('theBrokerHub-username'),
+            new_password: newPassword,
+        }
+
+        // Perform verification logic here
+        const url = 'https://13.232.115.59/reset-password/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Make the POST request with Axios
+        axios.post(url, data, {
+            headers: headers,
+        })
+         .then(response => {
+                // Handle the response data
+                console.log('Response:', response.data);
+                message.success("Password reset successful")
+                localStorage.removeItem('theBrokerHub-username')
+                closeSetPassBox()
+                closeOtpBox()
+            })
+         .catch(error => {
+                message.error(error.response.data.error === undefined? "Some error occoured" : error.response.data.error )
+                console.error('Error found as:', error);
+            });
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        console.log('Failed:', errorInfo);
+        message.error('Password change failed!');
+    };
+  
+    return (
+        <div className='w-full'>
+            <div className="flex justify-between items-center my-5">
+                <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={closeSetPassBox} />
+                <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+            </div>
+            <div className='text-center font-semibold text-2xl my-3'>Enter your new Password</div>
+            <Form
+                className='w-full px-4 '
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+            >
+                <Form.Item
+                    name="Password"
+                    rules={[
+                        { required: true, message: 'Please input your password!' },
+                        { min: 6, message: 'Password must be at least 6 characters!' },
+                    ]}
+                >
+                    <Input.Password
+                        className='text-center rounded-none'
+                        placeholder="New Password"
+                        prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        style={{ textAlign: 'center' }}
+                        type="password"
+                        value={newPassword}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="CPassword"
+                    rules={[
+                        { required: true, message: 'Please confirm your password!' },
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (!value || getFieldValue('Password') === value) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(new Error('The passwords do not match!'));
+                          },
+                        }),
+                    ]}
+                >
+                    <Input.Password
+                        className='text-center rounded-none'
+                        placeholder="Confirm Password"
+                        prefix={<LockOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
+                        style={{ textAlign: 'center' }}
+                        type="password"
+                        value={confirmPassword}
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </Form.Item>
+
+                <Form.Item className='flex justify-center '>
+                    <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                        Change Password
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
+    );
+}
+
+const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -6443,7 +6653,8 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox}) => {
         }
     ]);
 
-    const handleRegister = async () => {
+    const onFinish = (values: any) => {
+        console.log('Received values:', values);
 
         const data = {
             username: email,
@@ -6456,36 +6667,9 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox}) => {
             state: state,
             city: city,
         };
-
         localStorage.setItem('share-coupon-user', JSON.stringify(data))
-        
-        const url = 'https://13.232.115.59/generate-otp/';
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-
-        // Define the JSON body data
-        
-
-        // Make the POST request with Axios
-        axios.post(url, {email: email}, {
-            headers: headers,
-        })
-            .then(response => {
-                // Handle the response data
-                message.success("Otp Sent")
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error found as:', error);
-                message.error("Some error occurred")
-            });
-        openOtpBox();
-    };
-
-    const onFinish = (values: any) => {
-        console.log('Received values:', values);
-        handleRegister()
+        sendOtp(email)
+        openOtpBox('register');
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -6709,7 +6893,7 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox}) => {
 
             <Modal
                 title="Terms and Conditions"
-                visible={modalVisible}
+                open={modalVisible}
                 onCancel={handleModalClose}
                 footer={null}
             >
@@ -6782,7 +6966,9 @@ const Autentication: React.FC = () => {
 
     const { setUserAuthenticated, handleAuthCancel } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
+    const [method, setMethod] = useState<string>('1');
     const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
+    const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -6791,14 +6977,50 @@ const Autentication: React.FC = () => {
         console.log(activeTab);
     };
 
-    const openOtpBox = () => {
+    const sendOtp = async (email: string) => {
+        
+        const url = 'https://13.232.115.59/generate-otp/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Define the JSON body data
+        
+
+        // Make the POST request with Axios
+        axios.post(url, {email: email}, {
+            headers: headers,
+        })
+            .then(response => {
+                // Handle the response data
+                message.success("Otp Sent")
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error found as:', error);
+                message.error("Some error occurred")
+            });
+    };
+
+    const openOtpBox = (meth: string) => {
+        setInputEmailPageOpen(false)
         setOtpPageOpen(true);
+        setMethod(meth)
     }
 
     const closeOtpBox = () => {
         console.log("Closing")
         setOtpPageOpen(false);
-        setActiveTab('2')
+    }
+
+    const openInputEmailBox = () => {
+        console.log("Closing")
+        setInputEmailPageOpen(true);
+        setOtpPageOpen(false)
+    }
+
+    const closeInputEmailBox = () => {
+        setInputEmailPageOpen(false);
     }
 
     const handleLogin = async (email: string, password: string) => {
@@ -6837,47 +7059,44 @@ const Autentication: React.FC = () => {
     return (
         <div className='w-full flex flex-col justify-center items-center'>
             {otpPageOpen ?
-                <OtpVerification handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
-                <>
-                    <div className='font-semibold text-3xl mt-5'>
-                    BrokerHub
-                    </div>
-                    <div className='m-5'>
-                        <Tabs
-                            defaultActiveKey="1"
-                            tabPosition="top"
-                            onChange={handleTabChange}
-                            centered
-                            >
-                            <TabPane
-                                tab={
-                                    <span>
-                                        <UserOutlined /> Login
-                                    </span>
-                                }
-                                key="1"
-                            >
-                                <Login handleLogin={handleLogin} />
-                            </TabPane>
-                            <TabPane
-                                tab={
-                                    <span>
-                                        <UserAddOutlined /> Register
-                                    </span>
-                                }
-                                key="2"
-                            >
-                                <Register openOtpBox={openOtpBox} />
-                            </TabPane>
-                        </Tabs>
-                    </div>
-                    {/* <div className='mb-10'>
-                        {activeTab === '1' ?
-                             :
-                            <Register openOtpBox={openOtpBox} />
-                        }
-                    </div> */}
-                </>
+                <OtpVerification method={method} handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
+                inputEmailPageOpen ?
+                    <InputEmail sendOtp={sendOtp} openOtpBox={openOtpBox} closeInputEmailBox={closeInputEmailBox} />:
+                    <>
+                        <div className='font-semibold text-3xl mt-5'>
+                            BrokerHub
+                        </div>
+                        <div className='m-5'>
+                            <Tabs
+                                defaultActiveKey="1"
+                                tabPosition="top"
+                                onChange={handleTabChange}
+                                centered
+                                >
+                                <TabPane
+                                    tab={
+                                        <span>
+                                            <UserOutlined /> Login
+                                        </span>
+                                    }
+                                    key="1"
+                                >
+                                    <Login openInputEmailBox={openInputEmailBox} handleLogin={handleLogin} />
+                                </TabPane>
+                                <TabPane
+                                    tab={
+                                        <span>
+                                            <UserAddOutlined /> Register
+                                        </span>
+                                    }
+                                    key="2"
+                                >
+                                    <Register sendOtp={sendOtp} openOtpBox={openOtpBox} />
+                                </TabPane>
+                            </Tabs>
+                        </div>
+                    </>
+                
             }
             
         </div>
