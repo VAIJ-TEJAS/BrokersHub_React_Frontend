@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { message, Form, Tabs, Input, Button, Select, Alert, Checkbox, Modal,Typography, Collapse } from 'antd';
-import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone  } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone, ArrowLeftOutlined } from '@ant-design/icons';
 import { useState  } from 'react';
 import axios from "axios"
 import { Context } from '../context/context.provider';
@@ -18,6 +18,17 @@ interface AuthenticationProps {
     defaultTab?: string | null;
     handleLogin: (email: string, password:string) => void;
 }
+interface OtpProps {
+    defaultTab?: string | null;
+    handleLogin: (email: string, password:string) => void;
+    closeOtpBox: () => void;
+}
+
+interface RegisterenticationProps {
+    defaultTab?: string | null;
+    openOtpBox: () => void;
+}
+
 
 const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
 
@@ -94,57 +105,77 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin}) => {
     );
 };
 
-// const OtpVerification = () => {
-//   const inputRefs = [useRef<Input>(null), useRef<Input>(null), useRef<Input>(null), useRef<Input>(null)];
+const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin}) => {
+    const [otp, setOtp] = useState('');
+  
+    const handleOtpChange = (e: any) => {
+      setOtp(e.target.value);
+    };
+  
+    const handleVerifyOtp = () => {
+        const storedData = localStorage.getItem('share-coupon-user');
+        const userData = storedData ? JSON.parse(storedData) : null;
+        const data = {
+            user_data: {
+                username: userData.username,
+                password: userData.password,
+                first_name: userData.first_name,
+                last_name: userData.last_name,
+                email: userData.email,
+                phone: userData.phone,
+                state: userData.state,
+                city: userData.city,
+                other_referral_code: userData.referral_code
+            },
+            otp: otp,
+            email: userData.email,
+        }
+        console.log(data);
 
-//   const focusNextInput = (index: number) => {
-//     if (inputRefs[index + 1]?.current) {
-//       inputRefs[index + 1].current.focus();
-//     }
-//   };
+        // Perform verification logic here
+        const url = 'https://13.232.115.59/verify-otp/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
 
-//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-//     const { value } = e.target;
-//     if (value.length === 1) {
-//       focusNextInput(index);
-//     }
-//   };
+        // Make the POST request with Axios
+        axios.post(url, data, {
+            headers: headers,
+        })
+            .then(response => {
+                // Handle the response data
+                console.log('Response:', response.data);
+                localStorage.setItem('thebrokershub-access-token', response.data.token)
+                message.success("Registration successful")
+                handleLogin(userData.email, userData.password)
+            })
+            .catch(error => {
+                message.error(error.response.data.username === undefined ? "Some error occoured" : error.response.data.username )
+                console.error('Error found as:', error);
+            });
+    };
+  
+    return (
+      <div className="container mx-auto mt-8">
+        <div className="flex justify-between items-center mb-4">
+          <Button type="text" icon={<ArrowLeftOutlined />} onClick={() => closeOtpBox()} />
+          <div className="w-full text-center text-2xl font-bold">The Broker Hub</div>
+        </div>
+        <Form layout="vertical" className='flex justify-center flex-col'>
+          <Form.Item label={<div>Enter OTP</div>}>
+            <Input value={otp} onChange={handleOtpChange} />
+          </Form.Item>
+          <Form.Item className='flex justify-center'>
+            <Button type="primary" onClick={handleVerifyOtp}>
+              Verify OTP
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    );
+};
 
-//   return (
-//     <div className="w-full text-center bg-white py-10 rounded-xl">
-//       <header className="mb-8 flex justify-between items-center">
-//         <ArrowLeftOutlined className="text-lg cursor-pointer" />
-//         <div className="text-2xl font-bold mb-1">Mobile Phone Verification</div>
-//         <div></div>
-//       </header>
-//       <Form id="otp-form">
-//         <div className="flex items-center justify-center gap-3">
-//           {[0, 1, 2, 3].map(index => (
-//             <Input
-//               key={index}
-//               ref={inputRefs[index]}
-//               className="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-//               pattern="\d*" maxLength={1}
-//               onChange={(e) => handleInputChange(e, index)}
-//             />
-//           ))}
-//         </div>
-//         <div className="max-w-[260px] mx-auto mt-4">
-//           <Button
-//             type="primary"
-//             htmlType="submit"
-//             className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">
-//             Verify Account
-//           </Button>
-//         </div>
-//       </Form>
-//       <div className="text-sm text-slate-500 mt-4">Didn't receive code? <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">Resend</a></div>
-//     </div>
-//   );
-// };
-
-
-const Register: React.FC<AuthenticationProps> = ({handleLogin}) => {
+const Register: React.FC<RegisterenticationProps> = ({openOtpBox}) => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -6414,12 +6445,6 @@ const Register: React.FC<AuthenticationProps> = ({handleLogin}) => {
 
     const handleRegister = async () => {
 
-        const url = 'https://13.232.115.59/signup/';
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-
-        // Define the JSON body data
         const data = {
             username: email,
             password: newPassword,
@@ -6432,26 +6457,34 @@ const Register: React.FC<AuthenticationProps> = ({handleLogin}) => {
             city: city,
         };
 
+        localStorage.setItem('share-coupon-user', JSON.stringify(data))
+        
+        const url = 'https://13.232.115.59/generate-otp/';
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        // Define the JSON body data
+        
+
         // Make the POST request with Axios
-        axios.post(url, data, {
+        axios.post(url, {email: email}, {
             headers: headers,
         })
             .then(response => {
                 // Handle the response data
+                message.success("Otp Sent")
                 console.log('Response:', response.data);
-                localStorage.setItem('thebrokershub-access-token', response.data.token)
-                localStorage.setItem('share-coupon-user', response.data.user)
-                handleLogin(email, newPassword)
             })
             .catch(error => {
                 console.error('Error found as:', error);
+                message.error("Some error occurred")
             });
-
+        openOtpBox();
     };
 
     const onFinish = (values: any) => {
         console.log('Received values:', values);
-        message.success('Registration successfull!');
         handleRegister()
     };
 
@@ -6749,7 +6782,7 @@ const Autentication: React.FC = () => {
 
     const { setUserAuthenticated, handleAuthCancel } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
-    // const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
+    const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -6757,6 +6790,16 @@ const Autentication: React.FC = () => {
         setActiveTab(key);
         console.log(activeTab);
     };
+
+    const openOtpBox = () => {
+        setOtpPageOpen(true);
+    }
+
+    const closeOtpBox = () => {
+        console.log("Closing")
+        setOtpPageOpen(false);
+        setActiveTab('2')
+    }
 
     const handleLogin = async (email: string, password: string) => {
         const url = 'https://13.232.115.59/auth/';
@@ -6793,40 +6836,50 @@ const Autentication: React.FC = () => {
 
     return (
         <div className='w-full flex flex-col justify-center items-center'>
-            <div className='font-semibold text-3xl mt-5'>
-                BrokerHub
-            </div>
-            <div className='m-5'>
-                <Tabs
-                    defaultActiveKey="1"
-                    tabPosition="top"
-                    onChange={handleTabChange}
-                >
-                    <TabPane
-                        tab={
-                            <span>
-                                <UserOutlined /> Login
-                            </span>
+            {otpPageOpen ?
+                <OtpVerification handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
+                <>
+                    <div className='font-semibold text-3xl mt-5'>
+                    BrokerHub
+                    </div>
+                    <div className='m-5'>
+                        <Tabs
+                            defaultActiveKey="1"
+                            tabPosition="top"
+                            onChange={handleTabChange}
+                            centered
+                            >
+                            <TabPane
+                                tab={
+                                    <span>
+                                        <UserOutlined /> Login
+                                    </span>
+                                }
+                                key="1"
+                            >
+                                <Login handleLogin={handleLogin} />
+                            </TabPane>
+                            <TabPane
+                                tab={
+                                    <span>
+                                        <UserAddOutlined /> Register
+                                    </span>
+                                }
+                                key="2"
+                            >
+                                <Register openOtpBox={openOtpBox} />
+                            </TabPane>
+                        </Tabs>
+                    </div>
+                    {/* <div className='mb-10'>
+                        {activeTab === '1' ?
+                             :
+                            <Register openOtpBox={openOtpBox} />
                         }
-                        key="1"
-                    />
-                    <TabPane
-                        tab={
-                            <span>
-                                <UserAddOutlined /> Register
-                            </span>
-                        }
-                        key="2"
-                    />
-                </Tabs>
-            </div>
-            <div className='mb-10'>
-                {activeTab === '1' ?
-                    <Login handleLogin={handleLogin} /> :
-                    <Register handleLogin={handleLogin} />
-                }
-            </div>
-            {/* <OtpVerification /> */}
+                    </div> */}
+                </>
+            }
+            
         </div>
     )
 }
