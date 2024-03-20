@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Button, Card, Modal, Alert, message, Popconfirm  } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import ExpandCard from "./ExpandCard";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
-import "./Navbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Card, Modal, Alert, message, Popconfirm  } from "antd";
+import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
+
+import ExpandCard from "./ExpandCard";
 import { Item } from "../types/item.types";
+
+import "./Navbar.css";
 
 const { Meta } = Card;
 
@@ -52,6 +54,37 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
     message.success('The post has been deleted.');
     handleDelete();
   };
+  
+  const shareLink = async () => {
+    // const currentUrl = window.location.href;
+
+    // Check if the URL contains the requirement
+    // const requirementPresent = currentUrl.includes('add');
+    const shareData = {
+      title: 'Your Website Title',
+      text: 'Check out this awesome website!',
+      url: `https://thebrokershub.in/${item.image ? `addsListing/${item.id}` : `requirementsListing/${item.id}`}`,
+    };
+
+    try {
+      await navigator.share(shareData);
+      console.log('Shared successfully');
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback options for browsers that do not support Web Share API
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
+      // Add more social media platform URLs as needed
+
+      // Open the share URLs in a new tab/window
+      window.open(whatsappUrl);
+      window.open(facebookUrl);
+      window.open(twitterUrl);
+      // Open more social media platform URLs as needed
+    }
+  };
+
 
   return (
     <Card
@@ -98,8 +131,13 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           onClose={() => setSuccess("")}
         />
       )}
-
       <div>
+        <Button
+          type="primary"
+          className="absolute right-2 mb-1"
+          onClick={shareLink}
+          icon={<ShareAltOutlined />}
+        />
         {(page === "requirements" || page === "advertisements") && (
           <div className="absolute top-1 right-1">
             <Button
