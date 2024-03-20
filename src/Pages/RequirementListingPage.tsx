@@ -21,7 +21,7 @@ const RequirementListingPage: React.FC = () => {
   
   const handleCancel = () => {
     setModalVisible(false)
-    navigate('/requirementsListing/');
+    navigate('/requirementslisting/');
   };
 
   const url = 'https://13.232.115.59/requirements/';
@@ -75,7 +75,7 @@ const RequirementListingPage: React.FC = () => {
 
             <div className='d-flex flex-wrap justify-center'>
               {filteredItems.map((item, index) => (
-                <ItemCard page="requirementsListing" key={index} item={item} />
+                <ItemCard page="requirementslisting" key={index} item={item} />
                 ))}
             </div>
 

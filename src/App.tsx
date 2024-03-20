@@ -31,14 +31,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/requirementsListing/:postId" element={<RequirementListingPage />} />
-          <Route path="/requirementsListing/" element={<RequirementListingPage />} />
-          <Route path="/addsListing/:postId" element={<AddListing/>} />
-          <Route path="/addsListing" element={<AddListing/>} />
-          <Route path="/PostRequirement/:postId" element={<PostRequirement />} />
-          <Route path="/PostRequirement" element={<PostRequirement />} />
-          <Route path="/PostAdd/:postId" element={<PostAdd />} />
-          <Route path="/PostAdd" element={<PostAdd />} />
+          <Route path="/requirementslisting/:postId" element={<RequirementListingPage />} />
+          <Route path="/requirementslisting/" element={<RequirementListingPage />} />
+          <Route path="/addslisting/:postId" element={<AddListing/>} />
+          <Route path="/addslisting" element={<AddListing/>} />
+          <Route path="/postrequirement/:postId" element={<PostRequirement />} />
+          <Route path="/postrequirement" element={<PostRequirement />} />
+          <Route path="/postadd/:postId" element={<PostAdd />} />
+          <Route path="/postadd" element={<PostAdd />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <FooterComp />

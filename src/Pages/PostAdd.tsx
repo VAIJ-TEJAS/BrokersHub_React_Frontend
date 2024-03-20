@@ -6403,7 +6403,7 @@ const PostAdd:React.FC = () => {
                 console.log('Response:', response.data); // Handle the response
                 setSuccess('You requirement has been posted!');
                 setTimeout(() => {
-                    navigate('/addsListing/')
+                    navigate('/addslisting/')
                 }, 2000);
                 return;
                 // Optionally, you can perform any actions after successful response

@@ -54,7 +54,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
     message.success('The post has been deleted.');
     handleDelete();
   };
-  
+
   const shareLink = async () => {
     // const currentUrl = window.location.href;
 
@@ -63,7 +63,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
     const shareData = {
       title: 'Your Website Title',
       text: 'Check out this awesome website!',
-      url: `https://thebrokershub.in/${item.image ? `addsListing/${item.id}` : `requirementsListing/${item.id}`}`,
+      url: `https://thebrokershub.in/${item.image ? `addslisting/${item.id}` : `requirementslisting/${item.id}`}`,
     };
 
     try {
@@ -145,10 +145,10 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
               className="mb-1"
               onClick={() => {
                 if (page === "requirements") {
-                  navigate(`/PostRequirement/${item.id}`)
+                  navigate(`/postrequirement/${item.id}`)
                 }
                 else if(page === "advertisements"){
-                  navigate(`/PostAdd/${item.id}`)
+                  navigate(`/postadd/${item.id}`)
                 }
               }}
               icon={<EditOutlined />}
@@ -188,7 +188,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <p className="mb-2">
           Type: <span className="text-secondary">{item.transaction_type}</span>
         </p>
-        {page !== "addsListing" && page !== "requirementsListing" ? (
+        {page !== "addslisting" && page !== "requirementslisting" ? (
           <Button
             type="primary"
             className="w-full relative bottom-0 right-0"

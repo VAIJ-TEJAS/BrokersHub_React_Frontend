@@ -20,7 +20,7 @@ const AddListing: React.FC = () => {
 
   const handleCancel = () => {
     setModalVisible(false)
-    navigate('/addsListing/');
+    navigate('/addslisting/');
   };
 
   const url = 'https://13.232.115.59/advertisements/';
@@ -71,7 +71,7 @@ const AddListing: React.FC = () => {
 
               <div className='d-flex flex-wrap justify-center'>
                 {filteredItems.map((item, index) => (
-                  <ItemCard page="addsListing" key={index} item={item} />
+                  <ItemCard page="addslisting" key={index} item={item} />
                   ))}
               </div>
 

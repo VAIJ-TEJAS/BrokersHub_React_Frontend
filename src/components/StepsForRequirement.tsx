@@ -159,7 +159,7 @@ const StepsForRequirement: React.FC = () => {
                 </Button>
             )}
             {currentStep == steps.length - 1 && (
-                <Link to="/PostRequirement" className="btn btn-warning">
+                <Link to="/postrequirement" className="btn btn-warning">
                 Post Requirement
                 </Link>
             )}

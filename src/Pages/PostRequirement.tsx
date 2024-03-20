@@ -6375,7 +6375,7 @@ const PostRequirement:React.FC = () => {
                 console.log('Response:', response.data); // Handle the response
                 setSuccess('You requirement has been posted!');
                 setTimeout(() => {
-                    navigate('/requirementsListing/')
+                    navigate('/requirementslisting/')
                 }, 2000);
                 // Optionally, you can perform any actions after successful response
             })
