@@ -142,23 +142,15 @@ const StepsForAdvertisement: React.FC = () => {
               type="primary"
               style={{ marginRight: "8px" }}
               onClick={prevStep}
-            >
-              <strong>Previous</strong>
-            </Button>
+            />
           )}
           {currentStep < steps.length - 1 && (
             <Button
               size={"large"}
               type="primary"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
               onClick={nextStep}
-            >
-              <strong>Next</strong> <ArrowRightOutlined />
-            </Button>
+              icon={<ArrowRightOutlined />}
+            />
           )}
           {currentStep == steps.length - 1 && (
             <Link to="/postadd" className="btn btn-warning">

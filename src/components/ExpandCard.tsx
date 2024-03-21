@@ -56,7 +56,7 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
   return (
     <div className="property-card">
-      {item.image !== undefined && (<div className="property-image">
+      {(item.image !== undefined && item.image !== '') && (<div className="property-image">
         <img src={item.image} className='rounded w-100' alt={item.title} />
       </div>)}
       <div className="property-details">

@@ -140,23 +140,15 @@ const StepsForRequirement: React.FC = () => {
                 type="primary"
                 style={{ marginRight: "8px" }}
                 onClick={prevStep}
-                >
-                <strong>Previous</strong>
-                </Button>
+                />
             )}
             {currentStep < steps.length - 1 && (
                 <Button
-                size={"large"}
-                type="primary"
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                }}
-                onClick={nextStep}
-                >
-                <strong>Next</strong> <ArrowRightOutlined />
-                </Button>
+                  size={"large"}
+                  type="primary"
+                  onClick={nextStep}
+                  icon={<ArrowRightOutlined />}
+                />
             )}
             {currentStep == steps.length - 1 && (
                 <Link to="/postrequirement" className="btn btn-warning">
