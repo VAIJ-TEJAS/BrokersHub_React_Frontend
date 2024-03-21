@@ -8,7 +8,6 @@ import ProfilePage from './Pages/ProfilePage'
 import PostRequirement from './Pages/PostRequirement'
 import RequirementListingPage from './Pages/RequirementListingPage'
 
-import Navbar from './components/Navbar'
 import FooterComp from './components/Footer'
 import Autentication from './components/Authentication'
 import { Context } from './context/context.provider'
@@ -27,7 +26,6 @@ function App() {
         >
           <Autentication />
         </Modal>
-        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
