@@ -14,6 +14,8 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
   const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
   const [passwordBox, setPasswordBox] = useState(false);
+  const [TermsModalVisible, setTermsModalVisible] = useState(false);
+
 
 
   const openOtpBox = (meth: string) => {
@@ -47,6 +49,8 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   };
 
   const contextValue: any = {
+    setTermsModalVisible,
+    TermsModalVisible,
     passwordBox,
     setPasswordBox,
     method,

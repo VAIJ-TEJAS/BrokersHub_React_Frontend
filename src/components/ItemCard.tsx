@@ -131,12 +131,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
 
       <div>
         <div className="absolute top-1 right-1">
-        <Button
-            type="primary"
-            className="mb-1"
-            onClick={shareLink}
-            icon={<ShareAltOutlined />}
-          />
         {(page === "requirements" || page === "advertisements") && (
           <div>
             <Button
@@ -189,21 +183,35 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           Type: <span className="text-secondary">{item.transaction_type}</span>
         </p>
         {page !== "addslisting" && page !== "requirementslisting" ? (
-          <Button
-            type="primary"
-            className="w-full relative bottom-0 right-0"
-            onClick={() => setModalVisible(true)}
-          >
-            View Details
-          </Button>
+          <div className="flex justify-between">
+            <Button
+              type="primary"
+              className="w-4/5 relative bottom-0 right-0"
+              onClick={() => setModalVisible(true)}
+              >
+              View Details
+            </Button>
+            <Button
+              type="primary"
+              className="w-auto flex justify-center items-center"
+              onClick={shareLink}
+              icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
+            />
+          </div>
         ) : 
-        (<>
-          <Button type="primary" className="w-full">
+        (<div className="flex justify-between">
+          <Button type="primary" className="w-4/5">
             <Link to={`/${page}/${item.id}`} className="w-full block">
               View Details
             </Link>
           </Button>
-          </>
+          <Button
+            type="primary"
+            className="w-auto flex justify-center items-center"
+            onClick={shareLink}
+            icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
+          />
+          </div>
         )}
       </div>
     </Card>

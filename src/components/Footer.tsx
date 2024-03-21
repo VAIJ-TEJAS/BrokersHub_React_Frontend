@@ -1,11 +1,13 @@
 import { Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { Context } from '../context/context.provider';
 
 const { Footer } = Layout;
 
 export default function FooterComp() {
 
     const navigate = useNavigate();
+    const { setTermsModalVisible} = Context();
 
     return (
         <div>
@@ -49,7 +51,7 @@ export default function FooterComp() {
                                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                                 <ul className="text-gray-600 dark:text-gray-400">
                                     <li>
-                                        <div onClick={() => {navigate('/');}} className="hover:underline">Terms &amp; Conditions</div>
+                                        <div onClick={() => {setTermsModalVisible(true)}} className="hover:underline">Terms &amp; Conditions</div>
                                     </li>
                                 </ul>
                             </div>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Menu, Button, Tooltip, Drawer, message } from 'antd';
+import { Menu, Button, Tooltip, Drawer, message, Modal,Typography, Collapse } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
@@ -9,6 +9,8 @@ import { Context } from '../context/context.provider';
 
 const { SubMenu } = Menu;
 const { Header, Sider } = Layout;
+const { Title, Text } = Typography;
+const { Panel } = Collapse;
 
 
 const menuItems = [
@@ -88,6 +90,75 @@ const NavbarDrawer: React.FC<drawerPropps> = ({ navbarDraweropen, closeNavbarDra
   )
 }
 
+
+const TerAndC: React.FC = () => {
+
+  
+
+  return (
+    
+        <div className="p-8">
+            <Title level={2}>Terms and Conditions</Title>
+            <Collapse accordion>
+                <Panel header="1. Service Offering" key="1">
+                    <Text>
+                    By registering on "The Brokers Hub" platform, you acknowledge and agree that our website serves as a central hub for brokers to exchange property-related requirements and listings. The platform enables brokers to submit their own property requirements, discover available properties, and engage in transparent transactions with other brokers and clients.
+                    </Text>
+                </Panel>
+                <Panel header="2. Commission" key="2">
+                    <Text>
+                    Upon successful completion of a property transaction facilitated through our platform, a commission fee of 0.5% of the total deal amount is applicable. This commission is divided equally, with 0.25% payable by each party involved in the transaction (i.e., the property buyer/tenant and the property seller/landlord).
+
+                    </Text>
+                </Panel>
+                <Panel header="3. Broker Obligations" key="3">
+                    <Text>
+                    Brokers registered on "The Brokers Hub" agree not to conduct property transactions discovered through our platform without informing and involving the platform. Any properties found through the platform must be communicated to us, and transactions should be conducted transparently with our involvement to ensure the proper application of commission fees.
+
+                    </Text>
+                </Panel>
+                <Panel header="4. User Conduct" key="4">
+                    <Text>
+                    Users of "The Brokers Hub," including clients and brokers, are expected to conduct themselves professionally and ethically at all times. Any misuse or abuse of the platform, including but not limited to fraudulent activities, misrepresentation, or harassment, will result in immediate termination of the user's account, potential legal action, and banning from the site.
+
+                    </Text>
+                </Panel>
+                <Panel header="5. Accuracy of Information" key="5">
+                    <Text>
+                    While we strive to ensure the accuracy of the information provided on our platform, we cannot guarantee the completeness or correctness of property listings, client requirements, or any other content. Users are responsible for verifying the accuracy of information before making any decisions or transactions.
+                    </Text>
+                </Panel>
+                <Panel header="6. Privacy Policy" key="6">
+                    <Text>
+                    We respect the privacy of our users and are committed to protecting their personal information. Our Privacy Policy outlines how we collect, use, and disclose personal data. By using our platform, you consent to the collection and processing of your personal information in accordance with our Privacy Policy.
+                    </Text>
+                </Panel>
+                <Panel header="7. Liability Disclaimer" key="8">
+                    <Text>
+                    The Brokers Hub" platform and its owners will not be held responsible for any problems, disputes, or issues arising during property transactions facilitated through our platform. Users engage in transactions at their own risk, and "The Brokers Hub" shall not be liable for any financial losses, damages, or legal implications resulting from such transactions.
+                    </Text>
+                </Panel>
+                <Panel header="8. Legal Action and Blacklisting" key="7">
+                    <Text>
+                    Violation of the Terms and Conditions may result in legal action and the user being banned from the site. Their contact information and identity may also be blacklisted among our clients and brokers.
+                    </Text>
+                </Panel>
+                <Panel header="9. Modification of Terms" key="9">
+                    <Text>
+                    We reserve the right to update or modify these Terms and Conditions at any time without prior notice. It is the responsibility of users to review the Terms periodically for any changes. Continued use of our platform after the posting of modifications constitutes acceptance of the revised Terms.
+                    </Text>
+                </Panel>
+            </Collapse>
+
+            <p className='text-center mt-3'>By registering on "The Brokers Hub" platform, you indicate your acceptance of these Terms and Conditions. If you do not agree with any part of these Terms, please refrain from using our services.</p>
+            <p className='text-center mt-3'>If you have any questions or concerns regarding these Terms and Conditions, please contact us for clarification.</p>
+            <p className='text-center mt-3'>Thank you for choosing "The Brokers Hub."</p>
+            <p className='text-center text-xl mt-3'>The Brokers Hub.</p>
+
+        </div>
+  )
+}
+
   
 const Navbar: React.FC = () =>{
   const { showAuthModal, setUserAuthenticated } = Context();
@@ -109,6 +180,12 @@ const Navbar: React.FC = () =>{
     setNavbarDraweropen(false);
   };
 
+  const {TermsModalVisible, setTermsModalVisible} = Context();
+
+  const handleModalClose = () => {
+      setTermsModalVisible(false);
+  };
+
   return (
     <>
       <Header className='px-4 sm:px-10'>
@@ -123,7 +200,7 @@ const Navbar: React.FC = () =>{
                   </Menu.Item>
               ))}
             </Menu>
-            
+
             <div className='ms-auto d-flex align-items-center'>
               <div className='onShort'>
                 {check() ?
@@ -148,6 +225,15 @@ const Navbar: React.FC = () =>{
         <NavbarDrawer navbarDraweropen={navbarDraweropen} closeNavbarDrawer={closeNavbarDrawer} />
 
       </Header>
+
+      <Modal
+        title="Terms and Conditions"
+        open={TermsModalVisible}
+        onCancel={handleModalClose}
+        footer={null}
+      >
+        <TerAndC />
+      </Modal>
     </>
   )
 }
