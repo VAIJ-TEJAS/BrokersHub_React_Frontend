@@ -16,7 +16,13 @@ const { Option } = Select;
 
 type TabPosition = 'left' | 'top';
 
-const UpdateUserForm = () => {
+interface updateFormProps{
+  handleUpdateCancel: () => void;
+}
+
+const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
+  const navigate = useNavigate();
+
   const [form] = Form.useForm();
   const [userData, setUserData] = useState({
     id: 0,
@@ -46,6 +52,8 @@ const UpdateUserForm = () => {
       })
       .then(_response => {
         localStorage.setItem('share-coupon-user', JSON.stringify(_response.data))
+        handleUpdateCancel();
+        navigate('/profile')
         message.success("Your profile has been updated")
       })
       .catch(_error => {
@@ -82,7 +90,7 @@ const UpdateUserForm = () => {
         <Form.Item
           name="phone"
           label="Phone"
-          rules={[{ required: true, message: 'Please enter your phone number!' }]}
+          rules={[{ required: true, message: 'Please enter your phone number!' }, { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' }]}
         >
           <Input />
         </Form.Item>
@@ -331,7 +339,7 @@ const ProfilePage: React.FC = () => {
         footer={null}
         className='property-modal'
       >
-        <UpdateUserForm />
+        <UpdateUserForm handleUpdateCancel={handleUpdateCancel} />
       </Modal>
     </Layout>
   );
