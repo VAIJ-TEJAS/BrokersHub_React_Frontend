@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select } from 'antd';
+import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
+import { EditOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import ItemCard from '../components/ItemCard';
@@ -18,6 +19,7 @@ type TabPosition = 'left' | 'top';
 const UpdateUserForm = () => {
   const [form] = Form.useForm();
   const [userData, setUserData] = useState({
+    id: 0,
     first_name: '',
     last_name: '',
     phone: '',
@@ -30,21 +32,26 @@ const UpdateUserForm = () => {
     const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
     if (storedUserData) {
       setUserData(storedUserData);
-      console.log(userData);
       form.setFieldsValue(storedUserData); // Initialize form fields with user data
     }
   }, []);
 
-  const handleSubmit = async (values: any) => {
-    try {
+  const handleSubmit = async (value: any) => {
       // Make PUT request to update user data
-      const response = await axios.put('/api/update-user', values);
-      console.log('User data updated successfully:', response.data);
+      await axios.patch(`https://13.232.115.59/user/${userData.id}/`, value, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
+        },
+      })
+      .then(_response => {
+        localStorage.setItem('share-coupon-user', JSON.stringify(_response.data))
+        message.success("Your profile has been updated")
+      })
+      .catch(_error => {
+        message.error("Error updating profile.")
+      })
       // Optionally, you can handle success response here
-    } catch (error) {
-      console.error('Error updating user data:', error);
-      // Optionally, you can handle error response here
-    }
   };
 
   return (
@@ -215,53 +222,56 @@ const ProfilePage: React.FC = () => {
             >
               <TabPane className='py-5 flex justify-center' tab={<span className=''>Profile</span>} key={'1'}>
                 <div className="bg-white overflow-hidden rounded-lg border sm:w-4/5 lg:w-3/5">
+                  <div className='flex items-center justify-between'>
                     <div className="px-4 py-4 sm:px-6">
-                          <h3 className="text-lg leading-6 font-medium text-gray-900">
-                              Personal Information
-                          </h3>
-                          <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                              This is some information about the user.
-                          </p>
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">
+                          Personal Information
+                      </h3>
+                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                          This is some information about the user.
+                      </p>
                     </div>
-                    <div className="border-t border-gray-200 px-4 py-4 lg:p-0">
-                          <dl className="sm:divide-y sm:divide-gray-200">
-                              <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                  <dt className="text-sm font-medium text-gray-500">
-                                      Full name
-                                  </dt>
-                                  <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {user?.first_name} {user?.last_name}
-                                  </dd>
-                              </div>
-                              <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                  <dt className="text-sm font-medium text-gray-500">
-                                      Email address
-                                  </dt>
-                                  <dd className=" text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {user?.email}
-                                  </dd>
-                              </div>
-                              <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                  <dt className="text-sm font-medium text-gray-500">
-                                      Phone number
-                                  </dt>
-                                  <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {user?.phone}
-                                  </dd>
-                              </div>
-                              <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                  <dt className="text-sm font-medium text-gray-500">
-                                      Address
-                                  </dt>
-                                  <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {user?.city}, {user?.state}
-                                  </dd>
-                              </div>
-                              {/* <div className="py-3 sm:py-5 w-full"> */}
-                              {/* </div> */}
-                                <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
-                          </dl>
-                    </div>
+                    <Button icon={<EditOutlined />} className='me-4' onClick={() => {setUpdatemMdalVisible(true)}} size='large'></Button>
+                  </div>
+                  <div className="border-t border-gray-200 px-4 py-4 lg:p-0">
+                    <dl className="sm:divide-y sm:divide-gray-200">
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                Full name
+                            </dt>
+                            <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              {user?.first_name} {user?.last_name}
+                            </dd>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                Email address
+                            </dt>
+                            <dd className=" text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              {user?.email}
+                            </dd>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                Phone number
+                            </dt>
+                            <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              {user?.phone}
+                            </dd>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                Address
+                            </dt>
+                            <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                              {user?.city}, {user?.state}
+                            </dd>
+                        </div>
+                        {/* <div className="py-3 sm:py-5 w-full"> */}
+                        {/* </div> */}
+                          <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
+                    </dl>
+                  </div>
                 </div>
               </TabPane>
 
