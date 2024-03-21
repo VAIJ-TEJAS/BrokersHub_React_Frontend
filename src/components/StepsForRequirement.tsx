@@ -24,7 +24,7 @@ const StepsForRequirement: React.FC = () => {
       image: step1,
     },
     {
-      title: "Review your information from card",
+      title: "Review information",
       content: "",
       image: step2,
     },
@@ -70,10 +70,19 @@ const StepsForRequirement: React.FC = () => {
         <div className="container-lg mt-4 w-100">
             <div className="lg:block hidden">
                 <Steps current={currentStep}>
-                {steps.map((item, index) => (
+                  {steps.map((item, index) => (
                     <Step key={index} title={item.title} className="my-4" />
-                    ))}
+                  ))}
                 </Steps>
+            </div>
+            <div className="lg:hidden block">
+              <div className="flex justify-center items-center">
+                <Steps className="w-72" current={currentStep} direction="vertical">
+                  {steps.map((item, index) => (
+                    <Step key={index} title={item.title} className="my-2" />
+                  ))}
+                </Steps>
+              </div>
             </div>
         </div>
 
