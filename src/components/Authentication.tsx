@@ -24,12 +24,14 @@ interface OtpProps {
     handleLogin: (email: string, password:string) => void;
     closeOtpBox: () => void;
     method: string;
+    email: string;
 }
 
 interface RegisterenticationProps {
     defaultTab?: string | null;
     sendOtp: (email: string) => void;
     openOtpBox: (meth: string) => void;
+    setTheEmail: (meth: string) => void;
 }
 
 interface InputEmailProps {
@@ -37,6 +39,7 @@ interface InputEmailProps {
     closeInputEmailBox: () => void;
     sendOtp: (email: string) => void;
     openOtpBox: (meth: string) => void;
+    setTheEmail: (meth: string) => void;
 }
 
 interface InputPassProps {
@@ -128,7 +131,7 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) 
     );
 };
 
-const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method}) => {
+const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, email}) => {
     const { setPasswordBox, passwordBox} = Context();
     const [otp, setOtp] = useState('');
   
@@ -194,7 +197,7 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method}) 
                         <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
                     </div>
                     <Form layout="vertical" className='flex justify-center flex-col'>
-                        <Form.Item label={<div>Enter OTP</div>}>
+                        <Form.Item label={<div>Enter OTP sent on mail <strong>{email}</strong></div>}>
                             <Input value={otp} onChange={handleOtpChange} />
                         </Form.Item>
                         <Form.Item className='flex justify-center'>
@@ -214,7 +217,7 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method}) 
     );
 };
 
-const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, sendOtp}) => {
+const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, sendOtp, setTheEmail}) => {
 
     const [username, setUsername] = useState('');
 
@@ -222,6 +225,7 @@ const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, s
       console.log('Received values:', values);
       localStorage.setItem('theBrokerHub-username', username);
       sendOtp(username)
+      setTheEmail(username)
       openOtpBox('forgotPass')
     };
 
@@ -384,7 +388,7 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
     );
 }
 
-const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
+const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTheEmail}) => {
 
   const {setTermsModalVisible} = Context();
 
@@ -6670,6 +6674,7 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
         };
         localStorage.setItem('share-coupon-user', JSON.stringify(data))
         sendOtp(email)
+        setTheEmail(email)
         openOtpBox('register');
     };
 
@@ -6888,6 +6893,7 @@ const Autentication: React.FC = () => {
 
     const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
+    const [Email, setEmail] = useState<string>('');
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -6895,6 +6901,10 @@ const Autentication: React.FC = () => {
         setActiveTab(key);
         console.log(activeTab);
     };
+
+    const setTheEmail = (email: string) => {
+        setEmail(email);
+    }
 
     const sendOtp = async (email: string) => {
         
@@ -6957,9 +6967,9 @@ const Autentication: React.FC = () => {
     return (
         <div className='w-full flex flex-col justify-center items-center'>
             {otpPageOpen ?
-                <OtpVerification method={method} handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
+                <OtpVerification email={Email} method={method} handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
                 inputEmailPageOpen ?
-                    <InputEmail sendOtp={sendOtp} openOtpBox={openOtpBox} closeInputEmailBox={closeInputEmailBox} />:
+                    <InputEmail setTheEmail={setTheEmail} sendOtp={sendOtp} openOtpBox={openOtpBox} closeInputEmailBox={closeInputEmailBox} />:
                     <>
                         <div className='font-semibold text-3xl mt-5'>
                             BrokerHub
@@ -6989,7 +6999,7 @@ const Autentication: React.FC = () => {
                                     }
                                     key="2"
                                 >
-                                    <Register sendOtp={sendOtp} openOtpBox={openOtpBox} />
+                                    <Register setTheEmail={setTheEmail} sendOtp={sendOtp} openOtpBox={openOtpBox} />
                                 </TabPane>
                             </Tabs>
                         </div>
