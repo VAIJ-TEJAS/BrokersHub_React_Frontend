@@ -7,6 +7,7 @@ import axios from 'axios';
 import listingLogo from '../assets/images/listingBackground.jpg'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
+import Navbar from '../components/Navbar';
 
 const { Content } = Layout;
 
@@ -57,6 +58,7 @@ const RequirementListingPage: React.FC = () => {
   return (
     <Layout className="layout">
       <Layout>
+        <Navbar />
         <Layout className='d-flex align-items-center'>
           <Content
             className="site-layout-background w-full"

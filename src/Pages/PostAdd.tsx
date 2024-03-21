@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
 import { Context } from '../context/context.provider';
+import Navbar from '../components/Navbar';
 
 // [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
@@ -6527,7 +6528,7 @@ const PostAdd:React.FC = () => {
 
     return (
         <>
-
+            <Navbar />
             <div className='d-flex justify-content-center bg-[#F5F5F5]'>
                     <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form

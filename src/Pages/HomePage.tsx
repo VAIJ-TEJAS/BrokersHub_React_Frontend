@@ -7,6 +7,7 @@ import carousel_image_2 from "../assets/images/carousel_image_2.jpg";
 import carousel_image_3 from "../assets/images/carousel_image_3.jpg";
 import "./HomePage.css";
 import { Context } from '../context/context.provider';
+import Navbar from '../components/Navbar';
 
 
 const Hero: React.FC = () => {
@@ -173,6 +174,7 @@ const Requirement: React.FC = () => {
 const HomePage: React.FC = () => {
   return (
     <>
+      <Navbar />
       <Hero />
       <OutServices />
       <Referral />

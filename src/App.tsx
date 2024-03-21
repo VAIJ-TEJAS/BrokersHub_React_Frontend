@@ -27,7 +27,7 @@ function App() {
         >
           <Autentication />
         </Modal>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />

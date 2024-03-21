@@ -8,6 +8,7 @@ import '../components/Navbar.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
 import { Context } from '../context/context.provider';
+import Navbar from '../components/Navbar';
 
 interface OptionType {
     value: string;
@@ -6468,7 +6469,7 @@ const PostRequirement:React.FC = () => {
 
     return (
         <>
-
+            <Navbar />
             <div className='d-flex justify-content-center bg-[#F5F5F5]'>
                     <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
@@ -6534,9 +6535,7 @@ const PostRequirement:React.FC = () => {
 
                             {
                                 formik.values.state && 
-                                <Form.Item  label='City' rules={[
-                                    { required: true, message: 'Please select a city.' }
-                                ]}>
+                                <Form.Item  label='City' rules={[{ required: true, message: 'Please select a city.' }]}>
                                     <Select
                                         showSearch
                                         placeholder="Select a person"
