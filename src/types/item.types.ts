@@ -6,7 +6,7 @@ export interface Item {
     description: string,
     contact: string,
     transaction_type: string,
-    price: string,
+    // price: string,
     downpayment: string,
     ratio_x: string,
     ratio_y: string,

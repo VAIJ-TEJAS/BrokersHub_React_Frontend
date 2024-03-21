@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, InputNumber, Button, Select, Upload, Alert, message } from 'antd';
+import { Form, Input, Button, Select, Upload, Alert, message } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import { useEffect, useState } from 'react';
@@ -6287,7 +6287,7 @@ const PostAdd:React.FC = () => {
 
         formik.resetForm({
             values: {
-                monthly_rent: '',
+                monthly_rent: '0',
                 image: null,
                 title: 'Name',
                 description: 'Describe your requirement',
@@ -6297,7 +6297,7 @@ const PostAdd:React.FC = () => {
                 budget: '0',
                 transaction_type: 'Sell',
                 price: '',
-                downpayment: '',
+                downpayment: '0',
                 ratio_x: '0',
                 ratio_y: '0',
                 area: 0,
@@ -6307,7 +6307,7 @@ const PostAdd:React.FC = () => {
 
     const formik = useFormik({
         initialValues: {
-            monthly_rent: '',
+            monthly_rent: '0',
             image: null,
             title: 'Name',
             description: 'Describe your requirement',
@@ -6317,7 +6317,7 @@ const PostAdd:React.FC = () => {
             budget: '0',
             transaction_type: 'Sell',
             price: '',
-            downpayment: '',
+            downpayment: '0',
             ratio_x: '0',
             ratio_y: '0',
             area: 0,
@@ -6330,6 +6330,31 @@ const PostAdd:React.FC = () => {
             if (!token) {
                 showAuthModal()
                 return
+            }
+
+            if(values.title == '' || values.contact == '' || values.city == '' || values.state == '' || values.description == '' || values.area.toString() == '' ) {
+                message.error("Please provide all details.")
+                return;
+            }
+            if ( Number.isNaN(parseInt(values.contact)) || values.contact.length !== 10) {
+                message.error("Please enter a valid contact.")
+                return;
+            }
+            if ( Number.isNaN(values.area) || values.area <= 0) {
+                message.error("Please enter a valid area.")
+                return;
+            }
+            if (values.transaction_type == 'Sell' && parseInt(values.budget) <= 0) {
+                message.error("Please enter a valid price.")
+                return;
+            }
+            if (values.transaction_type == 'Conversion' && (parseInt(values.downpayment) <= 0 || parseInt(values.ratio_x) < 0 || parseInt(values.ratio_x) > 100)) {
+                message.error("Please enter a valid conversion details.")
+                return;
+            }
+            if (values.transaction_type == 'Rent' && parseInt(values.monthly_rent) <= 0) {
+                message.error("Please enter a valid rent price.")
+                return;
             }
 
             const formData = new FormData();
@@ -6536,14 +6561,15 @@ const PostAdd:React.FC = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name="Title"
                                 label='Title' 
                                 rules={[
                                     { required: true, message: 'Please enter the title.' }
                                 ]}
                             >
                                 <Input
+                                    // defaultValue={"hello"}
                                     placeholder='Name'
+                                    value={formik.values.title}
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
                                     }}
@@ -6551,7 +6577,6 @@ const PostAdd:React.FC = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name="Contact"
                                 label='Contact'
                                 rules={[
                                     { required: true, message: 'Please input your phone number!' },
@@ -6567,7 +6592,6 @@ const PostAdd:React.FC = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name="state"
                                 label='State'
                                 rules={[
                                     { required: true, message: 'Please select a state.' }
@@ -6595,7 +6619,6 @@ const PostAdd:React.FC = () => {
                             {
                                 formik.values.state && 
                                 <Form.Item
-                                    name={"city"}
                                     label='City'
                                     rules={[
                                         { required: true, message: 'Please select a city.' }
@@ -6623,7 +6646,6 @@ const PostAdd:React.FC = () => {
                             }
 
                             <Form.Item
-                                name={"desc"}
                                 label='Description'
                                 rules={[{ required: true, message: 'Please enter the description!' }]}
                             >
@@ -6639,20 +6661,22 @@ const PostAdd:React.FC = () => {
                             </Form.Item>
 
                             <Form.Item
-                                name="area"
-                                label='Area'
+                                label='Area (In sqft)'
+                                rules={[{ required: true, message: 'Please enter the requirement area!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid area' }]}
                             >
                                 <Input
+                                    value={formik.values.area}
                                     placeholder='In sqft'
-                                    onChange={(e) => {
-                                        formik.setFieldValue('area', e.target.value);
+                                    onChange={(e) => {if (!Number.isNaN(parseInt(e.target.value))) {
+                                        formik.setFieldValue('area', parseInt(e.target.value));
+                                    }
                                     }}
                                 />
                             </Form.Item>
 
                             <Form.Item
                                 label='Transaction Type'
-                                rules={[{ required: true, message: 'Please enter the mode!' }]}
+                                rules={[{ required: true, message: 'Please select the type!' }]}
                             >
                                 <Select
                                     style={{ width: 120 }}
@@ -6672,11 +6696,13 @@ const PostAdd:React.FC = () => {
                                 formik.values.transaction_type == 'Sell' &&
                                 <Form.Item
                                     label='Price'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the price!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
                                         onChange={(e) => {
-                                            formik.setFieldValue('budget', e.target.value);
+                                            if (!Number.isNaN(parseInt(e.target.value))) {
+                                                formik.setFieldValue('budget', parseInt(e.target.value));
+                                            }
                                         }}
                                         value={formik.values.budget}
                                     />
@@ -6686,11 +6712,13 @@ const PostAdd:React.FC = () => {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
                                     label='Down Payment'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
                                         onChange={(e) => {
-                                            formik.setFieldValue('downpayment', e.target.value);
+                                            if (!Number.isNaN(parseInt(e.target.value))) {
+                                                formik.setFieldValue('downpayment', parseInt(e.target.value));
+                                            }
                                         }}
                                         value={formik.values.downpayment}
                                     />
@@ -6700,20 +6728,23 @@ const PostAdd:React.FC = () => {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
                                     label='Ratio'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the ratio!' },{ min: 0, message: 'ratio must be at least 0' },
+                                    { max: 100, message: 'ratio must be at most 100' },]}
                                 >
-                                    <InputNumber
-                                    className='me-2'
+                                    <Input
+                                    className='me-2 w-20'
                                         min={0}
                                         max={100}
-                                        onChange={(value: any) => {
-                                            formik.setFieldValue('ratio_x', value.toString());
-                                            formik.setFieldValue('ratio_y', (100 - parseInt(value)).toString());
+                                        onChange={(e: any) => {
+                                            if (!Number.isNaN(parseInt(e.target.value))) {
+                                                formik.setFieldValue('ratio_x', e.target.value);
+                                                formik.setFieldValue('ratio_y', (100 - parseInt(e.target.value)).toString());
+                                            }
                                         }}
                                         value={parseInt(formik.values.ratio_x)}
                                     /> : 
-                                    <InputNumber
-                                        className='ms-2'
+                                    <Input
+                                        className='ms-2 w-20'
                                         min={0}
                                         max={100}
                                         disabled
@@ -6729,11 +6760,13 @@ const PostAdd:React.FC = () => {
                                 formik.values.transaction_type == 'Rent' &&
                                 <Form.Item
                                     label='Monthly Rent'
-                                    rules={[{ required: true, message: 'Please enter the budget!' }]}
+                                    rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
                                         onChange={(e) => {
-                                            formik.setFieldValue('monthly_rent', e.target.value);
+                                            if (!Number.isNaN(parseInt(e.target.value))) {
+                                                formik.setFieldValue('monthly_rent', parseInt(e.target.value));
+                                            }
                                         }}
                                         value={formik.values.monthly_rent}
                                     />
@@ -6757,7 +6790,6 @@ const PostAdd:React.FC = () => {
                                             id: 0,
                                             monthly_rent: formik.values.monthly_rent,
                                             contact: formik.values.contact,
-                                            price: formik.values.price,
                                             downpayment: formik.values.downpayment,
                                             ratio_y: formik.values.ratio_x,
                                             image: imageURL,

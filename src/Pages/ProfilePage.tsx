@@ -1,17 +1,115 @@
 import React, {useEffect, useState} from 'react';
-import { Modal, Empty, Button  } from 'antd';
-import { Layout } from 'antd';
+import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select } from 'antd';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
-import axios from 'axios';
-import { Tabs } from 'antd';
-import { useParams, useNavigate } from 'react-router-dom';
 import TabPane from 'antd/es/tabs/TabPane';
 import { Item } from '../types/item.types';
 import { User } from '../types/user.types';
+
 const { Content } = Layout;
+const { Option } = Select;
 
 type TabPosition = 'left' | 'top';
+
+const UpdateUserForm = () => {
+  const [form] = Form.useForm();
+  const [userData, setUserData] = useState({
+    first_name: '',
+    last_name: '',
+    phone: '',
+    state: '',
+    city: '',
+  });
+
+  useEffect(() => {
+    // Fetch user data from localStorage
+    const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
+    if (storedUserData) {
+      setUserData(storedUserData);
+      console.log(userData);
+      form.setFieldsValue(storedUserData); // Initialize form fields with user data
+    }
+  }, []);
+
+  const handleSubmit = async (values: any) => {
+    try {
+      // Make PUT request to update user data
+      const response = await axios.put('/api/update-user', values);
+      console.log('User data updated successfully:', response.data);
+      // Optionally, you can handle success response here
+    } catch (error) {
+      console.error('Error updating user data:', error);
+      // Optionally, you can handle error response here
+    }
+  };
+
+  return (
+    <div className="mt-4 px-5 bg-white">
+      <h2 className="text-xl font-bold mb-4">Update User Details</h2>
+      <Form
+        form={form}
+        name="update_user"
+        initialValues={userData}
+        onFinish={handleSubmit}
+      >
+        <Form.Item
+          name="first_name"
+          label="First Name"
+          rules={[{ required: true, message: 'Please enter your first name!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="last_name"
+          label="Last Name"
+          rules={[{ required: true, message: 'Please enter your last name!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="phone"
+          label="Phone"
+          rules={[{ required: true, message: 'Please enter your phone number!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="state"
+          label="State"
+          rules={[{ required: true, message: 'Please select your state!' }]}
+        >
+          <Select>
+            <Option value="SomeState">SomeState</Option>
+            {/* Add more state options as needed */}
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          name="city"
+          label="City"
+          rules={[{ required: true, message: 'Please select your city!' }]}
+        >
+          <Select>
+            <Option value="SomeCity">SomeCity</Option>
+            {/* Add more city options as needed */}
+          </Select>
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="w-full">
+            Update Details
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
 
 const ProfilePage: React.FC = () => {
 
@@ -22,12 +120,17 @@ const ProfilePage: React.FC = () => {
   const [mode, setMode] = useState<TabPosition>('left');
   const [reqitems, setReqItems] = useState<Item[]>([]);
   const [additems, setAddItems] = useState<Item[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [ExpandmMdalVisible, setExpandmMdalVisible] = useState(false);
+  const [UpdatemMdalVisible, setUpdatemMdalVisible] = useState(false);
   
   const handleCancel = () => {
     console.log('Cancelling')
-    setModalVisible(false)
+    setExpandmMdalVisible(false)
     navigate('/profile/');
+  };
+
+  const handleUpdateCancel = () => {
+    setUpdatemMdalVisible(false)
   };
   
   // Make the GET request with Axios
@@ -54,7 +157,7 @@ const ProfilePage: React.FC = () => {
         });
         setAddItems(response.data);
         if (postId) {
-          setModalVisible(true);
+          setExpandmMdalVisible(true);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -70,7 +173,7 @@ const ProfilePage: React.FC = () => {
         });
         setReqItems(response.data);
         if (postId) {
-          setModalVisible(true);
+          setExpandmMdalVisible(true);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -201,13 +304,23 @@ const ProfilePage: React.FC = () => {
 
       {postId &&
         <Modal
-        open={modalVisible}
+        open={ExpandmMdalVisible}
         onCancel={handleCancel}
         footer={null}
         className='property-modal'
         >
         <ExpandCard page="" handleCancel={handleCancel} item={reqitems.find(item => item.id === parseInt(postId))!}/>
       </Modal>}
+      
+      {/* updating user data modal  */}
+      <Modal
+        open={UpdatemMdalVisible}
+        onCancel={handleUpdateCancel}
+        footer={null}
+        className='property-modal'
+      >
+        <UpdateUserForm />
+      </Modal>
     </Layout>
   );
 };

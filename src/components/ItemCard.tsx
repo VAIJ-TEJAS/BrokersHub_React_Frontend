@@ -56,10 +56,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
   };
 
   const shareLink = async () => {
-    // const currentUrl = window.location.href;
-
-    // Check if the URL contains the requirement
-    // const requirementPresent = currentUrl.includes('add');
     const shareData = {
       title: 'Your Website Title',
       text: 'Check out this awesome website!',
@@ -75,15 +71,16 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
       const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
-      // Add more social media platform URLs as needed
+      const instagramUrl = `https://www.instagram.com`;
 
       // Open the share URLs in a new tab/window
-      window.open(whatsappUrl);
-      window.open(facebookUrl);
-      window.open(twitterUrl);
-      // Open more social media platform URLs as needed
+      window.open(whatsappUrl, '_blank');
+      window.open(facebookUrl, '_blank');
+      window.open(twitterUrl, '_blank');
+      window.open(instagramUrl, '_blank');
     }
-  };
+};
+
 
 
   return (
@@ -131,6 +128,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           onClose={() => setSuccess("")}
         />
       )}
+
       <div>
         <div className="absolute top-1 right-1">
         <Button
@@ -176,7 +174,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         
         <div className="pe-3">
           <Meta
-            title={<h2 className="fs-5">{item.title}</h2>}
+            title={<h2 className="fs-5">{<div>{item.title.length > 25 ? item.title.substring(0, 22)+'...' : item.title}</div>}</h2>}
             description={<div className="">{item.description}</div>}
             className="mb-2"
           />
@@ -200,17 +198,11 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           </Button>
         ) : 
         (<>
-          <Button type="primary" className="w-4/5">
+          <Button type="primary" className="w-full">
             <Link to={`/${page}/${item.id}`} className="w-full block">
               View Details
             </Link>
           </Button>
-          <Button
-            type="primary"
-            className="absolute right-4 px-3 w-auto"
-            onClick={shareLink}
-            icon={<ShareAltOutlined />}
-          />
           </>
         )}
       </div>

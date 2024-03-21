@@ -10,6 +10,30 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const [userAuthenticated, setUserAuthenticated] = useState<boolean>(!!localStorage.getItem('thebrokershub-access-token'))
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [method, setMethod] = useState<string>('1');
+  const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
+  const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
+  const [passwordBox, setPasswordBox] = useState(false);
+
+
+  const openOtpBox = (meth: string) => {
+    setInputEmailPageOpen(false)
+    setOtpPageOpen(true);
+    setMethod(meth)
+  }
+
+  const closeOtpBox = () => {
+    setOtpPageOpen(false);
+  }
+
+  const openInputEmailBox = () => {
+    setInputEmailPageOpen(true);
+    setOtpPageOpen(false)
+  }
+
+  const closeInputEmailBox = () => {
+    setInputEmailPageOpen(false);
+  }
 
   const showAuthModal = () => {
     setAuthModalOpen(true);
@@ -17,9 +41,22 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const handleAuthCancel = () => {
     setAuthModalOpen(false)
+    setInputEmailPageOpen(false)
+    setOtpPageOpen(false)
+    setPasswordBox(false)
   };
 
   const contextValue: any = {
+    passwordBox,
+    setPasswordBox,
+    method,
+    openOtpBox,
+    closeOtpBox,
+    openInputEmailBox,
+    closeInputEmailBox,
+    otpPageOpen,
+    setOtpPageOpen,
+    inputEmailPageOpen,
     userAuthenticated,
     setUserAuthenticated,
     authModalOpen, 

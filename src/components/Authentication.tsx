@@ -96,7 +96,7 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) 
                     name="Password"
                     rules={[
                         { required: true, message: 'Please input your password!' },
-                        // { min: 6, message: 'Password must be at least 6 characters!' },
+                        { min: 6, message: 'Password must be at least 6 characters!' },
                     ]}
                 >
                     <Input.Password
@@ -130,8 +130,8 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) 
 };
 
 const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method}) => {
+    const { setPasswordBox, passwordBox} = Context();
     const [otp, setOtp] = useState('');
-    const [passwordBox, setPasswordBox] = useState(false);
   
     const handleOtpChange = (e: any) => {
       setOtp(e.target.value);
@@ -6703,8 +6703,6 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
                         name="first"
                         rules={[
                             { required: true, message: 'Please input your first name!' },
-                            { min: 4, message: 'Username must be at least 4 characters!' },
-                            { max: 20, message: 'Username cannot exceed 20 characters!' },
                         ]}
                     >
                         <Input
@@ -6720,7 +6718,6 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
                         name="last"
                         rules={[
                             { required: true, message: 'Please input your last name!' },
-                            { min: 4, message: 'Username must be at least 4 characters!' },
                         ]}
                     >
                         <Input
@@ -6964,11 +6961,8 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp}) => {
 
 const Autentication: React.FC = () => {
 
-    const { setUserAuthenticated, handleAuthCancel } = Context();
+    const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
-    const [method, setMethod] = useState<string>('1');
-    const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
-    const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
@@ -7001,27 +6995,6 @@ const Autentication: React.FC = () => {
                 message.error("Some error occurred")
             });
     };
-
-    const openOtpBox = (meth: string) => {
-        setInputEmailPageOpen(false)
-        setOtpPageOpen(true);
-        setMethod(meth)
-    }
-
-    const closeOtpBox = () => {
-        console.log("Closing")
-        setOtpPageOpen(false);
-    }
-
-    const openInputEmailBox = () => {
-        console.log("Closing")
-        setInputEmailPageOpen(true);
-        setOtpPageOpen(false)
-    }
-
-    const closeInputEmailBox = () => {
-        setInputEmailPageOpen(false);
-    }
 
     const handleLogin = async (email: string, password: string) => {
         const url = 'https://13.232.115.59/auth/';

@@ -115,14 +115,15 @@ const Navbar: React.FC = () =>{
         <div className='position-relative top-50 start-50 translate-middle'>
           <div className='my-auto d-flex flex-row justify-content-center align-items-center text-light'>
             <Link to="/home" className='my-auto me-5 text-lg sm:text-xl'><strong>The Brokers Hub</strong></Link>
-            <div></div>
+            
             <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'680px'}}>
               {menuItems.map(item => (
-                  <Menu.Item key={item.key} className={`${location.pathname === item.link ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                  <Menu.Item key={item.key} className={`${location.pathname.includes(item.link) ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
                       <Link to={item.link}>{item.label}</Link>
                   </Menu.Item>
               ))}
             </Menu>
+            
             <div className='ms-auto d-flex align-items-center'>
               <div className='onShort'>
                 {check() ?
