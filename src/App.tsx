@@ -17,7 +17,7 @@ function App() {
   const { authModalOpen, handleAuthCancel } = Context();
 
   return (
-    <div className='min-h-full flex flex-col justify-between'>
+    <div className='min-h-full flex flex-col justify-between bg-[#F5F5F5]'>
       <Router>
         <Modal
           open={authModalOpen}

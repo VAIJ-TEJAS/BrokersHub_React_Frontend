@@ -182,14 +182,31 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <p className="mb-2">
           Type: <span className="text-secondary">{item.transaction_type}</span>
         </p>
-        {page !== "addslisting" && page !== "requirementslisting" ? (
-          <div className="flex justify-between">
-            <Button
-              type="primary"
-              className="w-4/5 relative bottom-0 right-0"
-              onClick={() => setModalVisible(true)}
-              >
-              View Details
+        
+        {/* { !location.pathname.includes('post') && */}
+          
+          {page !== "addslisting" && page !== "requirementslisting" ? (
+            <div className={`flex justify-between ${location.pathname.includes('post') ? 'hidden' : ''}`}>
+              <Button
+                type="primary"
+                className={`${location.pathname.includes('home') ? 'w-full' : 'w-4/5'}  relative bottom-0 right-0`}
+                onClick={() => setModalVisible(true)}
+                >
+                View Details
+              </Button>
+              <Button
+                type="primary"
+                className={`w-auto  justify-center items-center ${location.pathname.includes('home') ? 'hidden' : 'flex'}`}
+                onClick={shareLink}
+                icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
+              />
+            </div>
+          ) : 
+          (<div className={`flex justify-between ${location.pathname.includes('post') ? 'hidden' : ''}`}>
+            <Button type="primary" className="w-4/5">
+              <Link to={`/${page}/${item.id}`} className="w-full block">
+                View Details
+              </Link>
             </Button>
             <Button
               type="primary"
@@ -197,22 +214,9 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
               onClick={shareLink}
               icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
             />
-          </div>
-        ) : 
-        (<div className="flex justify-between">
-          <Button type="primary" className="w-4/5">
-            <Link to={`/${page}/${item.id}`} className="w-full block">
-              View Details
-            </Link>
-          </Button>
-          <Button
-            type="primary"
-            className="w-auto flex justify-center items-center"
-            onClick={shareLink}
-            icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
-          />
-          </div>
-        )}
+            </div>
+          )}
+        {/* } */}
       </div>
     </Card>
   );

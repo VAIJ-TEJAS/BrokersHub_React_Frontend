@@ -178,7 +178,7 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, e
                 closeOtpBox()
             })
             .catch(error => {
-                message.error(error.response.data.username === undefined ? "Some error occoured" : error.response.data.username )
+                message.error(error.response.data.error === undefined ? "Some error occoured" : "Invalid or expired OTP." )
                 console.error('Error found as:', error);
             });
     };

@@ -61,9 +61,6 @@
     min-width: 800px;
 }
 
-.addCardShower{
-    display: block;
-}
 
 .addCardDetails{
     width: 60%;
@@ -71,10 +68,6 @@
 
 
 @media (max-width: 850px) {
-    .addCardShower{
-        display: none;
-    }
-
     .addCardDetails{
         width: 100%;
     }

@@ -6470,16 +6470,16 @@ const PostRequirement:React.FC = () => {
     return (
         <>
             <Navbar />
-            <div className='d-flex justify-content-center bg-[#F5F5F5]'>
-                    <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+            <div className='h-full d-flex justify-content-center '>
+                    <div className=' bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
-                            className='p-5 pe-4 addCardDetails'
+                            className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
                         >
-                            <div className='text-4xl font-medium text-[#002766] mb-3'>Requirement Details</div>
+                            <div className='text-4xl font-medium text-[#002766] mb-5'>Requirement Details</div>
 
                             {error !== '' && (
                                 <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
@@ -6516,7 +6516,7 @@ const PostRequirement:React.FC = () => {
     ]}>
                                 <Select
                                     showSearch
-                                    placeholder="Select a person"
+                                    placeholder="Select a state"
                                     optionFilterProp="children"
                                     value={formik.values.state}
                                     onChange={(value) => {
@@ -6538,7 +6538,7 @@ const PostRequirement:React.FC = () => {
                                 <Form.Item  label='City' rules={[{ required: true, message: 'Please select a city.' }]}>
                                     <Select
                                         showSearch
-                                        placeholder="Select a person"
+                                        placeholder="Select a city"
                                         optionFilterProp="children"
                                         value={formik.values.city}
                                         onChange={(value) => {
@@ -6604,7 +6604,7 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Buy' &&
                                 <Form.Item
-                                    label='Budget'
+                                    label='Budget (₹)'
                                     rules={[{ required: true, message: 'Please enter the budget!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
@@ -6621,7 +6621,7 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
-                                    label='Down Payment'
+                                    label='Down Payment (₹)'
                                     rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
@@ -6670,7 +6670,7 @@ const PostRequirement:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Rent' &&
                                 <Form.Item
-                                    label='Monthly Rent'
+                                    label='Monthly Rent (₹)'
                                     rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
@@ -6692,7 +6692,7 @@ const PostRequirement:React.FC = () => {
                                 Submit
                             </Button>
                         </Form>
-                        <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
+                        <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
                                     page = "home"

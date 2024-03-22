@@ -6696,7 +6696,7 @@ const PostAdd:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Sell' &&
                                 <Form.Item
-                                    label='Price'
+                                    label='Price (₹)'
                                     rules={[{ required: true, message: 'Please enter the price!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
@@ -6712,7 +6712,7 @@ const PostAdd:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Conversion' &&
                                 <Form.Item
-                                    label='Down Payment'
+                                    label='Down Payment (₹)'
                                     rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
@@ -6760,7 +6760,7 @@ const PostAdd:React.FC = () => {
                             {
                                 formik.values.transaction_type == 'Rent' &&
                                 <Form.Item
-                                    label='Monthly Rent'
+                                    label='Monthly Rent (₹)'
                                     rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                                 >
                                     <Input
