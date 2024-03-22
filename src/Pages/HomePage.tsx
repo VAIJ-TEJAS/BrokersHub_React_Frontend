@@ -145,16 +145,16 @@ const Referral: React.FC = () => {
     } catch (error) {
       console.error('Error sharing:', error);
       // Fallback options for browsers that do not support Web Share API
-      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
-      const instagramUrl = `https://www.instagram.com`;
+      // const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
+      // const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+      // const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
+      // const instagramUrl = `https://www.instagram.com`;
 
-      // Open the share URLs in a new tab/window
-      window.open(whatsappUrl, '_blank');
-      window.open(facebookUrl, '_blank');
-      window.open(twitterUrl, '_blank');
-      window.open(instagramUrl, '_blank');
+      // // Open the share URLs in a new tab/window
+      // window.open(whatsappUrl, '_blank');
+      // window.open(facebookUrl, '_blank');
+      // window.open(twitterUrl, '_blank');
+      // window.open(instagramUrl, '_blank');
     }
 };
 

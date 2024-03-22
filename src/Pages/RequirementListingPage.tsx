@@ -56,47 +56,50 @@ const RequirementListingPage: React.FC = () => {
   
   
   return (
-    <Layout className="layout">
-      <Layout>
-        <Navbar />
-        <Layout className='d-flex align-items-center'>
-          <Content
-            className="site-layout-background w-full"
-            style={{
-              minHeight: 280,
-            }}
-          >
-            <div className='mb-5 w-full bg-cover bg-center ' style={{backgroundImage: `url(${listingLogo})`}}>
-              <div className='w-full d-flex flex-col items-center justify-center bg-[#0000008f]' style={{height: '450px'}}>
-                <p className='mb-4 text-center text-2xl text-white md:text-4xl sm:text-3xl' style={{fontFamily: 'Montserrat'}}>Find what you need, sell what you love - all in one place!</p>
-                <Filter page={'Requirement'} items={items} setFilteredItems={setFilteredItems} />
+    <div>
+      <Navbar />
+      <Layout className="layout">
+        <Layout>
+          <Layout className='d-flex align-items-center'>
+            <Content
+              className="site-layout-background w-full"
+              style={{
+                minHeight: 280,
+              }}
+            >
+              <div className='mb-5 w-full bg-cover bg-center ' style={{backgroundImage: `url(${listingLogo})`}}>
+                <div className='w-full d-flex flex-col items-center justify-center bg-[#0000008f]' style={{height: '450px'}}>
+                  <p className='mb-4 text-center text-2xl text-white md:text-4xl sm:text-3xl' style={{fontFamily: 'Montserrat'}}>Find what you need, sell what you love - all in one place!</p>
+                  <Filter page={'Requirement'} items={items} setFilteredItems={setFilteredItems} />
+                </div>
               </div>
-            </div>
 
-            <h1 className='text-center mb-3'>Requirements</h1>
+              <h1 className='text-center mb-3'>Requirements</h1>
 
-            <div className='d-flex flex-wrap justify-center'>
-              {filteredItems.map((item, index) => (
-                <ItemCard page="requirementslisting" key={index} item={item} />
-                ))}
-            </div>
+              <div className='d-flex flex-wrap justify-center'>
+                {filteredItems.map((item, index) => (
+                  <ItemCard page="requirementslisting" key={index} item={item} />
+                  ))}
+              </div>
 
-          </Content>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
 
-      {
-        postId &&
-        <Modal
-          open={modalVisible}
-          onCancel={handleCancel}
-          footer={null}
-          className='property-modal'
-        >
-          <ExpandCard page="requirements" handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
-        </Modal>
-      }
-    </Layout>
+        {
+          postId &&
+          <Modal
+            open={modalVisible}
+            onCancel={handleCancel}
+            footer={null}
+            className='property-modal'
+          >
+            <ExpandCard page="requirements" handleCancel={handleCancel} item={items.find(item => item.id === parseInt(postId))!}/>
+          </Modal>
+        }
+      </Layout>
+    </div>
+
   );
 };
 

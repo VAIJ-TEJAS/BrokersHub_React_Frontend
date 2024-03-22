@@ -6479,7 +6479,7 @@ const PostRequirement:React.FC = () => {
                             onFinish={formik.handleSubmit}
                             className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
                         >
-                            <div className='text-4xl font-medium text-[#002766] mb-5'>Requirement Details</div>
+                            <div className='sm:text-4xl text-2xl font-medium text-[#002766] mb-5'>Requirement Details</div>
 
                             {error !== '' && (
                                 <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />

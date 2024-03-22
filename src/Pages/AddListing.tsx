@@ -51,9 +51,9 @@ const AddListing: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <Layout className="layout">
         <Layout>
-          <Navbar />
           <Layout className='d-flex align-items-center'>
             <Content
               className="site-layout-background w-full"
