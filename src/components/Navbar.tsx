@@ -209,8 +209,8 @@ const Navbar: React.FC = () =>{
                   </Button>
                   </>:
                   <>
-                    <button className='me-3 btn btn-outline-primary' onClick={showAuthModal}>Login</button>
-                    <button className='btn btn-primary' onClick={showAuthModal}>Register</button>
+                    <Button type="primary" ghost className='me-3 ' onClick={showAuthModal}>Login</Button>
+                    <Button type="primary" className='' onClick={showAuthModal}>Register</Button>
                   </>
                 }
               </div>

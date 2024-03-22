@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Carousel, Button } from "antd";
+import { ShareAltOutlined } from "@ant-design/icons";
 import StepsForAdvertisement from "../components/StepsForAdvertisement";
 import StepsForRequirement from "../components/StepsForRequirement";
 import carousel_image_1 from "../assets/images/carousel_image_1.jpg";
@@ -8,6 +9,7 @@ import carousel_image_3 from "../assets/images/carousel_image_3.jpg";
 import "./HomePage.css";
 import { Context } from '../context/context.provider';
 import Navbar from '../components/Navbar';
+import { useParams } from 'react-router-dom';
 
 
 const Hero: React.FC = () => {
@@ -127,7 +129,46 @@ const OutServices: React.FC = () => {
 
 const Referral: React.FC = () => {
 
-  const { showAuthModal } = Context();
+  const { setref_code, userAuthenticated, showAuthModal } = Context();
+
+  const shareLink = async () => {
+    const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
+    const shareData = {
+      title: 'Your Website Title',
+      text: 'Check out this awesome website!',
+      url: `https://thebrokershub.in/home/${storedUserData.my_referral_code}`,
+    };
+
+    try {
+      await navigator.share(shareData);
+      console.log('Shared successfully');
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback options for browsers that do not support Web Share API
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
+      const instagramUrl = `https://www.instagram.com`;
+
+      // Open the share URLs in a new tab/window
+      window.open(whatsappUrl, '_blank');
+      window.open(facebookUrl, '_blank');
+      window.open(twitterUrl, '_blank');
+      window.open(instagramUrl, '_blank');
+    }
+};
+
+const { referral } = useParams();
+
+useEffect(() => {
+
+  if (referral && !userAuthenticated) {
+    console.log('Referral')
+    showAuthModal();
+    setref_code(referral)
+  }
+}, [])
+
 
   return (
     <>
@@ -138,7 +179,19 @@ const Referral: React.FC = () => {
         <div className="sm:p-5 p-3 referral-info">
           <h1 className="mb-5 text-primary font-montserrat">Earn by joining Our referral program</h1>
           <p>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium md:text-2xl text-xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
-          <Button className="mt-5" type='primary' size="large" onClick={showAuthModal}>Register</Button>
+          {userAuthenticated ?
+          <Button
+            type="primary"
+            size='large'
+            className={`mt-5`}
+            onClick={shareLink}
+            icon={<ShareAltOutlined className="" />}
+          >
+            Share Referral Code
+          </Button>
+          :
+            <Button className="mt-5" type='primary' size="large" onClick={showAuthModal}>Register</Button>
+          }
         </div>
       </div>
     </>

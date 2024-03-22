@@ -14,14 +14,14 @@ import { Context } from './context/context.provider'
 
 function App() {
 
-  const { authModalOpen, handleAuthCancel } = Context();
+  const { setref_code, authModalOpen, handleAuthCancel } = Context();
 
   return (
     <div className='min-h-full flex flex-col justify-between bg-[#F5F5F5]'>
       <Router>
         <Modal
           open={authModalOpen}
-          onCancel={handleAuthCancel}
+          onCancel={() => {handleAuthCancel(); setref_code('')}}
           footer={null}
         >
           <Autentication />
@@ -29,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to={"home"} />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/home/:referral" element={<HomePage />} />
           <Route path="/requirementslisting/:postId" element={<RequirementListingPage />} />
           <Route path="/requirementslisting/" element={<RequirementListingPage />} />
           <Route path="/addslisting/:postId" element={<AddListing/>} />

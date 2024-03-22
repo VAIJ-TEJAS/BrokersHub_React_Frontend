@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 
 // Create the context
 const MyContext = createContext<any | undefined>(undefined);
@@ -11,6 +11,7 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [userAuthenticated, setUserAuthenticated] = useState<boolean>(!!localStorage.getItem('thebrokershub-access-token'))
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [method, setMethod] = useState<string>('1');
+  const [ref_code, setref_code] = useState<string>('');
   const [otpPageOpen, setOtpPageOpen] = useState<boolean>(false);
   const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
   const [passwordBox, setPasswordBox] = useState(false);
@@ -41,14 +42,23 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
     setAuthModalOpen(true);
   };
 
+  useEffect(() => {
+
+    console.log(ref_code)
+  }, [ref_code])
+
   const handleAuthCancel = () => {
+    setref_code(' ')
     setAuthModalOpen(false)
     setInputEmailPageOpen(false)
     setOtpPageOpen(false)
     setPasswordBox(false)
+    console.log(ref_code)
   };
 
   const contextValue: any = {
+    setref_code,
+    ref_code,
     setTermsModalVisible,
     TermsModalVisible,
     passwordBox,

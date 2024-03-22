@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, ShareAltOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 import ItemCard from '../components/ItemCard';
@@ -209,6 +209,33 @@ const ProfilePage: React.FC = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const shareLink = async () => {
+    const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
+    const shareData = {
+      title: 'Your Website Title',
+      text: 'Check out this awesome website!',
+      url: `https://thebrokershub.in/home/${storedUserData.my_referral_code}`,
+    };
+
+    try {
+      await navigator.share(shareData);
+      console.log('Shared successfully');
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback options for browsers that do not support Web Share API
+      const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
+      const instagramUrl = `https://www.instagram.com`;
+
+      // Open the share URLs in a new tab/window
+      window.open(whatsappUrl, '_blank');
+      window.open(facebookUrl, '_blank');
+      window.open(twitterUrl, '_blank');
+      window.open(instagramUrl, '_blank');
+    }
+};
   
   return (
     <Layout className="layout">
@@ -275,8 +302,20 @@ const ProfilePage: React.FC = () => {
                               {user?.city}, {user?.state}
                             </dd>
                         </div>
-                        {/* <div className="py-3 sm:py-5 w-full"> */}
-                        {/* </div> */}
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">
+                                Referral Code
+                            </dt>
+                            <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            <Button
+                              type="primary"
+                              onClick={shareLink}
+                              icon={<ShareAltOutlined className="" />}
+                            >
+                              Share Referral Code
+                            </Button>
+                            </dd>
+                        </div>
                           <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
                     </dl>
                   </div>

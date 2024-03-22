@@ -390,7 +390,7 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
 
 const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTheEmail}) => {
 
-  const {setTermsModalVisible} = Context();
+  const {ref_code, setTermsModalVisible} = Context();
 
 
     const [firstName, setFirstName] = useState('');
@@ -399,7 +399,7 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
     const [state, setState] = useState('');
     const [city, setCity] = useState('Select City');
     const [phone, setPhone] = useState('');
-    const [referralCode, setReferralCode] = useState('');
+    const [referralCode, setReferralCode] = useState(ref_code);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -6667,7 +6667,7 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
             first_name: firstName,
             last_name: lastName,
             phone: phone,
-            referral_code: referralCode,
+            other_referral_code: referralCode,
             email: email,
             state: state,
             city: city,
@@ -6691,7 +6691,6 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
 
             <Form
                 name="basic"
-                initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
             >
@@ -6814,6 +6813,7 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
                     ]}
                 >
                     <Input
+                        defaultValue={referralCode} 
                         className='text-center rounded-none'
                         placeholder="Referral Code"
                         prefix={<UserOutlined className="site-form-item-icon" style={{ color: '#1890FF' }} />}
@@ -6976,7 +6976,7 @@ const Autentication: React.FC = () => {
                         </div>
                         <div className='m-5'>
                             <Tabs
-                                defaultActiveKey="1"
+                                defaultActiveKey="2"
                                 tabPosition="top"
                                 onChange={handleTabChange}
                                 centered
