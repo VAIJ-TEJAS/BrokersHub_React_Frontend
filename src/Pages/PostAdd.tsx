@@ -6529,15 +6529,15 @@ const PostAdd:React.FC = () => {
     return (
         <>
             <Navbar />
-            <div className='d-flex justify-content-center bg-[#F5F5F5]'>
-                    <div className='addMainContainer bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+            <div className='d-flex justify-content-center'>
+                    <div className='bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
                             onFinishFailed={onFinishFailed}
-                            className='p-5 pe-4 addCardDetails'
+                            className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
                         >
                             <div className='text-4xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
 
@@ -6782,7 +6782,7 @@ const PostAdd:React.FC = () => {
                                 Submit
                             </Button>
                         </Form>
-                        <div className='h-100 w-auto d-flex justify-content-center align-items-center bg-[#001529]'>
+                        <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
                             <div className='addCardShower'>
                                 <ItemCard
                                     page='home'
