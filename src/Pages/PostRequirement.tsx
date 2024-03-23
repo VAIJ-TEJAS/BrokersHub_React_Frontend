@@ -7,6 +7,7 @@ import axios from 'axios';
 import '../components/Navbar.css'
 import { useParams, useNavigate } from 'react-router-dom';
 import { Item } from '../types/item.types';
+import BackgroundImg from '../assets/images/1215543_7.jpg'
 import { Context } from '../context/context.provider';
 import Navbar from '../components/Navbar';
 
@@ -6470,8 +6471,9 @@ const PostRequirement:React.FC = () => {
     return (
         <>
             <Navbar />
-            <div className='h-full d-flex justify-content-center '>
-                    <div className=' bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+            {/* <div className='h-full d-flex justify-content-center '> */}
+            <div className='d-flex justify-content-center' style={{backgroundImage: `url(${BackgroundImg})`, backgroundSize:'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
+                    <div className=' bg-[#FFF] w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
