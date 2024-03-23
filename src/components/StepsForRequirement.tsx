@@ -68,14 +68,14 @@ const StepsForRequirement: React.FC = () => {
       className="postSteps-container align-items-center justify-content-center d-flex flex-column"
     >
         <div className="container-lg mt-4 w-100">
-            <div className="lg:block hidden">
-                <Steps current={currentStep}>
+            <div className="">
+                <Steps className="flex-row justify-center items-center" current={currentStep}>
                   {steps.map((item, index) => (
-                    <Step key={index} title={item.title} className="my-4" />
+                    <Step key={index} title={<div className="md:block md:w-auto w-0 hidden">{item.title}</div>} className="my-4" />
                   ))}
                 </Steps>
             </div>
-            <div className="lg:hidden block">
+            {/* <div className="lg:hidden block">
               <div className="flex justify-center items-center">
                 <Steps className="w-72" current={currentStep} direction="vertical">
                   {steps.map((item, index) => (
@@ -83,7 +83,7 @@ const StepsForRequirement: React.FC = () => {
                   ))}
                 </Steps>
               </div>
-            </div>
+            </div> */}
         </div>
 
         <div>
