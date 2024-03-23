@@ -7,6 +7,27 @@
   background-repeat: no-repeat;
 }
 
+.NavdropInseider{
+  transform: translate(-16px, -14px) !important;
+}
+
+.navDrops .ant-menu-title-content {
+  display: block;
+  height: 100%;
+}
+
+.navDrops .ant-menu-title-content a {
+  display: block;
+  height: 100%;
+}
+
+.NavdropInseider ul {
+  background-color: #001529 !important;
+}
+.NavdropInseider ul a {
+  color: white !important;
+}
+
 .slick-slider{
   height: 100%;
 }

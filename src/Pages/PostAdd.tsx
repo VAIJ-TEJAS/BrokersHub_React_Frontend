@@ -6546,7 +6546,7 @@ const PostAdd: React.FC = () => {
         <>
             <Navbar />
             <div className='d-flex justify-content-center' style={{backgroundImage: `url(${BackgroundImg})`, backgroundSize:'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
-                <div className='bg-[#FFF]  w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                <div className='bg-white/75  w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                     <Form
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 14 }}
@@ -6572,8 +6572,8 @@ const PostAdd: React.FC = () => {
                             getValueFromEvent={normFile}
                             rules={[{ required: true, message: 'Please upload an image!' }]}
                         >
-                            <Upload name='image' {...imageUploadProps}>
-                                <Button icon={<UploadOutlined />}>Upload</Button>
+                            <Upload  name='image' {...imageUploadProps}>
+                                <Button className='bg-[white]' icon={<UploadOutlined />}>Upload</Button>
                             </Upload>
                         </Form.Item>
 

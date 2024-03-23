@@ -120,7 +120,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
 
       <div>
         <div className="absolute top-1 right-1">
-        {(page === "requirements" || page === "advertisements") && (
+        {(location.pathname.includes('profile')) && (
           <div>
             <Button
               type="primary"

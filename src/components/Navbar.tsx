@@ -234,8 +234,8 @@ const Navbar: React.FC = () =>{
                   <Menu.Item key={menuItems[0].key} className={`${location.pathname.includes('home') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
                       <Link to={menuItems[0].link}>{menuItems[0].label}</Link>
                   </Menu.Item>
-                  <Menu.Item key={menuItems[1].key} className={`${location.pathname.includes('requirementslisting') || location.pathname.includes('postrequirement') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
-                    <Dropdown menu={{ items:dropReqitems }}>
+                  <Menu.Item key={menuItems[1].key} className={`navDrops ${location.pathname.includes('requirementslisting') || location.pathname.includes('postrequirement') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                    <Dropdown overlayClassName="NavdropInseider" menu={{ items:dropReqitems }}>
                       <a onClick={(e) => e.preventDefault()}>
                         <Space>
                           {menuItems[1].label}
@@ -245,12 +245,11 @@ const Navbar: React.FC = () =>{
                     </Dropdown>
                       
                   </Menu.Item>
-                  <Menu.Item key={menuItems[2].key} className={`${location.pathname.includes('postadd') || location.pathname.includes('addslisting') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
-                    <Dropdown menu={{ items:dropAditems }}>
-                      <a onClick={(e) => e.preventDefault()}>
+                  <Menu.Item key={menuItems[2].key} className={`navDrops ${location.pathname.includes('postadd') || location.pathname.includes('addslisting') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                    <Dropdown overlayClassName="NavdropInseider" menu={{ items:dropAditems }}>
+                      <a className="" onClick={(e) => e.preventDefault()}>
                         <Space>
-                          {menuItems[2].label}
-                          <DownOutlined />
+                          {menuItems[2].label} <DownOutlined />
                         </Space>
                       </a>
                     </Dropdown>

@@ -90,7 +90,7 @@ const StepsForRequirement: React.FC = () => {
             <div className="postSteps-img px-3 sm:mx-4 " style={{ display: currentStep === 0 ? "block" : "none" }} >
                 <div className="about-listing w-100 h-100 d-flex justify-evenly align-items-center">
                     <div className="d-flex justify-items-center align-items-center" style={{minWidth: '300px'}}>
-                        <ItemCard page={"home"} item={post[0]} />
+                        <ItemCard page={"requirements"} item={post[0]} />
                     </div>
                 
                     <div className="md:text-left text-center w-3/4 md:w-2/4" >
