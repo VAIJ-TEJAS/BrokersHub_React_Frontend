@@ -172,7 +172,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className="m-4 shadow rounded overflow-hidden d-flex">
+      <div className="m-4 shadow rounded overflow-hidden d-flex bg-[#F5F5F5]">
         <div className="col-5 referral-img">
           <img className="h-100" src="https://t3.ftcdn.net/jpg/02/65/10/72/360_F_265107234_1W0i4qjxk8DNkZdnaaneNwMzXeaC99B1.jpg" alt="" />
         </div>
@@ -226,14 +226,14 @@ const Requirement: React.FC = () => {
 
 const HomePage: React.FC = () => {
   return (
-    <>
+    <div className='bg-[#F5F5F5]'>
       <Navbar />
       <Hero />
       <OutServices />
       <Referral />
       <Advertisement />
       <Requirement />
-    </>
+    </div>
   );
 };
 

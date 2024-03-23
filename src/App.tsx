@@ -17,7 +17,7 @@ function App() {
   const { setref_code, authModalOpen, handleAuthCancel } = Context();
 
   return (
-    <div className='min-h-full flex flex-col justify-between bg-[#F5F5F5]'>
+    <div className={`min-h-full flex flex-col justify-between  ${location.pathname.includes('post') ? 'bg-[#76bcff96]' : 'bg-[#F5F5F5]'}`}>
       <Router>
         <Modal
           open={authModalOpen}

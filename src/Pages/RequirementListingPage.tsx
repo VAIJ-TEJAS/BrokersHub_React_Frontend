@@ -56,7 +56,7 @@ const RequirementListingPage: React.FC = () => {
   
   
   return (
-    <div>
+    <div className='bg-[#F5F5F5]'>
       <Navbar />
       <Layout className="layout">
         <Layout>
