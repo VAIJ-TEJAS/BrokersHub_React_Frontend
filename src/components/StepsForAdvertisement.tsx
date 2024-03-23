@@ -68,7 +68,7 @@ const StepsForAdvertisement: React.FC = () => {
     <div className="postSteps-container flex justify-center items-center flex-col">
       <div className="container-lg mt-4">
         <div className="">
-          <Steps className="flex-row" current={currentStep}>
+          <Steps direction="horizontal" className="flex-row ant-steps-horizontal ant-steps-label-horizontal" current={currentStep}>
             {steps.map((item, index) => (
               <Step key={index} title={<div className="md:block hidden">{item.title}</div>} className="my-4" />
               ))}

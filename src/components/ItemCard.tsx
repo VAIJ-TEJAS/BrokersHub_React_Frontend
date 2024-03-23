@@ -67,11 +67,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       console.log('Shared successfully');
     } catch (error) {
       console.error('Error sharing:', error);
-      // Fallback options for browsers that do not support Web Share API
-      // const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
-      // const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
-      // const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
-      // const instagramUrl = `https://www.instagram.com`;
     }
 };
 
@@ -180,17 +175,17 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         {/* { !location.pathname.includes('post') && */}
           
           {page !== "addslisting" && page !== "requirementslisting" ? (
-            <div className={`flex justify-between ${location.pathname.includes('post') ? 'hidden' : ''}`}>
+            <div className={`flex justify-between `}>
               <Button
                 type="primary"
-                className={`${location.pathname.includes('home') ? 'w-full' : 'w-4/5'}  relative bottom-0 right-0`}
+                className={`${location.pathname.includes('home') || location.pathname.includes('post') ? 'w-full' : 'w-4/5'}  relative bottom-0 right-0`}
                 onClick={() => setModalVisible(true)}
                 >
                 View Details
               </Button>
               <Button
                 type="primary"
-                className={`w-auto  justify-center items-center ${location.pathname.includes('home') ? 'hidden' : 'flex'}`}
+                className={`w-auto  justify-center items-center ${location.pathname.includes('home') || location.pathname.includes('post') ? 'hidden' : 'flex' }`}
                 onClick={shareLink}
                 icon={<ShareAltOutlined className="w-10 flex justify-center items-center" />}
               />

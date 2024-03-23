@@ -6287,8 +6287,8 @@ const PostRequirement:React.FC = () => {
             values: {
                 monthly_rent: '0',
                 image: null,
-                title: 'Name',
-                description: 'Describe your requirement',
+                title: '',
+                description: '',
                 contact: '0',
                 city: '',
                 state: '',
@@ -6306,8 +6306,8 @@ const PostRequirement:React.FC = () => {
         initialValues: {
             monthly_rent: '0',
             image: null,
-            title: 'Name',
-            description: 'Describe your requirement',
+            title: '',
+            description: '',
             contact: '',
             city: '',
             state: '',
@@ -6491,7 +6491,7 @@ const PostRequirement:React.FC = () => {
 
                             <Form.Item label='Title' rules={[{ required: true, message: 'Please enter the requirement title!' }]}>
                                 <Input
-                                    placeholder='Name'
+                                    placeholder='Title'
                                     value={formik.values.title}
                                     onChange={(e) => {
                                         formik.setFieldValue('title', e.target.value);
@@ -6561,6 +6561,7 @@ const PostRequirement:React.FC = () => {
                                 rules={[{ required: true, message: 'Please enter the description!' }]}
                             >
                                 <Input.TextArea
+                                    placeholder="Describe your requirement"
                                     onChange={(e) => {
                                         formik.setFieldValue('description', e.target.value);
                                     }}

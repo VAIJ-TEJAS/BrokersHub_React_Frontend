@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { Menu, Button, Tooltip, Drawer, message, Modal,Typography, Collapse } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
+import { Menu, Button, Tooltip, Drawer, message, Modal,Typography, Collapse, Dropdown, Space, MenuProps } from 'antd';
+import { DownOutlined, MenuOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { Layout } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -15,10 +15,46 @@ const { Panel } = Collapse;
 
 const menuItems = [
     { key: '1', label: 'Home', link: '/home' },
-    { key: '2', label: 'View Requirements', link: '/requirementslisting' },
-    { key: '3', label: 'Post Requirements', link: '/postrequirement' },
-    { key: '4', label: 'View Advertisement', link: '/addslisting' },
-    { key: '5', label: 'Post Advertisement', link: '/postadd' },
+    { key: '2', label: 'Requirements', link: '/requirementslisting' },
+    { key: '4', label: 'Advertisements', link: '/addslisting' },
+];
+
+const dropReqitems: MenuProps['items'] = [
+  {
+    key: '1',
+    label: (
+      <Link to="/requirementslisting">
+        View Requirements
+      </Link>
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <Link to="/postrequirement">
+        Post Requirements
+      </Link>
+    ),
+  },
+];
+
+const dropAditems: MenuProps['items'] = [
+  {
+    key: '1',
+    label: (
+      <Link to="/addslisting">
+        View Advertisements
+      </Link>
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <Link to="/postadd">
+        Post Advertisements
+      </Link>
+    ),
+  },
 ];
 
 interface drawerPropps {
@@ -161,10 +197,9 @@ const TerAndC: React.FC = () => {
         </div>
   )
 }
-
   
 const Navbar: React.FC = () =>{
-  const { showAuthModal, setUserAuthenticated } = Context();
+  const { TermsModalVisible, setTermsModalVisible, showAuthModal, setUserAuthenticated } = Context();
 
   const navigate = useNavigate();
 
@@ -183,8 +218,6 @@ const Navbar: React.FC = () =>{
     setNavbarDraweropen(false);
   };
 
-  const {TermsModalVisible, setTermsModalVisible} = Context();
-
   const handleModalClose = () => {
       setTermsModalVisible(false);
   };
@@ -197,11 +230,31 @@ const Navbar: React.FC = () =>{
             <Link to="/home" className='my-auto me-5 text-lg sm:text-xl'><strong>The Brokers Hub</strong></Link>
             
             <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'680px'}}>
-              {menuItems.map(item => (
-                  <Menu.Item key={item.key} className={`${location.pathname.includes(item.link) ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
-                      <Link to={item.link}>{item.label}</Link>
+              {/* {menuItems.map(item => ( */}
+                  <Menu.Item key={menuItems[0].key} className={`${location.pathname.includes('home') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                      <Link to={menuItems[0].link}>{menuItems[0].label}</Link>
                   </Menu.Item>
-              ))}
+                  <Menu.Item key={menuItems[1].key} className={`${location.pathname.includes('requirementslisting') || location.pathname.includes('postrequirement') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                    <Dropdown menu={{ items:dropReqitems }}>
+                      <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                          {menuItems[1].label}
+                          <DownOutlined />
+                        </Space>
+                      </a>
+                    </Dropdown>
+                      
+                  </Menu.Item>
+                  <Menu.Item key={menuItems[2].key} className={`${location.pathname.includes('postadd') || location.pathname.includes('addslisting') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
+                    <Dropdown menu={{ items:dropAditems }}>
+                      <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                          {menuItems[2].label}
+                          <DownOutlined />
+                        </Space>
+                      </a>
+                    </Dropdown>
+                  </Menu.Item>
             </Menu>
 
             <div className='ms-auto d-flex align-items-center'>
