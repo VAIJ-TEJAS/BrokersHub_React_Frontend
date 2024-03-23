@@ -7,12 +7,9 @@ import '../components/Navbar.css';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Item } from '../types/item.types';
 import { Context } from '../context/context.provider';
 import BackgroundImg from '../assets/images/1215543_7.jpg'
 import Navbar from '../components/Navbar';
-
-// [{"key":"Authorization","value":"Token 29c0d4bbc9761c3e428f537a5883423ce2142115","description":null,"type":"text","enabled":true}]
 
 interface OptionType {
     value: string;
@@ -20,6 +17,11 @@ interface OptionType {
 }
 
 const PostAdd: React.FC = () => {
+
+    const { postId } = useParams();
+    if(!postId){
+        localStorage.removeItem('thebrokerhub-item')
+    }
 
     const navigate = useNavigate();
     const { showAuthModal } = Context();
@@ -6284,8 +6286,23 @@ const PostAdd: React.FC = () => {
 
     const [imageURL, setImageURL] = useState<string>('');
 
+    const localStorageItem = localStorage.getItem('thebrokerhub-item');
+    const monthlyRentFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).monthly_rent.toString() : '0';
+    const titleFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).title.toString() : '';
+    const imageFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).image.toString() : null;
+    const descriptionFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).description.toString() : '';
+    const contactFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).contact.toString() : '';
+    const cityFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).city.toString() : '';
+    const stateFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).state.toString() : '';
+    const budgetFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).budget.toString() : '0';
+    const transaction_typeFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).transaction_type.toString() : 'Sell';
+    const downpaymentFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).downpayment.toString() : '0';
+    const ratio_xFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).ratio_x.toString() : '0';
+    const ratio_yFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).ratio_y.toString() : '0';
+    const areaFromLocalStorage = localStorageItem ? JSON.parse(localStorageItem).area.toString() : 0;
+
     useEffect(() => {
-        setImageURL('');
+        setImageURL(imageFromLocalStorage);
 
         formik.resetForm({
             values: {
@@ -6298,7 +6315,6 @@ const PostAdd: React.FC = () => {
                 state: '',
                 budget: '0',
                 transaction_type: 'Sell',
-                price: '',
                 downpayment: '0',
                 ratio_x: '0',
                 ratio_y: '0',
@@ -6306,6 +6322,7 @@ const PostAdd: React.FC = () => {
             },
         });
     }, []);
+    
 
     const formik = useFormik({
         initialValues: {
@@ -6318,7 +6335,6 @@ const PostAdd: React.FC = () => {
             state: '',
             budget: '0',
             transaction_type: 'Sell',
-            price: '',
             downpayment: '0',
             ratio_x: '0',
             ratio_y: '0',
@@ -6334,30 +6350,30 @@ const PostAdd: React.FC = () => {
                 return
             }
 
-            if (values.title == '' || values.contact == '' || values.city == '' || values.state == '' || values.description == '' || values.area.toString() == '') {
-                message.error("Please provide all details.")
-                return;
-            }
-            if (Number.isNaN(parseInt(values.contact)) || values.contact.length !== 10) {
-                message.error("Please enter a valid contact.")
-                return;
-            }
-            if (Number.isNaN(values.area) || values.area <= 0) {
-                message.error("Please enter a valid area.")
-                return;
-            }
-            if (values.transaction_type == 'Sell' && parseInt(values.budget) <= 0) {
-                message.error("Please enter a valid price.")
-                return;
-            }
+            // if (values.title == '' || values.contact == '' || values.city == '' || values.state == '' || values.description == '' || values.area.toString() == '') {
+            //     message.error("Please provide all details.")
+            //     return;
+            // }
+            // if (Number.isNaN(parseInt(values.contact)) || values.contact.length !== 10) {
+            //     message.error("Please enter a valid contact.")
+            //     return;
+            // }
+            // if (Number.isNaN(values.area) || values.area <= 0) {
+            //     message.error("Please enter a valid area.")
+            //     return;
+            // }
+            // if (values.transaction_type == 'Sell' && parseInt(values.budget) <= 0) {
+            //     message.error("Please enter a valid price.")
+            //     return;
+            // }
             if (values.transaction_type == 'Conversion' && (parseInt(values.downpayment) <= 0 || parseInt(values.ratio_x) < 0 || parseInt(values.ratio_x) > 100)) {
                 message.error("Please enter a valid conversion details.")
                 return;
             }
-            if (values.transaction_type == 'Rent' && parseInt(values.monthly_rent) <= 0) {
-                message.error("Please enter a valid rent price.")
-                return;
-            }
+            // if (values.transaction_type == 'Rent' && parseInt(values.monthly_rent) <= 0) {
+            //     message.error("Please enter a valid rent price.")
+            //     return;
+            // }
 
             const formData = new FormData();
 
@@ -6475,49 +6491,48 @@ const PostAdd: React.FC = () => {
         return e && e.fileList;
     };
 
-    const { postId } = useParams();
 
-    const url = 'https://13.232.115.59/my-advertisements/';
-    useEffect(() => {
-        const fetchRequest = async () => {
-            try {
-                const response = await axios.get(url, {
-                    headers: {
-                        'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
-                        'Content-Type': 'application/json'
-                        // Add other headers as needed
-                    }
-                });
-                if (postId) {
-                    const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
-                    console.log(passVals)
-                    if (!passVals) {
-                        setError('No such post found for edit')
-                    }
-                    formik.setFieldValue('title', passVals.title || 'Name');
-                    formik.setFieldValue('monthly_rent', passVals.monthly_rent || '');
-                    formik.setFieldValue('area', parseInt(passVals.area) || 0);
-                    setImageURL(passVals.image || null)
-                    formik.setFieldValue('description', passVals.description || 'Describe your requirement');
-                    formik.setFieldValue('contact', passVals.contact || '');
-                    formik.setFieldValue('city', passVals.city);
-                    formik.setFieldValue('state', passVals.state);
-                    formik.setFieldValue('budget', passVals.budget || '');
-                    formik.setFieldValue('transaction_type', passVals.transaction_type || '');
-                    formik.setFieldValue('price', passVals.price || '');
-                    formik.setFieldValue('downpayment', passVals.downpayment || '');
-                    formik.setFieldValue('ratio_x', passVals.ratio_x || '');
-                    formik.setFieldValue('ratio_y', passVals.ratio_y || '');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
+    // useEffect(() => {
+    //     const fetchRequest = async () => {
+    //         try {
+    //             const response = await axios.get(url, {
+    //                 headers: {
+    //                     'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
+    //                     'Content-Type': 'application/json'
+    //                     // Add other headers as needed
+    //                 }
+    //             });
+    //             if (postId) {
+    //                 const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
+    //                 console.log(passVals)
+    //                 if (!passVals) {
+    //                     setError('No such post found for edit')
+    //                 }
 
-        if (postId) {
-            fetchRequest();
-        }
-    }, [postId]);
+    //                 formik.setFieldValue('title', passVals.title || 'Name');
+    //                 formik.setFieldValue('monthly_rent', passVals.monthly_rent || '');
+    //                 formik.setFieldValue('area', parseInt(passVals.area) || 0);
+    //                 setImageURL(passVals.image || null)
+    //                 formik.setFieldValue('description', passVals.description || 'Describe your requirement');
+    //                 formik.setFieldValue('contact', passVals.contact || '');
+    //                 formik.setFieldValue('city', passVals.city);
+    //                 formik.setFieldValue('state', passVals.state);
+    //                 formik.setFieldValue('budget', passVals.budget || '');
+    //                 formik.setFieldValue('transaction_type', passVals.transaction_type || '');
+    //                 formik.setFieldValue('price', passVals.price || '');
+    //                 formik.setFieldValue('downpayment', passVals.downpayment || '');
+    //                 formik.setFieldValue('ratio_x', passVals.ratio_x || '');
+    //                 formik.setFieldValue('ratio_y', passVals.ratio_y || '');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     }
+
+    //     if (postId) {
+    //         fetchRequest();
+    //     }
+    // }, [postId]);
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -6563,14 +6578,16 @@ const PostAdd: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
+                            name="title"
                             label='Title'
                             rules={[
                                 { required: true, message: 'Please enter the title.' }
                             ]}
                         >
                             <Input
+                                defaultValue={titleFromLocalStorage}
                                 placeholder='Title'
-                                value={formik.values.title}
+                                value={titleFromLocalStorage}
                                 onChange={(e) => {
                                     formik.setFieldValue('title', e.target.value);
                                 }}
@@ -6578,6 +6595,7 @@ const PostAdd: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
+                            name='Contact'
                             label='Contact'
                             rules={[
                                 { required: true, message: 'Please input your phone number!' },
@@ -6585,6 +6603,7 @@ const PostAdd: React.FC = () => {
                             ]}
                         >
                             <Input
+                                defaultValue={contactFromLocalStorage}
                                 onChange={(e) => {
                                     formik.setFieldValue('contact', e.target.value);
                                 }}
@@ -6593,6 +6612,7 @@ const PostAdd: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
+                            name='State'
                             label='State'
                             rules={[
                                 { required: true, message: 'Please select a state.' }
@@ -6601,6 +6621,7 @@ const PostAdd: React.FC = () => {
                             <Select
                                 showSearch
                                 placeholder="Select a state"
+                                defaultValue={stateFromLocalStorage}
                                 optionFilterProp="children"
                                 value={formik.values.state}
                                 onChange={(value) => {
@@ -6620,6 +6641,7 @@ const PostAdd: React.FC = () => {
                         {
                             formik.values.state &&
                             <Form.Item
+                                name='City'
                                 label='City'
                                 rules={[
                                     { required: true, message: 'Please select a city.' }
@@ -6629,6 +6651,7 @@ const PostAdd: React.FC = () => {
                                     showSearch
                                     placeholder="Select a city"
                                     optionFilterProp="children"
+                                    defaultValue={cityFromLocalStorage}
                                     value={formik.values.city}
                                     onChange={(value) => {
                                         formik.setFieldValue('city', value);
@@ -6647,10 +6670,12 @@ const PostAdd: React.FC = () => {
                         }
 
                         <Form.Item
+                            name='Description'
                             label='Description'
                             rules={[{ required: true, message: 'Please enter the description!' }]}
                         >
                             <Input.TextArea
+                                defaultValue={descriptionFromLocalStorage}
                                 placeholder="Describe your requirement"
                                 onChange={(e) => {
                                     formik.setFieldValue('description', e.target.value);
@@ -6663,11 +6688,13 @@ const PostAdd: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
+                            name='Area'
                             label='Area (In sqft)'
                             rules={[{ required: true, message: 'Please enter the requirement area!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid area' }]}
                         >
                             <Input
                                 value={formik.values.area}
+                                defaultValue={areaFromLocalStorage}
                                 placeholder='In sqft'
                                 onChange={(e) => {
                                     if (!Number.isNaN(parseInt(e.target.value))) {
@@ -6678,12 +6705,14 @@ const PostAdd: React.FC = () => {
                         </Form.Item>
 
                         <Form.Item
+                            name='Type'
                             label='Transaction Type'
                             rules={[{ required: true, message: 'Please select the type!' }]}
                         >
                             <Select
                                 style={{ width: 120 }}
                                 value={formik.values.transaction_type}
+                                defaultValue={transaction_typeFromLocalStorage}
                                 onChange={(value) => {
                                     formik.setFieldValue('transaction_type', value);
                                 }}
@@ -6698,6 +6727,7 @@ const PostAdd: React.FC = () => {
                         {
                             formik.values.transaction_type == 'Sell' &&
                             <Form.Item
+                                name='Price'
                                 label='Price (₹)'
                                 rules={[{ required: true, message: 'Please enter the price!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                             >
@@ -6707,6 +6737,7 @@ const PostAdd: React.FC = () => {
                                             formik.setFieldValue('budget', parseInt(e.target.value));
                                         }
                                     }}
+                                    defaultValue={budgetFromLocalStorage}
                                     value={formik.values.budget}
                                 />
                             </Form.Item>
@@ -6714,6 +6745,7 @@ const PostAdd: React.FC = () => {
                         {
                             formik.values.transaction_type == 'Conversion' &&
                             <Form.Item
+                                name='Down'
                                 label='Down Payment (₹)'
                                 rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                             >
@@ -6723,6 +6755,7 @@ const PostAdd: React.FC = () => {
                                             formik.setFieldValue('downpayment', parseInt(e.target.value));
                                         }
                                     }}
+                                    defaultValue={downpaymentFromLocalStorage}
                                     value={formik.values.downpayment}
                                 />
                             </Form.Item>
@@ -6730,9 +6763,8 @@ const PostAdd: React.FC = () => {
                         {
                             formik.values.transaction_type == 'Conversion' &&
                             <Form.Item
+                                name='Ratio'
                                 label='Ratio'
-                                rules={[{ required: true, message: 'Please enter the ratio!' }, { min: 0, message: 'ratio must be at least 0' },
-                                { max: 100, message: 'ratio must be at most 100' },]}
                             >
                                 <Input
                                     className='me-2 w-20'
@@ -6744,6 +6776,7 @@ const PostAdd: React.FC = () => {
                                             formik.setFieldValue('ratio_y', (100 - parseInt(e.target.value)).toString());
                                         }
                                     }}
+                                    defaultValue={ratio_xFromLocalStorage}
                                     value={parseInt(formik.values.ratio_x)}
                                 /> :
                                 <Input
@@ -6755,6 +6788,7 @@ const PostAdd: React.FC = () => {
                                         console.log(value);
                                         formik.setFieldValue('ratio_y', value?.toString());
                                     }}
+                                    defaultValue={ratio_yFromLocalStorage}
                                     value={100 - parseInt(formik.values.ratio_x)}
                                 />
                             </Form.Item>
@@ -6763,6 +6797,7 @@ const PostAdd: React.FC = () => {
                             formik.values.transaction_type == 'Rent' &&
                             <Form.Item
                                 label='Monthly Rent (₹)'
+                                name='Monthly'
                                 rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                             >
                                 <Input
@@ -6771,6 +6806,7 @@ const PostAdd: React.FC = () => {
                                             formik.setFieldValue('monthly_rent', parseInt(e.target.value));
                                         }
                                     }}
+                                    defaultValue={monthlyRentFromLocalStorage}
                                     value={formik.values.monthly_rent}
                                 />
                             </Form.Item>

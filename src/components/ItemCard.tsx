@@ -77,7 +77,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       hoverable
       style={{ margin: "10px" }}
       cover={
-        item.image !== "" && item.image !== undefined ? (
+        item.image !== "" && item.image!==null && item.image !== undefined ? (
           <div className="d-flex justify-center items-center mt-2 px-2">
             <img alt={item.title} className=" p-2 h-52 w-auto max-w-72 border" src={item.image} />
           </div>
@@ -126,6 +126,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
               type="primary"
               className="mb-1"
               onClick={() => {
+                localStorage.setItem('thebrokerhub-item', JSON.stringify(item))
                 if (page === "requirements") {
                   navigate(`/postrequirement/${item.id}`)
                 }
