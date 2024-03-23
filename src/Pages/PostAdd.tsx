@@ -18,7 +18,7 @@ interface OptionType {
     label: string;
 }
 
-const PostAdd:React.FC = () => {
+const PostAdd: React.FC = () => {
 
     const navigate = useNavigate();
     const { showAuthModal } = Context();
@@ -6108,176 +6108,176 @@ const PostAdd:React.FC = () => {
             state: "Gujarat",
         },
         {
-            id:"1217",
-            city:"Kullu",
-            state:"Himachal Pradesh",
+            id: "1217",
+            city: "Kullu",
+            state: "Himachal Pradesh",
         },
         {
-            id:"1218",
-            city:"Manali",
-            state:"Himachal Praddesh",
+            id: "1218",
+            city: "Manali",
+            state: "Himachal Praddesh",
         },
         {
-            id:"1219",
-            city:"Mirzapur",
-            state:"Uttar Pradesh",
+            id: "1219",
+            city: "Mirzapur",
+            state: "Uttar Pradesh",
         },
         {
-            id:"1220",
-            city:"Kota",
-            state:"Rajasthan",
+            id: "1220",
+            city: "Kota",
+            state: "Rajasthan",
         },
         {
-          id:"1221",
-           city:"Dispur",
-           state:"Assam",
+            id: "1221",
+            city: "Dispur",
+            state: "Assam",
         }
     ]
-    
+
     const [stateList] = useState<OptionType[]>([
         {
-        label: "AN",
-        value: "Andaman and Nicobar Islands"
+            label: "AN",
+            value: "Andaman and Nicobar Islands"
         },
         {
-        label: "AP",
-        value: "Andhra Pradesh"
+            label: "AP",
+            value: "Andhra Pradesh"
         },
         {
-        label: "AR",
-        value: "Arunachal Pradesh"
+            label: "AR",
+            value: "Arunachal Pradesh"
         },
         {
-        label: "AS",
-        value: "Assam"
+            label: "AS",
+            value: "Assam"
         },
         {
-        label: "BR",
-        value: "Bihar"
+            label: "BR",
+            value: "Bihar"
         },
         {
-        label: "CG",
-        value: "Chandigarh"
+            label: "CG",
+            value: "Chandigarh"
         },
         {
-        label: "CH",
-        value: "Chhattisgarh"
+            label: "CH",
+            value: "Chhattisgarh"
         },
         {
-        label: "DH",
-        value: "Dadra and Nagar Haveli"
+            label: "DH",
+            value: "Dadra and Nagar Haveli"
         },
         {
-        label: "DD",
-        value: "Daman and Diu"
+            label: "DD",
+            value: "Daman and Diu"
         },
         {
-        label: "DL",
-        value: "Delhi"
+            label: "DL",
+            value: "Delhi"
         },
         {
-        label: "GA",
-        value: "Goa"
+            label: "GA",
+            value: "Goa"
         },
         {
-        label: "GJ",
-        value: "Gujarat"
+            label: "GJ",
+            value: "Gujarat"
         },
         {
-        label: "HR",
-        value: "Haryana"
+            label: "HR",
+            value: "Haryana"
         },
         {
-        label: "HP",
-        value: "Himachal Pradesh"
+            label: "HP",
+            value: "Himachal Pradesh"
         },
         {
-        label: "JK",
-        value: "Jammu and Kashmir"
+            label: "JK",
+            value: "Jammu and Kashmir"
         },
         {
-        label: "JH",
-        value: "Jharkhand"
+            label: "JH",
+            value: "Jharkhand"
         },
         {
-        label: "KA",
-        value: "Karnataka"
+            label: "KA",
+            value: "Karnataka"
         },
         {
-        label: "KL",
-        value: "Kerala"
+            label: "KL",
+            value: "Kerala"
         },
         {
-        label: "LD",
-        value: "Lakshadweep"
+            label: "LD",
+            value: "Lakshadweep"
         },
         {
-        label: "MP",
-        value: "Madhya Pradesh"
+            label: "MP",
+            value: "Madhya Pradesh"
         },
         {
-        label: "MH",
-        value: "Maharashtra"
+            label: "MH",
+            value: "Maharashtra"
         },
         {
-        label: "MN",
-        value: "Manipur"
+            label: "MN",
+            value: "Manipur"
         },
         {
-        label: "ML",
-        value: "Meghalaya"
+            label: "ML",
+            value: "Meghalaya"
         },
         {
-        label: "MZ",
-        value: "Mizoram"
+            label: "MZ",
+            value: "Mizoram"
         },
         {
-        label: "NL",
-        value: "Nagaland"
+            label: "NL",
+            value: "Nagaland"
         },
         {
-        label: "OR",
-        value: "Odisha"
+            label: "OR",
+            value: "Odisha"
         },
         {
-        label: "PY",
-        value: "Puducherry"
+            label: "PY",
+            value: "Puducherry"
         },
         {
-        label: "PB",
-        value: "Punjab"
+            label: "PB",
+            value: "Punjab"
         },
         {
-        label: "RJ",
-        value: "Rajasthan"
+            label: "RJ",
+            value: "Rajasthan"
         },
         {
-        label: "SK",
-        value: "Sikkim"
+            label: "SK",
+            value: "Sikkim"
         },
         {
-        label: "TN",
-        value: "Tamil Nadu"
+            label: "TN",
+            value: "Tamil Nadu"
         },
         {
-        label: "TS",
-        value: "Telangana"
+            label: "TS",
+            value: "Telangana"
         },
         {
-        label: "TR",
-        value: "Tripura"
+            label: "TR",
+            value: "Tripura"
         },
         {
-        label: "UK",
-        value: "Uttar Pradesh"
+            label: "UK",
+            value: "Uttar Pradesh"
         },
         {
-        label: "UP",
-        value: "Uttarakhand"
+            label: "UP",
+            value: "Uttarakhand"
         },
         {
-        label: "WB",
-        value: "West Bengal"
+            label: "WB",
+            value: "West Bengal"
         }
     ]);
 
@@ -6325,7 +6325,7 @@ const PostAdd:React.FC = () => {
         },
 
         onSubmit: async (values) => {
-            
+
             const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
@@ -6333,15 +6333,15 @@ const PostAdd:React.FC = () => {
                 return
             }
 
-            if(values.title == '' || values.contact == '' || values.city == '' || values.state == '' || values.description == '' || values.area.toString() == '' ) {
+            if (values.title == '' || values.contact == '' || values.city == '' || values.state == '' || values.description == '' || values.area.toString() == '') {
                 message.error("Please provide all details.")
                 return;
             }
-            if ( Number.isNaN(parseInt(values.contact)) || values.contact.length !== 10) {
+            if (Number.isNaN(parseInt(values.contact)) || values.contact.length !== 10) {
                 message.error("Please enter a valid contact.")
                 return;
             }
-            if ( Number.isNaN(values.area) || values.area <= 0) {
+            if (Number.isNaN(values.area) || values.area <= 0) {
                 message.error("Please enter a valid area.")
                 return;
             }
@@ -6389,13 +6389,49 @@ const PostAdd:React.FC = () => {
                         // Add other headers as needed
                     }
                 })
+                    .then(response => {
+                        console.log('Response:', response.data); // Handle the response
+                        setSuccess('You requirement has been updated!');
+                        setTimeout(() => {
+                            navigate('/profile/')
+                        }, 2000);
+
+                        // Optionally, you can perform any actions after successful response
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        if (error.response?.data) {
+                            let errorMessage = error.response?.data
+                            let firstKey = Object.keys(errorMessage)[0];
+                            // let firstValue = errorMessage[firstKey];
+                            setError('Field ' + firstKey + ' is required.')
+                        }
+                        else {
+
+                            let errorMessage = error.message;
+                            setError(errorMessage)
+                        }
+                        // Optionally, you can perform any actions after error
+                    });
+
+                return;
+
+            }
+
+            axios.post(url, formData, {
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                    // Add other headers as needed
+                }
+            })
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
-                    setSuccess('You requirement has been updated!');
+                    setSuccess('You requirement has been posted!');
                     setTimeout(() => {
-                        navigate('/profile/')
+                        navigate('/addslisting/')
                     }, 2000);
-                    
+                    return;
                     // Optionally, you can perform any actions after successful response
                 })
                 .catch(error => {
@@ -6406,49 +6442,13 @@ const PostAdd:React.FC = () => {
                         // let firstValue = errorMessage[firstKey];
                         setError('Field ' + firstKey + ' is required.')
                     }
-                    else{
-                        
+                    else {
+
                         let errorMessage = error.message;
                         setError(errorMessage)
                     }
                     // Optionally, you can perform any actions after error
                 });
-
-                return;
-                
-            }
-
-            axios.post(url, formData, {
-                headers: {
-                    'Authorization': `Token ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                    // Add other headers as needed
-                }
-            })
-            .then(response => {
-                console.log('Response:', response.data); // Handle the response
-                setSuccess('You requirement has been posted!');
-                setTimeout(() => {
-                    navigate('/addslisting/')
-                }, 2000);
-                return;
-                // Optionally, you can perform any actions after successful response
-            })
-            .catch(error => {
-                console.log(error)
-                if (error.response?.data) {
-                    let errorMessage = error.response?.data
-                    let firstKey = Object.keys(errorMessage)[0];
-                    // let firstValue = errorMessage[firstKey];
-                    setError('Field ' + firstKey + ' is required.')
-                }
-                else{
-                    
-                    let errorMessage = error.message;
-                    setError(errorMessage)
-                }
-                // Optionally, you can perform any actions after error
-            });
             return;
         },
     });
@@ -6479,40 +6479,40 @@ const PostAdd:React.FC = () => {
     const url = 'https://13.232.115.59/my-advertisements/';
     useEffect(() => {
         const fetchRequest = async () => {
-          try {
-            const response = await axios.get(url, {
-                headers: {
-                    'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
-                    'Content-Type': 'application/json'
-                    // Add other headers as needed
+            try {
+                const response = await axios.get(url, {
+                    headers: {
+                        'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
+                        'Content-Type': 'application/json'
+                        // Add other headers as needed
+                    }
+                });
+                if (postId) {
+                    const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
+                    console.log(passVals)
+                    if (!passVals) {
+                        setError('No such post found for edit')
+                    }
+                    formik.setFieldValue('title', passVals.title || 'Name');
+                    formik.setFieldValue('monthly_rent', passVals.monthly_rent || '');
+                    formik.setFieldValue('area', parseInt(passVals.area) || 0);
+                    setImageURL(passVals.image || null)
+                    formik.setFieldValue('description', passVals.description || 'Describe your requirement');
+                    formik.setFieldValue('contact', passVals.contact || '');
+                    formik.setFieldValue('city', passVals.city);
+                    formik.setFieldValue('state', passVals.state);
+                    formik.setFieldValue('budget', passVals.budget || '');
+                    formik.setFieldValue('transaction_type', passVals.transaction_type || '');
+                    formik.setFieldValue('price', passVals.price || '');
+                    formik.setFieldValue('downpayment', passVals.downpayment || '');
+                    formik.setFieldValue('ratio_x', passVals.ratio_x || '');
+                    formik.setFieldValue('ratio_y', passVals.ratio_y || '');
                 }
-            });
-            if (postId) {
-                const passVals = response.data.find((item: Item) => item.id === parseInt(postId))!
-                console.log(passVals)
-                if (!passVals) {
-                    setError('No such post found for edit')
-                }
-                formik.setFieldValue('title', passVals.title || 'Name') ;
-                formik.setFieldValue('monthly_rent', passVals.monthly_rent  || '');
-                formik.setFieldValue('area', parseInt(passVals.area)  || 0);
-                setImageURL(passVals.image || null)
-                formik.setFieldValue('description', passVals.description || 'Describe your requirement');
-                formik.setFieldValue('contact', passVals.contact || '');
-                formik.setFieldValue('city', passVals.city);
-                formik.setFieldValue('state', passVals.state);
-                formik.setFieldValue('budget', passVals.budget || '');
-                formik.setFieldValue('transaction_type', passVals.transaction_type || '');
-                formik.setFieldValue('price', passVals.price || '');
-                formik.setFieldValue('downpayment', passVals.downpayment || '');
-                formik.setFieldValue('ratio_x', passVals.ratio_x || '');
-                formik.setFieldValue('ratio_y', passVals.ratio_y || '');
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
         }
-    
+
         if (postId) {
             fetchRequest();
         }
@@ -6524,290 +6524,291 @@ const PostAdd:React.FC = () => {
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     return (
         <>
             <Navbar />
-            <div className='d-flex justify-content-center'>
-                    <div className='bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
-                        <Form
-                            labelCol={{ span: 8 }}
-                            wrapperCol={{ span: 14 }}
-                            layout='horizontal'
-                            onFinish={formik.handleSubmit}
-                            onFinishFailed={onFinishFailed}
-                            className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
+            <div className='d-flex justify-content-center bg-red-300'>
+                <div className='bg-[#FFF] col-9 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                    <Form
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 14 }}
+                        layout='horizontal'
+                        onFinish={formik.handleSubmit}
+                        onFinishFailed={onFinishFailed}
+                        className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
+                    >
+                        <div className='sm:text-4xl text-2xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
+
+                        {error !== '' && (
+                            <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
+                        )}
+
+                        {success !== '' && (
+                            <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
+                        )}
+
+                        <Form.Item
+                            label='Image'
+                            name='image'
+                            valuePropName='fileList'
+                            getValueFromEvent={normFile}
+                            rules={[{ required: true, message: 'Please upload an image!' }]}
                         >
-                            <div className='sm:text-4xl text-2xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
+                            <Upload name='image' {...imageUploadProps}>
+                                <Button icon={<UploadOutlined />}>Upload</Button>
+                            </Upload>
+                        </Form.Item>
 
-                            {error !== '' && (
-                                <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
-                            )}
+                        <Form.Item
+                            label='Title'
+                            rules={[
+                                { required: true, message: 'Please enter the title.' }
+                            ]}
+                        >
+                            <Input
+                                placeholder='Title'
+                                value={formik.values.title}
+                                onChange={(e) => {
+                                    formik.setFieldValue('title', e.target.value);
+                                }}
+                            />
+                        </Form.Item>
 
-                            {success !== '' && (
-                                <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
-                            )}
+                        <Form.Item
+                            label='Contact'
+                            rules={[
+                                { required: true, message: 'Please input your phone number!' },
+                                { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' },
+                            ]}
+                        >
+                            <Input
+                                onChange={(e) => {
+                                    formik.setFieldValue('contact', e.target.value);
+                                }}
+                                value={formik.values.contact}
+                            />
+                        </Form.Item>
 
+                        <Form.Item
+                            label='State'
+                            rules={[
+                                { required: true, message: 'Please select a state.' }
+                            ]}
+                        >
+                            <Select
+                                showSearch
+                                placeholder="Select a state"
+                                optionFilterProp="children"
+                                value={formik.values.state}
+                                onChange={(value) => {
+                                    formik.setFieldValue('state', value);
+                                    formik.setFieldValue('location', '');
+                                }}
+                                filterOption={filterOption}
+                                options={stateList.map(city => {
+                                    return {
+                                        value: city.value,
+                                        label: city.value
+                                    };
+                                })}
+                            />
+                        </Form.Item>
+
+                        {
+                            formik.values.state &&
                             <Form.Item
-                                label='Image'
-                                name='image'
-                                valuePropName='fileList'
-                                getValueFromEvent={normFile}
-                                rules={[{ required: true, message: 'Please upload an image!' }]}
-                            >
-                                <Upload name='image' {...imageUploadProps}>
-                                    <Button icon={<UploadOutlined />}>Upload</Button>
-                                </Upload>
-                            </Form.Item>
-
-                            <Form.Item
-                                label='Title' 
+                                label='City'
                                 rules={[
-                                    { required: true, message: 'Please enter the title.' }
-                                ]}
-                            >
-                                <Input
-                                    placeholder='Title'
-                                    value={formik.values.title}
-                                    onChange={(e) => {
-                                        formik.setFieldValue('title', e.target.value);
-                                    }}
-                                />
-                            </Form.Item>
-
-                            <Form.Item
-                                label='Contact'
-                                rules={[
-                                    { required: true, message: 'Please input your phone number!' },
-                                    { pattern: /^\d{10}$/, message: 'Phone number must be 10 digits!' },
-                                ]}
-                            >
-                                <Input
-                                    onChange={(e) => {
-                                        formik.setFieldValue('contact', e.target.value);
-                                    }}
-                                    value={formik.values.contact}
-                                />
-                            </Form.Item>
-
-                            <Form.Item
-                                label='State'
-                                rules={[
-                                    { required: true, message: 'Please select a state.' }
+                                    { required: true, message: 'Please select a city.' }
                                 ]}
                             >
                                 <Select
                                     showSearch
-                                    placeholder="Select a state"
+                                    placeholder="Select a city"
                                     optionFilterProp="children"
-                                    value={formik.values.state}
+                                    value={formik.values.city}
                                     onChange={(value) => {
-                                        formik.setFieldValue('state', value);
-                                        formik.setFieldValue('location', '');
+                                        formik.setFieldValue('city', value);
                                     }}
                                     filterOption={filterOption}
-                                    options={stateList.map(city => {
-                                        return {
-                                            value: city.value,
-                                            label: city.value
-                                        };
-                                    })}
+                                    // options={cities}
+                                    options={cities
+                                        .filter(city => city.state === formik.values.state) // Filter cities by selected state
+                                        .map(city => ({
+                                            value: city.city,
+                                            label: city.city
+                                        }))
+                                    }
                                 />
                             </Form.Item>
+                        }
 
-                            {
-                                formik.values.state && 
-                                <Form.Item
-                                    label='City'
-                                    rules={[
-                                        { required: true, message: 'Please select a city.' }
-                                    ]}
-                                >
-                                    <Select
-                                        showSearch
-                                        placeholder="Select a city"
-                                        optionFilterProp="children"
-                                        value={formik.values.city}
-                                        onChange={(value) => {
-                                            formik.setFieldValue('city', value);
-                                        }}
-                                        filterOption={filterOption}
-                                        // options={cities}
-                                        options={cities
-                                            .filter(city => city.state === formik.values.state) // Filter cities by selected state
-                                            .map(city => ({
-                                                value: city.city,
-                                                label: city.city
-                                            }))
-                                        }
-                                    />
-                                </Form.Item>
-                            }
+                        <Form.Item
+                            label='Description'
+                            rules={[{ required: true, message: 'Please enter the description!' }]}
+                        >
+                            <Input.TextArea
+                                placeholder="Describe your requirement"
+                                onChange={(e) => {
+                                    formik.setFieldValue('description', e.target.value);
+                                }}
+                                value={formik.values.description}
+                                style={{
+                                    height: "120px"
+                                }}
+                            />
+                        </Form.Item>
 
-                            <Form.Item
-                                label='Description'
-                                rules={[{ required: true, message: 'Please enter the description!' }]}
-                            >
-                                <Input.TextArea
-                                    placeholder="Describe your requirement"
-                                    onChange={(e) => {
-                                        formik.setFieldValue('description', e.target.value);
-                                    }}
-                                    value={formik.values.description}
-                                    style={{
-                                        height: "120px"
-                                    }}
-                                />
-                            </Form.Item>
-
-                            <Form.Item
-                                label='Area (In sqft)'
-                                rules={[{ required: true, message: 'Please enter the requirement area!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid area' }]}
-                            >
-                                <Input
-                                    value={formik.values.area}
-                                    placeholder='In sqft'
-                                    onChange={(e) => {if (!Number.isNaN(parseInt(e.target.value))) {
+                        <Form.Item
+                            label='Area (In sqft)'
+                            rules={[{ required: true, message: 'Please enter the requirement area!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid area' }]}
+                        >
+                            <Input
+                                value={formik.values.area}
+                                placeholder='In sqft'
+                                onChange={(e) => {
+                                    if (!Number.isNaN(parseInt(e.target.value))) {
                                         formik.setFieldValue('area', parseInt(e.target.value));
                                     }
-                                    }}
-                                />
-                            </Form.Item>
+                                }}
+                            />
+                        </Form.Item>
 
+                        <Form.Item
+                            label='Transaction Type'
+                            rules={[{ required: true, message: 'Please select the type!' }]}
+                        >
+                            <Select
+                                style={{ width: 120 }}
+                                value={formik.values.transaction_type}
+                                onChange={(value) => {
+                                    formik.setFieldValue('transaction_type', value);
+                                }}
+                                options={[
+                                    { value: 'Sell', label: 'Sell' },
+                                    { value: 'Conversion', label: 'Conversion' },
+                                    { value: 'Rent', label: 'Rent' },
+                                ]}
+                            />
+                        </Form.Item>
+
+                        {
+                            formik.values.transaction_type == 'Sell' &&
                             <Form.Item
-                                label='Transaction Type'
-                                rules={[{ required: true, message: 'Please select the type!' }]}
+                                label='Price (₹)'
+                                rules={[{ required: true, message: 'Please enter the price!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                             >
-                                <Select
-                                    style={{ width: 120 }}
-                                    value={formik.values.transaction_type}
-                                    onChange={(value) => {
-                                        formik.setFieldValue('transaction_type', value);
+                                <Input
+                                    onChange={(e) => {
+                                        if (!Number.isNaN(parseInt(e.target.value))) {
+                                            formik.setFieldValue('budget', parseInt(e.target.value));
+                                        }
                                     }}
-                                    options={[
-                                        { value: 'Sell', label: 'Sell' },
-                                        { value: 'Conversion', label: 'Conversion' },
-                                        { value: 'Rent', label: 'Rent' },
-                                    ]}
+                                    value={formik.values.budget}
                                 />
                             </Form.Item>
-
-                            {
-                                formik.values.transaction_type == 'Sell' &&
-                                <Form.Item
-                                    label='Price (₹)'
-                                    rules={[{ required: true, message: 'Please enter the price!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
-                                >
-                                    <Input
-                                        onChange={(e) => {
-                                            if (!Number.isNaN(parseInt(e.target.value))) {
-                                                formik.setFieldValue('budget', parseInt(e.target.value));
-                                            }
-                                        }}
-                                        value={formik.values.budget}
-                                    />
-                                </Form.Item>
-                            }
-                            {
-                                formik.values.transaction_type == 'Conversion' &&
-                                <Form.Item
-                                    label='Down Payment (₹)'
-                                    rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
-                                >
-                                    <Input
-                                        onChange={(e) => {
-                                            if (!Number.isNaN(parseInt(e.target.value))) {
-                                                formik.setFieldValue('downpayment', parseInt(e.target.value));
-                                            }
-                                        }}
-                                        value={formik.values.downpayment}
-                                    />
-                                </Form.Item>
-                            }
-                            {
-                                formik.values.transaction_type == 'Conversion' &&
-                                <Form.Item
-                                    label='Ratio'
-                                    rules={[{ required: true, message: 'Please enter the ratio!' },{ min: 0, message: 'ratio must be at least 0' },
-                                    { max: 100, message: 'ratio must be at most 100' },]}
-                                >
-                                    <Input
-                                    className='me-2 w-20'
-                                        min={0}
-                                        max={100}
-                                        onChange={(e: any) => {
-                                            if (!Number.isNaN(parseInt(e.target.value))) {
-                                                formik.setFieldValue('ratio_x', e.target.value);
-                                                formik.setFieldValue('ratio_y', (100 - parseInt(e.target.value)).toString());
-                                            }
-                                        }}
-                                        value={parseInt(formik.values.ratio_x)}
-                                    /> : 
-                                    <Input
-                                        className='ms-2 w-20'
-                                        min={0}
-                                        max={100}
-                                        disabled
-                                        onChange={(value) => {
-                                            console.log(value);
-                                            formik.setFieldValue('ratio_y', value?.toString());
-                                        }}
-                                        value={100 - parseInt(formik.values.ratio_x)}
-                                    />
-                                </Form.Item>
-                            }
-                            {
-                                formik.values.transaction_type == 'Rent' &&
-                                <Form.Item
-                                    label='Monthly Rent (₹)'
-                                    rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
-                                >
-                                    <Input
-                                        onChange={(e) => {
-                                            if (!Number.isNaN(parseInt(e.target.value))) {
-                                                formik.setFieldValue('monthly_rent', parseInt(e.target.value));
-                                            }
-                                        }}
-                                        value={formik.values.monthly_rent}
-                                    />
-                                </Form.Item>
-                            }
-
-                            <Button
-                                type='primary'
-                                className='bg-[#1890FF] w-full font-semibold'
-                                htmlType='submit'
+                        }
+                        {
+                            formik.values.transaction_type == 'Conversion' &&
+                            <Form.Item
+                                label='Down Payment (₹)'
+                                rules={[{ required: true, message: 'Please enter the down payment!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
                             >
-                                Submit
-                            </Button>
-                        </Form>
-                        <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
-                            <div className='addCardShower'>
-                                <ItemCard
-                                    page='home'
-                                    item = {
-                                        {
-                                            id: 0,
-                                            monthly_rent: formik.values.monthly_rent,
-                                            contact: formik.values.contact,
-                                            downpayment: formik.values.downpayment,
-                                            ratio_y: formik.values.ratio_x,
-                                            image: imageURL,
-                                            title:formik.values.title,
-                                            description:formik.values.description,
-                                            budget: formik.values.budget,
-                                            transaction_type: formik.values.transaction_type,
-                                            city: formik.values.city,
-                                            state: formik.values.state,
-                                            ratio_x: formik.values.ratio_x,
-                                            area: formik.values.area,
+                                <Input
+                                    onChange={(e) => {
+                                        if (!Number.isNaN(parseInt(e.target.value))) {
+                                            formik.setFieldValue('downpayment', parseInt(e.target.value));
                                         }
-                                    }
+                                    }}
+                                    value={formik.values.downpayment}
                                 />
-                            </div>
+                            </Form.Item>
+                        }
+                        {
+                            formik.values.transaction_type == 'Conversion' &&
+                            <Form.Item
+                                label='Ratio'
+                                rules={[{ required: true, message: 'Please enter the ratio!' }, { min: 0, message: 'ratio must be at least 0' },
+                                { max: 100, message: 'ratio must be at most 100' },]}
+                            >
+                                <Input
+                                    className='me-2 w-20'
+                                    min={0}
+                                    max={100}
+                                    onChange={(e: any) => {
+                                        if (!Number.isNaN(parseInt(e.target.value))) {
+                                            formik.setFieldValue('ratio_x', e.target.value);
+                                            formik.setFieldValue('ratio_y', (100 - parseInt(e.target.value)).toString());
+                                        }
+                                    }}
+                                    value={parseInt(formik.values.ratio_x)}
+                                /> :
+                                <Input
+                                    className='ms-2 w-20'
+                                    min={0}
+                                    max={100}
+                                    disabled
+                                    onChange={(value) => {
+                                        console.log(value);
+                                        formik.setFieldValue('ratio_y', value?.toString());
+                                    }}
+                                    value={100 - parseInt(formik.values.ratio_x)}
+                                />
+                            </Form.Item>
+                        }
+                        {
+                            formik.values.transaction_type == 'Rent' &&
+                            <Form.Item
+                                label='Monthly Rent (₹)'
+                                rules={[{ required: true, message: 'Please enter the monthly rent!' }, { pattern: /^[0-9]*$/, message: 'Please enter a valid price' }]}
+                            >
+                                <Input
+                                    onChange={(e) => {
+                                        if (!Number.isNaN(parseInt(e.target.value))) {
+                                            formik.setFieldValue('monthly_rent', parseInt(e.target.value));
+                                        }
+                                    }}
+                                    value={formik.values.monthly_rent}
+                                />
+                            </Form.Item>
+                        }
+
+                        <Button
+                            type='primary'
+                            className='bg-[#1890FF] w-full font-semibold'
+                            htmlType='submit'
+                        >
+                            Submit
+                        </Button>
+                    </Form>
+                    <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
+                        <div className='addCardShower'>
+                            <ItemCard
+                                page='home'
+                                item={
+                                    {
+                                        id: 0,
+                                        monthly_rent: formik.values.monthly_rent,
+                                        contact: formik.values.contact,
+                                        downpayment: formik.values.downpayment,
+                                        ratio_y: formik.values.ratio_x,
+                                        image: imageURL,
+                                        title: formik.values.title,
+                                        description: formik.values.description,
+                                        budget: formik.values.budget,
+                                        transaction_type: formik.values.transaction_type,
+                                        city: formik.values.city,
+                                        state: formik.values.state,
+                                        ratio_x: formik.values.ratio_x,
+                                        area: formik.values.area,
+                                    }
+                                }
+                            />
                         </div>
                     </div>
+                </div>
             </div>
         </>
     );
