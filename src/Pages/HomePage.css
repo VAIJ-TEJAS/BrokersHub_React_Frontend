@@ -44,6 +44,10 @@
   height: 100%;
 }
 
+.ant-steps .ant-steps-item:last-child{
+  flex: none;
+}
+
 @media (max-width: 900px) {
   .carousel-container{
     height: 500px;
