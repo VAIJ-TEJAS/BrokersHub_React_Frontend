@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
 
 // Create the context
 const MyContext = createContext<any | undefined>(undefined);
@@ -41,11 +41,6 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   const showAuthModal = () => {
     setAuthModalOpen(true);
   };
-
-  useEffect(() => {
-
-    console.log(ref_code)
-  }, [ref_code])
 
   const handleAuthCancel = () => {
     setref_code(' ')
