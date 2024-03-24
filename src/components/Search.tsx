@@ -218,7 +218,6 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
           }
         })
         .then((response) => {
-            console.log(response.data)
             setcities(response.data);
             setFilteredCity(response.data);
         })
@@ -237,7 +236,6 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     };
 
     const handleFromChange = (value: string) => {
-        console.log(value)
         setCity(value)
     }
 
@@ -270,12 +268,25 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     };
 
     const handleFilter = () => {
-        handleCityChange({state: state, city: city});
-        // const filteringLocation = selectedCities.some(city => city.state === items.state && city.city === items.city);
+        if (state === 'Select State' && (city === 'Select City' || city === '')) {
+            setSelectedCities(selectedCities);
+            return
+        }
+        console.log(city)
+        if (city === 'Select City') {
+            handleCityChange({ state: state, city: '' });
+            return
+        }
+        handleCityChange({ state: state, city: city });
+    }
 
+    useEffect(() => {
+        console.log(selectedCities)
         const filteringLocation = items.filter(item => {
-            return selectedCities.some(city => city.state === item.state && city.city === item.city);
+            return selectedCities.some(city => stateList.find(st => st.iso2 === city.state)?.name === item.state && city.city === item.city && city.city !== '');
         });
+
+        console.log(filteringLocation)
 
         const filteredItems = filteringLocation.filter(item => {
             if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
@@ -284,7 +295,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
             return true;
         });
         setFilteredItems(filteredItems);
-    }
+    }, [selectedCities])
 
     const rangeList = [
         {
@@ -319,14 +330,14 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
     return (
         <>
-            <div className='justify-center flex flex-col'>
+            <div className='justify-center flex flex-col sm:w-auto w-full'>
                 <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80 border'>
-                    <div className='lg:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
+                    <div className='sm:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
 
                     {/* price range  */}
                     {
                         page === 'Add' &&
-                        <div className='filter-field text-light relative bg-[#00396e] border mx-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-36 xl:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
+                        <div className='w-full text-light relative bg-[#00396e] border mx-1 mb-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer sm:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
                             <div className='px-2'>
                                 <div className='text-yellow-500'>Price Range</div>
                                 <div className='text-white'>{range}</div>
@@ -350,7 +361,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                     }
 
                     {/* select state  */}
-                    <div className={`filter-field relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-60 ${page === 'Add' ? 'xl:w-60': 'xl:w-80'} `}
+                    <div className={`w-full relative bg-[#00396e] border mx-1 mb-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'sm:w-60': 'sm:w-80'} `}
                             onClick={toggleState}>
                         <div className='px-2'>
                             <div className='text-yellow-500'>State</div>
@@ -392,7 +403,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
                     {/* select city  */}
                     {state !== 'Select State' && 
-                        <div className={`filter-field relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'w-36 xl:w-60': 'w-60 xl:w-80'} `} onClick={toggleCity}>
+                        <div className={`w-full relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'sm:w-60': 'xl:w-80'} `} onClick={toggleCity}>
                         <div className='px-2'>
                             <div className='text-yellow-500'>City</div>
                             <div className='text-white'>{city}</div>
@@ -432,24 +443,26 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                         </div>
                     }
 
-                    <Button onClick={handleFilter} className='md:p-0 py-3 border filter-field bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium w-32 xl:w-36 '>
+                    <Button onClick={handleFilter} className='w-full md:p-0 py-3 mt-1 border bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium sm:w-36 '>
                         SEARCH
                     </Button>
 
                     </div>
                 </div>
-                <div className='ms-auto mt-3 text-white'>
-                    {selectedCities.map(city => (
-                        <Tag
-                            key={city.city}
-                            closable
-                            className='sm:w-auto w-full px-3 py-1 sm:mx-2 my-1 bg-[#00396e] text-white'
-                            onClose={() => handleClose({state:city.state, city:city.city})}
-                            closeIcon={<CloseOutlined className='ms-auto' style={{ color: 'white' }} />}
-                        >
-                            <strong className='my-auto text-center pe-2'>{stateList.find(st => st.iso2 === city.state)?.name}, {city.city}</strong>
-                        </Tag>
-                    ))}
+                <div className='ms-auto mt-2 text-white'>
+                    <div className='flex sm:flex-row flex-wrap sm:justify-end justify-center'>
+                        {selectedCities.map(city => (
+                            <Tag
+                                key={city.city}
+                                closable
+                                className=' px-3 py-1 mx-2 my-1 bg-[#00396e] text-white'
+                                onClose={() => handleClose({state:city.state, city:city.city})}
+                                closeIcon={<CloseOutlined className='ms-auto' style={{ color: 'white' }} />}
+                            >
+                                <strong className='my-auto text-center pe-2'>{stateList.find(st => st.iso2 === city.state)?.name}, {city.city}</strong>
+                            </Tag>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>
