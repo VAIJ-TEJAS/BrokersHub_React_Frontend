@@ -2,10 +2,11 @@
 // import { LeftOutlined, SwapOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect } from 'react';
-import { Select, Input, Button  } from 'antd';
+import { Select, Input, Button, Tag  } from 'antd';
 import './Navbar.css';
 import { Item } from '../types/item.types';
 import axios from 'axios';
+import { CloseOutlined } from '@ant-design/icons';
 
 interface props {
     page: string;
@@ -20,8 +21,13 @@ interface OptionType {
 }
 
 interface cityType{
-  id: number;
-  name: string;
+    id: number;
+    name: string;
+}
+
+interface City {
+    state: string;
+    city: string;
 }
 
 const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
@@ -188,6 +194,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     const [inputCity, setInputCity] = useState<string>('');
     const [filteredStates, setFilteredStates] = useState<OptionType[]>([]);
     const [filteredCity, setFilteredCity] = useState<cityType[]>(cities);
+    const [selectedCities, setSelectedCities] = useState<City[]>([]);
 
     useEffect(() => {
         axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
@@ -251,15 +258,26 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         setRangeValue([0, numSelected]);
     };
 
+    const handleClose = (removedCity: City) => {
+        const newCities = selectedCities.filter(city => city.city !== removedCity.city);
+        setSelectedCities(newCities);
+    };
+
+    const handleCityChange = (value: City) => {
+        if (!selectedCities.find((city: City) => city.city === value.city && city.state === value.state) && selectedCities.length < 3) {
+          setSelectedCities([...selectedCities, { state: value.state, city: value.city }]);
+        }
+    };
+
     const handleFilter = () => {
-        console.log( state, city, rangeValue[1])
-        const filteredItems = items.filter(item => {
-            if (state !== 'Select State' && item.state !== state) {
-                return false;
-            }
-            if (city !== 'Select City' && item.city !== city) {
-                return false;
-            }
+        handleCityChange({state: state, city: city});
+        // const filteringLocation = selectedCities.some(city => city.state === items.state && city.city === items.city);
+
+        const filteringLocation = items.filter(item => {
+            return selectedCities.some(city => city.state === item.state && city.city === item.city);
+        });
+
+        const filteredItems = filteringLocation.filter(item => {
             if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
                 return false;
             }
@@ -301,7 +319,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
     return (
         <>
-            <div className='justify-center w-full d-flex '>
+            <div className='justify-center flex flex-col'>
                 <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80 border'>
                     <div className='lg:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
 
@@ -334,7 +352,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                     {/* select state  */}
                     <div className={`filter-field relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer w-60 ${page === 'Add' ? 'xl:w-60': 'xl:w-80'} `}
                             onClick={toggleState}>
-                            <div className='px-2'>
+                        <div className='px-2'>
                             <div className='text-yellow-500'>State</div>
                             <div className='text-white'>{state !== 'Select State' ? stateList.find(st => st.iso2 === state)?.name : 'Select State'}</div>
                             </div>
@@ -419,6 +437,19 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                     </Button>
 
                     </div>
+                </div>
+                <div className='ms-auto mt-3 text-white'>
+                    {selectedCities.map(city => (
+                        <Tag
+                            key={city.city}
+                            closable
+                            className='sm:w-auto w-full px-3 py-1 sm:mx-2 my-1 bg-[#00396e] text-white'
+                            onClose={() => handleClose({state:city.state, city:city.city})}
+                            closeIcon={<CloseOutlined className='ms-auto' style={{ color: 'white' }} />}
+                        >
+                            <strong className='my-auto text-center pe-2'>{stateList.find(st => st.iso2 === city.state)?.name}, {city.city}</strong>
+                        </Tag>
+                    ))}
                 </div>
             </div>
         </>
