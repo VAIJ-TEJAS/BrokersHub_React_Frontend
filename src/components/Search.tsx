@@ -281,8 +281,15 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     }
 
     useEffect(() => {
-        console.log(selectedCities)
         const filteringLocation = items.filter(item => {
+            const stateMatch = selectedCities.some(city => stateList.find(st => st.iso2 === city.state)?.name === item.state);
+            console.log(stateMatch)
+    
+            // Check if the item's city is not in selectedCities
+            const cityMatch = selectedCities.some(city => city.city === item.city || city.city === '');
+
+            // Filter the item if the state is in selectedCities and city is empty
+            return stateMatch && cityMatch;
             return selectedCities.some(city => stateList.find(st => st.iso2 === city.state)?.name === item.state && city.city === item.city && city.city !== '');
         });
 
