@@ -6531,7 +6531,8 @@ const PostAdd: React.FC = () => {
         <>
             <Navbar />
             <div className='d-flex justify-content-center' style={{backgroundImage: `url(${BackgroundImg})`, backgroundSize:'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
-                <div className='bg-white/50 w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                <div className='w-full flex justify-center bg-[black]/50'>
+                <div className='bg-white/80 w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                     <Form
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 14 }}
@@ -6827,6 +6828,7 @@ const PostAdd: React.FC = () => {
                             />
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </>

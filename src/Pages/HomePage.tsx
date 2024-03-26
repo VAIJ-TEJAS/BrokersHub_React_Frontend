@@ -116,7 +116,7 @@ const OutServices: React.FC = () => {
               </div>
               <div className="service-title"> Support Management </div>
               <div className="service-desc">
-                Need assistance with your property deal? We provide end-to-end support, ensuring a smooth transaction from start to finish. Plus, we charge only 0.5% commission, split evenly between both parties (0.25% from each side).
+                Need assistance with your property deal? We provide end-to-end support, ensuring a smooth transaction from start to finish. The best part is that we charge only 0.5% commiision on the deal value for all our services.
               </div>
             </div>
 
@@ -144,17 +144,6 @@ const Referral: React.FC = () => {
       console.log('Shared successfully');
     } catch (error) {
       console.error('Error sharing:', error);
-      // Fallback options for browsers that do not support Web Share API
-      // const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + ' ' + shareData.url)}`;
-      // const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
-      // const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.text)}`;
-      // const instagramUrl = `https://www.instagram.com`;
-
-      // // Open the share URLs in a new tab/window
-      // window.open(whatsappUrl, '_blank');
-      // window.open(facebookUrl, '_blank');
-      // window.open(twitterUrl, '_blank');
-      // window.open(instagramUrl, '_blank');
     }
 };
 
@@ -178,7 +167,7 @@ useEffect(() => {
         </div>
         <div className="sm:p-5 p-3 referral-info">
           <h1 className="mb-5 text-primary font-montserrat">Earn by joining Our referral program</h1>
-          <p>Unlock rewards by sharing your referral code! When new users register with your code, you earn a <span className='font-medium md:text-2xl text-xl text-primary'>0.25% commission from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
+          <p>Unlock rewards by sharing your referral code! When new users register with your code, you earn upto <span className='font-medium md:text-2xl text-xl text-primary'>₹20,000 from their first deal</span>. The registration form includes a dedicated field for entering referral codes, making it easy for both referrers and referees to benefit from our program.</p>
           {userAuthenticated ?
           <Button
             type="primary"

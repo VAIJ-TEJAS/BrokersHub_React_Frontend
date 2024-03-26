@@ -6469,7 +6469,8 @@ const PostRequirement:React.FC = () => {
             <Navbar />
             {/* <div className='h-full d-flex justify-content-center '> */}
             <div className='flex justify-center' style={{backgroundImage: `url(${BackgroundImg})`, backgroundSize:'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
-                    <div className='bg-white/50 w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
+                <div className='w-full flex justify-center bg-[black]/50'>
+                    <div className='bg-white/80 w-full sm:w-3/4 border rounded-4 mt-5 mb-4 shadow flex justify-between items-center overflow-hidden'>
                         <Form
                             labelCol={{ span: 8 }}
                             wrapperCol={{ span: 14 }}
@@ -6730,6 +6731,7 @@ const PostRequirement:React.FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </>
     );
