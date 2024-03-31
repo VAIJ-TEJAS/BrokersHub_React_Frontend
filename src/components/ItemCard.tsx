@@ -154,10 +154,26 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <div className="pe-3">
           <Meta
             title={<h2 className="fs-5">{<div>{item.title.length > 25 ? item.title.substring(0, 22)+'...' : item.title}</div>}</h2>}
-            description={<div className="">{item.description}</div>}
+            // description={<div className="">{item.description}</div>}
             className="mb-2"
           />
         </div>
+        {
+          item.transaction_type === 'Buy' &&
+          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.budget}</span></p>
+        }
+        {
+          item.transaction_type === 'Sell' &&
+          <p className="mb-2">Price: <span className="text-secondary">₹ {item.budget}</span></p>
+        }
+        {
+          item.transaction_type === 'Conversion' &&
+          <p className="mb-2">Down Payment: <span className="text-secondary">₹ {item.downpayment}</span></p>
+        }
+        {
+          item.transaction_type === 'Rent' &&
+          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.monthly_rent}</span></p>
+        }
         <p className="mb-2">
           Location:{" "}
           <span className="text-secondary">
