@@ -60,6 +60,7 @@ const StepsForRequirement: React.FC = () => {
       ratio_y: "",
       monthly_rent: "",
       area: 1,
+      places: '',
     },
   ];
 

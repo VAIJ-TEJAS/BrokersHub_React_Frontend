@@ -199,7 +199,7 @@ const TerAndC: React.FC = () => {
 }
   
 const Navbar: React.FC = () =>{
-  const { TermsModalVisible, setTermsModalVisible, showAuthModal, setUserAuthenticated } = Context();
+  const { TermsModalVisible, setTermsModalVisible, showAuthModal, setUserAuthenticated, setActiveAuthTab } = Context();
 
   const navigate = useNavigate();
 
@@ -247,11 +247,11 @@ const Navbar: React.FC = () =>{
                   </Menu.Item>
                   <Menu.Item key={menuItems[2].key} className={`navDrops ${location.pathname.includes('postadd') || location.pathname.includes('addslisting') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
                     <Dropdown overlayClassName="NavdropInseider" menu={{ items:dropAditems }}>
-                      <a className="" onClick={(e) => e.preventDefault()}>
+                      <Link className="" onClick={(e) => e.preventDefault()} to={''}>
                         <Space>
                           {menuItems[2].label} <DownOutlined />
                         </Space>
-                      </a>
+                      </Link>
                     </Dropdown>
                   </Menu.Item>
             </Menu>
@@ -265,8 +265,8 @@ const Navbar: React.FC = () =>{
                   </Button>
                   </>:
                   <>
-                    <Button type="primary" ghost className='me-3 ' onClick={showAuthModal}>Login</Button>
-                    <Button type="primary" className='' onClick={showAuthModal}>Register</Button>
+                    <Button type="primary" ghost className='me-3 ' onClick={() => {setActiveAuthTab('1');showAuthModal()}}>Login</Button>
+                    <Button type="primary" className='' onClick={() => {setActiveAuthTab('2');showAuthModal();}}>Register</Button>
                   </>
                 }
               </div>

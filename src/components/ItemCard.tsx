@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Modal, Alert, message, Popconfirm  } from "antd";
+import { Button, Card, Modal, Alert, message, Popconfirm, Tag  } from "antd";
 import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
 
 import ExpandCard from "./ExpandCard";
@@ -16,13 +16,19 @@ interface Props {
   page: string;
 }
 
+interface Location {
+  places: string;
+}
+
 const ItemCard: React.FC<Props> = ({ item, page }) => {
+  // console.log(item);
 
   const navigate = useNavigate();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
 
   const handleDelete = async () => {
     try {
@@ -68,9 +74,21 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
     } catch (error) {
       console.error('Error sharing:', error);
     }
-};
+  };
 
-
+  useEffect(() => {
+    // Split city and state strings by ','
+    if (item.places !== undefined && item.places !== null && item.places.length) {
+      
+      const placesArr = (item.places !== null && item.places.includes(',')) ? item.places.split(',') : [item.places];
+      
+      // Map city and state arrays to create an array of Location objects
+      const locations = placesArr.map((place: string) => ({
+        places: place || '', // Use empty string if state is not available
+      }));
+      setSelectedLocations(locations)
+    }
+  }, [item])
 
   return (
     <Card
@@ -120,40 +138,40 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
 
       <div>
         <div className="absolute top-1 right-1">
-        {(location.pathname.includes('profile')) && (
-          <div>
-            <Button
-              type="primary"
-              className="mb-1"
-              onClick={() => {
-                localStorage.setItem('thebrokerhub-item', JSON.stringify(item))
-                if (page === "requirements") {
-                  navigate(`/postrequirement/${item.id}`)
-                }
-                else if(page === "advertisements"){
-                  navigate(`/postadd/${item.id}`)
-                }
-              }}
-              icon={<EditOutlined />}
-            >
-            </Button>
-            <br />
-            <Popconfirm
-              title="Delete the post"
-              description="Are you sure to delete this post?"
-              onConfirm={confirm}
-              okText="Yes"
-              cancelText="No"
-            >
-
+          {(location.pathname.includes('profile')) && (
+            <div>
               <Button
                 type="primary"
-                icon={<DeleteOutlined />}
-                danger
-              />
-            </Popconfirm>
-            </div>
-        )}
+                className="mb-1"
+                onClick={() => {
+                  localStorage.setItem('thebrokerhub-item', JSON.stringify(item))
+                  if (page === "requirements") {
+                    navigate(`/postrequirement/${item.id}`)
+                  }
+                  else if(page === "advertisements"){
+                    navigate(`/postadd/${item.id}`)
+                  }
+                }}
+                icon={<EditOutlined />}
+              >
+              </Button>
+              <br />
+              <Popconfirm
+                title="Delete the post"
+                description="Are you sure to delete this post?"
+                onConfirm={confirm}
+                okText="Yes"
+                cancelText="No"
+              >
+
+                <Button
+                  type="primary"
+                  icon={<DeleteOutlined />}
+                  danger
+                />
+              </Popconfirm>
+              </div>
+          )}
         </div>
         
         <div className="pe-3">
@@ -166,14 +184,18 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <p className="mb-2">
           Location:{" "}
           <span className="text-secondary">
-            {item.city}, {item.state}
+            <span>{item.city}, {item.state} </span>
+              {selectedLocations.length > 0 &&
+                <>
+                  <Tag>{`${selectedLocations[0]?.places}`}</Tag>
+                  {selectedLocations.length > 2 ? " ..." : ""}
+                </>
+              }
           </span>
         </p>
         <p className="mb-2">
           Type: <span className="text-secondary">{item.transaction_type}</span>
         </p>
-        
-        {/* { !location.pathname.includes('post') && */}
           
           {page !== "addslisting" && page !== "requirementslisting" ? (
             <div className={`flex justify-between `}>
@@ -184,6 +206,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
                 >
                 View Details
               </Button>
+
               <Button
                 type="primary"
                 className={`w-auto  justify-center items-center ${location.pathname.includes('home') || location.pathname.includes('post') ? 'hidden' : 'flex' }`}

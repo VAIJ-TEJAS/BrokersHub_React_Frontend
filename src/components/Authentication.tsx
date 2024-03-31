@@ -390,7 +390,7 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
 
 const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTheEmail}) => {
 
-  const {ref_code, setTermsModalVisible} = Context();
+    const {ref_code, setTermsModalVisible} = Context();
 
 
     const [firstName, setFirstName] = useState('');
@@ -6891,14 +6891,15 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
 
 const Autentication: React.FC = () => {
 
+    const {activeTab, setActiveAuthTab} = Context();
+
     const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
-    const [activeTab, setActiveTab] = useState<string>('1');
     const [Email, setEmail] = useState<string>('');
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
         console.log(`Tab changed to: ${key}`);
-        setActiveTab(key);
+        setActiveAuthTab(key);
         console.log(activeTab);
     };
 
@@ -6976,7 +6977,7 @@ const Autentication: React.FC = () => {
                         </div>
                         <div className='m-5'>
                             <Tabs
-                                defaultActiveKey="2"
+                                defaultActiveKey={activeTab}
                                 tabPosition="top"
                                 onChange={handleTabChange}
                                 centered

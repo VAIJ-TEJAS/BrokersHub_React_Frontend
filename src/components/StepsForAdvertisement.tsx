@@ -61,6 +61,7 @@ const StepsForAdvertisement: React.FC = () => {
       city: 'Ranchi',
       state: 'Jharkhand',
       area: 1,
+      places: ''
     },
   ]
 

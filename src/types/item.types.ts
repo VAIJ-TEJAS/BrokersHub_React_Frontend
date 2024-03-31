@@ -13,4 +13,5 @@ export interface Item {
     image: string,
     budget: string;
     area: number;
+    places: string;
 }

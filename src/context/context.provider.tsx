@@ -16,9 +16,12 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [inputEmailPageOpen, setInputEmailPageOpen] = useState<boolean>(false)
   const [passwordBox, setPasswordBox] = useState(false);
   const [TermsModalVisible, setTermsModalVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('1');
 
 
-
+  const setActiveAuthTab = (tab: string) => {
+    setActiveTab(tab)
+  }
   const openOtpBox = (meth: string) => {
     setInputEmailPageOpen(false)
     setOtpPageOpen(true);
@@ -52,6 +55,8 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
   };
 
   const contextValue: any = {
+    activeTab,
+    setActiveAuthTab,
     setref_code,
     ref_code,
     setTermsModalVisible,

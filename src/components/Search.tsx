@@ -42,159 +42,12 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     const [rangeOpen, setRangeOpen] = useState<boolean>(false);
     const [CityOpen, setCityOpen] = useState<boolean>(false);
     const [stateOpen, setStateOpen] = useState<boolean>(false);
-  
-//   const [stateList] = useState<OptionType[]>([
-//     {
-//     label: "AN",
-//     value: "Andaman and Nicobar Islands"
-//     },
-//     {
-//     label: "AP",
-//     value: "Andhra Pradesh"
-//     },
-//     {
-//     label: "AR",
-//     value: "Arunachal Pradesh"
-//     },
-//     {
-//     label: "AS",
-//     value: "Assam"
-//     },
-//     {
-//     label: "BR",
-//     value: "Bihar"
-//     },
-//     {
-//     label: "CG",
-//     value: "Chandigarh"
-//     },
-//     {
-//     label: "CH",
-//     value: "Chhattisgarh"
-//     },
-//     {
-//     label: "DH",
-//     value: "Dadra and Nagar Haveli"
-//     },
-//     {
-//     label: "DD",
-//     value: "Daman and Diu"
-//     },
-//     {
-//     label: "DL",
-//     value: "Delhi"
-//     },
-//     {
-//     label: "GA",
-//     value: "Goa"
-//     },
-//     {
-//     label: "GJ",
-//     value: "Gujarat"
-//     },
-//     {
-//     label: "HR",
-//     value: "Haryana"
-//     },
-//     {
-//     label: "HP",
-//     value: "Himachal Pradesh"
-//     },
-//     {
-//     label: "JK",
-//     value: "Jammu and Kashmir"
-//     },
-//     {
-//     label: "JH",
-//     value: "Jharkhand"
-//     },
-//     {
-//     label: "KA",
-//     value: "Karnataka"
-//     },
-//     {
-//     label: "KL",
-//     value: "Kerala"
-//     },
-//     {
-//     label: "LD",
-//     value: "Lakshadweep"
-//     },
-//     {
-//     label: "MP",
-//     value: "Madhya Pradesh"
-//     },
-//     {
-//     label: "MH",
-//     value: "Maharashtra"
-//     },
-//     {
-//     label: "MN",
-//     value: "Manipur"
-//     },
-//     {
-//     label: "ML",
-//     value: "Meghalaya"
-//     },
-//     {
-//     label: "MZ",
-//     value: "Mizoram"
-//     },
-//     {
-//     label: "NL",
-//     value: "Nagaland"
-//     },
-//     {
-//     label: "OR",
-//     value: "Odisha"
-//     },
-//     {
-//     label: "PY",
-//     value: "Puducherry"
-//     },
-//     {
-//     label: "PB",
-//     value: "Punjab"
-//     },
-//     {
-//     label: "RJ",
-//     value: "Rajasthan"
-//     },
-//     {
-//     label: "SK",
-//     value: "Sikkim"
-//     },
-//     {
-//     label: "TN",
-//     value: "Tamil Nadu"
-//     },
-//     {
-//     label: "TS",
-//     value: "Telangana"
-//     },
-//     {
-//     label: "TR",
-//     value: "Tripura"
-//     },
-//     {
-//     label: "UK",
-//     value: "Uttar Pradesh"
-//     },
-//     {
-//     label: "UP",
-//     value: "Uttarakhand"
-//     },
-//     {
-//     label: "WB",
-//     value: "West Bengal"
-//     }
-//     ]);
-
+    
     const [inputState, setInputState] = useState<string>('');
     const [inputCity, setInputCity] = useState<string>('');
     const [filteredStates, setFilteredStates] = useState<OptionType[]>([]);
     const [filteredCity, setFilteredCity] = useState<cityType[]>(cities);
-    const [selectedCities, setSelectedCities] = useState<City[]>([]);
+    const [selectedCities, setSelectedCities] = useState<City>();
 
     useEffect(() => {
         axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
@@ -256,15 +109,12 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         setRangeValue([0, numSelected]);
     };
 
-    const handleClose = (removedCity: City) => {
-        const newCities = selectedCities.filter(city => city.city !== removedCity.city);
-        setSelectedCities(newCities);
+    const handleClose = () => {
+        setSelectedCities({state: '', city: ''});
     };
 
     const handleCityChange = (value: City) => {
-        if (!selectedCities.find((city: City) => city.city === value.city && city.state === value.state) && selectedCities.length < 3) {
-          setSelectedCities([...selectedCities, { state: value.state, city: value.city }]);
-        }
+          setSelectedCities({ state: value.state, city: value.city });
     };
 
     const handleFilter = () => {
@@ -272,26 +122,20 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
             setSelectedCities(selectedCities);
             return
         }
-        console.log(city)
         if (city === 'Select City') {
-            handleCityChange({ state: state, city: '' });
+            handleCityChange({ state: stateList.find(st => st.iso2 === state)?.name || '', city: '' });
             return
         }
-        handleCityChange({ state: state, city: city });
+        handleCityChange({ state: stateList.find(st => st.iso2 === state)?.name || '', city: city });
     }
 
     useEffect(() => {
-        const filteringLocation = items.filter(item => {
-            const stateMatch = selectedCities.some(city => stateList.find(st => st.iso2 === city.state)?.name === item.state);
-            console.log(stateMatch)
-    
-            // Check if the item's city is not in selectedCities
-            const cityMatch = selectedCities.some(city => city.city === item.city || city.city === '');
-
-            // Filter the item if the state is in selectedCities and city is empty
-            return stateMatch && cityMatch;
-            return selectedCities.some(city => stateList.find(st => st.iso2 === city.state)?.name === item.state && city.city === item.city && city.city !== '');
-        });
+        let filteringLocation = items
+        console.log(filteringLocation.length)
+        console.log(selectedCities)
+        if (selectedCities) {
+            filteringLocation = items.filter(item => item.state.includes(selectedCities.state)  && item.city.includes(selectedCities.city));
+        }
 
         console.log(filteringLocation)
 
@@ -331,9 +175,9 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         },
     ]
 
-  useEffect(() => {
-    console.log(rangeValue);
-  }, [rangeValue]);
+//   useEffect(() => {
+//     console.log(rangeValue);
+//   }, [rangeValue]);
 
     return (
         <>
@@ -458,17 +302,17 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                 </div>
                 <div className='ms-auto mt-2 text-white'>
                     <div className='flex sm:flex-row flex-wrap sm:justify-end justify-center'>
-                        {selectedCities.map(city => (
+                        {selectedCities && selectedCities.state !== '' &&
                             <Tag
-                                key={city.city}
+                                key={`${selectedCities.state}-${selectedCities.city}`}
                                 closable
                                 className=' px-3 py-1 mx-2 my-1 bg-[#00396e] text-white'
-                                onClose={() => handleClose({state:city.state, city:city.city})}
+                                onClose={() => handleClose()}
                                 closeIcon={<CloseOutlined className='ms-auto' style={{ color: 'white' }} />}
                             >
-                                <strong className='my-auto text-center pe-2'>{stateList.find(st => st.iso2 === city.state)?.name}, {city.city}</strong>
+                                <strong className='my-auto text-center pe-2'>{selectedCities.state} {selectedCities.city !== '' ? `, ${selectedCities.city}`: ''}</strong>
                             </Tag>
-                        ))}
+                        }
                     </div>
                 </div>
             </div>

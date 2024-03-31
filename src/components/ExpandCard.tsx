@@ -1,9 +1,10 @@
 import './Navbar.css'
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
 import axios from 'axios';
 import { message } from 'antd';
 import { Context } from '../context/context.provider';
 import { Item } from '../types/item.types';
+import { useEffect, useState } from 'react';
 
 interface Props {
   item: Item;
@@ -11,10 +12,15 @@ interface Props {
   handleCancel: () => void;
 }
 
+interface Location {
+  places: string;
+}
+
 const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
   const { userAuthenticated, showAuthModal } = Context();
   const token = localStorage.getItem('thebrokershub-access-token');
+  const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
   
   const handleDeal = () => {
     if (!userAuthenticated)  {
@@ -53,6 +59,20 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
           // Optionally, you can perform any actions after error
       });
   }
+
+  useEffect(() => {
+    // Split city and state strings by ','
+    if (item.places && item.places.length) {
+      
+      const placeArr = item.places.split(',');
+      
+      // Map city and state arrays to create an array of Location objects
+      const locations = placeArr.map((place: string) => ({
+        places: place || '', // Use empty string if state is not available
+      }));
+      setSelectedLocations(locations)
+    }
+  }, [])
 
   return (
     <div className="property-card">
@@ -95,7 +115,14 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
           </li>}
 
           <li className="property-contact">
-              <strong>Location:</strong> {item.city}, {item.state}
+              <strong>Location:</strong>
+              <span> {item.city}, {item.state}</span>
+              {
+                selectedLocations &&
+                selectedLocations.slice(0, -1).map((location: any, index: any) => (
+                  <Tag className='mx-1' key={index}>{`${location.places}`}</Tag>
+                ))
+              }
           </li>
         </ul>
 
