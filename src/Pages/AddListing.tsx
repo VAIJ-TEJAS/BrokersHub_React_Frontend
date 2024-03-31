@@ -72,7 +72,7 @@ const AddListing: React.FC = () => {
 
 
               <div className='d-flex flex-wrap justify-center'>
-                {filteredItems.map((item, index) => (
+                {filteredItems.slice().reverse().map((item, index) => (
                   <ItemCard page="addslisting" key={index} item={item} />
                   ))}
               </div>

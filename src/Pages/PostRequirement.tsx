@@ -1,4 +1,4 @@
-import { Form, Input, Button, Select, Alert, message, Tag } from 'antd';
+import { Form, Input, Button, Select, Alert, message, Tag, Spin } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import { useEffect, useState } from 'react';
@@ -35,6 +35,7 @@ const PostRequirement:React.FC = () => {
     const [placesStr, setPlacesStr] = useState<string>('');
     const [stateList, setStateList] = useState<OptionType[]>([]);
     const [cities, setcities] = useState<OptionType[]>([]);
+    const [loading, setLoading] = useState(false);
     const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
 
     console.log(selectedLocations)
@@ -77,6 +78,7 @@ const PostRequirement:React.FC = () => {
         },
 
         onSubmit: async (values) => {
+            setLoading(true);
             // values.state = stateList.find(st => st.iso2 === values.state)?.name || '';
 
             if (selectedLocations.length <= 0) {
@@ -132,6 +134,8 @@ const PostRequirement:React.FC = () => {
                     }
                     // Optionally, you can perform any actions after error
                 });
+                setLoading(false);
+
                 return;
             }
             
@@ -163,6 +167,8 @@ const PostRequirement:React.FC = () => {
                 }
                 // Optionally, you can perform any actions after error
             });
+
+            setLoading(false);
         },
     });
 
@@ -494,13 +500,18 @@ const PostRequirement:React.FC = () => {
                                 </Form.Item>
                             }
 
-                            <Button
-                                type='primary'
-                                className='bg-[#1890FF] w-full font-semibold'
-                                htmlType='submit'
-                            >
-                                Submit
-                            </Button>
+                            <Spin spinning={loading}>
+                                {/* Content to show when loading */}
+                                <Button
+                                    type='primary'
+                                    className='bg-[#1890FF] w-full font-semibold'
+                                    htmlType='submit'
+                                >
+                                    Submit
+                                </Button>
+                            </Spin>
+
+                            
                         </Form>
                         <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
                             <div className='addCardShower'>
