@@ -12,7 +12,6 @@ import { User } from '../types/user.types';
 import Navbar from '../components/Navbar';
 
 const { Content } = Layout;
-const { Option } = Select;
 
 type TabPosition = 'left' | 'top';
 
@@ -20,10 +19,18 @@ interface updateFormProps{
   handleUpdateCancel: () => void;
 }
 
+interface OptionType {
+  id: number;
+  name: string;
+  iso2: string;
+}
+
 const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
+  const [stateList, setStateList] = useState<OptionType[]>([]);
+  const [cities, setcities] = useState<OptionType[]>([]);
   const [userData, setUserData] = useState({
     id: 0,
     first_name: '',
@@ -37,6 +44,7 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
     // Fetch user data from localStorage
     const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
     if (storedUserData) {
+      storedUserData.state = stateList.find(st => st.iso2 === storedUserData.state)?.name
       setUserData(storedUserData);
       form.setFieldsValue(storedUserData); // Initialize form fields with user data
     }
@@ -61,6 +69,36 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
       })
       // Optionally, you can handle success response here
   };
+
+  useEffect(() => {
+    axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
+          headers: {
+            'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((response) => {
+          setStateList(response.data);
+        })
+  })
+
+  const updateCities = () => {
+    let state = form.getFieldValue('state');
+    console.log("Updating for " + state)
+    console.log("Updating for " + stateList.find(st => st.name === state)?.iso2)
+    axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`, {
+      headers: {
+        'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+        setcities(response.data);
+    })
+  }
+
+  const filterOption = (input: string, option?: { label: string; value: string }) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
     <div className="mt-4 px-5 bg-white">
@@ -100,10 +138,18 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
           label="State"
           rules={[{ required: true, message: 'Please select your state!' }]}
         >
-          <Select>
-            <Option value="SomeState">SomeState</Option>
-            {/* Add more state options as needed */}
-          </Select>
+          <Select
+            showSearch
+            onChange={updateCities}
+            placeholder="Select a state"
+            filterOption={filterOption}
+            options={stateList.map(city => {
+                return {
+                    value: city.iso2,
+                    label: city.name
+                };
+            })}
+          />
         </Form.Item>
 
         <Form.Item
@@ -111,10 +157,18 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
           label="City"
           rules={[{ required: true, message: 'Please select your city!' }]}
         >
-          <Select>
-            <Option value="SomeCity">SomeCity</Option>
-            {/* Add more city options as needed */}
-          </Select>
+          <Select
+            showSearch
+            placeholder="Select a city"
+            filterOption={filterOption}
+            // options={cities}
+            options={cities
+                .map(city => ({
+                    value: city.name,
+                    label: city.name
+                }))
+            }
+          />
         </Form.Item>
 
         <Form.Item>
@@ -133,6 +187,7 @@ const ProfilePage: React.FC = () => {
 
   // Get the value of a specific parameter
   const [user, setuser] = useState<User | null>(null);
+  const [stateList, setStateList] = useState<OptionType[]>([]);
   const [mode, setMode] = useState<TabPosition>('left');
   const [reqitems, setReqItems] = useState<Item[]>([]);
   const [additems, setAddItems] = useState<Item[]>([]);
@@ -235,7 +290,19 @@ const ProfilePage: React.FC = () => {
       // window.open(twitterUrl, '_blank');
       // window.open(instagramUrl, '_blank');
     }
-};
+  };
+
+  useEffect(() => {
+    axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
+          headers: {
+            'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((response) => {
+          setStateList(response.data);
+        })
+  })
   
   return (
     <div>
@@ -300,7 +367,7 @@ const ProfilePage: React.FC = () => {
                                   Address
                               </dt>
                               <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {user?.city}, {user?.state}
+                                {user?.city}, {stateList.find(st => st.iso2 === user?.state)?.name}
                               </dd>
                           </div>
                           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

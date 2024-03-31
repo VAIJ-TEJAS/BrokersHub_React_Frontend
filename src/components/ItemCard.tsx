@@ -43,8 +43,8 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       );
       message.success("Your post has been deleted!");
       // Reload the current page
-      window.location.reload();
       setLoading(false); // Set loading state back to false after the operation is completed
+      window.location.reload();
     } catch (error: any) {
       console.log('Response:', error);
 

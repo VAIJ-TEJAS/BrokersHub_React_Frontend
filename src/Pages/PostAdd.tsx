@@ -144,8 +144,10 @@ const PostAdd: React.FC = () => {
                             setError(errorMessage)
                         }
                         // Optionally, you can perform any actions after error
+                    })
+                    .finally(() => {
+                        setLoading(false); // Set loading state to false after request completion
                     });
-                setLoading(false);
                 return;
 
             }
@@ -180,8 +182,10 @@ const PostAdd: React.FC = () => {
                         setError(errorMessage)
                     }
                     // Optionally, you can perform any actions after error
+                })
+                .finally(() => {
+                    setLoading(false); // Set loading state to false after request completion
                 });
-            setLoading(false);
             return;
         },
     });

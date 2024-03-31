@@ -78,8 +78,6 @@ const PostRequirement:React.FC = () => {
         },
 
         onSubmit: async (values) => {
-            setLoading(true);
-            // values.state = stateList.find(st => st.iso2 === values.state)?.name || '';
 
             if (selectedLocations.length <= 0) {
                 message.error("Add at least one location.")
@@ -133,8 +131,10 @@ const PostRequirement:React.FC = () => {
                         setError(errorMessage)
                     }
                     // Optionally, you can perform any actions after error
+                })
+                .finally(() => {
+                    setLoading(false); // Set loading state to false after request completion
                 });
-                setLoading(false);
 
                 return;
             }
@@ -166,9 +166,11 @@ const PostRequirement:React.FC = () => {
                     setError(errorMessage)
                 }
                 // Optionally, you can perform any actions after error
+            })
+            .finally(() => {
+                setLoading(false); // Set loading state to false after request completion
             });
 
-            setLoading(false);
         },
     });
 
@@ -504,6 +506,7 @@ const PostRequirement:React.FC = () => {
                                 {/* Content to show when loading */}
                                 <Button
                                     type='primary'
+                                    onClick={() => {console.log("Loading");setLoading(true);}}
                                     className='bg-[#1890FF] w-full font-semibold'
                                     htmlType='submit'
                                 >
