@@ -77,7 +77,7 @@ const RequirementListingPage: React.FC = () => {
               <h1 className='text-center mb-3'>Requirements</h1>
 
               <div className='d-flex flex-wrap justify-center'>
-                {filteredItems.map((item, index) => (
+                {filteredItems.slice().reverse().map((item, index) => (
                   <ItemCard page="requirementslisting" key={index} item={item} />
                   ))}
               </div>

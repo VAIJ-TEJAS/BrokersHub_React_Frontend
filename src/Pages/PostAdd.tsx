@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, Button, Select, Upload, Alert, message } from 'antd';
+import { Form, Input, Button, Select, Upload, Alert, message, Spin } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import { useEffect, useState } from 'react';
@@ -32,6 +32,7 @@ const PostAdd: React.FC = () => {
     const [formData, setFormData] = useState({});
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
     const [stateList, setStateList] = useState<OptionType[]>([]);
     const [cities, setcities] = useState<OptionType[]>([]);
 
@@ -76,6 +77,7 @@ const PostAdd: React.FC = () => {
         },
 
         onSubmit: async (values) => {
+            setLoading(true);
             const token = localStorage.getItem('thebrokershub-access-token');
 
             if (!token) {
@@ -142,8 +144,10 @@ const PostAdd: React.FC = () => {
                             setError(errorMessage)
                         }
                         // Optionally, you can perform any actions after error
+                    })
+                    .finally(() => {
+                        setLoading(false); // Set loading state to false after request completion
                     });
-
                 return;
 
             }
@@ -178,6 +182,9 @@ const PostAdd: React.FC = () => {
                         setError(errorMessage)
                     }
                     // Optionally, you can perform any actions after error
+                })
+                .finally(() => {
+                    setLoading(false); // Set loading state to false after request completion
                 });
             return;
         },
@@ -516,13 +523,17 @@ const PostAdd: React.FC = () => {
                                 </Form.Item>
                             }
 
-                            <Button
-                                type='primary'
-                                className='bg-[#1890FF] w-full font-semibold'
-                                htmlType='submit'
-                            >
-                                Submit
-                            </Button>
+                            <Spin spinning={loading}>
+                                {/* Content to show when loading */}
+                                <Button
+                                    type='primary'
+                                    className='bg-[#1890FF] w-full font-semibold'
+                                    htmlType='submit'
+                                >
+                                    Submit
+                                </Button>
+                            </Spin>
+
                         </Form>
                         <div className='lg:flex hidden h-full w-auto justify-center items-center bg-[#001529]'>
                             <div className='addCardShower'>

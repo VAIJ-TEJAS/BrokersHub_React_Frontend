@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Modal, message, Popconfirm, Tag  } from "antd";
+import { Button, Card, Modal, message, Popconfirm, Tag, Spin  } from "antd";
 import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
 
 import ExpandCard from "./ExpandCard";
@@ -26,8 +26,10 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
+    setLoading(true);
     try {
       await axios.delete(
         `https://13.232.115.59/my-${page}/${item.id}/`,
@@ -41,12 +43,13 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       );
       message.success("Your post has been deleted!");
       // Reload the current page
+      setLoading(false); // Set loading state back to false after the operation is completed
       window.location.reload();
-
     } catch (error: any) {
       console.log('Response:', error);
 
       message.error(error.response?.data);
+      setLoading(false);
     }
   };
 
@@ -130,10 +133,10 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
                   }
                 }}
                 icon={<EditOutlined />}
-              >
-              </Button>
-              <br />
-              <Popconfirm
+              />
+              <Spin spinning={loading}>
+                {/* Content to show when loading */}
+                <Popconfirm
                 title="Delete the post"
                 description="Are you sure to delete this post?"
                 onConfirm={confirm}
@@ -147,6 +150,9 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
                   danger
                 />
               </Popconfirm>
+              </Spin>
+              <br />
+              
               </div>
           )}
         </div>
