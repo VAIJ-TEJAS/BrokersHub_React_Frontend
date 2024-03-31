@@ -24,6 +24,10 @@
 .NavdropInseider ul {
   background-color: #001529 !important;
 }
+
+.NavdropInseider ul li:hover {
+  background-color: #1677ff !important;
+}
 .NavdropInseider ul a {
   color: white !important;
 }

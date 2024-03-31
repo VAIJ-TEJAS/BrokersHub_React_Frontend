@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Modal, Alert, message, Popconfirm, Tag  } from "antd";
+import { Button, Card, Modal, message, Popconfirm, Tag  } from "antd";
 import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
 
 import ExpandCard from "./ExpandCard";
@@ -21,18 +21,15 @@ interface Location {
 }
 
 const ItemCard: React.FC<Props> = ({ item, page }) => {
-  // console.log(item);
 
   const navigate = useNavigate();
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://13.232.115.59/my-${page}/${item.id}/`,
         {
           headers: {
@@ -42,12 +39,14 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           },
         }
       );
-      console.log('Response success:', response.data);
-      setSuccess("Your post has been deleted!");
+      message.success("Your post has been deleted!");
+      // Reload the current page
+      window.location.reload();
+
     } catch (error: any) {
       console.log('Response:', error);
 
-      setError(error.response?.data);
+      message.error(error.response?.data);
     }
   };
 
@@ -113,28 +112,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       >
         <ExpandCard handleCancel={handleCancel} item={item} page={page} />
       </Modal>
-
-      {error !== "" && (
-        <Alert
-          className="mb-3"
-          message={error}
-          type="error"
-          showIcon
-          closable
-          onClose={() => setError("")}
-        />
-      )}
-
-      {success !== "" && (
-        <Alert
-          className="mb-3"
-          message={success}
-          type="success"
-          showIcon
-          closable
-          onClose={() => setSuccess("")}
-        />
-      )}
 
       <div>
         <div className="absolute top-1 right-1">
