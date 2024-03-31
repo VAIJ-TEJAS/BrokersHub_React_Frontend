@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Modal, Alert, message, Popconfirm, Tag  } from "antd";
+import { Button, Card, Modal, message, Popconfirm, Tag  } from "antd";
 import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
 
 import ExpandCard from "./ExpandCard";
@@ -21,18 +21,15 @@ interface Location {
 }
 
 const ItemCard: React.FC<Props> = ({ item, page }) => {
-  // console.log(item);
 
   const navigate = useNavigate();
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://13.232.115.59/my-${page}/${item.id}/`,
         {
           headers: {
@@ -42,12 +39,14 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
           },
         }
       );
-      console.log('Response success:', response.data);
-      setSuccess("Your post has been deleted!");
+      message.success("Your post has been deleted!");
+      // Reload the current page
+      window.location.reload();
+
     } catch (error: any) {
       console.log('Response:', error);
 
-      setError(error.response?.data);
+      message.error(error.response?.data);
     }
   };
 
@@ -114,28 +113,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <ExpandCard handleCancel={handleCancel} item={item} page={page} />
       </Modal>
 
-      {error !== "" && (
-        <Alert
-          className="mb-3"
-          message={error}
-          type="error"
-          showIcon
-          closable
-          onClose={() => setError("")}
-        />
-      )}
-
-      {success !== "" && (
-        <Alert
-          className="mb-3"
-          message={success}
-          type="success"
-          showIcon
-          closable
-          onClose={() => setSuccess("")}
-        />
-      )}
-
       <div>
         <div className="absolute top-1 right-1">
           {(location.pathname.includes('profile')) && (
@@ -177,10 +154,26 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <div className="pe-3">
           <Meta
             title={<h2 className="fs-5">{<div>{item.title.length > 25 ? item.title.substring(0, 22)+'...' : item.title}</div>}</h2>}
-            description={<div className="">{item.description}</div>}
+            // description={<div className="">{item.description}</div>}
             className="mb-2"
           />
         </div>
+        {
+          item.transaction_type === 'Buy' &&
+          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.budget}</span></p>
+        }
+        {
+          item.transaction_type === 'Sell' &&
+          <p className="mb-2">Price: <span className="text-secondary">₹ {item.budget}</span></p>
+        }
+        {
+          item.transaction_type === 'Conversion' &&
+          <p className="mb-2">Down Payment: <span className="text-secondary">₹ {item.downpayment}</span></p>
+        }
+        {
+          item.transaction_type === 'Rent' &&
+          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.monthly_rent}</span></p>
+        }
         <p className="mb-2">
           Location:{" "}
           <span className="text-secondary">

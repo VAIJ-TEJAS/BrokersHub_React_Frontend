@@ -21,7 +21,9 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const setActiveAuthTab = (tab: string) => {
     setActiveTab(tab)
+    showAuthModal()
   }
+
   const openOtpBox = (meth: string) => {
     setInputEmailPageOpen(false)
     setOtpPageOpen(true);

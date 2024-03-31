@@ -230,7 +230,6 @@ const Navbar: React.FC = () =>{
             <Link to="/home" className='my-auto me-5 text-lg sm:text-xl'><strong>The Brokers Hub</strong></Link>
             
             <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'680px'}}>
-              {/* {menuItems.map(item => ( */}
                   <Menu.Item key={menuItems[0].key} className={`${location.pathname.includes('home') ? 'ant-menu-item-selected' : ''}`} style={{minWidth: '73px'}}>
                       <Link to={menuItems[0].link}>{menuItems[0].label}</Link>
                   </Menu.Item>

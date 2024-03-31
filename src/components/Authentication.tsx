@@ -13,6 +13,10 @@ interface OptionType {
     label: string;
 }
 
+interface mainProp {
+    defaultTab?: string | null;
+}
+
 interface AuthenticationProps {
     defaultTab?: string | null;
     handleLogin: (email: string, password:string) => void;
@@ -6889,18 +6893,20 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
     )
 }
 
-const Autentication: React.FC = () => {
-
-    const {activeTab, setActiveAuthTab} = Context();
+const Autentication: React.FC<mainProp> = ({defaultTab}) => {
 
     const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
+    const [activeTab, setActiveTab] = useState<string>('1');
     const [Email, setEmail] = useState<string>('');
+    
+    if (defaultTab) {
+        setActiveTab(defaultTab);
+    }
 
     const handleTabChange = (key: string) => {
         // Do something based on the selected tab key
         console.log(`Tab changed to: ${key}`);
-        setActiveAuthTab(key);
-        console.log(activeTab);
+        setActiveTab(key);
     };
 
     const setTheEmail = (email: string) => {
