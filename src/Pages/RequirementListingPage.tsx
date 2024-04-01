@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Modal, message } from 'antd';
+import { Empty, Layout, Modal, message } from 'antd';
 import Filter from '../components/Search';
 import ItemCard from '../components/ItemCard';
 import ExpandCard from '../components/ExpandCard';
@@ -76,11 +76,18 @@ const RequirementListingPage: React.FC = () => {
 
               <h1 className='text-center mb-3'>Requirements</h1>
 
-              <div className='d-flex flex-wrap justify-center'>
-                {filteredItems.slice().reverse().map((item, index) => (
-                  <ItemCard page="requirementslisting" key={index} item={item} />
-                  ))}
-              </div>
+              {
+                filteredItems.length === 0 ? 
+                  <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    description={<span>No Data Available</span>}
+                  />:
+                  <div className='d-flex flex-wrap justify-center'>
+                    {filteredItems.slice().reverse().map((item, index) => (
+                      <ItemCard page="requirementslisting" key={index} item={item} />
+                      ))}
+                  </div>
+              }
 
             </Content>
           </Layout>

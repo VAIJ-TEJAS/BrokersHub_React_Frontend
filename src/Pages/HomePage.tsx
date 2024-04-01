@@ -116,7 +116,7 @@ const OutServices: React.FC = () => {
               </div>
               <div className="service-title"> Support Management </div>
               <div className="service-desc">
-                Need assistance with your property deal? We provide end-to-end support, ensuring a smooth transaction from start to finish. The best part is that we charge only 0.5% commiision on the deal value for all our services.
+                Need assistance with your property deal? We provide end-to-end support, ensuring a smooth transaction from start to finish. The best part is that we charge only 0.5% commission  on the deal value for all our services.
               </div>
             </div>
 
