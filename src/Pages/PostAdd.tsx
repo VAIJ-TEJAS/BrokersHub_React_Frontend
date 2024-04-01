@@ -350,6 +350,7 @@ const PostAdd: React.FC = () => {
                                     value={formik.values.state}
                                     onChange={(value) => {
                                         formik.setFieldValue('state',stateList.find(st => st.iso2 === value)?.name );
+                                        formik.setFieldValue('city', '');
                                     }}
                                     filterOption={filterOption}
                                     options={stateList.map(city => {

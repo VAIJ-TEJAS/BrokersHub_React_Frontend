@@ -31,8 +31,8 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
 
   const [form] = Form.useForm();
   const [stateList, setStateList] = useState<OptionType[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [cities, setcities] = useState<OptionType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [cities, setcities] = useState<OptionType[]>([]);
   const [userData, setUserData] = useState({
     id: 0,
     first_name: '',
@@ -87,13 +87,23 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
         })
         .then((response) => {
           setStateList(response.data);
+          const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
+          const stateIso2 = storedUserData.state;
+          const state = stateIso2 ? stateList.find(st => st.name === stateIso2)?.iso2 || '' : '';
+          axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`, {
+            headers: {
+              'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
+              'Content-Type': 'application/json'
+            }
+          })
+          .then((response) => {
+              setcities(response.data);
+          })
         })
   })
 
   const updateCities = () => {
     let state = form.getFieldValue('state');
-    console.log("Updating for " + state)
-    console.log("Updating for " + stateList.find(st => st.name === state)?.iso2)
     axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`, {
       headers: {
         'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
@@ -148,7 +158,7 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
         >
           <Select
             showSearch
-            onChange={updateCities}
+            onChange={() => {updateCities(); form.setFieldValue('city', '')}}
             placeholder="Select a state"
             filterOption={filterOption}
             options={stateList.map(city => {
