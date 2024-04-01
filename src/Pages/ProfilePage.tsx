@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message } from 'antd';
+import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message, Spin } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import { EditOutlined, ShareAltOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -30,7 +30,8 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
 
   const [form] = Form.useForm();
   const [stateList, setStateList] = useState<OptionType[]>([]);
-  const [cities, setcities] = useState<OptionType[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [cities, setcities] = useState<OptionType[]>([]);
   const [userData, setUserData] = useState({
     id: 0,
     first_name: '',
@@ -44,7 +45,7 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
     // Fetch user data from localStorage
     const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
     if (storedUserData) {
-      storedUserData.state = stateList.find(st => st.iso2 === storedUserData.state)?.name
+      // storedUserData.state = stateList.find(st => st.iso2 === storedUserData.state)?.name
       setUserData(storedUserData);
       form.setFieldsValue(storedUserData); // Initialize form fields with user data
     }
@@ -52,6 +53,8 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
 
   const handleSubmit = async (value: any) => {
       // Make PUT request to update user data
+      setLoading(true);
+      value.state = stateList.find(st => st.iso2 === value.state)?.name
       await axios.patch(`https://13.232.115.59/user/${userData.id}/`, value, {
         headers: {
           'Content-Type': 'application/json',
@@ -63,10 +66,14 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
         handleUpdateCancel();
         navigate('/profile')
         message.success("Your profile has been updated")
+        window.location.reload();
       })
       .catch(_error => {
         message.error("Error updating profile.")
       })
+      .finally(() => {
+        setLoading(false); // Set loading state to false after request completion
+      });
       // Optionally, you can handle success response here
   };
 
@@ -172,9 +179,12 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
-            Update Details
-          </Button>
+          <Spin spinning={loading}>
+            {/* Content to show when loading */}
+            <Button type="primary" htmlType="submit" className="w-full">
+              Update Details
+            </Button>
+          </Spin>
         </Form.Item>
       </Form>
     </div>
@@ -187,7 +197,6 @@ const ProfilePage: React.FC = () => {
 
   // Get the value of a specific parameter
   const [user, setuser] = useState<User | null>(null);
-  const [stateList, setStateList] = useState<OptionType[]>([]);
   const [mode, setMode] = useState<TabPosition>('left');
   const [reqitems, setReqItems] = useState<Item[]>([]);
   const [additems, setAddItems] = useState<Item[]>([]);
@@ -292,17 +301,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
-          headers: {
-            'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
-            'Content-Type': 'application/json'
-          }
-        })
-        .then((response) => {
-          setStateList(response.data);
-        })
-  })
   
   return (
     <div>
@@ -367,7 +365,7 @@ const ProfilePage: React.FC = () => {
                                   Address
                               </dt>
                               <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {user?.city}, {stateList.find(st => st.iso2 === user?.state)?.name}
+                                {user?.city}, {user?.state}
                               </dd>
                           </div>
                           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
