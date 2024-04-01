@@ -10,6 +10,7 @@ import TabPane from 'antd/es/tabs/TabPane';
 import { Item } from '../types/item.types';
 import { User } from '../types/user.types';
 import Navbar from '../components/Navbar';
+import { Context } from '../context/context.provider';
 
 const { Content } = Layout;
 
@@ -194,6 +195,7 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
 const ProfilePage: React.FC = () => {
 
   const navigate = useNavigate();
+  const { setUserAuthenticated } = Context();
 
   // Get the value of a specific parameter
   const [user, setuser] = useState<User | null>(null);
@@ -382,7 +384,7 @@ const ProfilePage: React.FC = () => {
                               </Button>
                               </dd>
                           </div>
-                            <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');navigate('/');}}>Logout</Button>
+                          <Button type="primary" className='mt-3 w-full' danger onClick={() => {localStorage.removeItem('thebrokershub-access-token');localStorage.removeItem('share-coupon-user');setUserAuthenticated(false);message.success("Logged out successfully.");navigate('/');}}>Logout</Button>
                       </dl>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { message, Form, Tabs, Input, Button, Select, Alert, Checkbox } from 'antd';
+import { message, Form, Tabs, Input, Button, Select, Alert, Checkbox, Spin } from 'antd';
 import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined, PhoneOutlined, EyeInvisibleOutlined, EyeTwoTone, ArrowLeftOutlined } from '@ant-design/icons';
 import { useState  } from 'react';
 import axios from "axios"
@@ -58,10 +58,13 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) 
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const onFinish = (values: any) => {
+        setLoading(true);
         console.log('Received values:', values);
         handleLogin(username, password)
+        setLoading(false);
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -120,9 +123,11 @@ const Login: React.FC<AuthenticationProps> = ({handleLogin, openInputEmailBox}) 
 
                 <div className='flex justify-between w-full'>
                     <Form.Item>
-                        <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
-                            Sign in
-                        </Button>
+                        <Spin spinning={loading}>
+                            <Button type='primary' className="bg-[#1890FF] primary-6 text-white px-6 rounded" htmlType="submit">
+                                Sign in
+                            </Button>
+                        </Spin>
                     </Form.Item>
                     <Form.Item>
                         <Button type="link" onClick={openInputEmailBox} block>
