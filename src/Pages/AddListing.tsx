@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ItemCard from '../components/ItemCard';
 import axios from 'axios';
-import { Layout, Modal } from 'antd';
+import { Empty, Layout, Modal } from 'antd';
 import Filter from '../components/Search';
 import ExpandCard from '../components/ExpandCard';
 import listingLogo from '../assets/images/listingBackground.jpg'
@@ -70,12 +70,18 @@ const AddListing: React.FC = () => {
 
               <h1 className='text-center mb-3'>Advertisements</h1>
 
-
-              <div className='d-flex flex-wrap justify-center'>
-                {filteredItems.slice().reverse().map((item, index) => (
-                  <ItemCard page="addslisting" key={index} item={item} />
-                  ))}
-              </div>
+              {
+                filteredItems.length === 0 ? 
+                  <Empty
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    description={<span>No Data Available</span>}
+                  />:
+                  <div className='d-flex flex-wrap justify-center'>
+                    {filteredItems.slice().reverse().map((item, index) => (
+                      <ItemCard page="addslisting" key={index} item={item} />
+                      ))}
+                  </div>
+              }
 
             </Content>
           </Layout>
