@@ -79,7 +79,9 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
   };
 
   useEffect(() => {
-    axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
+    const FetchData = async () => {
+
+        axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
           headers: {
             'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
             'Content-Type': 'application/json'
@@ -89,7 +91,7 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
           setStateList(response.data);
           const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
           const stateIso2 = storedUserData.state;
-          const state = stateIso2 ? stateList.find(st => st.name === stateIso2)?.iso2 || '' : '';
+          const state = stateIso2 ? response.data.find((st: any) => st.name === stateIso2)?.iso2 || '' : '';
           axios.get(`https://api.countrystatecity.in/v1/countries/IN/states/${state}/cities`, {
             headers: {
               'X-CSCAPI-KEY': `NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA==`,
@@ -100,7 +102,10 @@ const UpdateUserForm:React.FC<updateFormProps> = ({handleUpdateCancel}) => {
               setcities(response.data);
           })
         })
-  })
+    }
+
+    FetchData()
+  }, [])
 
   const updateCities = () => {
     let state = form.getFieldValue('state');

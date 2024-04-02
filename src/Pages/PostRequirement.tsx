@@ -113,10 +113,7 @@ const PostRequirement:React.FC = () => {
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
                     setSuccess('You requirement has been updated!');
-                    setTimeout(() => {
-                        navigate('/profile/')
-                    }, 2000);
-                    return;
+                    navigate('/profile/')
                     // Optionally, you can perform any actions after successful response
                 })
                 .catch(error => {
@@ -149,9 +146,7 @@ const PostRequirement:React.FC = () => {
             .then(response => {
                 console.log('Response:', response.data); // Handle the response
                 setSuccess('You requirement has been posted!');
-                setTimeout(() => {
-                    navigate('/requirementslisting/')
-                }, 2000);
+                navigate('/requirementslisting/')
                 // Optionally, you can perform any actions after successful response
             })
             .catch(error => {
