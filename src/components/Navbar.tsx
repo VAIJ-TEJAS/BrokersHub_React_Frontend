@@ -135,8 +135,6 @@ const NavbarDrawer: React.FC<drawerPropps> = ({ navbarDraweropen, closeNavbarDra
 
 const TerAndC: React.FC = () => {
 
-  
-
   return (
     
         <div className="p-8">

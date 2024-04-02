@@ -4,6 +4,7 @@ import { UserOutlined, UserAddOutlined, LockOutlined, EyeOutlined, MailOutlined,
 import { useState  } from 'react';
 import axios from "axios"
 import { Context } from '../context/context.provider';
+import logo from '../assets/logos/android-chrome-192x192.png'
 
 const { TabPane } = Tabs;
 
@@ -6983,8 +6984,9 @@ const Autentication: React.FC<mainProp> = ({defaultTab}) => {
                 inputEmailPageOpen ?
                     <InputEmail setTheEmail={setTheEmail} sendOtp={sendOtp} openOtpBox={openOtpBox} closeInputEmailBox={closeInputEmailBox} />:
                     <>
-                        <div className='font-semibold text-3xl mt-5'>
-                            BrokerHub
+                        <div className='font-semibold text-3xl mt-5 flex items-center'>
+                            <img src={logo} className='h-16 rounded-full me-2' alt="" />
+                            <span>The Brokers Hub</span>
                         </div>
                         <div className='m-5'>
                             <Tabs

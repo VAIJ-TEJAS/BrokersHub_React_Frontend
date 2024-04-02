@@ -178,7 +178,7 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         }
         {
           item.transaction_type === 'Rent' &&
-          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.monthly_rent}</span></p>
+          <p className="mb-2">Monthly Rent: <span className="text-secondary">₹ {item.monthly_rent}</span></p>
         }
         <p className="mb-2">
           Location:{" "}
