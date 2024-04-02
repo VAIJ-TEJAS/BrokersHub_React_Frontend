@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, Button, Select, Upload, Alert, message, Spin } from 'antd';
+import { Form, Input, Button, Select, Upload, message, Spin } from 'antd';
 import { useFormik } from 'formik';
 import ItemCard from '../components/ItemCard';
 import { useEffect, useState } from 'react';
@@ -30,8 +30,6 @@ const PostAdd: React.FC = () => {
     const { showAuthModal } = Context();
 
     const [formData, setFormData] = useState({});
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
     const [stateList, setStateList] = useState<OptionType[]>([]);
     const [cities, setcities] = useState<OptionType[]>([]);
@@ -123,7 +121,7 @@ const PostAdd: React.FC = () => {
                 })
                     .then(response => {
                         console.log('Response:', response.data); // Handle the response
-                        setSuccess('You requirement has been updated!');
+                        message.success('You requirement has been updated!')
                         navigate('/profile/')
 
                         // Optionally, you can perform any actions after successful response
@@ -134,12 +132,12 @@ const PostAdd: React.FC = () => {
                             let errorMessage = error.response?.data
                             let firstKey = Object.keys(errorMessage)[0];
                             // let firstValue = errorMessage[firstKey];
-                            setError('Field ' + firstKey + ' is required.')
+                            message.error('Field ' + firstKey + ' is required.')
                         }
                         else {
 
                             let errorMessage = error.message;
-                            setError(errorMessage)
+                            message.error(errorMessage)
                         }
                         // Optionally, you can perform any actions after error
                     })
@@ -159,7 +157,7 @@ const PostAdd: React.FC = () => {
             })
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
-                    setSuccess('You requirement has been posted!');
+                    message.success('You requirement has been posted!');
                     navigate('/addslisting/')
                     // Optionally, you can perform any actions after successful response
                 })
@@ -169,12 +167,12 @@ const PostAdd: React.FC = () => {
                         let errorMessage = error.response?.data
                         let firstKey = Object.keys(errorMessage)[0];
                         // let firstValue = errorMessage[firstKey];
-                        setError('Field ' + firstKey + ' is required.')
+                        message.error('Field ' + firstKey + ' is required.')
                     }
                     else {
 
                         let errorMessage = error.message;
-                        setError(errorMessage)
+                        message.error(errorMessage)
                     }
                     // Optionally, you can perform any actions after error
                 })
@@ -278,14 +276,6 @@ const PostAdd: React.FC = () => {
                             className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
                         >
                             <div className='sm:text-4xl text-2xl font-medium text-[#002766] mb-3'>Advertisement Details</div>
-
-                            {error !== '' && (
-                                <Alert className='mb-3' message={error} type="error" showIcon closable onClose={() => setError('')} />
-                            )}
-
-                            {success !== '' && (
-                                <Alert className='mb-3' message={success} type="success" showIcon closable onClose={() => setSuccess('')} />
-                            )}
 
                             <Form.Item
                                 label='Image'
