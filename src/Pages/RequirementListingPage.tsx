@@ -82,7 +82,7 @@ const RequirementListingPage: React.FC = () => {
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
                     description={<span>No Data Available</span>}
                   />:
-                  <div className='d-flex flex-wrap justify-center'>
+                  <div className='d-flex flex-wrap justify-center mb-5'>
                     {filteredItems.slice().reverse().map((item, index) => (
                       <ItemCard page="requirementslisting" key={index} item={item} />
                       ))}
