@@ -124,9 +124,7 @@ const PostAdd: React.FC = () => {
                     .then(response => {
                         console.log('Response:', response.data); // Handle the response
                         setSuccess('You requirement has been updated!');
-                        setTimeout(() => {
-                            navigate('/profile/')
-                        }, 2000);
+                        navigate('/profile/')
 
                         // Optionally, you can perform any actions after successful response
                     })
@@ -162,10 +160,7 @@ const PostAdd: React.FC = () => {
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
                     setSuccess('You requirement has been posted!');
-                    setTimeout(() => {
-                        navigate('/addslisting/')
-                    }, 2000);
-                    return;
+                    navigate('/addslisting/')
                     // Optionally, you can perform any actions after successful response
                 })
                 .catch(error => {
