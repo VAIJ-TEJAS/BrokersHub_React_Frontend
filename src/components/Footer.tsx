@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../context/context.provider';
+import logo from '../assets/logos/transparentLogo.png'
 
 const { Footer } = Layout;
 
@@ -13,11 +14,11 @@ export default function FooterComp() {
         <div>
             <Footer className="p-4 bg-[white] sm:p-6 dark:bg-gray-800">
                 <div className="mx-auto max-w-screen-xl">
-                    <div className="md:flex md:justify-between">
+                    <div className="lg:flex lg:justify-between">
 
-                        <div className="mb-6 md:mb-0">
+                        <div className="mb-6 lg:mb-0">
                             <div onClick={() => {navigate('/');}} className="flex items-center">
-                                <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="FlowBite Logo" />
+                                <img src={logo} className=" h-24" alt="Logo" />
                                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">The Brokers Hub</span>
                             </div>
                         </div>

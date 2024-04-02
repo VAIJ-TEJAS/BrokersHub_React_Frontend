@@ -6,6 +6,9 @@ import { Layout } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import './Navbar.css'
 import { Context } from '../context/context.provider';
+import logo from '../assets/logos/transparentLogo.png'
+import fedLogo from '../assets/logos/android-chrome-192x192.png'
+
 
 const { SubMenu } = Menu;
 const { Header, Sider } = Layout;
@@ -69,7 +72,7 @@ const NavbarDrawer: React.FC<drawerPropps> = ({ navbarDraweropen, closeNavbarDra
   return (
     <div>
 
-      <Drawer width={'260px'} title="The Brokers Hub" onClose={closeNavbarDrawer} open={navbarDraweropen}>
+      <Drawer width={'260px'} title={<span className='flex items-center'><img src={fedLogo} className='h-12 me-2 rounded-full' alt="" /><span>The Brokers Hub</span></span>} onClose={closeNavbarDrawer} open={navbarDraweropen}>
         {userAuthenticated ? (
           <Button type="primary" className='w-full h-10' onClick={() => { navigate('/profile'); closeNavbarDrawer() }} icon={<UserOutlined />}>
             Profile
@@ -189,10 +192,10 @@ const TerAndC: React.FC = () => {
                 </Panel>
             </Collapse>
 
-            <p className='text-center mt-3'>By registering on "The Brokers Hub" platform, you indicate your acceptance of these Terms and Conditions. If you do not agree with any part of these Terms, please refrain from using our services.</p>
+            <p className='text-center mt-3'>By registering on "<strong>The Brokers Hub</strong>" platform, you indicate your acceptance of these Terms and Conditions. If you do not agree with any part of these Terms, please refrain from using our services.</p>
             <p className='text-center mt-3'>If you have any questions or concerns regarding these Terms and Conditions, please contact us for clarification.</p>
-            <p className='text-center mt-3'>Thank you for choosing "The Brokers Hub."</p>
-            <p className='text-center text-xl mt-3'>The Brokers Hub.</p>
+            <p className='text-center mt-3'>Thank you for choosing "<strong>The Brokers Hub</strong>".</p>
+            <p className='text-center text-xl mt-3 fw-bold flex items-center justify-center'><img src={fedLogo} className='h-16 rounded-full me-3' alt="" /> <span>The Brokers Hub</span></p>
 
         </div>
   )
@@ -224,9 +227,10 @@ const Navbar: React.FC = () =>{
 
   return (
     <>
-      <Header className='px-4 sm:px-10'>
+      <Header className='px-2 sm:px-10'>
         <div className='position-relative top-50 start-50 translate-middle'>
           <div className='my-auto d-flex flex-row justify-content-center align-items-center text-light'>
+            <img src={logo} className='h-14 sm:h-20' alt="" />
             <Link to="/home" className='my-auto me-5 text-lg sm:text-xl'><strong>The Brokers Hub</strong></Link>
             
             <Menu className='onShort me-3' theme="dark" mode="horizontal" style={{width:'680px'}}>
