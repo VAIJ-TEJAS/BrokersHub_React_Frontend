@@ -47,7 +47,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     const [inputCity, setInputCity] = useState<string>('');
     const [filteredStates, setFilteredStates] = useState<OptionType[]>([]);
     const [filteredCity, setFilteredCity] = useState<cityType[]>(cities);
-    const [selectedCities, setSelectedCities] = useState<City>();
+    const [selectedCities, setSelectedCities] = useState<City>({state: '', city: ''});
 
     useEffect(() => {
         axios.get('https://api.countrystatecity.in/v1/countries/IN/states/', {
@@ -98,7 +98,6 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     }
 
     const handleRangeChange = (value: string) => {
-        console.log(value);
         setRange(value)
         let maxVal = value.split(' ');
         if(maxVal[0] === '>'){
@@ -119,13 +118,16 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
     const handleFilter = () => {
         if (state === 'Select State' && (city === 'Select City' || city === '')) {
-            setSelectedCities(selectedCities);
+            setSelectedCities({state: '', city: ''});
+            console.log('Selected State')
             return
         }
         if (city === 'Select City') {
+            console.log('Selected cities')
             handleCityChange({ state: stateList.find(st => st.iso2 === state)?.name || '', city: '' });
             return
         }
+        console.log('Selected nothing')
         handleCityChange({ state: stateList.find(st => st.iso2 === state)?.name || '', city: city });
     }
 
@@ -137,7 +139,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
             filteringLocation = items.filter(item => item.state.includes(selectedCities.state)  && item.city.includes(selectedCities.city));
         }
 
-        console.log(filteringLocation)
+        console.log("filteringLocation")
 
         const filteredItems = filteringLocation.filter(item => {
             if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
@@ -174,10 +176,6 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         label: '> 20,00,000'
         },
     ]
-
-//   useEffect(() => {
-//     console.log(rangeValue);
-//   }, [rangeValue]);
 
     return (
         <>
