@@ -8,4 +8,5 @@ export interface User {
     my_referral_code: string;
     state: string;
     city: string;
+    send_email: boolean;
 }

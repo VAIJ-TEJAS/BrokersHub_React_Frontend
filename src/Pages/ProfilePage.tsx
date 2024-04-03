@@ -219,7 +219,6 @@ const ProfilePage: React.FC = () => {
   const [additems, setAddItems] = useState<Item[]>([]);
   const [ExpandmMdalVisible, setExpandmMdalVisible] = useState(false);
   const [UpdatemMdalVisible, setUpdatemMdalVisible] = useState(false);
-  const [emailNotify, setEmailNotify] = useState(true); // Initially set to true
   
   const handleCancel = () => {
     console.log('Cancelling')
@@ -319,10 +318,23 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const handleotifyChange = (checked: boolean) => {
-    setEmailNotify(checked); // Update the state when the switch value changes
-    console.log("Set to: " + checked)
-  };
+  const handleNotifyChange = async (checked: boolean) => {
+      // Make PUT request to update user data
+      await axios.patch(`https://13.232.115.59/user/${user?.id}/`, {send_email: checked}, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${localStorage.getItem('thebrokershub-access-token')}`,
+        },
+      })
+      .then(_response => {
+        localStorage.setItem('share-coupon-user', JSON.stringify(_response.data))
+        window.location.reload();
+      })
+      .catch(_error => {
+        message.error("Error updating settings.")
+      })
+      // Optionally, you can handle success response here
+  }
   
   return (
     <div>
@@ -399,9 +411,9 @@ const ProfilePage: React.FC = () => {
                                   style={{opacity: 1}}
                                   checkedChildren={"On"}
                                   unCheckedChildren={"Off"}
-                                  checked={emailNotify}
-                                  className={`${!emailNotify ? 'bg-secondary' : ''}`}
-                                  onChange={handleotifyChange}
+                                  checked={user?.send_email}
+                                  className={`${!user?.send_email ? 'bg-secondary' : ''}`}
+                                  onChange={handleNotifyChange}
                                 />
                               </dd>
                           </div>

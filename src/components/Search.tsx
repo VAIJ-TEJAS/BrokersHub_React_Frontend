@@ -37,7 +37,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     const [range, setRange] = useState<string>("Select Range");
     const [city, setCity] = useState<string>("Select City");
     const [state, setState] = useState<string>("Select State");
-    const [rangeValue, setRangeValue] = useState<number[]>([0, 0]);
+    const [rangeValue, setRangeValue] = useState<number[]>([0, -1]);
   
     const [rangeOpen, setRangeOpen] = useState<boolean>(false);
     const [CityOpen, setCityOpen] = useState<boolean>(false);
@@ -106,7 +106,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         }
         let maxVal = value.split(' ');
         if(maxVal[0] === '>'){
-            setRangeValue([parseFloat(maxVal[1].replace(/,/g, '')), -1]);
+            setRangeValue([parseFloat(maxVal[1].replace(/,/g, '')), 1000000000000]);
             return;
         }
         let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
@@ -118,7 +118,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     };
 
     const handleCityChange = (value: City) => {
-          setSelectedCities({ state: value.state, city: value.city });
+        setSelectedCities({ state: value.state, city: value.city });
     };
 
     const handleFilter = () => {
@@ -143,14 +143,21 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
             filteringLocation = items.filter(item => item.state.includes(selectedCities.state)  && item.city.includes(selectedCities.city));
         }
 
+        console.log(rangeValue)
         const filteredItems = filteringLocation.filter(item => {
-            if (rangeValue[1] !== -1 && parseInt(item.budget) > rangeValue[1]) {
-                return false;
+            if (rangeValue[1] === -1) {
+                return true;
             }
-            else if (rangeValue[1] === -1 && parseInt(item.budget) < rangeValue[0]) {
-                return false;
+            else if (item.transaction_type == "Sell" && parseInt(item.budget) <= rangeValue[1] && parseInt(item.budget) >= rangeValue[0]) {
+                return true;
             }
-            return true;
+            else if (item.transaction_type == 'Conversion' && parseInt(item.downpayment) <= rangeValue[1] && parseInt(item.downpayment) >= rangeValue[0]) {
+                return true;
+            }
+            else if (item.transaction_type == 'Rent' && parseInt(item.monthly_rent) <= rangeValue[1] && parseInt(item.monthly_rent) >= rangeValue[0]) {
+                return true;
+            }
+            return false;
         });
         setFilteredItems(filteredItems);
     }, [selectedCities])
