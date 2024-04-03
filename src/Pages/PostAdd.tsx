@@ -80,6 +80,7 @@ const PostAdd: React.FC = () => {
 
             if (!token) {
                 showAuthModal()
+                setLoading(false); // Set loading state to false after request completion
                 return
             }
 
@@ -416,6 +417,9 @@ const PostAdd: React.FC = () => {
                             <Form.Item
                                 name='transaction_type'
                                 label='Transaction Type'
+                                rules={[
+                                    { required: true, message: 'Please select a transaction type!' },
+                                ]}
                             >
                                 <Select
                                     style={{ width: 120 }}

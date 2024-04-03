@@ -205,7 +205,10 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, e
                 <div className="container mx-auto mt-8">
                     <div className="flex justify-between items-center mb-4">
                         <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeOtpBox()} />
-                        <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+                        <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
+                            <img src={logo} className='h-16 rounded-full me-2' alt="" />
+                            <span>The Broker Hub</span>
+                        </div>
                     </div>
                     <Form layout="vertical" className='flex justify-center flex-col'>
                         <Form.Item label={<div>Enter OTP sent on mail <strong>{email}</strong></div>}>
@@ -250,7 +253,10 @@ const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, s
                 <div className='w-full'>
                     <div className="flex justify-between items-center my-5">
                         <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeInputEmailBox()} />
-                        <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+                        <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
+                            <img src={logo} className='h-16 rounded-full me-2' alt="" />
+                            <span>The Broker Hub</span> 
+                        </div>
                     </div>
                     <div className='text-center font-semibold text-2xl my-3'>Enter your email</div>
                     <Form
@@ -334,7 +340,10 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
         <div className='w-full'>
             <div className="flex justify-between items-center my-5">
                 <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={closeSetPassBox} />
-                <div className="w-full text-center text-3xl font-semibold">The Broker Hub</div>
+                <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
+                    <img src={logo} className='h-16 rounded-full me-2 ' alt="" />
+                    <span>The Broker Hub</span>
+                </div>
             </div>
             <div className='text-center font-semibold text-2xl my-3'>Enter your new Password</div>
             <Form
@@ -679,6 +688,8 @@ const Autentication: React.FC<mainProp> = ({defaultTab}) => {
     const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
     const [activeTab, setActiveTab] = useState<string>('1');
     const [Email, setEmail] = useState<string>('');
+    const {ref_code} = Context();
+
     
     if (defaultTab) {
         setActiveTab(defaultTab);
@@ -763,7 +774,7 @@ const Autentication: React.FC<mainProp> = ({defaultTab}) => {
                         </div>
                         <div className='m-5'>
                             <Tabs
-                                defaultActiveKey={activeTab}
+                                defaultActiveKey={ref_code === '' ? activeTab : '2'}
                                 tabPosition="top"
                                 onChange={handleTabChange}
                                 centered
