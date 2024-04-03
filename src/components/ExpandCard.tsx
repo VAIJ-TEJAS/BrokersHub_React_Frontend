@@ -19,6 +19,7 @@ interface Location {
 const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
   const { userAuthenticated, showAuthModal } = Context();
+
   const token = localStorage.getItem('thebrokershub-access-token');
   const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
   
@@ -55,7 +56,16 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
           // Optionally, you can perform any actions after successful response
       })
       .catch(error => {
-          message.error(error.response.detail);
+        if (error.response.data.message) {
+          message.error(error.response.data.message);
+        }
+        else if (error.response.data.detail) {
+          message.error(error.response.data.detail);
+        }
+        else {
+          message.error("Your request could not be sent");
+        }
+
           // Optionally, you can perform any actions after error
       });
   }
@@ -123,6 +133,10 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
                   <Tag className='mx-1' key={index}>{`${location.places}`}</Tag>
                 ))
               }
+          </li>
+          <li>
+            <strong>Area:</strong>
+            <span>{item.area}</span>
           </li>
         </ul>
 

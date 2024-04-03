@@ -88,7 +88,7 @@ const StepsForRequirement: React.FC = () => {
                     <div className="md:text-left text-center w-3/4 md:w-2/4" >
                       <h1 className="fs-1">About Requirement</h1>
                       <div className="mt-4 homepage-timeline">
-                        <p>This is the single stop solution to all your property requirements. Just click on the button below to tell us your needs and our large community of brokers and buyers will get you the best deal in no time.</p>
+                        <p>This is the single stop solution to all your property requirements. Just click on the button below to tell us your needs and our large community of brokers and team will get you the best deal in no time.</p>
                       </div>
                     </div>
                 </div>

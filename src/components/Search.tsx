@@ -37,7 +37,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     const [range, setRange] = useState<string>("Select Range");
     const [city, setCity] = useState<string>("Select City");
     const [state, setState] = useState<string>("Select State");
-    const [rangeValue, setRangeValue] = useState<number[]>([0, 0]);
+    const [rangeValue, setRangeValue] = useState<number[]>([0, -1]);
   
     const [rangeOpen, setRangeOpen] = useState<boolean>(false);
     const [CityOpen, setCityOpen] = useState<boolean>(false);
@@ -99,9 +99,14 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
     const handleRangeChange = (value: string) => {
         setRange(value)
+        if (value === 'Select Range') {
+            setRangeValue([0, -1]);
+            console.log('Selected Range')
+            return;
+        }
         let maxVal = value.split(' ');
         if(maxVal[0] === '>'){
-            setRangeValue([0, 0]);
+            setRangeValue([parseFloat(maxVal[1].replace(/,/g, '')), 1000000000000]);
             return;
         }
         let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
@@ -113,7 +118,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     };
 
     const handleCityChange = (value: City) => {
-          setSelectedCities({ state: value.state, city: value.city });
+        setSelectedCities({ state: value.state, city: value.city });
     };
 
     const handleFilter = () => {
@@ -134,23 +139,34 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     useEffect(() => {
         let filteringLocation = items
         console.log(filteringLocation.length)
-        console.log(selectedCities)
         if (selectedCities) {
             filteringLocation = items.filter(item => item.state.includes(selectedCities.state)  && item.city.includes(selectedCities.city));
         }
 
-        console.log("filteringLocation")
-
+        console.log(rangeValue)
         const filteredItems = filteringLocation.filter(item => {
-            if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
-                return false;
+            if (rangeValue[1] === -1) {
+                return true;
             }
-            return true;
+            else if (item.transaction_type == "Sell" && parseInt(item.budget) <= rangeValue[1] && parseInt(item.budget) >= rangeValue[0]) {
+                return true;
+            }
+            else if (item.transaction_type == 'Conversion' && parseInt(item.downpayment) <= rangeValue[1] && parseInt(item.downpayment) >= rangeValue[0]) {
+                return true;
+            }
+            else if (item.transaction_type == 'Rent' && parseInt(item.monthly_rent) <= rangeValue[1] && parseInt(item.monthly_rent) >= rangeValue[0]) {
+                return true;
+            }
+            return false;
         });
         setFilteredItems(filteredItems);
     }, [selectedCities])
 
     const rangeList = [
+        {
+        value: 'Select Range',
+        label: 'Select Range'
+        },
         {
         value: '< 1,00,000',
         label: '< 1,00,000'
@@ -181,12 +197,12 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
         <>
             <div className='justify-center flex flex-col sm:w-auto w-full'>
                 <div className='lg:p-0 px-2 flex justify-center bg-[#001529] rounded min-w-80 border'>
-                    <div className='sm:flex-row d-flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
+                    <div className='lg:flex-row space-y-1 lg:space-y-0 flex flex-col justify-content-evenly align-items-center w-full h-full py-2'>
 
                     {/* price range  */}
                     {
                         page === 'Add' &&
-                        <div className='w-full text-light relative bg-[#00396e] border mx-1 mb-1 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer sm:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
+                        <div className='w-full text-light relative bg-[#00396e] border sm:mb-0 p-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer lg:w-60' style={{minWidth: '240px'}} onClick={toggleRange}>
                             <div className='px-2'>
                                 <div className='text-yellow-500'>Price Range</div>
                                 <div className='text-white'>{range}</div>
@@ -210,7 +226,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                     }
 
                     {/* select state  */}
-                    <div className={`w-full relative bg-[#00396e] border mx-1 mb-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'sm:w-60': 'sm:w-80'} `}
+                    <div className={`w-full relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'lg:w-60': 'lg:w-80'} `}
                             onClick={toggleState}>
                         <div className='px-2'>
                             <div className='text-yellow-500'>State</div>
@@ -252,7 +268,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
                     {/* select city  */}
                     {state !== 'Select State' && 
-                        <div className={`w-full relative bg-[#00396e] border mx-1 py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'sm:w-60': 'xl:w-80'} `} onClick={toggleCity}>
+                        <div className={`w-full relative bg-[#00396e] border py-2 rounded-lg text-sm hover:bg-gray-700 hover:cursor-pointer ${page === 'Add' ? 'lg:w-60': 'xl:w-80'} `} onClick={toggleCity}>
                         <div className='px-2'>
                             <div className='text-yellow-500'>City</div>
                             <div className='text-white'>{city}</div>
@@ -292,7 +308,7 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
                         </div>
                     }
 
-                    <Button onClick={handleFilter} className='w-full md:p-0 py-3 mt-1 border bg-yellow-500 hover:bg-yellow-400 mx-1 h-full rounded-lg flex justify-center items-center font-medium sm:w-36 '>
+                    <Button onClick={handleFilter} className='w-full md:p-0 mx-1 py-3 border bg-yellow-500 hover:bg-yellow-400 h-full rounded-lg flex justify-center items-center font-medium lg:w-36 '>
                         SEARCH
                     </Button>
 

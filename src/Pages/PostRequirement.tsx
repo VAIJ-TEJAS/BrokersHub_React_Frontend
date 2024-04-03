@@ -87,6 +87,7 @@ const PostRequirement:React.FC = () => {
 
             if (!token) {
                 showAuthModal()
+                setLoading(false); // Set loading state to false after request completion
                 return
             }
             console.log(values)
@@ -301,7 +302,9 @@ const PostRequirement:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item name='state' label='State' className="">
+                            <Form.Item name='state' label='State' className="" rules={[
+                                { required: true, message: 'Please select a state!' },
+                            ]}>
                                 <Select
                                     showSearch
                                     placeholder="Select a state"
@@ -319,7 +322,9 @@ const PostRequirement:React.FC = () => {
                                 />
                             </Form.Item>
 
-                            <Form.Item name='city' label='City'>
+                            <Form.Item name='city' label='City' rules={[
+                                { required: true, message: 'Please select a city!' },
+                            ]}>
                                 <Select
                                     showSearch
                                     className='mb-2'
@@ -340,7 +345,7 @@ const PostRequirement:React.FC = () => {
                             <Form.Item name="place" label='Preffered Location'>
                                 <Input
                                     className='mb-3'
-                                    placeholder='Enter preffered places name'
+                                    placeholder='Enter preferred places name'
                                     onChange={(e) => {
                                         formik.setFieldValue('places', e.target.value);
                                     }}
@@ -389,6 +394,9 @@ const PostRequirement:React.FC = () => {
                             <Form.Item
                                 label='Transaction Type'
                                 name='transaction_type'
+                                rules={[
+                                    { required: true, message: 'Please select a transaction type!' },
+                                ]}
                             >
                                 <Select
                                     style={{ width: 120 }}

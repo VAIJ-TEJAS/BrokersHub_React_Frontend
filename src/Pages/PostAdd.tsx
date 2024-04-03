@@ -80,6 +80,7 @@ const PostAdd: React.FC = () => {
 
             if (!token) {
                 showAuthModal()
+                setLoading(false); // Set loading state to false after request completion
                 return
             }
 
@@ -121,7 +122,7 @@ const PostAdd: React.FC = () => {
                 })
                     .then(response => {
                         console.log('Response:', response.data); // Handle the response
-                        message.success('You requirement has been updated!')
+                        message.success('You advertisement has been updated!')
                         navigate('/profile/')
 
                         // Optionally, you can perform any actions after successful response
@@ -148,6 +149,12 @@ const PostAdd: React.FC = () => {
 
             }
 
+            if (!values.image) {
+                message.error("Please provide a valid image.")
+                setLoading(false);
+                return;
+            }   
+
             axios.post(url, formData, {
                 headers: {
                     'Authorization': `Token ${token}`,
@@ -157,7 +164,7 @@ const PostAdd: React.FC = () => {
             })
                 .then(response => {
                     console.log('Response:', response.data); // Handle the response
-                    message.success('You requirement has been posted!');
+                    message.success('You advertisement has been posted!');
                     navigate('/addslisting/')
                     // Optionally, you can perform any actions after successful response
                 })
@@ -236,7 +243,6 @@ const PostAdd: React.FC = () => {
             reader.onload = (event) => {
                 const dataUrl = event.target?.result as string;
                 setImageURL(dataUrl);
-                console.log(dataUrl)
                 formik.setFieldValue('image', [_file]);
             };
             reader.readAsDataURL(_file);
@@ -251,13 +257,14 @@ const PostAdd: React.FC = () => {
         return e && e.fileList;
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+    const onFinishFailed = (_errorInfo: any) => {
         message.error("Please fill all the fields")
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
+    
 
     return (
         <>
@@ -282,9 +289,9 @@ const PostAdd: React.FC = () => {
                                 name='mage'
                                 valuePropName='fileList'
                                 getValueFromEvent={normFile}
-                                rules={[{ required: true, message: 'Please upload an image!' }]}
+                                // rules={[{ required: true, message: 'Please upload an image!' }]}
                             >
-                                <Upload  name='image' {...imageUploadProps}>
+                                <Upload {...imageUploadProps}>
                                     <Button className='bg-[white]' icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                             </Form.Item>
@@ -412,6 +419,9 @@ const PostAdd: React.FC = () => {
                             <Form.Item
                                 name='transaction_type'
                                 label='Transaction Type'
+                                rules={[
+                                    { required: true, message: 'Please select a transaction type!' },
+                                ]}
                             >
                                 <Select
                                     style={{ width: 120 }}
