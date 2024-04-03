@@ -19,6 +19,7 @@ const AddListing: React.FC = () => {
   const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+
   const handleCancel = () => {
     setModalVisible(false)
     navigate('/addslisting/');
@@ -33,7 +34,6 @@ const AddListing: React.FC = () => {
     const fetchRequest = async () => {
       try {
         const response = await axios.get(url);
-        console.log(response.data)
         setItems(response.data);
         setFilteredItems(response.data);
         if (postId) {
@@ -78,7 +78,7 @@ const AddListing: React.FC = () => {
                   />:
                   <div className='d-flex flex-wrap justify-center mb-5'>
                     {filteredItems.slice().reverse().map((item, index) => (
-                      <ItemCard page="addslisting" key={index} item={item} />
+                      <ItemCard page="addslisting" key={index} item={item}/>
                       ))}
                   </div>
               }
