@@ -21,6 +21,7 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const setActiveAuthTab = (tab: string) => {
     setActiveTab(tab)
+    console.log(tab)
     showAuthModal()
   }
 
@@ -53,7 +54,6 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({ children 
     setInputEmailPageOpen(false)
     setOtpPageOpen(false)
     setPasswordBox(false)
-    console.log(ref_code)
   };
 
   const contextValue: any = {
