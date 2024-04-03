@@ -340,7 +340,7 @@ const PostRequirement:React.FC = () => {
                             <Form.Item name="place" label='Preffered Location'>
                                 <Input
                                     className='mb-3'
-                                    placeholder='Enter preffered places name'
+                                    placeholder='Enter preferred places name'
                                     onChange={(e) => {
                                         formik.setFieldValue('places', e.target.value);
                                     }}

@@ -99,9 +99,14 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
 
     const handleRangeChange = (value: string) => {
         setRange(value)
+        if (value === 'Select Range') {
+            setRangeValue([0, -1]);
+            console.log('Selected Range')
+            return;
+        }
         let maxVal = value.split(' ');
         if(maxVal[0] === '>'){
-            setRangeValue([0, 0]);
+            setRangeValue([parseFloat(maxVal[1].replace(/,/g, '')), -1]);
             return;
         }
         let numSelected = parseFloat(maxVal[1].replace(/,/g, ''));
@@ -134,15 +139,15 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     useEffect(() => {
         let filteringLocation = items
         console.log(filteringLocation.length)
-        console.log(selectedCities)
         if (selectedCities) {
             filteringLocation = items.filter(item => item.state.includes(selectedCities.state)  && item.city.includes(selectedCities.city));
         }
 
-        console.log("filteringLocation")
-
         const filteredItems = filteringLocation.filter(item => {
-            if (rangeValue[1] !== 0 && parseInt(item.budget) > rangeValue[1]) {
+            if (rangeValue[1] !== -1 && parseInt(item.budget) > rangeValue[1]) {
+                return false;
+            }
+            else if (rangeValue[1] === -1 && parseInt(item.budget) < rangeValue[0]) {
                 return false;
             }
             return true;
@@ -151,6 +156,10 @@ const Search: React.FC<props> = ({page, setFilteredItems, items}) => {
     }, [selectedCities])
 
     const rangeList = [
+        {
+        value: 'Select Range',
+        label: 'Select Range'
+        },
         {
         value: '< 1,00,000',
         label: '< 1,00,000'

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message, Spin } from 'antd';
+import { Modal, Empty, Button, Tabs, Form, Input, Layout, Select, message, Spin, Switch } from 'antd';
 import { useParams, useNavigate } from 'react-router-dom';
 import { EditOutlined, ShareAltOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -219,6 +219,7 @@ const ProfilePage: React.FC = () => {
   const [additems, setAddItems] = useState<Item[]>([]);
   const [ExpandmMdalVisible, setExpandmMdalVisible] = useState(false);
   const [UpdatemMdalVisible, setUpdatemMdalVisible] = useState(false);
+  const [emailNotify, setEmailNotify] = useState(true); // Initially set to true
   
   const handleCancel = () => {
     console.log('Cancelling')
@@ -318,6 +319,10 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  const handleotifyChange = (checked: boolean) => {
+    setEmailNotify(checked); // Update the state when the switch value changes
+    console.log("Set to: " + checked)
+  };
   
   return (
     <div>
@@ -383,6 +388,21 @@ const ProfilePage: React.FC = () => {
                               </dt>
                               <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                 {user?.city}, {user?.state}
+                              </dd>
+                          </div>
+                          <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                              <dt className="text-sm font-medium text-gray-500">
+                                  Email notifications
+                              </dt>
+                              <dd className="text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <Switch
+                                  style={{opacity: 1}}
+                                  checkedChildren={"On"}
+                                  unCheckedChildren={"Off"}
+                                  checked={emailNotify}
+                                  className={`${!emailNotify ? 'bg-secondary' : ''}`}
+                                  onChange={handleotifyChange}
+                                />
                               </dd>
                           </div>
                           <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

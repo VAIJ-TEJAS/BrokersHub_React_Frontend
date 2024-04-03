@@ -124,6 +124,10 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
                 ))
               }
           </li>
+          <li>
+            <strong>Area:</strong>
+            <span>{item.area}</span>
+          </li>
         </ul>
 
         <p className="property-description mt-3">{item.description}</p>
