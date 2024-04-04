@@ -259,6 +259,7 @@ const PostAdd: React.FC = () => {
 
     const onFinishFailed = (_errorInfo: any) => {
         message.error("Please fill all the fields")
+        setLoading(false);
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>

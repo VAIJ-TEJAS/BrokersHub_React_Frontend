@@ -262,6 +262,10 @@ const PostRequirement:React.FC = () => {
         // console.log(selectedLocations)
     }, [selectedLocations])
 
+    const onFinishFailed = () => {
+        setLoading(false);
+    }
+
     return (
         <>
             <Navbar />
@@ -276,6 +280,7 @@ const PostRequirement:React.FC = () => {
                             wrapperCol={{ span: 14 }}
                             layout='horizontal'
                             onFinish={formik.handleSubmit}
+                            onFinishFailed={onFinishFailed}
                             className='p-5 pe-4 w-full lg:w-3/5 space-y-7 sm:space-y-9'
                         >
                             <div className='sm:text-4xl text-2xl font-medium text-[#002766] mb-5'>Requirement Details</div>

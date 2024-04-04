@@ -446,7 +446,7 @@ const ProfilePage: React.FC = () => {
                           description={<span>No Data Available</span>}
                         />
                       ) : (
-                        additems.map((item, index) => (
+                        additems.slice().reverse().map((item, index) => (
                           <ItemCard  page="advertisements" key={index} item={item} />
                         ))
                       )}
@@ -463,7 +463,7 @@ const ProfilePage: React.FC = () => {
                           description={<span>No Data Available</span>}
                         />
                       ) : (
-                        reqitems.map((item, index) => (
+                        reqitems.slice().reverse().map((item, index) => (
                           <ItemCard page="requirements" key={index} item={item} />
                         ))
                       )}
