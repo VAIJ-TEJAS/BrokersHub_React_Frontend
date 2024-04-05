@@ -259,6 +259,7 @@ const PostAdd: React.FC = () => {
 
     const onFinishFailed = (_errorInfo: any) => {
         message.error("Please fill all the fields")
+        setLoading(false);
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
@@ -289,9 +290,8 @@ const PostAdd: React.FC = () => {
                                 name='mage'
                                 valuePropName='fileList'
                                 getValueFromEvent={normFile}
-                                // rules={[{ required: true, message: 'Please upload an image!' }]}
                             >
-                                <Upload {...imageUploadProps}>
+                                <Upload {...imageUploadProps} accept=".jpg,.jpeg,.png,.gif" maxCount={1}>
                                     <Button className='bg-[white]' icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                             </Form.Item>

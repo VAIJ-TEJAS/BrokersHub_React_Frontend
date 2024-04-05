@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Card, Modal, message, Popconfirm, Tag, Spin  } from "antd";
+import { Button, Card, Modal, message, Popconfirm, Spin  } from "antd";
 import { EditOutlined, DeleteOutlined, ShareAltOutlined } from "@ant-design/icons";
 
 import ExpandCard from "./ExpandCard";
@@ -16,16 +16,12 @@ interface Props {
   page: string;
 }
 
-interface Location {
-  places: string;
-}
 
 const ItemCard: React.FC<Props> = ({ item, page }) => {
 
   const navigate = useNavigate();
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedLocations, setSelectedLocations] = useState<Location[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
@@ -77,20 +73,6 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
       console.error('Error sharing:', error);
     }
   };
-
-  useEffect(() => {
-    // Split city and state strings by ','
-    if (item.places !== undefined && item.places !== null && item.places.length) {
-      
-      const placesArr = (item.places !== null && item.places.includes(',')) ? item.places.split(',') : [item.places];
-      
-      // Map city and state arrays to create an array of Location objects
-      const locations = placesArr.map((place: string) => ({
-        places: place || '', // Use empty string if state is not available
-      }));
-      setSelectedLocations(locations)
-    }
-  }, [item])
 
   return (
     <Card
@@ -160,36 +142,29 @@ const ItemCard: React.FC<Props> = ({ item, page }) => {
         <div className="pe-3">
           <Meta
             title={<h2 className="fs-5">{<div>{item.title.length > 25 ? item.title.substring(0, 22)+'...' : item.title}</div>}</h2>}
-            // description={<div className="">{item.description}</div>}
             className="mb-2"
           />
         </div>
         {
           item.transaction_type === 'Buy' &&
-          <p className="mb-2">Budget: <span className="text-secondary">₹ {item.budget}</span></p>
+          <p className="mb-2">Budget: <span className="text-secondary">₹ {parseFloat(item.budget).toLocaleString()}</span></p>
         }
         {
           item.transaction_type === 'Sell' &&
-          <p className="mb-2">Price: <span className="text-secondary">₹ {item.budget}</span></p>
+          <p className="mb-2">Price: <span className="text-secondary">₹ {parseFloat(item.budget).toLocaleString()}</span></p>
         }
         {
           item.transaction_type === 'Conversion' &&
-          <p className="mb-2">Down Payment: <span className="text-secondary">₹ {item.downpayment}</span></p>
+          <p className="mb-2">Down Payment: <span className="text-secondary">₹ {parseFloat(item.downpayment).toLocaleString()}</span></p>
         }
         {
           item.transaction_type === 'Rent' &&
-          <p className="mb-2">Monthly Rent: <span className="text-secondary">₹ {item.monthly_rent}</span></p>
+          <p className="mb-2">Monthly Rent: <span className="text-secondary">₹ {parseFloat(item.monthly_rent).toLocaleString()}</span></p>
         }
         <p className="mb-2">
-          Location:{" "}
+          Area:{" "}
           <span className="text-secondary">
-            <span>{item.city}, {item.state} </span>
-              {selectedLocations.length > 0 &&
-                <>
-                  <Tag>{`${selectedLocations[0]?.places}`}</Tag>
-                  {selectedLocations.length > 2 ? " ..." : ""}
-                </>
-              }
+            <span>{item.area} sqft </span>
           </span>
         </p>
         <p className="mb-2">

@@ -189,6 +189,10 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, e
                 closeOtpBox()
             })
             .catch(error => {
+                if (error.response.data.error) {
+                    message.error(error.response.data.error);
+                    return
+                }
                 message.error(error.response.data.error === undefined ? "Some error occoured" : "Invalid or expired OTP." )
                 console.error('Error found as:', error);
             });
@@ -683,23 +687,13 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
     )
 }
 
-const Autentication: React.FC<mainProp> = ({defaultTab}) => {
+const Autentication: React.FC<mainProp> = () => {
 
-    const { setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
-    const [activeTab, setActiveTab] = useState<string>('1');
+    const { setActiveAuthTab, setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
+    // const [activeTab, setActiveTab] = useState<string>('1');
     const [Email, setEmail] = useState<string>('');
-    const {ref_code} = Context();
-
-    
-    if (defaultTab) {
-        setActiveTab(defaultTab);
-    }
-
-    const handleTabChange = (key: string) => {
-        // Do something based on the selected tab key
-        console.log(`Tab changed to: ${key}`);
-        setActiveTab(key);
-    };
+    const {ref_code, activeTab} = Context();
+    console.log(activeTab)
 
     const setTheEmail = (email: string) => {
         setEmail(email);
@@ -761,6 +755,10 @@ const Autentication: React.FC<mainProp> = ({defaultTab}) => {
             });
     };
 
+    const handleTabChange = (key: string) => {
+        setActiveAuthTab(key);
+    };
+
     return (
         <div className='w-full flex flex-col justify-center items-center'>
             {otpPageOpen ?
@@ -777,6 +775,7 @@ const Autentication: React.FC<mainProp> = ({defaultTab}) => {
                                 defaultActiveKey={ref_code === '' ? activeTab : '2'}
                                 tabPosition="top"
                                 onChange={handleTabChange}
+                                activeKey={activeTab}
                                 centered
                                 >
                                 <TabPane

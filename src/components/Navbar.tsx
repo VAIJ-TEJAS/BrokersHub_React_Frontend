@@ -66,7 +66,7 @@ interface drawerPropps {
 }
 
 const NavbarDrawer: React.FC<drawerPropps> = ({ navbarDraweropen, closeNavbarDrawer }) => {
-  const { showAuthModal, userAuthenticated, setUserAuthenticated } = Context();
+  const { showAuthModal, userAuthenticated, setUserAuthenticated, setActiveAuthTab } = Context();
   const navigate = useNavigate();
 
   return (
@@ -80,10 +80,10 @@ const NavbarDrawer: React.FC<drawerPropps> = ({ navbarDraweropen, closeNavbarDra
         ) : (
           <>
             <div className='mb-3'>
-              <button className='btn btn-primary w-full' onClick={() => {showAuthModal();closeNavbarDrawer();}}>Register</button>
+              <button className='btn btn-primary w-full' onClick={() => {setActiveAuthTab('2');showAuthModal();closeNavbarDrawer();}}>Register</button>
             </div>
             <div className='my-3'>
-              <button className='btn btn-outline-primary w-full' onClick={() => {showAuthModal();closeNavbarDrawer();}}>Login</button>
+              <button className='btn btn-outline-primary w-full' onClick={() => {setActiveAuthTab('1');showAuthModal();closeNavbarDrawer();}}>Login</button>
             </div>
           </>
         )}

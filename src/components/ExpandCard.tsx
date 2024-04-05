@@ -101,12 +101,12 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
         <ul className='px-3' style={{listStyleType: 'disc'}}>
           {item.transaction_type=="Rent" &&
               <li className="property-budget">
-            <strong>Rent amount:</strong> ₹{item.monthly_rent}
+            <strong>Rent amount:</strong> ₹{parseFloat(item.monthly_rent).toLocaleString()}
           </li>}
 
           {item.transaction_type=="Conversion" &&
               <li className="property-budget">
-            <strong>Down payment:</strong> {item.downpayment}
+            <strong>Down payment:</strong> {parseFloat(item.downpayment).toLocaleString()}
           </li>}
 
           {item.transaction_type=="Conversion" &&
@@ -116,12 +116,12 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
 
           {item.transaction_type=="Buy" &&
               <li className="property-budget">
-            <strong>Budget:</strong> ₹{item.budget}
+            <strong>Budget:</strong> ₹{parseFloat(item.budget).toLocaleString()}
           </li>}
 
           {item.transaction_type=="Sell" &&
               <li className="property-budget">
-            <strong>Price:</strong> ₹{item.budget}
+            <strong>Price:</strong> ₹{parseFloat(item.budget).toLocaleString()}
           </li>}
 
           <li className="property-contact">
@@ -136,7 +136,7 @@ const ExpandCard: React.FC<Props> = ({ item, page, handleCancel }) => {
           </li>
           <li>
             <strong>Area:</strong>
-            <span>{item.area}</span>
+            <span> {item.area} sqft.</span>
           </li>
         </ul>
 

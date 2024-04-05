@@ -129,7 +129,7 @@ const OutServices: React.FC = () => {
 
 const Referral: React.FC = () => {
 
-  const { setref_code, userAuthenticated, showAuthModal } = Context();
+  const { setref_code, userAuthenticated, showAuthModal, setActiveAuthTab } = Context();
 
   const shareLink = async () => {
     const storedUserData = JSON.parse(localStorage.getItem('share-coupon-user') || '{}');
@@ -179,7 +179,7 @@ useEffect(() => {
             Share Referral Code
           </Button>
           :
-            <Button className="mt-5" type='primary' size="large" onClick={showAuthModal}>Register</Button>
+        <Button className="mt-5" type='primary' size="large" onClick={() => {setActiveAuthTab('2');showAuthModal()}}>Register</Button>
           }
         </div>
       </div>
