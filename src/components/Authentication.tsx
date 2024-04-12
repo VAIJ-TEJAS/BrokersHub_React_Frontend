@@ -35,17 +35,13 @@ interface OtpProps {
 
 interface RegisterenticationProps {
     defaultTab?: string | null;
-    sendOtp: (email: string) => void;
-    openOtpBox: (meth: string) => void;
-    setTheEmail: (meth: string) => void;
+    sendOtp: (email: string, method: string) => void;
 }
 
 interface InputEmailProps {
     defaultTab?: string | null;
     closeInputEmailBox: () => void;
-    sendOtp: (email: string) => void;
-    openOtpBox: (meth: string) => void;
-    setTheEmail: (meth: string) => void;
+    sendOtp: (email: string, method: string) => void;
 }
 
 interface InputPassProps {
@@ -211,7 +207,7 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, e
                         <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeOtpBox()} />
                         <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
                             <img src={logo} className='h-16 rounded-full me-2' alt="" />
-                            <span>The Broker Hub</span>
+                            <span>The Brokers Hub</span>
                         </div>
                     </div>
                     <Form layout="vertical" className='flex justify-center flex-col'>
@@ -235,20 +231,17 @@ const OtpVerification:React.FC<OtpProps> = ({closeOtpBox, handleLogin, method, e
     );
 };
 
-const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, sendOtp, setTheEmail}) => {
+const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, sendOtp }) => {
 
     const [username, setUsername] = useState('');
 
     const onFinish = (values: any) => {
       console.log('Received values:', values);
       localStorage.setItem('theBrokerHub-username', username);
-      sendOtp(username)
-      setTheEmail(username)
-      openOtpBox('forgotPass')
+      sendOtp(username, 'forgot')
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+    const onFinishFailed = (_errorInfo: any) => {
         message.error('Registration failed!');
     };
   
@@ -259,7 +252,7 @@ const InputEmail:React.FC<InputEmailProps> = ({closeInputEmailBox, openOtpBox, s
                         <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={() => closeInputEmailBox()} />
                         <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
                             <img src={logo} className='h-16 rounded-full me-2' alt="" />
-                            <span>The Broker Hub</span> 
+                            <span>The Brokers Hub</span> 
                         </div>
                     </div>
                     <div className='text-center font-semibold text-2xl my-3'>Enter your email</div>
@@ -346,7 +339,7 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
                 <Button className='absolute' type="text" icon={<ArrowLeftOutlined />} onClick={closeSetPassBox} />
                 <div className="w-full text-center text-3xl font-semibold flex justify-center items-center">
                     <img src={logo} className='h-16 rounded-full me-2 ' alt="" />
-                    <span>The Broker Hub</span>
+                    <span>The Brokers Hub</span>
                 </div>
             </div>
             <div className='text-center font-semibold text-2xl my-3'>Enter your new Password</div>
@@ -412,7 +405,7 @@ const InputNewPass:React.FC<InputPassProps> = ({otp, closeSetPassBox, closeOtpBo
     );
 }
 
-const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTheEmail}) => {
+const Register: React.FC<RegisterenticationProps> = ({ sendOtp }) => {
 
     const {ref_code, setTermsModalVisible} = Context();
 
@@ -472,13 +465,10 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
             city: city,
         };
         localStorage.setItem('share-coupon-user', JSON.stringify(data))
-        sendOtp(email)
-        setTheEmail(email)
-        openOtpBox('register');
+        sendOtp(email, 'register')
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+    const onFinishFailed = (_errorInfo: any) => {
         message.error('Registration failed!');
     };
 
@@ -690,18 +680,19 @@ const Register: React.FC<RegisterenticationProps> = ({openOtpBox, sendOtp, setTh
 const Autentication: React.FC<mainProp> = () => {
 
     const { setActiveAuthTab, setUserAuthenticated, handleAuthCancel, otpPageOpen, method, inputEmailPageOpen, openOtpBox, closeOtpBox, closeInputEmailBox, openInputEmailBox } = Context();
-    // const [activeTab, setActiveTab] = useState<string>('1');
     const [Email, setEmail] = useState<string>('');
     const {ref_code, activeTab} = Context();
-    console.log(activeTab)
 
     const setTheEmail = (email: string) => {
         setEmail(email);
     }
 
-    const sendOtp = async (email: string) => {
+    const sendOtp = async (email: string, method: string) => {
         
-        const url = 'https://13.232.115.59/generate-otp/';
+        let url = 'https://13.232.115.59/generate-otp-reset-password/';
+        if (method === 'register') {
+            url = 'https://13.232.115.59/generate-otp-register/';
+        }
         const headers = {
             'Content-Type': 'application/json',
         };
@@ -713,14 +704,26 @@ const Autentication: React.FC<mainProp> = () => {
         axios.post(url, {email: email}, {
             headers: headers,
         })
-            .then(response => {
+            .then(_response => {
                 // Handle the response data
                 message.success("Otp Sent")
-                console.log('Response:', response.data);
+                setTheEmail(email)
+                if (method === 'register') {
+                    openOtpBox('register');
+                } else {
+                    openOtpBox('forgotPass')
+                }
             })
             .catch(error => {
-                console.error('Error found as:', error);
-                message.error("Some error occurred")
+                if (error.response.status === 404) {
+                    message.error(error.response.data.error)
+                }
+                else if (error.response.status === 400) {
+                    message.error(error.response.data.error)
+                }
+                else{
+                    message.error("Some error occurred")
+                }
             });
     };
 
@@ -764,7 +767,7 @@ const Autentication: React.FC<mainProp> = () => {
             {otpPageOpen ?
                 <OtpVerification email={Email} method={method} handleLogin={handleLogin} closeOtpBox={closeOtpBox} />:
                 inputEmailPageOpen ?
-                    <InputEmail setTheEmail={setTheEmail} sendOtp={sendOtp} openOtpBox={openOtpBox} closeInputEmailBox={closeInputEmailBox} />:
+                    <InputEmail sendOtp={sendOtp} closeInputEmailBox={closeInputEmailBox} />:
                     <>
                         <div className='font-semibold text-3xl mt-5 flex items-center'>
                             <img src={logo} className='h-16 rounded-full me-2' alt="" />
@@ -796,7 +799,7 @@ const Autentication: React.FC<mainProp> = () => {
                                     }
                                     key="2"
                                 >
-                                    <Register setTheEmail={setTheEmail} sendOtp={sendOtp} openOtpBox={openOtpBox} />
+                                    <Register sendOtp={sendOtp} />
                                 </TabPane>
                             </Tabs>
                         </div>
